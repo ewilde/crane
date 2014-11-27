@@ -7,12 +7,12 @@ namespace crane.core.tests.TestExtensions
 {
     public static class ModuleExtension
     {
-        public static IStep BuildContainerWithModule(this string text, Module module, out IContainer container)
+        public static IContainer BuildContainerWithModule(this Module module)
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule(module);
-            container = builder.Build();
-            return text._(()=>{});
+            var container = builder.Build();
+            return container;
         }
     }
 }

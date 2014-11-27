@@ -19,7 +19,7 @@ namespace crane.core.tests.Configuration.Modules
                 ._(() => module = new CommandModule());
 
             "When I build the module"
-                .BuildContainerWithModule(module, out container);
+                ._(() => container = module.BuildContainerWithModule());
 
             "Then it should resolve the help command"
                 ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item is ShowHelp).Should().BeTrue());
