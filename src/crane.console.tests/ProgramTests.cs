@@ -21,7 +21,7 @@ namespace crane.console.tests
                 ._(() => program.Subject.Run());
 
             "Then is should show the help text"
-                ._(() => A.CallTo(() => program.GetMock<IOptions>().ShowHelp(A<string[]>.Ignored)).MustHaveHappened());
+                ._(() => A.CallTo(() => program.GetMock<IOptions>().ShowHelp()).MustHaveHappened());
         }
     }
 }

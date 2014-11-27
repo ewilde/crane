@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOptions.cs" />
+    <Compile Include="Arguments\EmptyOptions.cs" />
+    <Compile Include="Arguments\IOptions.cs" />
+    <Compile Include="Arguments\OptionsFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

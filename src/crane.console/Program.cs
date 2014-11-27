@@ -15,7 +15,11 @@ namespace crane.console
         }
 
         public Program(IOptions options)
-        {            
+        {
+            if (!options.Validate())
+            {
+                options.ShowHelp();
+            }
         }
 
         public int Run()
