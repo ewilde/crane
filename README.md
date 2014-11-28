@@ -1,4 +1,4 @@
 crane
 =====
 
-Create teamcity build configurations from .net solutions
+> Builds you into the pit of success
