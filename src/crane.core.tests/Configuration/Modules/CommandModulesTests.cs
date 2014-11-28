@@ -17,7 +17,7 @@ namespace crane.core.tests.Configuration.Modules
         [Scenario]
         public void command_module_registration(IContainer container, CommandModule module)
         {
-            "Given we have a command modlue"
+            "Given we have a command module"
                 ._(() => module = new CommandModule());
 
             "When I build the module"
