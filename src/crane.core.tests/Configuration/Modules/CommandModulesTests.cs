@@ -21,13 +21,13 @@ namespace Crane.Core.Tests.Configuration.Modules
                 ._(() => container = module.BuildContainerWithModule());
 
             "Then it should resolve the help command" 
-                ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item is ShowHelp).Should().BeTrue());
+                ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item is Help).Should().BeTrue());
 
             "And it should be a singleton instance" // Is there a better way to verify lifecycle in Autofac?
                 ._(
                     () =>
-                        ReferenceEquals(container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is ShowHelp),
-                            container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is ShowHelp))
+                        ReferenceEquals(container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is Help),
+                            container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is Help))
                             .Should().BeTrue());
         }
     }

@@ -69,6 +69,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Resolvers\CommandMethodResolverTests.cs" />
+    <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
     <Compile Include="Data\Factory.cs" />
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
@@ -85,9 +87,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

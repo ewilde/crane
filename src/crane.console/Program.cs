@@ -12,7 +12,7 @@
         {
             //if (!options.Validate())
             //{
-            //    options.ShowHelp();
+            //    options.Help();
             //}
         }
 
