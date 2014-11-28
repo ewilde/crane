@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FubuCsProjFile;
 
-namespace crane.core.tests.Data
+namespace Crane.Core.Tests.Data
 {
     public class SolutionWithProjectReferences
     {

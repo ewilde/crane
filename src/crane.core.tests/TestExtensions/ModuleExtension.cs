@@ -1,9 +1,6 @@
-﻿using System;
-using Xbehave;
-using Xbehave.Fluent;
-using Autofac;
+﻿using Autofac;
 
-namespace crane.core.tests.TestExtensions
+namespace Crane.Core.Tests.TestExtensions
 {
     public static class ModuleExtension
     {

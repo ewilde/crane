@@ -7,8 +7,8 @@
     <ProjectGuid>{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>crane.console</RootNamespace>
-    <AssemblyName>crane</AssemblyName>
+    <RootNamespace>Crane.Console</RootNamespace>
+    <AssemblyName>Crane</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\crane.core\crane.core.csproj">
+    <ProjectReference Include="..\crane.core\Crane.Core.csproj">
       <Project>{064704f3-134f-4e27-8a80-6d6f8420f17e}</Project>
-      <Name>crane.core</Name>
+      <Name>Crane.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

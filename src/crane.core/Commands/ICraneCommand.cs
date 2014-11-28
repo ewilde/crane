@@ -1,4 +1,4 @@
-﻿namespace crane.core.Commands
+﻿namespace Crane.Core.Commands
 {
     public interface ICraneCommand
     {

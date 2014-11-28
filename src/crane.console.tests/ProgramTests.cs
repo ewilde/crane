@@ -1,9 +1,7 @@
 ﻿using FakeItEasy;
-using FluentAssertions;
 using Xbehave;
-using Xunit;
 
-namespace crane.console.tests
+namespace Crane.Console.Tests
 {
 
     public class ProgramTests

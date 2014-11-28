@@ -7,8 +7,8 @@
     <ProjectGuid>{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>crane.core.tests</RootNamespace>
-    <AssemblyName>crane.core.tests</AssemblyName>
+    <RootNamespace>Crane.Core.Tests</RootNamespace>
+    <AssemblyName>Crane.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -76,9 +76,9 @@
     <Compile Include="TestExtensions\ModuleExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\crane.core\crane.core.csproj">
+    <ProjectReference Include="..\crane.core\Crane.Core.csproj">
       <Project>{064704f3-134f-4e27-8a80-6d6f8420f17e}</Project>
-      <Name>crane.core</Name>
+      <Name>Crane.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace crane.core.Commands
+﻿namespace Crane.Core.Commands
 {
     public class ShowHelp : ICraneCommand
     {

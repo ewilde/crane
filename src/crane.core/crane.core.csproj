@@ -7,8 +7,8 @@
     <ProjectGuid>{064704F3-134F-4E27-8A80-6D6F8420F17E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>crane.core</RootNamespace>
-    <AssemblyName>crane.core</AssemblyName>
+    <RootNamespace>Crane.Core</RootNamespace>
+    <AssemblyName>Crane.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

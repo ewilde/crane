@@ -7,8 +7,8 @@
     <ProjectGuid>{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>crane.console.tests</RootNamespace>
-    <AssemblyName>crane.console.tests</AssemblyName>
+    <RootNamespace>Crane.Console.Tests</RootNamespace>
+    <AssemblyName>Crane.Console.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -72,9 +72,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\crane.console\crane.console.csproj">
+    <ProjectReference Include="..\crane.console\Crane.Console.csproj">
       <Project>{a3d16941-0ca5-4108-b5c9-7da47a46f1c7}</Project>
-      <Name>crane.console</Name>
+      <Name>Crane.Console</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

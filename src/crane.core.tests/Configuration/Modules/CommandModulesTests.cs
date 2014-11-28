@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using Autofac;
-using crane.console.Configuration.Modules;
-using crane.core.Commands;
-using crane.core.tests.TestExtensions;
+using Crane.Core.Commands;
+using Crane.Core.Configuration.Modules;
+using Crane.Core.Tests.TestExtensions;
 using FluentAssertions;
 using Xbehave;
-using Xunit;
 
-namespace crane.core.tests.Configuration.Modules
+namespace Crane.Core.Tests.Configuration.Modules
 {
     public class CommandModulesTests
     {

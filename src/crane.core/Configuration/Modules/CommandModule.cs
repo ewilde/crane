@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using Autofac;
-using crane.core.Commands;
+using Crane.Core.Commands;
 using Module = Autofac.Module;
 
-namespace crane.console.Configuration.Modules
+
+namespace Crane.Core.Configuration.Modules
 {
     public class CommandModule : Module
     {

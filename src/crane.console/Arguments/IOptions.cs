@@ -1,4 +1,4 @@
-﻿namespace crane.console
+﻿namespace Crane.Console
 {
     public interface IOptions
     {

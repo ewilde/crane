@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crane.core", "crane.core\crane.core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core", "crane.core\Crane.Core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crane.core.tests", "crane.core.tests\crane.core.tests.csproj", "{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core.Tests", "crane.core.tests\Crane.Core.Tests.csproj", "{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crane.console", "crane.console\crane.console.csproj", "{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Console", "crane.console\Crane.Console.csproj", "{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4B027A09-255D-44AB-BA1A-02CED9D8624A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crane.console.tests", "crane.console.tests\crane.console.tests.csproj", "{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Console.Tests", "crane.console.tests\Crane.Console.Tests.csproj", "{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}"
 EndProject
