@@ -10,14 +10,15 @@
 
         public Program(IOptions options)
         {
-            if (!options.Validate())
-            {
-                options.ShowHelp();
-            }
+            //if (!options.Validate())
+            //{
+            //    options.ShowHelp();
+            //}
         }
 
         public int Run()
         {
+            System.Console.WriteLine("Did you mean blah blah");
             return 0;
         }
     }
