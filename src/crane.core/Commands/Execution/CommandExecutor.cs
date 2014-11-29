@@ -13,7 +13,8 @@ namespace Crane.Core.Commands.Execution
 
         public CommandExecutor(IEnumerable<ICraneCommand> commands, 
                                ICommandResolver commandResolver, 
-                                ICommandMethodResolver commandMethodResolver, IDidYouMeanExecutor didYouMeanExecutor)
+                               ICommandMethodResolver commandMethodResolver, 
+                               IDidYouMeanExecutor didYouMeanExecutor)
         {
             _commands = commands;
             _commandResolver = commandResolver;

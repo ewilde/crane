@@ -77,8 +77,11 @@
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
     <Compile Include="Data\Factory.cs" />
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\TemplateResolverTests.cs" />
     <Compile Include="TestExtensions\ModuleExtension.cs" />
+    <Compile Include="TestExtensions\ObjectFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\crane.core\Crane.Core.csproj">
