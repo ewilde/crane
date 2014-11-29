@@ -75,6 +75,7 @@
     <Compile Include="Commands\Resolvers\CommandMethodResolverTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
+    <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModuleTests.cs" />
     <Compile Include="Data\Factory.cs" />
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

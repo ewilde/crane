@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Crane.Core.Commands;
 using Module = Autofac.Module;
 
 
@@ -12,7 +11,6 @@ namespace Crane.Core.Configuration.Modules
         {
             var commands = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(commands)
-                .AssignableTo<ICraneCommand>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
