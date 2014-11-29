@@ -33,8 +33,10 @@ namespace Crane.Core.Templates.Psake
                 _fileManager.CreateDirectory(destination);
             }
 
-            _fileManager.CopyFiles(TemplateSourceDirectory.FullName,
-                destination, "*.*");
+            _fileManager.CopyFiles(TemplateSourceDirectory.FullName, destination, "*.*");
+
+            var buildScript = _fileManager.ReadAllText(BuildScript.FullName).Replace("%context.Configuration.ProjectName%", _context.Configuration.ProjectName);
+            _fileManager.WriteAllText(BuildScript.FullName, buildScript);
         }
 
         public override FileInfo BuildScript

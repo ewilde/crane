@@ -15,5 +15,7 @@ namespace Crane.Core.IO
         void CreateDirectory(string destination);
 
         string ReadAllText(string path);
+
+        void WriteAllText(string path, string text);
     }
 }

@@ -8,7 +8,7 @@ param(
   $build_dir = (Split-Path $psake.build_script_file)
   $build_artifacts_dir = "$build_dir\..\build-output\"
   $src_dir = "$build_dir\..\src"
-  $sln_filename = "%context.Configuration.ProjectName.sln%"
+  $sln_filename = "%context.Configuration.ProjectName%.sln"
   $sln_filepath = "$src_dir\$sln_filename" 
  
 
