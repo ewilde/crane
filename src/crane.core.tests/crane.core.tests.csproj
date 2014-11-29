@@ -79,9 +79,13 @@
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\Psake\PsakeBuildTemplateTests.cs" />
     <Compile Include="Templates\TemplateResolverTests.cs" />
-    <Compile Include="TestExtensions\ModuleExtension.cs" />
-    <Compile Include="TestExtensions\ObjectFactory.cs" />
+    <Compile Include="TestUtilities\ContextUtility.cs" />
+    <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\ModuleExtension.cs" />
+    <Compile Include="TestUtilities\ObjectFactory.cs" />
+    <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\crane.core\Crane.Core.csproj">

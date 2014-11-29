@@ -1,4 +1,7 @@
-﻿using Crane.Core.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Crane.Core.Configuration;
 using Crane.Core.Templates.Psake;
 
 namespace Crane.Core.Templates.Resolvers
@@ -7,14 +10,19 @@ namespace Crane.Core.Templates.Resolvers
     {
         private readonly IConfiguration _configuration;
 
-        public TemplateResolver(IConfiguration configuration)
+        public TemplateResolver(IConfiguration configuration, IEnumerable<ITemplate> templates)
         {
             _configuration = configuration;
+            Templates = templates;
         }
+
+        public IEnumerable<ITemplate> Templates { get; set; }
 
         public ITemplate Resolve(TemplateType build)
         {
-            return new PsakeBuildTemplate();
+            return
+                Templates.FirstOrDefault(
+                    item => item.Name.Equals(_configuration.BuildTemplateProviderName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

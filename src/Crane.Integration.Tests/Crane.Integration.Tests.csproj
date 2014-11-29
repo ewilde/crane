@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -55,6 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Templates\PsakeFeature.cs" />
+    <Compile Include="TestUtilities\FileUtilites.cs" />
+    <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
     <Compile Include="TestUtilities\Run.cs" />
     <Compile Include="Features\InitFeature.cs" />
@@ -67,6 +74,10 @@
     <ProjectReference Include="..\crane.console\Crane.Console.csproj">
       <Project>{a3d16941-0ca5-4108-b5c9-7da47a46f1c7}</Project>
       <Name>Crane.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\crane.core\Crane.Core.csproj">
+      <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
+      <Name>Crane.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

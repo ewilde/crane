@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
-using Autofac.Core;
 using Crane.Core.Configuration.Modules;
-using Crane.Core.Tests.Annotations;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Integration.Tests.TestUtilities
 {
     public static class a
     {

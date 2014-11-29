@@ -1,7 +1,13 @@
-﻿namespace Crane.Core.Configuration
+﻿using System.IO;
+
+namespace Crane.Core.Configuration
 {
     public interface IConfiguration
     {
+        string BuildFolderName { get; }
+
         string BuildTemplateProviderName { get; }
+
+        string ProjectName { get; set; }
     }
 }
