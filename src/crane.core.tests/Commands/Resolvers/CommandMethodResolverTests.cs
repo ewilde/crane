@@ -137,7 +137,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
             }
         }
 
-        public class IgnoresAutoPropertiesTests
+        public class IgnoresAutoPropertiesScenarios
         {
             private class TestCommandWithAutoProperty : ICraneCommand
             {

@@ -43,9 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
+    <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
+    <Compile Include="Commands\Execution\IDidYouMeanExecutor.cs" />
+    <Compile Include="Commands\Resolvers\ClosestCommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
+    <Compile Include="Commands\Resolvers\IClosestCommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />

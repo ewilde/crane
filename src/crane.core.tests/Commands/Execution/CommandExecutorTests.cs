@@ -1,6 +1,7 @@
 ﻿using Crane.Core.Commands;
 using Crane.Core.Commands.Execution;
 using Crane.Core.Commands.Resolvers;
+using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
 
@@ -55,7 +56,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[]{ new Init(), test}, new CommandResolver(), new CommandMethodResolver());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[]{ new Init(), test}, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test'"
@@ -85,7 +86,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg'"
@@ -118,7 +119,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg secondarg'"
@@ -154,7 +155,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg secondarg thridarg'"
@@ -185,5 +186,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() => test.ThreeArgsExecuted.Should().BeTrue());
 
         }
+
+
     }
 }

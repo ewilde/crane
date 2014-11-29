@@ -15,8 +15,8 @@ namespace Crane.Integration.Tests.Features
             "When I run crane init"
                 ._(() => result = run.Command("crane init"));
 
-            "Then I receive the text 'did you mean crane init projectname"
-                ._(() => result.StandardOutput.Should().Be("did you mean crane init projectname"));
+            "Then I receive the text did you mean 'crane init projectname'?"
+                ._(() => result.StandardOutput.Should().Be("did you mean 'crane init projectname'?"));
         }
 
         
