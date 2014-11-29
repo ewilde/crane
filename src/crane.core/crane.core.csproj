@@ -70,6 +70,7 @@
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\BuildTemplate.cs" />
     <Compile Include="Templates\IBuildTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />

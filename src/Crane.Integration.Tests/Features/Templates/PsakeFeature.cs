@@ -29,7 +29,7 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => template.Create());
 
             "It should replace the solution file name in the build script with the project name"
-                ._(() => template.BuildScript.Should().Contain("ServiceStack.sln"))
+                ._(() => File.ReadAllText(template.BuildScript.FullName).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));            
         }
     }

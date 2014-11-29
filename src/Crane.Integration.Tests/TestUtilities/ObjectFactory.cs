@@ -5,7 +5,7 @@ using Crane.Core.Configuration.Modules;
 
 namespace Crane.Integration.Tests.TestUtilities
 {
-    public static class a
+    public static class ioc
     {
         private static IContainer _container;
 

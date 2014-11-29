@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 
 namespace Crane.Core.Templates.Psake
 {
-    public class PsakeBuildTemplate : IBuildTemplate
+    public class PsakeBuildTemplate : BuildTemplate
     {
         private readonly IFileManager _fileManager;
         private readonly ICraneContext _context;
@@ -19,7 +20,12 @@ namespace Crane.Core.Templates.Psake
         }
 
 
-        public void Create()
+        protected override IEnumerable<FileInfo> TemplatedFiles
+        {
+            get { return new[] {this.BuildScript};}
+        }
+
+        protected override void CreateCore()
         {
             var destination = _context.BuildDirectory.FullName;
             if (!_fileManager.DirectoryExists(destination))
@@ -31,17 +37,17 @@ namespace Crane.Core.Templates.Psake
                 destination, "*.*");
         }
 
-        public string BuildScript
+        public override FileInfo BuildScript
         {
-            get { return _fileManager.ReadAllText(Path.Combine(_context.BuildDirectory.FullName, "default.ps1")); }
+            get { return new FileInfo(Path.Combine(_context.BuildDirectory.FullName, "default.ps1")); }
         }
 
-        public string Name
+        public override string Name
         {
             get { return "Psake"; }
         }
 
-        public DirectoryInfo TemplateSourceDirectory
+        public override DirectoryInfo TemplateSourceDirectory
         {
             get
             {

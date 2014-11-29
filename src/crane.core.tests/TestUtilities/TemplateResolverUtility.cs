@@ -10,7 +10,7 @@ namespace Crane.Core.Tests.TestExtensions
     {
         public static void Defaults(ITemplateResolver templateResolver)
         {
-            templateResolver.Templates = a.New<IEnumerable<ITemplate>>();
+            templateResolver.Templates = a.Resolve<IEnumerable<ITemplate>>();
         }
     }
 }
