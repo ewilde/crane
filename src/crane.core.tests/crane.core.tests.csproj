@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Execution\CommandExecutorTests.cs" />
     <Compile Include="Commands\Resolvers\CommandMethodResolverTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />

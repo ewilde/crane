@@ -13,11 +13,6 @@ namespace Crane.Core.Tests.Commands.Resolvers
         {
             private class SingleMethodCommand : ICraneCommand
             {
-                public string NoMatchingMethodsText()
-                {
-                    return string.Empty;
-                }
-
                 public void Execute() { }
             }
 
@@ -53,11 +48,6 @@ namespace Crane.Core.Tests.Commands.Resolvers
 
             private class MultipleMethodCommand : ICraneCommand
             {
-                public string NoMatchingMethodsText()
-                {
-                    return string.Empty;
-                }
-
                 public void NoArgsMethod()
                 {
                 }
@@ -144,6 +134,31 @@ namespace Crane.Core.Tests.Commands.Resolvers
 
                 "Then it should resolve null"
                     ._(() => result.Should().BeNull());
+            }
+        }
+
+        public class IgnoresAutoPropertiesTests
+        {
+            private class TestCommandWithAutoProperty : ICraneCommand
+            {
+                public string MyProperty { get; set; }
+
+                public void Execute() {}
+
+            }
+
+            [Scenario]
+            public void Resolve_does_not_return_auto_properties(CommandMethodResolver commandMethodResolver,
+                MethodInfo result)
+            {
+                "Given I have a command method resolver"
+                    ._(() => commandMethodResolver = new CommandMethodResolver());
+
+                "When I call resolve with a multiple method command and four arguments"
+                    ._(() => result = commandMethodResolver.Resolve(new TestCommandWithAutoProperty(), new string[0]));
+
+                "Then it should resolve the Execute command"
+                    ._(() => result.Name.Should().Be("Execute"));
             }
         }
 

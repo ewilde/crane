@@ -2,6 +2,5 @@
 {
     public interface ICraneCommand
     {
-        string NoMatchingMethodsText();
     }
 }

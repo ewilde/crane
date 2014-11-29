@@ -4,7 +4,7 @@ using Crane.Core.Commands.Resolvers;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Core.Tests.Commands.Executors
+namespace Crane.Core.Tests.Commands.Resolvers
 {
     public class CommandResolverTests
     {
