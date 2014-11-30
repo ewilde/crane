@@ -23,7 +23,7 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => template = ioc.Resolve<PsakeBuildTemplate>());
 
             "And I have been given a project name via init"
-                ._(() => context.Configuration.ProjectName = "ServiceStack");
+                ._(() => context.ProjectName = "ServiceStack");
 
             "When I call create on the template"
                 ._(() => template.Create());

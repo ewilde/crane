@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Crane.Core.IO;
 using log4net;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
 
-namespace Crane.Core.Templates
+namespace Crane.Core.Templates.Parsers
 {
     public class RazorTemplateParser : ITemplateParser
     {
@@ -26,15 +21,15 @@ namespace Crane.Core.Templates
   
         }
 
-        public string Parse(FileInfo template, object model)
+        public string Parse(string template, object model)
         {
             try
             {
-                return Razor.Parse(_fileManager.ReadAllText(template.FullName), model);
+                return Razor.Parse(template, model);
             }
             catch (Exception exception)
             {
-                _log.Error(string.Format("Problem parsing template {0}", template.FullName), exception);
+                _log.Error("Problem parsing template", exception);
                 throw;
             }
         }

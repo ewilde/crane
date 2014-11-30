@@ -2,6 +2,7 @@
 using Autofac;
 using Crane.Core.Commands;
 using Crane.Core.Templates;
+using Crane.Core.Templates.Parsers;
 using Module = Autofac.Module;
 
 namespace Crane.Core.Configuration.Modules
@@ -15,7 +16,7 @@ namespace Crane.Core.Configuration.Modules
                 .AssignableTo<ITemplate>()
                 .AsImplementedInterfaces();
 
-            builder.RegisterType<RazorTemplateParser>().As<ITemplateParser>();
+            builder.RegisterType<TokenTemplateParser>().As<ITemplateParser>();
         }
     }
 }

@@ -20,7 +20,5 @@ namespace Crane.Core.Configuration
                 return DefaultBuildFolderName;
             }
         }
-
-        public string ProjectName { get; set; }
     }
 }

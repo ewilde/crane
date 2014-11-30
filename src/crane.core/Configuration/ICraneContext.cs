@@ -11,5 +11,6 @@ namespace Crane.Core.Configuration
         DirectoryInfo CraneInstallDirectory { get; }
 
         DirectoryInfo ProjectRootDirectory { get; set; }
+        string ProjectName { get; set; }
     }
 }

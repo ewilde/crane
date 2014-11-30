@@ -39,6 +39,8 @@ namespace Crane.Core.Configuration
 
         public IConfiguration Configuration { get; private set; }
 
+        public string ProjectName { get; set; }
+
         public DirectoryInfo ProjectRootDirectory { get; set; }
     }
 }

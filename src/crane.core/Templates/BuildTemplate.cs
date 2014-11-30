@@ -2,6 +2,7 @@
 using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
+using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates
 {
@@ -55,7 +56,7 @@ namespace Crane.Core.Templates
         {
             foreach (var file in this.TemplatedFiles)
             {
-                var parsed = _templateParser.Parse(file, this.Context);
+                var parsed = _templateParser.Parse(FileManager.ReadAllText(file.FullName), this.Context);
                 FileManager.WriteAllText(file.FullName, parsed);
             }
         }

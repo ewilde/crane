@@ -80,9 +80,10 @@
     <Compile Include="Templates\BuildTemplate.cs" />
     <Compile Include="Templates\IBuildTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
-    <Compile Include="Templates\ITemplateParser.cs" />
+    <Compile Include="Templates\Parsers\ITemplateParser.cs" />
+    <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
-    <Compile Include="Templates\RazorTemplateParser.cs" />
+    <Compile Include="Templates\Parsers\RazorTemplateParser.cs" />
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />

@@ -7,7 +7,5 @@ namespace Crane.Core.Configuration
         string BuildFolderName { get; }
 
         string BuildTemplateProviderName { get; }
-
-        string ProjectName { get; set; }
     }
 }

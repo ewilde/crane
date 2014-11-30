@@ -1,5 +1,3 @@
-@using System.Text;
-<text>
 param(
     [Parameter(Position=0,Mandatory=0)]
     [string]$version = "0.0.1.0",
@@ -10,7 +8,7 @@ param(
   $build_dir = (Split-Path $psake.build_script_file)
   $build_artifacts_dir = "$build_dir\..\build-output\"
   $src_dir = "$build_dir\..\src"
-  $sln_filename = "@Model.Configuration.ProjectName.sln"
+  $sln_filename = "%context.ProjectName%.sln"
   $sln_filepath = "$src_dir\$sln_filename" 
  
 
@@ -54,4 +52,3 @@ Task NugetRestore -Depends NugetExists {
 Task NugetExists { 
     Invoke-DownloadNuget $build_dir #doesn't download if exists
 }
-</text>

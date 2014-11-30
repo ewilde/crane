@@ -79,6 +79,7 @@
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\Parsers\TokenParserTests.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplateTests.cs" />
     <Compile Include="Templates\TemplateResolverTests.cs" />
     <Compile Include="TestUtilities\ContextUtility.cs" />

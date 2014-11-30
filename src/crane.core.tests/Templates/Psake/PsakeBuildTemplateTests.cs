@@ -17,10 +17,10 @@ namespace Crane.Core.Tests.Templates.Psake
                 ._(() => buildTemplate = B.AutoMock<PsakeBuildTemplate>());
 
             "And a configuration after a crane init"
-                ._(() => DefaultConfigurationUtility.PostInit(buildTemplate.GetMock<IConfiguration>(), projectName: "ServiceStack"));
+                ._(() => DefaultConfigurationUtility.PostInit(buildTemplate.GetMock<IConfiguration>()));
 
             "And a current empty directory named after the project"
-                ._(() => ContextUtility.Configure(buildTemplate.GetMock<ICraneContext>(), projectRootDirectory: new DirectoryInfo(@"c:\dev\servicestack")));
+                ._(() => ContextUtility.Configure(buildTemplate.GetMock<ICraneContext>(), projectName: "ServiceStack", projectRootDirectory: new DirectoryInfo(@"c:\dev\servicestack")));
 
             "When I call create"
                 ._(() => buildTemplate.Subject.Create());

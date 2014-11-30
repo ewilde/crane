@@ -2,6 +2,7 @@
 using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
+using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates.Psake
 {
@@ -30,7 +31,7 @@ namespace Crane.Core.Templates.Psake
 
             FileManager.CopyFiles(TemplateSourceDirectory.FullName, destination, "*.*");
 
-            var buildScript = FileManager.ReadAllText(BuildScript.FullName).Replace("%context.Configuration.ProjectName%", Context.Configuration.ProjectName);
+            var buildScript = FileManager.ReadAllText(BuildScript.FullName).Replace("%context.ProjectName%", Context.ProjectName);
             FileManager.WriteAllText(BuildScript.FullName, buildScript);
         }
 
