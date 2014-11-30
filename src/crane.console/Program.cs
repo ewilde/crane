@@ -1,23 +1,32 @@
-﻿namespace Crane.Console
+﻿using System.Collections.Generic;
+using Crane.Core.Commands;
+using Crane.Core.Commands.Execution;
+using Crane.Core.Commands.Resolvers;
+
+namespace Crane.Console
 {
     public class Program
     {
+        private readonly ICommandExecutor _commandExecutor;
+
         static int Main(string[] args)
         {
-            var program = new Program(null);
-            return program.Run();
+            var program = new Program();
+            return program.Run(args);
         }
 
-        public Program(IOptions options)
+        public Program()
         {
-            if (!options.Validate())
-            {
-                options.ShowHelp();
-            }
+            var commands = new List<ICraneCommand> {new Init(), new Help()};
+            _commandExecutor = new CommandExecutor(commands, 
+                                                    new CommandResolver(), 
+                                                    new CommandMethodResolver(), 
+                                                    new DidYouMeanExecutor(new ClosestCommandMethodResolver(), System.Console.WriteLine));
         }
 
-        public int Run()
+        public int Run(string [] args)
         {
+            _commandExecutor.ExecuteCommand(args);
             return 0;
         }
     }

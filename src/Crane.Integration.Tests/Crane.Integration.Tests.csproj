@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}</ProjectGuid>
+    <ProjectGuid>{D7F4BD88-7AD2-493F-B12B-88D191B069F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crane.Core.Tests</RootNamespace>
-    <AssemblyName>Crane.Core.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Crane.Integration.Tests</RootNamespace>
+    <AssemblyName>Crane.Integration.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,26 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="FakeItEasy">
-      <HintPath>..\packages\FakeItEasy.1.25.1\lib\net40\FakeItEasy.dll</HintPath>
-    </Reference>
-    <Reference Include="FakeItEasy.AutoMocker">
-      <HintPath>..\packages\FakeItEasy.Automocker.1.13.0\lib\net40\FakeItEasy.AutoMocker.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FubuCore">
-      <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
-    </Reference>
-    <Reference Include="FubuCsProjFile">
-      <HintPath>..\packages\FubuCsProjFile.1.3.0.100\lib\net40\FubuCsProjFile.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,36 +59,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Execution\CommandExecutorTests.cs" />
-    <Compile Include="Commands\Execution\DidYouMeanExecutorTests.cs" />
-    <Compile Include="Commands\Resolvers\ClosestCommandMethodResolverTests.cs" />
-    <Compile Include="Commands\Resolvers\CommandMethodResolverTests.cs" />
-    <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
-    <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
-    <Compile Include="Data\Factory.cs" />
-    <Compile Include="Data\SolutionWithProjectReferences.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Templates\Parsers\TokenParserTests.cs" />
-    <Compile Include="Templates\Psake\PsakeBuildTemplateTests.cs" />
-    <Compile Include="Templates\TemplateResolverTests.cs" />
-    <Compile Include="TestUtilities\ContextUtility.cs" />
-    <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
-    <Compile Include="TestUtilities\ModuleExtension.cs" />
+    <Compile Include="Features\Templates\PsakeFeature.cs" />
+    <Compile Include="TestUtilities\FileUtilites.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
-    <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
+    <Compile Include="TestUtilities\RunResult.cs" />
+    <Compile Include="TestUtilities\Run.cs" />
+    <Compile Include="Features\InitFeature.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\crane.console\Crane.Console.csproj">
+      <Project>{a3d16941-0ca5-4108-b5c9-7da47a46f1c7}</Project>
+      <Name>Crane.Console</Name>
+    </ProjectReference>
     <ProjectReference Include="..\crane.core\Crane.Core.csproj">
-      <Project>{064704f3-134f-4e27-8a80-6d6f8420f17e}</Project>
+      <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
       <Name>Crane.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
