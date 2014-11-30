@@ -36,8 +36,15 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.3.4.2\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,7 +80,9 @@
     <Compile Include="Templates\BuildTemplate.cs" />
     <Compile Include="Templates\IBuildTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\ITemplateParser.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
+    <Compile Include="Templates\RazorTemplateParser.cs" />
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />

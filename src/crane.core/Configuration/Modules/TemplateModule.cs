@@ -14,6 +14,8 @@ namespace Crane.Core.Configuration.Modules
             builder.RegisterAssemblyTypes(commands)
                 .AssignableTo<ITemplate>()
                 .AsImplementedInterfaces();
+
+            builder.RegisterType<RazorTemplateParser>().As<ITemplateParser>();
         }
     }
 }
