@@ -5,5 +5,6 @@ namespace Crane.Core.Templates.Resolvers
     public interface ITemplateResolver
     {
         IEnumerable<ITemplate> Templates { get; set; }
+        ITemplate Resolve(TemplateType templateType);
     }
 }

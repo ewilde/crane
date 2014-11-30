@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
+using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
 
@@ -15,7 +16,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 ._(() =>
                 {
                     commandResolver = new CommandResolver();
-                    commands = new List<ICraneCommand> {new Help(), new Init()};
+                    commands = new List<ICraneCommand> { B.AutoMock<Help>().Subject, B.AutoMock<Init>().Subject };
                 } );
 
             "When I resolve the command bob"
@@ -34,7 +35,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
                ._(() =>
                {
                    commandResolver = new CommandResolver();
-                   commands = new List<ICraneCommand> { new Help(), new Init() };
+                   commands = new List<ICraneCommand> { B.AutoMock<Help>().Subject, B.AutoMock<Init>().Subject };
                });
 
             "When I resolve the command Init"
@@ -51,7 +52,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
                ._(() =>
                {
                    commandResolver = new CommandResolver();
-                   commands = new List<ICraneCommand> { new Help(), new Init() };
+                   commands = new List<ICraneCommand> { B.AutoMock<Help>().Subject, B.AutoMock<Init>().Subject };
                });
 
             "When I resolve the command init"

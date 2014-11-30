@@ -18,7 +18,7 @@ namespace Crane.Core.Templates.Resolvers
 
         public IEnumerable<ITemplate> Templates { get; set; }
 
-        public ITemplate Resolve(TemplateType build)
+        public ITemplate Resolve(TemplateType templateType)
         {
             return
                 Templates.FirstOrDefault(

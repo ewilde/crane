@@ -3,6 +3,7 @@ using Autofac;
 using Crane.Core.Commands;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Parsers;
+using Crane.Core.Templates.Resolvers;
 using Module = Autofac.Module;
 
 namespace Crane.Core.Configuration.Modules
@@ -17,6 +18,7 @@ namespace Crane.Core.Configuration.Modules
                 .AsImplementedInterfaces();
 
             builder.RegisterType<TokenTemplateParser>().As<ITemplateParser>();
+            builder.RegisterType<TemplateResolver>().As<ITemplateResolver>();
         }
     }
 }

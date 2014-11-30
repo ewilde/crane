@@ -18,6 +18,11 @@ namespace Crane.Core.IO
             }            
         }
 
+        public string CurrentDirectory
+        {
+            get { return System.Environment.CurrentDirectory; }
+        }
+
         public bool DirectoryExists(string path)
         {
             return Directory.Exists(path);

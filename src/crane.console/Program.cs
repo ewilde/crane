@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Autofac;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Execution;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Configuration.Modules;
 
 namespace Crane.Console
 {
@@ -11,13 +13,14 @@ namespace Crane.Console
 
         static int Main(string[] args)
         {
-            var program = new Program();
+            var container = BootStrap.Start();
+
+            var program = new Program(container.Resolve<IEnumerable<ICraneCommand>>());
             return program.Run(args);
         }
 
-        public Program()
+        public Program(IEnumerable<ICraneCommand> commands)
         {
-            var commands = new List<ICraneCommand> {new Init(), new Help()};
             _commandExecutor = new CommandExecutor(commands, 
                                                     new CommandResolver(), 
                                                     new CommandMethodResolver(), 

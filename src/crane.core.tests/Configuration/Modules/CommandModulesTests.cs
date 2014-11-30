@@ -12,13 +12,10 @@ namespace Crane.Core.Tests.Configuration.Modules
     public class CommandModulesTests
     {
         [Scenario]
-        public void command_module_registration(IContainer container, CommandModule module)
+        public void command_module_registration(IContainer container)
         {
-            "Given we have a command module"
-                ._(() => module = new CommandModule());
-
-            "When I build the module"
-                ._(() => container = module.BuildContainerWithModule());
+            "Given we have bootstraped the IoC"
+                ._(() => container = BootStrap.Start());
 
             "Then it should resolve the help command" 
                 ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item is Help).Should().BeTrue());

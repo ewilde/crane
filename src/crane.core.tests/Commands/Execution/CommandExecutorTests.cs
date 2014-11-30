@@ -56,7 +56,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[]{ new Init(), test}, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[]{ B.AutoMock<Init>().Subject, test}, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test'"
@@ -86,7 +86,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { B.AutoMock<Init>().Subject, test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg'"
@@ -119,7 +119,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { B.AutoMock<Init>().Subject, test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg secondarg'"
@@ -155,7 +155,7 @@ namespace Crane.Core.Tests.Commands.Execution
                 ._(() =>
                 {
                     test = new Test();
-                    commandExecutor = new CommandExecutor(new ICraneCommand[] { new Init(), test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
+                    commandExecutor = new CommandExecutor(new ICraneCommand[] { B.AutoMock<Init>().Subject, test }, new CommandResolver(), new CommandMethodResolver(), A.Fake<IDidYouMeanExecutor>());
                 });
 
             "When I execute 'test firstarg secondarg thridarg'"
