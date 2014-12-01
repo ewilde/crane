@@ -16,7 +16,7 @@ param(
 Import-Module (Join-Path $build_dir 'psake-ext.psm1')
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends BuildCrane, Test
+Task Default -Depends BuildCrane, Test, ChocolateyBuildPackage
 
 Task BuildCrane -Depends Info, Clean, Build
 
@@ -60,4 +60,16 @@ Task Test {
     % {
         & $xunit_consoleRunner @($_.FullName, '/silent')
     }
+}
+
+Task ChocolateyExists{
+    try{
+	    & choco 
+    }catch{	    
+        iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+    }
+}
+
+Task ChocolateyBuildPackage -Depends ChocolateyExists{
+    Start-Process -FilePath cpack -WorkingDirectory "$src_dir\Crane.Chocolatey"    
 }
