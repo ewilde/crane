@@ -84,6 +84,7 @@
     <Compile Include="Templates\Parsers\TokenParserTests.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplateTests.cs" />
     <Compile Include="Templates\TemplateResolverTests.cs" />
+    <Compile Include="Templates\VisualStudio\VisualStudioTemplateTests.cs" />
     <Compile Include="TestUtilities\ContextUtility.cs" />
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />

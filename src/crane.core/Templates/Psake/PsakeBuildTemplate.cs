@@ -6,10 +6,8 @@ using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates.Psake
 {
-    public class PsakeBuildTemplate : BuildTemplate
+    public class PsakeBuildTemplate : BaseTemplate, IBuildTemplate
     {
-        private DirectoryInfo _templateSourceDirectory;
-
         public PsakeBuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser) :
             base(context, configuration, fileManager, templateParser)
         {
@@ -35,7 +33,7 @@ namespace Crane.Core.Templates.Psake
             FileManager.WriteAllText(BuildScript.FullName, buildScript);
         }
 
-        public override FileInfo BuildScript
+        public FileInfo BuildScript
         {
             get { return new FileInfo(Path.Combine(Context.BuildDirectory.FullName, "default.ps1")); }
         }
@@ -43,20 +41,6 @@ namespace Crane.Core.Templates.Psake
         public override string Name
         {
             get { return "Psake"; }
-        }
-
-        public override DirectoryInfo TemplateSourceDirectory
-        {
-            get
-            {
-                if (_templateSourceDirectory == null)
-                {
-                    _templateSourceDirectory = new DirectoryInfo(Path.Combine(Context.CraneInstallDirectory.FullName, "Templates", "Psake", "Files"));
-                }
-
-                return _templateSourceDirectory;
-            }
-            set { _templateSourceDirectory = value; }
         }
     }
 }

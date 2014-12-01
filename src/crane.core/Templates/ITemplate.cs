@@ -6,5 +6,6 @@ namespace Crane.Core.Templates
     {
         string Name { get; }
         DirectoryInfo TemplateSourceDirectory { get; set; }
+        void Create();
     }
 }

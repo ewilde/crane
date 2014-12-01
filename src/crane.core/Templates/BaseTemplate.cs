@@ -6,14 +6,15 @@ using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates
 {
-    public abstract class BuildTemplate : IBuildTemplate
+    public abstract class BaseTemplate : ITemplate
     {
         private readonly IFileManager _fileManager;
         private readonly ITemplateParser _templateParser;
         private readonly ICraneContext _context;
         private readonly IConfiguration _configuration;
+        private DirectoryInfo _templateSourceDirectory;
 
-        public BuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser)
+        protected BaseTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser)
         {
             _fileManager = fileManager;
             _templateParser = templateParser;
@@ -25,10 +26,20 @@ namespace Crane.Core.Templates
         
         public abstract string Name { get; }
 
-        public abstract DirectoryInfo TemplateSourceDirectory { get; set; }
-        
-        public abstract FileInfo BuildScript { get; }
+        public DirectoryInfo TemplateSourceDirectory
+        {
+            get
+            {
+                if (_templateSourceDirectory == null)
+                {
+                    _templateSourceDirectory = new DirectoryInfo(Path.Combine(Context.CraneInstallDirectory.FullName, "Templates", this.Name, "Files"));
+                }
 
+                return _templateSourceDirectory;
+            }
+            set { _templateSourceDirectory = value; }
+        }
+        
         protected abstract IEnumerable<FileInfo> TemplatedFiles { get; }
 
         protected IFileManager FileManager

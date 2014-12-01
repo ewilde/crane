@@ -4,7 +4,6 @@ using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.Templates.Parsers;
 using Crane.Core.Tests.TestExtensions;
-using Crane.Core.System;
 using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
@@ -40,18 +39,15 @@ namespace Crane.Core.Tests.Templates.Parsers
                 ._(() => tokenParser = B.AutoMock<TokenTemplateParser>());
 
             "And it has two guids"
-                ._(() =>
-                {
-                    A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).Returns(guid1);
-                    A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).Returns(guid2);
-                });
+                ._(() => A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).ReturnsNextFromSequence(guid1, guid2));
 
             "When I parse a template with guid tokens"
-                ._(() => result = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 =  %GUID-1%", null));
+                ._(() => result = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
 
             "Then the guid tokens should be replaced"
-                ._(() => result.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 =  %GUID-1%"
-                    .Replace("%GUID-1%", guid1.ToString("B").Replace("%GUID-2%", guid2.ToString("B")))));
+                ._(() => result.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"
+                    .Replace("%GUID-1%", guid1.ToString("B"))
+                    .Replace("%GUID-2%", guid2.ToString("B"))));
         }
     }
 }
