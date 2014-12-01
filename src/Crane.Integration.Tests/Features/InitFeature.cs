@@ -31,11 +31,7 @@ namespace Crane.Integration.Tests.Features
 
             "It should replace the solution file name in the build script with the project name"
                 ._(() => File.ReadAllText("./ServiceStack/build/default.ps1").Should().Contain("ServiceStack.sln"))
-                .Teardown(() =>
-                {
-                    Directory.Delete("./ServiceStack/build", recursive: true);
-                    Directory.Delete("./ServiceStack", recursive: true);
-                });
+                .Teardown(() =>  Directory.Delete("./ServiceStack", recursive: true));
 
 
         }
