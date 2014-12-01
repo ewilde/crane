@@ -15,6 +15,8 @@ namespace Crane.Core.Configuration.Modules
                 .AssignableTo<ICraneCommand>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            
         }
     }
 }

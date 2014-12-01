@@ -2,18 +2,19 @@
 using System.Linq;
 using System.Text;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.IO;
 
 namespace Crane.Core.Commands.Execution
 {
     public class DidYouMeanExecutor : IDidYouMeanExecutor
     {
         private readonly IClosestCommandMethodResolver _closestCommandMethodResolver;
-        private readonly Action<string> _writeLine; 
+        private readonly IOutput _output;
 
-        public DidYouMeanExecutor(IClosestCommandMethodResolver closestCommandMethodResolver, Action<string> writeLine)
+        public DidYouMeanExecutor(IClosestCommandMethodResolver closestCommandMethodResolver, IOutput output)
         {
             _closestCommandMethodResolver = closestCommandMethodResolver;
-            _writeLine = writeLine;
+            _output = output;
         }
 
         public void PrintHelp(ICraneCommand command, string[] arguments)
@@ -34,7 +35,7 @@ namespace Crane.Core.Commands.Execution
 
             stringBuilder.Append("'?");
 
-            _writeLine(stringBuilder.ToString());
+            _output.WriteLine(stringBuilder.ToString());
         }
     }
 }
