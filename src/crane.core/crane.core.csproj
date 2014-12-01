@@ -55,8 +55,11 @@
     <Compile Include="Commands\ICraneCommand.cs" />
     <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\Help.cs" />
+    <Compile Include="Hosts\HostFactory.cs" />
     <Compile Include="Configuration\Modules\CommandModule.cs" />
     <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModule.cs" />
+    <Compile Include="Hosts\ConsoleHost.cs" />
+    <Compile Include="Hosts\IHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
