@@ -93,6 +93,16 @@
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\Class1.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1\Class1.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Templates\VisualStudio\Files\2013\ClassLibrary1\Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AssemblyUtility.cs" />
     <Compile Include="Utility\StringExtentions.cs" />
   </ItemGroup>
@@ -110,6 +120,42 @@
     <None Include="Templates\Psake\Files\psake.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\ClassLibrary1.Tests.csprojResolveAssemblyReference.cache" />
+    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\packages.config" />
+    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\repositories.config" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\Xbehave.1.1.0.nupkg" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\Xbehave.1.1.0.nuspec" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.dll.tdnet" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\xunit.1.9.2.nupkg" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\xunit.1.9.2.nuspec" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\xunit.extensions.1.9.2\xunit.extensions.1.9.2.nupkg" />
+    <None Include="Templates\VisualStudio\Files\2013\packages\xunit.extensions.1.9.2\xunit.extensions.1.9.2.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\ClassLibrary1.Tests.csproj" />
+    <Content Include="Templates\VisualStudio\Files\2013\ClassLibrary1\ClassLibrary1.csproj" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net35\Xbehave.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net35\Xbehave.xml" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net40\Xbehave.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net40\Xbehave.xml" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net45\Xbehave.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\Xbehave.1.1.0\lib\net45\Xbehave.xml" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.runner.msbuild.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.runner.tdnet.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.runner.utility.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.1.9.2\lib\net20\xunit.xml" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll" />
+    <Content Include="Templates\VisualStudio\Files\2013\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.xml" />
+    <Content Include="Templates\VisualStudio\Files\2013\Solution1.sln" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\bin\Debug\" />
+    <Folder Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\obj\Debug\TempPE\" />
+    <Folder Include="Templates\VisualStudio\Files\2013\ClassLibrary1\bin\Debug\" />
+    <Folder Include="Templates\VisualStudio\Files\2013\ClassLibrary1\obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
