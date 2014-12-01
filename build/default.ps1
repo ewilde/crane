@@ -6,10 +6,10 @@ param(
 )
 
   $build_dir = (Split-Path $psake.build_script_file)
-  $build_artifacts_dir = "$build_dir\..\build-output\"
+  $build_artifacts_dir = "$build_dir\..\build-output"
   $src_dir = "$build_dir\..\src"
   $sln_filename = "Crane.sln"
-  $sln_filepath = "$src_dir\$sln_filename" 
+  $sln_filepath = "$src_dir\$sln_filename"
   $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
       
 

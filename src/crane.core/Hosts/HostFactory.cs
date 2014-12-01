@@ -25,6 +25,7 @@ namespace Crane.Core.Hosts
 
             return container;
         }
+
         public IHost CreateConsoleHost()
         {
             var container = CreateContainer<ConsoleHost>();
