@@ -88,6 +88,8 @@
     <Compile Include="Templates\BaseTemplate.cs" />
     <Compile Include="Templates\IBuildTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\Parsers\FileAndDirectoryTokenParser.cs" />
+    <Compile Include="Templates\Parsers\IFileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\ITemplateParser.cs" />
     <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
@@ -95,16 +97,16 @@
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\Class1.cs">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Class1.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\Properties\AssemblyInfo.cs">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1\Class1.cs">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Class1.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1\Properties\AssemblyInfo.cs">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="Templates\VisualStudio\VisualStudioTemplate.cs" />
@@ -125,13 +127,13 @@
     <None Include="Templates\Psake\Files\psake.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\packages.config">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1.Tests\ClassLibrary1.Tests.csproj">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\%context.ProjectName%.Tests.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\ClassLibrary1\ClassLibrary1.csproj">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\%context.ProjectName%.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\VisualStudio\Files\2013\Solution1.sln">

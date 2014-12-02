@@ -8,8 +8,8 @@ namespace Crane.Core.Templates.VisualStudio
 {
     public class VisualStudioTemplate : BaseTemplate
     {
-        public VisualStudioTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser) :
-            base(context, configuration, fileManager, templateParser)
+        public VisualStudioTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser) :
+            base(context, configuration, fileManager, templateParser, fileAndDirectoryTokenParser)
         {
         }
 
@@ -18,6 +18,8 @@ namespace Crane.Core.Templates.VisualStudio
             var srcDir = Context.SourceDirectory.FullName;
             FileManager.CreateDirectory(srcDir);
             FileManager.CopyFiles(TemplateSourceDirectory.FullName, srcDir, "*.*");
+            FileManager.RenameDirectory(Path.Combine(srcDir, "ClassLibrary1"), Context.ProjectName);
+            FileManager.RenameDirectory(Path.Combine(srcDir, "ClassLibrary1.Tests"), Context.ProjectName);
         }
 
         public override string Name

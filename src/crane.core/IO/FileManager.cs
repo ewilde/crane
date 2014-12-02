@@ -38,6 +38,11 @@ namespace Crane.Core.IO
             return File.ReadAllText(path);            
         }
 
+        public void RenameDirectory(string path, string name)
+        {
+            Directory.Move(path, Path.Combine(new DirectoryInfo(path).Parent.FullName, name));
+        }
+
         public void WriteAllText(string path, string text)
         {
             File.WriteAllText(path, text);

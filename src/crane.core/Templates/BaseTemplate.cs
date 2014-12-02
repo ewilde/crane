@@ -10,14 +10,16 @@ namespace Crane.Core.Templates
     {
         private readonly IFileManager _fileManager;
         private readonly ITemplateParser _templateParser;
+        private readonly IFileAndDirectoryTokenParser _fileAndDirectoryTokenParser;
         private readonly ICraneContext _context;
         private readonly IConfiguration _configuration;
         private DirectoryInfo _templateSourceDirectory;
 
-        protected BaseTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser)
+        protected BaseTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser)
         {
             _fileManager = fileManager;
             _templateParser = templateParser;
+            _fileAndDirectoryTokenParser = fileAndDirectoryTokenParser;
             _context = context;
             _configuration = configuration;
         }
@@ -61,6 +63,12 @@ namespace Crane.Core.Templates
         {
             this.CreateCore();
             this.ParseTemplate();
+            this.ParseDirectories();
+        }
+
+        private void ParseDirectories()
+        {
+            _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory.FullName);
         }
 
         protected virtual void ParseTemplate()

@@ -8,8 +8,8 @@ namespace Crane.Core.Templates.Psake
 {
     public class PsakeBuildTemplate : BaseTemplate, IBuildTemplate
     {
-        public PsakeBuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser) :
-            base(context, configuration, fileManager, templateParser)
+        public PsakeBuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser) :
+            base(context, configuration, fileManager, templateParser, fileAndDirectoryTokenParser)
         {
         }
 
