@@ -3,6 +3,7 @@ using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
+using Crane.Core.Utility;
 
 namespace Crane.Core.Templates
 {
@@ -14,8 +15,14 @@ namespace Crane.Core.Templates
         private readonly ICraneContext _context;
         private readonly IConfiguration _configuration;
         private DirectoryInfo _templateSourceDirectory;
+        private DirectoryInfo _templateTargetDirectory;
 
-        protected BaseTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser)
+        protected BaseTemplate(
+            ICraneContext context, 
+            IConfiguration configuration, 
+            IFileManager fileManager, 
+            ITemplateParser templateParser, 
+            IFileAndDirectoryTokenParser fileAndDirectoryTokenParser)
         {
             _fileManager = fileManager;
             _templateParser = templateParser;
@@ -27,6 +34,7 @@ namespace Crane.Core.Templates
         protected abstract void CreateCore();
         
         public abstract string Name { get; }
+        public abstract TemplateType TemplateType { get; }
 
         public DirectoryInfo TemplateSourceDirectory
         {
@@ -40,6 +48,25 @@ namespace Crane.Core.Templates
                 return _templateSourceDirectory;
             }
             set { _templateSourceDirectory = value; }
+        }
+
+        /// <summary>
+        /// The name of the folder where the template will place it's files after being created i.e. build or src
+        /// </summary>
+        public abstract string TemplateTargetRootFolderName { get; }
+
+        public DirectoryInfo TemplateTargetDirectory
+        {
+            get
+            {
+                if (_templateTargetDirectory == null)
+                {
+                    _templateTargetDirectory = new DirectoryInfo(Path.Combine(Context.ProjectRootDirectory.FullName, TemplateTargetRootFolderName));
+                }
+
+                return _templateTargetDirectory;
+            }
+            set { _templateTargetDirectory = value; }
         }
         
         protected abstract IEnumerable<FileInfo> TemplatedFiles { get; }
@@ -62,13 +89,13 @@ namespace Crane.Core.Templates
         public void Create()
         {
             this.CreateCore();
+            this.RenameDirectoriesAndFiles();
             this.ParseTemplate();
-            this.ParseDirectories();
         }
 
-        private void ParseDirectories()
+        private void RenameDirectoriesAndFiles()
         {
-            _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory.FullName);
+            _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory);
         }
 
         protected virtual void ParseTemplate()

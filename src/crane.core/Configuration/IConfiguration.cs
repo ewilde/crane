@@ -12,5 +12,7 @@ namespace Crane.Core.Configuration
         /// Name of the folder containing the projects source code
         /// </summary>
         string SourceFolderName { get; }
+
+        string SourceTemplateProviderName { get; }
     }
 }

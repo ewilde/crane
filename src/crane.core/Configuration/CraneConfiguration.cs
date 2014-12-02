@@ -6,6 +6,7 @@ namespace Crane.Core.Configuration
     public class CraneConfiguration : IConfiguration
     {
         public const string DefaultTemplateProviderName = "Psake";
+        public const string DefaultSourceProviderName = "VisualStudio";
         public const string DefaultBuildFolderName = "build";
         public const string DefaultSourceFolderName = "src";
 
@@ -37,6 +38,11 @@ namespace Crane.Core.Configuration
             {
                 return DefaultSourceFolderName;
             }
+        }
+
+        public string SourceTemplateProviderName
+        {
+            get { return DefaultSourceProviderName; }
         }
     }
 }

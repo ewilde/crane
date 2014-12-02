@@ -17,8 +17,8 @@ namespace Crane.Core.Configuration.Modules
                 .AssignableTo<ITemplate>()
                 .AsImplementedInterfaces();
 
+            builder.RegisterType<TokenDictionary>().As<ITokenDictionary>().SingleInstance();
             builder.RegisterType<TokenTemplateParser>().As<ITemplateParser>();
-            builder.RegisterType<TemplateResolver>().As<ITemplateResolver>();
         }
     }
 }

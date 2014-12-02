@@ -35,7 +35,7 @@ namespace Crane.Core.Tests.Templates.Psake
                 ._(() => A.CallTo(() => buildTemplate.GetMock<IFileManager>()
                     .CopyFiles(
                             buildTemplate.Subject.TemplateSourceDirectory.FullName,
-                            string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultBuildFolderName), "*.*"))
+                            string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultBuildFolderName), true))
                     .MustHaveHappened());
         }
     }

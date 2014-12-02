@@ -91,6 +91,8 @@
     <Compile Include="Templates\Parsers\FileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\IFileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\ITemplateParser.cs" />
+    <Compile Include="Templates\Parsers\ITokenDictionary.cs" />
+    <Compile Include="Templates\Parsers\TokenDictionary.cs" />
     <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
     <Compile Include="Templates\Parsers\RazorTemplateParser.cs" />
@@ -111,6 +113,7 @@
     </None>
     <Compile Include="Templates\VisualStudio\VisualStudioTemplate.cs" />
     <Compile Include="Utility\AssemblyUtility.cs" />
+    <Compile Include="Utility\IEnumerableExtensions.cs" />
     <Compile Include="Utility\StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +139,7 @@
     <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\%context.ProjectName%.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\Solution1.sln">
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

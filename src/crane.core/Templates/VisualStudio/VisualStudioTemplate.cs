@@ -8,7 +8,12 @@ namespace Crane.Core.Templates.VisualStudio
 {
     public class VisualStudioTemplate : BaseTemplate
     {
-        public VisualStudioTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser) :
+        public VisualStudioTemplate(
+            ICraneContext context, 
+            IConfiguration configuration, 
+            IFileManager fileManager, 
+            ITemplateParser templateParser, 
+            IFileAndDirectoryTokenParser fileAndDirectoryTokenParser) :
             base(context, configuration, fileManager, templateParser, fileAndDirectoryTokenParser)
         {
         }
@@ -17,9 +22,7 @@ namespace Crane.Core.Templates.VisualStudio
         {
             var srcDir = Context.SourceDirectory.FullName;
             FileManager.CreateDirectory(srcDir);
-            FileManager.CopyFiles(TemplateSourceDirectory.FullName, srcDir, "*.*");
-            FileManager.RenameDirectory(Path.Combine(srcDir, "ClassLibrary1"), Context.ProjectName);
-            FileManager.RenameDirectory(Path.Combine(srcDir, "ClassLibrary1.Tests"), Context.ProjectName);
+            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "2013"), srcDir, true);
         }
 
         public override string Name
@@ -27,14 +30,26 @@ namespace Crane.Core.Templates.VisualStudio
             get { return "VisualStudio"; }
         }
 
+        public override TemplateType TemplateType
+        {
+            get { return  TemplateType.Source; }
+        }
+
+        public override string TemplateTargetRootFolderName
+        {
+            get { return Context.SourceDirectory.Name; }
+        }
+
         protected override IEnumerable<FileInfo> TemplatedFiles
         {
             get
             {
-                return new[]
+                if (TemplateTargetDirectory.Exists)
                 {
-                    new FileInfo(Path.Combine(Context.SourceDirectory.FullName, string.Format("{0}.sln", Context.ProjectName)))
-                };
+                    return TemplateTargetDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories);
+                }
+
+                return new FileInfo[] {};
             }
         }
     }

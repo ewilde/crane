@@ -50,15 +50,15 @@ namespace Crane.Core.Tests.Templates.VisualStudio
             "It should copy all the files from the template directory to the src directory"
                 ._(()=> A.CallTo(() => fileManager
                     .CopyFiles(
-                        studioTemplate.Subject.TemplateSourceDirectory.FullName,
-                        string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultSourceFolderName), "*.*"))
+                        Path.Combine(studioTemplate.Subject.TemplateSourceDirectory.FullName, "2013"),
+                        string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultSourceFolderName), true))
                     .MustHaveHappened());
 
             "It should rename all the tokenized directories"
                 ._(
                     () =>
                         A.CallTo(
-                            () => studioTemplate.GetMock<IFileAndDirectoryTokenParser>().Parse(context.ProjectRootDirectory.FullName))
+                            () => studioTemplate.GetMock<IFileAndDirectoryTokenParser>().Parse(context.ProjectRootDirectory))
                             .MustHaveHappened());
         }
     }

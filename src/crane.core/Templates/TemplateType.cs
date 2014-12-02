@@ -4,7 +4,6 @@
     {
         Unknown,
         Build,
-        Project,
-        Solution
+        Source
     }
 }

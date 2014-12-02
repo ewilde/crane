@@ -4,6 +4,7 @@ using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.Templates.Parsers;
 using Crane.Core.Tests.TestExtensions;
+using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
@@ -20,9 +21,12 @@ namespace Crane.Core.Tests.Templates.Parsers
                 ._(() => tokenParser = B.AutoMock<TokenTemplateParser>());
             
             "And I have a context with a project name"
-                ._(() => ContextUtility.Configure(tokenParser.GetMock<ICraneContext>(), 
-                                                    projectName: "ServiceStack", 
-                                                    projectRootDirectory: new DirectoryInfo(@"c:\dev\servicestack")));
+                ._(() => TokenDictionaryUtility.Defaults(tokenParser.GetMock<ITokenDictionary>(),
+                    new Dictionary<string, Func<string>>
+                    {
+                        { "%context.ProjectName%", () => @"ServiceStack" },
+                        { "%context.ProjectRootDirectory.FullName%", () => @"c:\dev\servicestack" }
+                    }));
             
             "When I parse the template"
                 ._(() => result = tokenParser.Subject.Parse("Hello %context.ProjectName% in directory %context.ProjectRootDirectory.FullName%", null));

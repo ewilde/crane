@@ -20,9 +20,22 @@ namespace Crane.Core.Templates.Resolvers
 
         public ITemplate Resolve(TemplateType templateType)
         {
+            var name = string.Empty;
+
+            switch (templateType)
+            {
+               case TemplateType.Build:
+                    name = _configuration.BuildTemplateProviderName;
+                    break;
+                case TemplateType.Source:
+                    name = _configuration.SourceTemplateProviderName;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("templateType");
+            }
             return
                 Templates.FirstOrDefault(
-                    item => item.Name.Equals(_configuration.BuildTemplateProviderName, StringComparison.InvariantCultureIgnoreCase));
+                    item => item.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

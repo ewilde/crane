@@ -7,21 +7,13 @@ namespace Crane.Core.Templates.Parsers
 {
     public class TokenTemplateParser : ITemplateParser
     {
+        private readonly ITokenDictionary _tokenDictionary;
         private readonly IGuidGenerator _guidGenerator;
-        private readonly Dictionary<string, Func<string>> _tokens; 
 
-        public TokenTemplateParser(ICraneContext context, IGuidGenerator guidGenerator)
+        public TokenTemplateParser(ITokenDictionary tokenDictionary, IGuidGenerator guidGenerator)
         {
+            _tokenDictionary = tokenDictionary;
             _guidGenerator = guidGenerator;
-            _tokens = new Dictionary<string, Func<string>>
-            {
-                { "%context.ProjectName%", () => context.ProjectName},
-                { "%context.BuildDirectory.FullName%", () => context.BuildDirectory.FullName},
-                { "%context.CraneInstallDirectory.FullName%", () => context.CraneInstallDirectory.FullName},
-                { "%context.ProjectRootDirectory.FullName%", () => context.ProjectRootDirectory.FullName},
-                { "%context.Configuration.BuildFolderName%", () => context.Configuration.BuildFolderName},
-                { "%context.Configuration.BuildTemplateProviderName%", () => context.Configuration.BuildTemplateProviderName},
-            };
         }
 
         public string Parse(string template, object model)
@@ -33,7 +25,7 @@ namespace Crane.Core.Templates.Parsers
 
         private string ParseContextTokens(string template)
         {
-            foreach (var token in _tokens)
+            foreach (var token in _tokenDictionary.Tokens)
             {
                 if (template.Contains(token.Key))
                 {
