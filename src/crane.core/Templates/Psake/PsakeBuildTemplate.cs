@@ -6,15 +6,18 @@ using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates.Psake
 {
-    public class PsakeBuildTemplate : BuildTemplate
+    public class PsakeBuildTemplate : BaseTemplate, IBuildTemplate
     {
-        private DirectoryInfo _templateSourceDirectory;
-
-        public PsakeBuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser) :
-            base(context, configuration, fileManager, templateParser)
+        public PsakeBuildTemplate(ICraneContext context, IConfiguration configuration, IFileManager fileManager, ITemplateParser templateParser, IFileAndDirectoryTokenParser fileAndDirectoryTokenParser) :
+            base(context, configuration, fileManager, templateParser, fileAndDirectoryTokenParser)
         {
         }
 
+
+        public override string TemplateTargetRootFolderName
+        {
+            get { return Context.BuildDirectory.Name; }
+        }
 
         protected override IEnumerable<FileInfo> TemplatedFiles
         {
@@ -29,13 +32,13 @@ namespace Crane.Core.Templates.Psake
                 FileManager.CreateDirectory(destination);
             }
 
-            FileManager.CopyFiles(TemplateSourceDirectory.FullName, destination, "*.*");
+            FileManager.CopyFiles(TemplateSourceDirectory.FullName, destination, true);
 
             var buildScript = FileManager.ReadAllText(BuildScript.FullName).Replace("%context.ProjectName%", Context.ProjectName);
             FileManager.WriteAllText(BuildScript.FullName, buildScript);
         }
 
-        public override FileInfo BuildScript
+        public FileInfo BuildScript
         {
             get { return new FileInfo(Path.Combine(Context.BuildDirectory.FullName, "default.ps1")); }
         }
@@ -45,18 +48,9 @@ namespace Crane.Core.Templates.Psake
             get { return "Psake"; }
         }
 
-        public override DirectoryInfo TemplateSourceDirectory
+        public override TemplateType TemplateType
         {
-            get
-            {
-                if (_templateSourceDirectory == null)
-                {
-                    _templateSourceDirectory = new DirectoryInfo(Path.Combine(Context.CraneInstallDirectory.FullName, "Templates", "Psake", "Files"));
-                }
-
-                return _templateSourceDirectory;
-            }
-            set { _templateSourceDirectory = value; }
+            get { return TemplateType.Build; }
         }
     }
 }

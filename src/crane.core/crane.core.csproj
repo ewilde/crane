@@ -83,17 +83,37 @@
     <Compile Include="IO\IOutput.cs" />
     <Compile Include="IO\Output.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Templates\BuildTemplate.cs" />
+    <Compile Include="System\GuidGenerator.cs" />
+    <Compile Include="System\IGuidGenerator.cs" />
+    <Compile Include="Templates\BaseTemplate.cs" />
     <Compile Include="Templates\IBuildTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\Parsers\FileAndDirectoryTokenParser.cs" />
+    <Compile Include="Templates\Parsers\IFileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\ITemplateParser.cs" />
+    <Compile Include="Templates\Parsers\ITokenDictionary.cs" />
+    <Compile Include="Templates\Parsers\TokenDictionary.cs" />
     <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
     <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
     <Compile Include="Templates\Parsers\RazorTemplateParser.cs" />
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Class1.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Class1.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Templates\VisualStudio\VisualStudioTemplate.cs" />
     <Compile Include="Utility\AssemblyUtility.cs" />
+    <Compile Include="Utility\IEnumerableExtensions.cs" />
     <Compile Include="Utility\StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +130,22 @@
     <None Include="Templates\Psake\Files\psake.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\%context.ProjectName%.Tests.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\%context.ProjectName%.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -7,29 +7,42 @@ namespace Crane.Core.Templates.Parsers
 {
     public class TokenTemplateParser : ITemplateParser
     {
-        private readonly Dictionary<string, Func<string>> _tokens; 
+        private readonly ITokenDictionary _tokenDictionary;
+        private readonly IGuidGenerator _guidGenerator;
 
-        public TokenTemplateParser(ICraneContext context)
+        public TokenTemplateParser(ITokenDictionary tokenDictionary, IGuidGenerator guidGenerator)
         {
-            _tokens = new Dictionary<string, Func<string>>
-            {
-                { "%context.ProjectName%", () => context.ProjectName},
-                { "%context.BuildDirectory.FullName%", () => context.BuildDirectory.FullName},
-                { "%context.CraneInstallDirectory.FullName%", () => context.CraneInstallDirectory.FullName},
-                { "%context.ProjectRootDirectory.FullName%", () => context.ProjectRootDirectory.FullName},
-                { "%context.Configuration.BuildFolderName%", () => context.Configuration.BuildFolderName},
-                { "%context.Configuration.BuildTemplateProviderName%", () => context.Configuration.BuildTemplateProviderName},
-            };
+            _tokenDictionary = tokenDictionary;
+            _guidGenerator = guidGenerator;
         }
 
         public string Parse(string template, object model)
         {
-            foreach (var token in _tokens)
+            template = ParseContextTokens(template);
+            template = ParseGuidTokens(template);
+            return template;
+        }
+
+        private string ParseContextTokens(string template)
+        {
+            foreach (var token in _tokenDictionary.Tokens)
             {
                 if (template.Contains(token.Key))
                 {
                     template = template.Replace(token.Key, token.Value.Invoke());
                 }
+            }
+
+            return template;
+        }
+
+        private string ParseGuidTokens(string template)
+        {
+            int guidIndex = 1;            
+            while (template.Contains("%GUID-"))
+            {
+                template = template.Replace(string.Format("%GUID-{0}%", guidIndex), _guidGenerator.Create().ToString("B"));
+                guidIndex += 1;
             }
 
             return template;

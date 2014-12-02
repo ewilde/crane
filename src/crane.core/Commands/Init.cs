@@ -31,6 +31,14 @@ namespace Crane.Core.Commands
         {
             _context.ProjectRootDirectory = new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, _context.ProjectName));
             _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
+
+            var visualStudio = _templateResolver.Resolve(TemplateType.Source);
+            if (visualStudio == null)
+            {
+                throw new Exception("Project template not found, please check your configuration");
+            }
+
+            visualStudio.Create();
         }
 
         private void CreateBuild()

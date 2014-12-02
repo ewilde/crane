@@ -6,17 +6,24 @@ namespace Crane.Core.IO
 {
     public interface IFileManager
     {
-        IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption);
+        void CopyFiles(string source, string destination, bool copySubDirectories);
 
-        void CopyFiles(string source, string destination, string filter);
-        
-        bool DirectoryExists(string directory);
+        string CurrentDirectory { get; }
 
         void CreateDirectory(string destination);
 
+        bool DirectoryExists(string directory);
+
+        IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption);
+
         string ReadAllText(string path);
 
+        void RenameDirectory(string path, string name);
+
         void WriteAllText(string path, string text);
-        string CurrentDirectory { get; }
+
+        string GetTemporaryDirectory();
+
+        void RenameFile(string path, string name);
     }
 }

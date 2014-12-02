@@ -10,7 +10,9 @@ namespace Crane.Core.Tests.TestExtensions
         public static void PostInit(
             IConfiguration configuration, 
             string buildProviderName = null, 
-            string buildFolderName = null)
+            string buildFolderName = null,
+            string sourceProviderName = null,
+            string sourceFolderName = null)
         {
             if (buildFolderName == null)
             {
@@ -18,7 +20,9 @@ namespace Crane.Core.Tests.TestExtensions
             }
 
             A.CallTo(() => configuration.BuildTemplateProviderName).Returns(buildProviderName ?? CraneConfiguration.DefaultTemplateProviderName);
+            A.CallTo(() => configuration.SourceTemplateProviderName).Returns(sourceProviderName ?? CraneConfiguration.DefaultSourceProviderName);
             A.CallTo(() => configuration.BuildFolderName).Returns(buildFolderName);
+            A.CallTo(() => configuration.SourceFolderName).Returns(sourceFolderName ?? CraneConfiguration.DefaultSourceFolderName);
         }
     }
 }
