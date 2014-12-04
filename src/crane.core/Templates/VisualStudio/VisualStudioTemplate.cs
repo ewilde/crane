@@ -20,9 +20,9 @@ namespace Crane.Core.Templates.VisualStudio
 
         protected override void CreateCore()
         {
-            var srcDir = Context.SourceDirectory.FullName;
+            var srcDir = Context.ProjectRootDirectory.FullName;
             FileManager.CreateDirectory(srcDir);
-            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "2013", "src"), srcDir, true);
+            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "2013"), srcDir, true);
         }
 
         public override string Name
