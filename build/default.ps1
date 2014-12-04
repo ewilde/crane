@@ -16,7 +16,7 @@ param(
 Import-Module (Join-Path $build_dir 'psake-ext.psm1')
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends BuildCrane, Test, ChocolateyBuildPackage
+Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
 
