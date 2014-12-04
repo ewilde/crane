@@ -39,14 +39,23 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack")).Should().BeTrue());
 
             "It should rename the test class library folder name with the current project name"
-                ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack.Tests")).Should().BeTrue());
+                ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack.UnitTests")).Should().BeTrue());
 
             "It should rename the solution file with the current project name"
                 ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack.sln")).Should().BeTrue());
 
             "It should replace the tokens in the solution file"
                 ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack.sln"))
-                    .Should().NotContain("%GUID-1%").And.NotContain("%GUID-2%"))
+                    .Should().NotContain("%GUID-1%").And.NotContain("%GUID-2%"));
+
+            "It should replace the tokens in the project file"
+                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, context.ProjectName, string.Format("{0}.csproj", context.ProjectName)))
+                    .Should().NotContain("%GUID-1%"));
+
+            "It should replace the tokens in the project unit test file"
+                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, string.Format("{0}.UnitTests", context.ProjectName), string.Format("{0}.UnitTests.csproj", context.ProjectName)))
+                    .Should().NotContain("%GUID-1%"))
+
 
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }

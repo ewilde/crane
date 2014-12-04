@@ -53,7 +53,7 @@ namespace Crane.Core.Templates.Parsers
         {
             foreach (var token in _tokenDictionary.Tokens)
             {
-                if (path.FullName.Contains(token.Key))
+                if (path.Name.Contains(token.Key))
                 {
                     _fileManager.RenameFile(path.FullName, path.Name.Replace(token.Key, token.Value.Invoke()));
                 }

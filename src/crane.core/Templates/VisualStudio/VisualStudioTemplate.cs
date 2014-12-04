@@ -22,7 +22,7 @@ namespace Crane.Core.Templates.VisualStudio
         {
             var srcDir = Context.SourceDirectory.FullName;
             FileManager.CreateDirectory(srcDir);
-            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "2013"), srcDir, true);
+            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "2013", "src"), srcDir, true);
         }
 
         public override string Name
@@ -33,11 +33,6 @@ namespace Crane.Core.Templates.VisualStudio
         public override TemplateType TemplateType
         {
             get { return  TemplateType.Source; }
-        }
-
-        public override string TemplateTargetRootFolderName
-        {
-            get { return Context.SourceDirectory.Name; }
         }
 
         protected override IEnumerable<FileInfo> TemplatedFiles

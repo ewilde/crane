@@ -53,5 +53,33 @@ namespace Crane.Core.Tests.Templates.Parsers
                     .Replace("%GUID-1%", guid1.ToString("B"))
                     .Replace("%GUID-2%", guid2.ToString("B"))));
         }
+        [Scenario]
+        public void Correctly_replaces_guid_tokens_across_files(MockContainer<TokenTemplateParser> tokenParser, string template)
+        {
+            string result1 = null; string result2 = null; var guid1 = Guid.NewGuid(); var guid2 = Guid.NewGuid(); var guid3 = Guid.NewGuid(); var guid4 = Guid.NewGuid();
+            "Given I have a token template parser"
+                ._(() => tokenParser = B.AutoMock<TokenTemplateParser>());
+
+            "And it has two guids"
+                ._(() => A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).ReturnsNextFromSequence(guid1, guid2, guid3, guid4));
+
+            "When I parse a template with guid tokens in one file"
+                ._(() => result1 = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
+
+            "When I parse a template with guid tokens in one file"
+                ._(() => result2 = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
+
+            "Then the guid tokens should be replaced in the first file"
+                ._(() => result1.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"
+                    .Replace("%GUID-1%", guid1.ToString("B"))
+                    .Replace("%GUID-2%", guid2.ToString("B"))));
+
+            "Then the guid tokens should be replaced in the second file"
+                ._(() => result2.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"
+                    .Replace("%GUID-1%", guid1.ToString("B"))
+                    .Replace("%GUID-2%", guid2.ToString("B"))));
+
+            
+        }
     }
 }
