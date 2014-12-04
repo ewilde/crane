@@ -33,7 +33,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => File.ReadAllText("./ServiceStack/build/default.ps1").Should().Contain("ServiceStack.sln"))
                 .Teardown(() =>  Directory.Delete("./ServiceStack", recursive: true));
 
-
+             
         }
 
         
