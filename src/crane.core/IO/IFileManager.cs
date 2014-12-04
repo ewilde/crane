@@ -25,5 +25,6 @@ namespace Crane.Core.IO
         string GetTemporaryDirectory();
 
         void RenameFile(string path, string name);
+        void Delete(DirectoryInfo directory);
     }
 }

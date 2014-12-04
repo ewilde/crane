@@ -73,6 +73,11 @@ namespace Crane.Core.IO
             File.Move(path, Path.Combine(new FileInfo(path).DirectoryName, name));
         }
 
+        public void Delete(DirectoryInfo directory)
+        {
+            Directory.Delete(directory.FullName, true);
+        }
+
         public string ReadAllText(string path)
         {
             return File.ReadAllText(path);            
