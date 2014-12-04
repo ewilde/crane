@@ -61,3 +61,15 @@ Task Test {
         & $xunit_consoleRunner @($_.FullName, '/silent')
     }
 }
+
+Task ChocolateyExists{
+    try{
+	    & choco 
+    }catch{	    
+        iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+    }
+}
+
+Task ChocolateyBuildPackage -Depends ChocolateyExists{
+    Start-Process -FilePath cpack -WorkingDirectory "$src_dir\Crane.Chocolatey"    
+}
