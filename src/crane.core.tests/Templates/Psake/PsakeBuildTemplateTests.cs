@@ -34,7 +34,7 @@ namespace Crane.Core.Tests.Templates.Psake
             "It should copy all the template files to the new project's build directory"
                 ._(() => A.CallTo(() => buildTemplate.GetMock<IFileManager>()
                     .CopyFiles(
-                            buildTemplate.Subject.TemplateSourceDirectory.FullName,
+                            Path.Combine(buildTemplate.Subject.TemplateSourceDirectory.FullName, "build"),
                             string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultBuildFolderName), true))
                     .MustHaveHappened());
         }

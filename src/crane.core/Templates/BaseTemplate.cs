@@ -50,18 +50,13 @@ namespace Crane.Core.Templates
             set { _templateSourceDirectory = value; }
         }
 
-        /// <summary>
-        /// The name of the folder where the template will place it's files after being created i.e. build or src
-        /// </summary>
-        public abstract string TemplateTargetRootFolderName { get; }
-
         public DirectoryInfo TemplateTargetDirectory
         {
             get
             {
                 if (_templateTargetDirectory == null)
                 {
-                    _templateTargetDirectory = new DirectoryInfo(Path.Combine(Context.ProjectRootDirectory.FullName, TemplateTargetRootFolderName));
+                    _templateTargetDirectory = new DirectoryInfo(Context.ProjectRootDirectory.FullName);
                 }
 
                 return _templateTargetDirectory;

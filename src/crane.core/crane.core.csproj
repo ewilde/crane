@@ -99,16 +99,16 @@
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Class1.cs">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.UnitTests\Class1.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\Properties\AssemblyInfo.cs">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.UnitTests\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Class1.cs">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%\Class1.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\Properties\AssemblyInfo.cs">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="Templates\VisualStudio\VisualStudioTemplate.cs" />
@@ -118,28 +118,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Templates\Psake\Files\default.ps1">
+    <None Include="Templates\Psake\Files\build\default.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Psake\Files\psake-ext.psm1">
+    <None Include="Templates\Psake\Files\build\psake-ext.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Psake\Files\psake.ps1">
+    <None Include="Templates\Psake\Files\build\psake.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Psake\Files\psake.psm1">
+    <None Include="Templates\Psake\Files\build\psake.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\packages.config">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.UnitTests\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.Tests\%context.ProjectName%.Tests.csproj">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.UnitTests\%context.ProjectName%.UnitTests.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%\%context.ProjectName%.csproj">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%\%context.ProjectName%.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\VisualStudio\Files\2013\%context.ProjectName%.sln">
+    <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

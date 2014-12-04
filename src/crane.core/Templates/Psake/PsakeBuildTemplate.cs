@@ -13,12 +13,6 @@ namespace Crane.Core.Templates.Psake
         {
         }
 
-
-        public override string TemplateTargetRootFolderName
-        {
-            get { return Context.BuildDirectory.Name; }
-        }
-
         protected override IEnumerable<FileInfo> TemplatedFiles
         {
             get { return new[] {this.BuildScript};}
@@ -32,7 +26,7 @@ namespace Crane.Core.Templates.Psake
                 FileManager.CreateDirectory(destination);
             }
 
-            FileManager.CopyFiles(TemplateSourceDirectory.FullName, destination, true);
+            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "build"), destination, true);
 
             var buildScript = FileManager.ReadAllText(BuildScript.FullName).Replace("%context.ProjectName%", Context.ProjectName);
             FileManager.WriteAllText(BuildScript.FullName, buildScript);

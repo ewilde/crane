@@ -50,7 +50,7 @@ namespace Crane.Core.Tests.Templates.VisualStudio
             "It should copy all the files from the template directory to the src directory"
                 ._(()=> A.CallTo(() => fileManager
                     .CopyFiles(
-                        Path.Combine(studioTemplate.Subject.TemplateSourceDirectory.FullName, "2013"),
+                        Path.Combine(studioTemplate.Subject.TemplateSourceDirectory.FullName, "2013", "src"),
                         string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultSourceFolderName), true))
                     .MustHaveHappened());
 

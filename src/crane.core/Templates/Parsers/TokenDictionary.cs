@@ -21,6 +21,7 @@ namespace Crane.Core.Templates.Parsers
                 { "%context.ProjectRootDirectory.FullName%", () => context.ProjectRootDirectory.FullName},
                 { "%context.Configuration.BuildFolderName%", () => context.Configuration.BuildFolderName},
                 { "%context.Configuration.BuildTemplateProviderName%", () => context.Configuration.BuildTemplateProviderName},
+                { "%DateTime.Now.Year%", () => DateTime.Now.Year.ToString()},
             };
         }
 
