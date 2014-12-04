@@ -20,16 +20,7 @@ namespace Crane.Core.Templates.Psake
 
         protected override void CreateCore()
         {
-            var destination = Context.BuildDirectory.FullName;
-            if (!FileManager.DirectoryExists(destination))
-            {
-                FileManager.CreateDirectory(destination);
-            }
-
-            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName, "build"), destination, true);
-
-            var buildScript = FileManager.ReadAllText(BuildScript.FullName).Replace("%context.ProjectName%", Context.ProjectName);
-            FileManager.WriteAllText(BuildScript.FullName, buildScript);
+            FileManager.CopyFiles(Path.Combine(TemplateSourceDirectory.FullName), Context.ProjectRootDirectory.FullName, true);
         }
 
         public FileInfo BuildScript

@@ -25,17 +25,11 @@ namespace Crane.Core.Tests.Templates.Psake
             "When I call create"
                 ._(() => buildTemplate.Subject.Create());
 
-            "It should create a build directory"
-                ._(() =>
-                        A.CallTo(() => buildTemplate.GetMock<IFileManager>()
-                                .CreateDirectory(string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultBuildFolderName)))
-                                .MustHaveHappened());
-
             "It should copy all the template files to the new project's build directory"
                 ._(() => A.CallTo(() => buildTemplate.GetMock<IFileManager>()
                     .CopyFiles(
-                            Path.Combine(buildTemplate.Subject.TemplateSourceDirectory.FullName, "build"),
-                            string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultBuildFolderName), true))
+                            buildTemplate.Subject.TemplateSourceDirectory.FullName,
+                            string.Format(@"c:\dev\servicestack"), true))
                     .MustHaveHappened());
         }
     }

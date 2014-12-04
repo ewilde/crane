@@ -99,6 +99,9 @@
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
+    <None Include="Templates\Psake\Files\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\VisualStudio\Files\2013\src\%context.ProjectName%.UnitTests\Class1.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

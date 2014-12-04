@@ -29,6 +29,9 @@ namespace Crane.Integration.Tests.Features.Templates
             "When I call create on the template"
                 ._(() => template.Create());
 
+            "It place a build.ps1 in the root project directory"
+                ._(() => File.Exists(Path.Combine(context.ProjectRootDirectory.FullName, "build.ps1")).Should().BeTrue("build.ps1 should be in root directory"));
+
             "It should replace the solution file name in the build script with the project name"
                 ._(() => File.ReadAllText(template.BuildScript.FullName).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));            

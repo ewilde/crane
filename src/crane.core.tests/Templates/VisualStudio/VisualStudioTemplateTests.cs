@@ -32,26 +32,18 @@ namespace Crane.Core.Tests.Templates.VisualStudio
                 ._(() =>
                 {
                     context = studioTemplate.GetMock<ICraneContext>();
+                    fileManager = studioTemplate.GetMock<IFileManager>();
                     ContextUtility.Configure(context, projectName: "ServiceStack", projectRootDirectory: new DirectoryInfo(@"c:\dev\servicestack"));
                 });
 
             "When I call create"
                 ._(() => studioTemplate.Subject.Create());
 
-            "It should create a src directory"
-                 ._(() =>
-                 {
-                     fileManager = studioTemplate.GetMock<IFileManager>();
-                     A.CallTo(() => fileManager
-                         .CreateDirectory(string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultSourceFolderName)))
-                         .MustHaveHappened();
-                 });
-
             "It should copy all the files from the template directory to the src directory"
                 ._(()=> A.CallTo(() => fileManager
                     .CopyFiles(
-                        Path.Combine(studioTemplate.Subject.TemplateSourceDirectory.FullName, "2013", "src"),
-                        string.Format(@"c:\dev\servicestack\{0}", CraneConfiguration.DefaultSourceFolderName), true))
+                        Path.Combine(studioTemplate.Subject.TemplateSourceDirectory.FullName, "2013"),
+                        @"c:\dev\servicestack", true))
                     .MustHaveHappened());
 
             "It should rename all the tokenized directories"
