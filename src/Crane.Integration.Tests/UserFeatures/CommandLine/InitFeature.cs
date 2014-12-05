@@ -44,6 +44,28 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 .Teardown(() => craneTestContext.TearDown());
         }
 
+        [Scenario]
+        public void Init_with_a_project_name_twice_gives_error(Run run, RunResult result, CraneTestContext craneTestContext)
+        {
+            "Given I have my own private copy of the crane console"
+                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+
+            "And I have a run context"
+                ._(() => run = new Run());
+
+            "And I have run crane init ServiceStack"
+                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
+
+            "When I run crane init ServiceStack"
+                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
+
+            "It should give an error'"
+                ._(() => result.StandardOutput.Should().Contain("ServiceStack"));
+
+            "It should not have an exit code of 0"
+                ._(() => result.ExitCode.Should().NotBe(0))
+                .Teardown(() => craneTestContext.TearDown());
+        }
         
     }
 }

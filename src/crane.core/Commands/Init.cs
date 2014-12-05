@@ -24,14 +24,19 @@ namespace Crane.Core.Commands
 
         public void Execute(string projectName)
         {
+            
             _context.ProjectName = projectName;
             CreateProject();
             CreateBuild();
+            
         }
 
         private void CreateProject()
         {
             _context.ProjectRootDirectory = new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, _context.ProjectName));
+            if (_fileManager.DirectoryExists(_context.ProjectRootDirectory.FullName))
+                throw new CraneException(string.Format("directory {0} already exists", _context.ProjectName));
+
             _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
 
             var visualStudio = _templateResolver.Resolve(TemplateType.Source);

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Crane.Core.Commands.Resolvers;
 using Crane.Core.IO;
 
@@ -26,7 +28,7 @@ namespace Crane.Core.Commands.Execution
         }
 
 
-        public void ExecuteCommand(string[] arguments)
+        public int ExecuteCommand(string[] arguments)
         {
             var command = _commandResolver.Resolve(_commands, arguments[0]);
             var methodArgs = arguments.Skip(1).ToArray();
@@ -34,13 +36,27 @@ namespace Crane.Core.Commands.Execution
 
             if (method != null)
             {
-                method.Invoke(command, methodArgs.Cast<object>().ToArray());
-                _output.WriteSuccess("{0} success.", command.Name);
+                try
+                {
+                    method.Invoke(command, methodArgs.Cast<object>().ToArray());
+                    _output.WriteSuccess("{0} success.", command.Name);
+                }
+                catch(TargetInvocationException targetInvocationException)
+                {
+                    var message = targetInvocationException.InnerException != null
+                        ? targetInvocationException.InnerException.Message
+                        : targetInvocationException.Message;
+
+                    _output.WriteError("error: {0} ", message);
+                    return -1;
+                }
             }
             else
             {
                 _didYouMeanExecutor.PrintHelp(command, arguments);    
             }
+
+            return 0;
         }
     }
 }
