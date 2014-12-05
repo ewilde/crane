@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
@@ -44,7 +45,7 @@ namespace Crane.Core.Templates.VisualStudio
                     return TemplateTargetDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories);
                 }
 
-                return new FileInfo[] {};
+                return Enumerable.Empty<FileInfo>();
             }
         }
     }
