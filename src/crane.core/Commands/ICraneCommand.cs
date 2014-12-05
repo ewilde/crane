@@ -2,5 +2,6 @@
 {
     public interface ICraneCommand
     {
+        string Name { get; }
     }
 }

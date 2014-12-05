@@ -14,6 +14,8 @@ namespace Crane.Core.Tests.Commands.Execution
         private class Construct : ICraneCommand
         {
             public void Execute() { }
+
+            public string Name { get { return "Construct"; } }
         }
 
         public class CaptureOutput : IOutput
@@ -28,6 +30,31 @@ namespace Crane.Core.Tests.Commands.Execution
             public void WriteLine(string format, params object[] args)
             {
                 _capture(string.Format(format, args));
+            }
+
+            public void WriteInfo(string format, params object[] args)
+            {
+                _capture(string.Format(format, args));
+            }
+
+            public void WriteSuccess(string format, params object[] args)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void WriteError(string format, params object[] args)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void WriteDebug(string format, params object[] args)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void WriteWarning(string format, params object[] args)
+            {
+                throw new NotImplementedException();
             }
         }
 
@@ -46,7 +73,9 @@ namespace Crane.Core.Tests.Commands.Execution
 
         private class Build : ICraneCommand
         {
+
             public void Execute(string project) { }
+            public string Name { get { return "Build"; } }
         }
 
         [Scenario]
@@ -64,6 +93,7 @@ namespace Crane.Core.Tests.Commands.Execution
 
         private class Hoist : ICraneCommand
         {
+            public string Name { get { return "Hoist"; } }
             public void Execute(string from, string to) { }
         }
 

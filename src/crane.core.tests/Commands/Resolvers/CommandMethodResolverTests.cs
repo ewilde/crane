@@ -13,6 +13,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
         {
             private class SingleMethodCommand : ICraneCommand
             {
+                public string Name { get { return "SingleMethodCommand"; } }
                 public void Execute() { }
             }
 
@@ -48,10 +49,12 @@ namespace Crane.Core.Tests.Commands.Resolvers
 
             private class MultipleMethodCommand : ICraneCommand
             {
+
                 public void NoArgsMethod()
                 {
                 }
 
+                public string Name { get { return "MultipleMethodCommand"; } }
                 public void OneArgMethod(string arg1)
                 {
                 }
@@ -145,6 +148,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
 
                 public void Execute() {}
 
+                public string Name { get { return "TestCommandWithAutoProperty"; } }
             }
 
             [Scenario]

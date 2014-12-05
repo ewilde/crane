@@ -81,7 +81,7 @@
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />
     <Compile Include="IO\IOutput.cs" />
-    <Compile Include="IO\Output.cs" />
+    <Compile Include="IO\ConsoleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\IGuidGenerator.cs" />

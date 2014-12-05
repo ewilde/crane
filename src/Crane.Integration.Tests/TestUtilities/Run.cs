@@ -2,13 +2,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities
 {
     public class Run
     {
-        public RunResult Command(string path,string command)
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Run));
+
+        public RunResult Command(string path, string command)
         {
+            _log.DebugFormat("Running process {0} using path {1}", command, path);
             var error = new StringBuilder();
             var output = new StringBuilder();
 
@@ -19,6 +23,7 @@ namespace Crane.Integration.Tests.TestUtilities
             {
                 StartInfo = new ProcessStartInfo
                 {
+                    WorkingDirectory = path,
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,

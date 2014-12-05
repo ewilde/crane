@@ -6,9 +6,7 @@ using Xbehave;
 namespace Crane.Integration.Tests.UserFeatures.CommandLine
 {
     public class InitFeature
-    {
-       
-
+    {      
         [Scenario]
         public void Init_with_no_arguments_returns_did_you_mean_init_projectname(Run run, RunResult result, CraneTestContext craneTestContext)
         {
@@ -36,13 +34,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command(string.Empty, "crane init ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
 
-            "It should say 'Initialized project ServiceStack in the current directory'"
-                ._(() => result.StandardOutput.Should().Contain("Initialized project ServiceStack in "));
+            "It should say 'Init success.'"
+                ._(() => result.StandardOutput.Should().Be("Init success."));
 
             "It should replace the solution file name in the build script with the project name"
-                ._(() => File.ReadAllText("./ServiceStack/build/default.ps1").Should().Contain("ServiceStack.sln"))
+                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, @"ServiceStack\build\default.ps1")).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
 

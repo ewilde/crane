@@ -18,13 +18,13 @@ namespace Crane.Core.Tests.Configuration.Modules
                 ._(() => container = BootStrap.Start());
 
             "Then it should resolve the help command" 
-                ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item is Help).Should().BeTrue());
+                ._(() => container.Resolve<IEnumerable<ICraneCommand>>().Any(item => item.Name == "Help").Should().BeTrue());
 
             "And it should be a singleton instance" // Is there a better way to verify lifecycle in Autofac?
                 ._(
                     () =>
-                        ReferenceEquals(container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is Help),
-                            container.Resolve<IEnumerable<ICraneCommand>>().First(item => item is Help))
+                        ReferenceEquals(container.Resolve<IEnumerable<ICraneCommand>>().First(item => item.Name == "Help"),
+                            container.Resolve<IEnumerable<ICraneCommand>>().First(item => item.Name == "Help"))
                             .Should().BeTrue());
         }
     }

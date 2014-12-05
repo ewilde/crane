@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Crane.Core.IO;
 using Crane.Core.Utility;
+using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities
 {
     public class CraneTestContext
     {
         private readonly IFileManager _fileManager;
-        private DirectoryInfo _directory;
+        private readonly DirectoryInfo _directory;
+        private static readonly ILog _log = LogManager.GetLogger(typeof(CraneTestContext));
 
         public string Directory
         {
@@ -25,6 +27,7 @@ namespace Crane.Integration.Tests.TestUtilities
             _directory = new DirectoryInfo(_fileManager.GetTemporaryDirectory());
             var currentDir = AssemblyUtility.GetLocation(typeof (CraneTestContext).Assembly);
             _fileManager.CopyFiles(currentDir.FullName, _directory.FullName, true);
+            _log.DebugFormat("Copied files to {0}", _directory.FullName);
         }
 
         public void TearDown()

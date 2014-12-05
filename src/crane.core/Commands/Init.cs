@@ -12,22 +12,21 @@ namespace Crane.Core.Commands
         private readonly ICraneContext _context;
         private readonly ITemplateResolver _templateResolver;
         private readonly IFileManager _fileManager;
-        private readonly IOutput _output;
 
-        public Init(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager, IOutput output)
+        public Init(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager)
         {
             _context = context;
             _templateResolver = templateResolver;
             _fileManager = fileManager;
-            _output = output;
         }
+
+        public string Name { get { return "Init"; } }
 
         public void Execute(string projectName)
         {
             _context.ProjectName = projectName;
             CreateProject();
             CreateBuild();
-            _output.WriteLine("Initialized project {0} in {1}", projectName, _context.ProjectRootDirectory.FullName);
         }
 
         private void CreateProject()

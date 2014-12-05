@@ -35,7 +35,7 @@ namespace Crane.Core.Commands.Execution
 
             stringBuilder.Append("'?");
 
-            _output.WriteLine(stringBuilder.ToString());
+            _output.WriteInfo(stringBuilder.ToString());
         }
     }
 }

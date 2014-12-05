@@ -10,6 +10,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
     {
         private class SingleMethodCommandWithNoArguments : ICraneCommand
         {
+            public string Name { get { return "SingleMethodCommandWithNoArguments"; } }
             public void Execute() { }
         }
 
@@ -32,6 +33,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
             public void OneArgument(string arg) { }
             public void TwoArguments(string arg1, string arg2) { }
 
+            public string Name { get { return "MultipleMethodCommandWithArguments"; } }
         }
 
         [Scenario]

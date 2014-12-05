@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.IO;
 
 namespace Crane.Core.Commands.Execution
 {
@@ -10,16 +11,18 @@ namespace Crane.Core.Commands.Execution
         private readonly ICommandResolver _commandResolver;
         private readonly ICommandMethodResolver _commandMethodResolver;
         private readonly IDidYouMeanExecutor _didYouMeanExecutor;
+        private readonly IOutput _output;
 
         public CommandExecutor(IEnumerable<ICraneCommand> commands, 
                                ICommandResolver commandResolver, 
                                ICommandMethodResolver commandMethodResolver, 
-                               IDidYouMeanExecutor didYouMeanExecutor)
+                               IDidYouMeanExecutor didYouMeanExecutor, IOutput output)
         {
             _commands = commands;
             _commandResolver = commandResolver;
             _commandMethodResolver = commandMethodResolver;
             _didYouMeanExecutor = didYouMeanExecutor;
+            _output = output;
         }
 
 
@@ -32,6 +35,7 @@ namespace Crane.Core.Commands.Execution
             if (method != null)
             {
                 method.Invoke(command, methodArgs.Cast<object>().ToArray());
+                _output.WriteSuccess("{0} success.", command.Name);
             }
             else
             {
