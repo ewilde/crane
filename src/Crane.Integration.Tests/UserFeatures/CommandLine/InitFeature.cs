@@ -7,33 +7,43 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 {
     public class InitFeature
     {
+       
+
         [Scenario]
-        public void Init_with_no_arguments_returns_did_you_mean_init_projectname(Run run, RunResult result)
+        public void Init_with_no_arguments_returns_did_you_mean_init_projectname(Run run, RunResult result, CraneTestContext craneTestContext)
         {
-            "Given I have crane in my path"
+            "Given I have my own private copy of the crane console"
+                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+
+            "And I have a run context"
                 ._(() => run = new Run());
 
             "When I run crane init"
-                ._(() => result = run.Command("crane init"));
+                ._(() => result = run.Command(craneTestContext.Directory, "crane init"));
 
             "Then I receive the text did you mean 'crane init projectname'?"
-                ._(() => result.StandardOutput.Should().Be("did you mean 'crane init projectname'?"));
+                ._(() => result.StandardOutput.Should().Be("did you mean 'crane init projectname'?"))
+                .Teardown(() => craneTestContext.TearDown());
         }
 
         [Scenario]
-        public void Init_with_a_project_name_creates_a_project(Run run, RunResult result)
+        public void Init_with_a_project_name_creates_a_project(Run run, RunResult result, CraneTestContext craneTestContext)
         {
-            "Given I have crane in my path"
+            "Given I have my own private copy of the crane console"
+                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+
+            "And I have a run context"
                 ._(() => run = new Run());
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command("crane init ServiceStack"));
+                ._(() => result = run.Command(string.Empty, "crane init ServiceStack"));
+
+            "It should say 'Initialized project ServiceStack in the current directory'"
+                ._(() => result.StandardOutput.Should().Contain("Initialized project ServiceStack in "));
 
             "It should replace the solution file name in the build script with the project name"
                 ._(() => File.ReadAllText("./ServiceStack/build/default.ps1").Should().Contain("ServiceStack.sln"))
-                .Teardown(() =>  Directory.Delete("./ServiceStack", recursive: true));
-
-             
+                .Teardown(() => craneTestContext.TearDown());
         }
 
         

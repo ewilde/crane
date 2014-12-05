@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace Crane.Integration.Tests.TestUtilities
 {
     public class Run
     {
-        public RunResult Command(string command)
+        public RunResult Command(string path,string command)
         {
             var error = new StringBuilder();
             var output = new StringBuilder();
@@ -22,7 +23,7 @@ namespace Crane.Integration.Tests.TestUtilities
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    FileName = @"crane.exe",
+                    FileName = Path.Combine(path, @"crane.exe"),
                     Arguments = string.Join(" ", arguments)
                 }
             };

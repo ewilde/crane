@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
+    <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
     <Compile Include="TestUtilities\Run.cs" />
