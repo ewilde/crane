@@ -62,20 +62,11 @@
 		</ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <ItemGroup>
+    <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
+    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
--->
-	<!--<ItemGroup>
-		<SourceFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*"></SourceFiles>   
-	</ItemGroup>-->
-
-	<ItemGroup>
-		<TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
-	</ItemGroup>
-	<Target Name="AfterBuild">
-		<Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutputPath)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
-	</Target>
-
 </Project>

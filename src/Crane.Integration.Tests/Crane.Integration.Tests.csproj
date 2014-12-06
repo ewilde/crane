@@ -92,6 +92,7 @@
     <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
   </ItemGroup>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutputPath)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
+    <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
+    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
