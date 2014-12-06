@@ -20,7 +20,7 @@ namespace Crane.Core.Tests.Commands
         [Scenario]
         public void calling_execute_to_create_a_blank_project(ICraneContext craneContext, MockContainer<Init> init)
         {
-            var buildTemplate = A.Fake<IBuildTemplate>();
+            var buildTemplate = A.Fake<ITemplate>();
 
             "Given I have an instance of the init command"
                 ._(() => init = B.AutoMock<Init>());

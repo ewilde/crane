@@ -97,5 +97,10 @@ namespace Crane.Core.IO
         {
             return Directory.EnumerateFiles(path, searchPattern, searchOption);
         }
+
+        public IEnumerable<string> EnumerateDirectories(string path, string searchPattern, SearchOption searchOption)
+        {
+            return Directory.EnumerateDirectories(path, searchPattern, searchOption);
+        }
     }
 }

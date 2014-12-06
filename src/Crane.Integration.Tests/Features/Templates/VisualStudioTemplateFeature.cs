@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
-using Crane.Core.Templates.Psake;
-using Crane.Core.Templates.VisualStudio;
+using Crane.Core.Templates;
+using Crane.Core.Templates.Resolvers;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
@@ -17,7 +17,7 @@ namespace Crane.Integration.Tests.Features.Templates
     public class VisualStudioTemplateFeature
     {
         [Scenario]
-        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, VisualStudioTemplate template, ICraneContext context, IFileManager fileManager)
+        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, ITemplate template, ICraneContext context, IFileManager fileManager)
         {
             "Given I have a project root folder"
                 ._(() =>
@@ -27,7 +27,7 @@ namespace Crane.Integration.Tests.Features.Templates
                 });
 
             "And I have a psake template builder"
-                ._(() => template = ioc.Resolve<VisualStudioTemplate>());
+                ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
 
             "And I have been given a project name via init"
                 ._(() => context.ProjectName = "ServiceStack");

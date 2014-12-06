@@ -1,7 +1,6 @@
 ﻿using Crane.Core.Configuration;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Core.Templates.VisualStudio;
 using Crane.Core.Tests.TestExtensions;
 using FakeItEasy;
 using FluentAssertions;
@@ -27,7 +26,7 @@ namespace Crane.Core.Tests.Templates
                 ._(() => buildTemplate = templateResolver.Subject.Resolve(TemplateType.Build));
 
             "Then I get a build template back"
-                ._(() => buildTemplate.Should().BeAssignableTo<IBuildTemplate>());
+                ._(() => buildTemplate.Should().BeAssignableTo<ITemplate>());
         }
 
         [Scenario]
@@ -46,7 +45,7 @@ namespace Crane.Core.Tests.Templates
                 ._(() => buildTemplate = templateResolver.Subject.Resolve(TemplateType.Source));
 
             "Then I get a build template back"
-                ._(() => buildTemplate.Should().BeOfType<VisualStudioTemplate>());
+                ._(() => buildTemplate.Should().BeOfType<BaseTemplate>());
         }
     }
 }

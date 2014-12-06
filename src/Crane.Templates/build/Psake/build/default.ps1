@@ -10,14 +10,15 @@ param(
   $src_dir = "$build_dir\..\src"
   $sln_filename = "%context.ProjectName%.sln"
   $sln_filepath = "$src_dir\$sln_filename" 
+  $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
  
 
 Import-Module (Join-Path $build_dir 'psake-ext.psm1')
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends BuildCrane
+Task Default -Depends BuildCore, Test
 
-Task BuildCrane -Depends Info, Clean, Build
+Task BuildCore -Depends Info, Clean, Build
 
 Task Info {
   Write-Host build_dir: $build_dir
@@ -25,6 +26,7 @@ Task Info {
   Write-Host src_dir: $src_dir
   Write-Host sln_filename: $sln_filename
   Write-Host sln_filepath: $sln_filepath
+  Write-Host xunit_consoleRunner: $xunit_consoleRunner
 }
 
 Task Build -Depends Clean, NugetRestore { 
@@ -51,4 +53,11 @@ Task NugetRestore -Depends NugetExists {
 
 Task NugetExists { 
     Invoke-DownloadNuget $build_dir #doesn't download if exists
+}
+
+Task Test {
+    Get-ChildItem -Path $build_artifacts_dir -Filter *.UnitTests.dll | 
+    % {
+        & $xunit_consoleRunner @($_.FullName, '/silent')
+    }
 }

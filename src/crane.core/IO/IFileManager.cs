@@ -16,6 +16,8 @@ namespace Crane.Core.IO
 
         IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption);
 
+        IEnumerable<string> EnumerateDirectories(string path, string searchPattern, SearchOption searchOption);
+
         string ReadAllText(string path);
 
         void RenameDirectory(string path, string name);

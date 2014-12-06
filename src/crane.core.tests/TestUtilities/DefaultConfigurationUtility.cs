@@ -19,7 +19,7 @@ namespace Crane.Core.Tests.TestExtensions
                 buildFolderName = CraneConfiguration.DefaultBuildFolderName;
             }
 
-            A.CallTo(() => configuration.BuildTemplateProviderName).Returns(buildProviderName ?? CraneConfiguration.DefaultTemplateProviderName);
+            A.CallTo(() => configuration.BuildTemplateProviderName).Returns(buildProviderName ?? CraneConfiguration.DefaultBuildProviderName);
             A.CallTo(() => configuration.SourceTemplateProviderName).Returns(sourceProviderName ?? CraneConfiguration.DefaultSourceProviderName);
             A.CallTo(() => configuration.BuildFolderName).Returns(buildFolderName);
             A.CallTo(() => configuration.SourceFolderName).Returns(sourceFolderName ?? CraneConfiguration.DefaultSourceFolderName);

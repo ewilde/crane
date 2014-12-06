@@ -13,6 +13,7 @@ namespace Crane.Core.Configuration
         private DirectoryInfo _buildDirectory;
         private DirectoryInfo _sourceDirectory;
         private DirectoryInfo _craneInstallDiretory;
+        private DirectoryInfo _templateDirectory;
 
         public CraneContext(IConfiguration configuration)
         {
@@ -50,6 +51,19 @@ namespace Crane.Core.Configuration
                        (_sourceDirectory =
                            new DirectoryInfo(Path.Combine(ProjectRootDirectory.FullName, Configuration.SourceFolderName)));
             }
+        }
+
+        public DirectoryInfo TemplateDirectory
+        {
+            get
+            {
+                if (_templateDirectory == null)
+                {
+                    _templateDirectory = new DirectoryInfo(Path.Combine(CraneInstallDirectory.FullName, "Templates"));
+                }
+                return _templateDirectory;
+            }
+
         }
 
         public DirectoryInfo ProjectRootDirectory { get; set; }

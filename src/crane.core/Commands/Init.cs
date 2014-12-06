@@ -50,7 +50,7 @@ namespace Crane.Core.Commands
 
         private void CreateBuild()
         {
-            var build = _templateResolver.Resolve(TemplateType.Build) as IBuildTemplate;
+            var build = _templateResolver.Resolve(TemplateType.Build);
             if (build == null)
             {
                 throw new Exception("Build template not found, please check your configuration");

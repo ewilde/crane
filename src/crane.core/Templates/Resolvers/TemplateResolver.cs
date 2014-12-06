@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Crane.Core.Configuration;
-using Crane.Core.Templates.Psake;
 
 namespace Crane.Core.Templates.Resolvers
 {
     public class TemplateResolver : ITemplateResolver
     {
         private readonly IConfiguration _configuration;
+        private readonly ITemplateLoader _loader;
 
-        public TemplateResolver(IConfiguration configuration, IEnumerable<ITemplate> templates)
+        public TemplateResolver(IConfiguration configuration, ITemplateLoader loader)
         {
             _configuration = configuration;
-            Templates = templates;
+            _loader = loader;
+            Templates = loader.Load();
         }
 
         public IEnumerable<ITemplate> Templates { get; set; }
@@ -33,6 +34,7 @@ namespace Crane.Core.Templates.Resolvers
                 default:
                     throw new ArgumentOutOfRangeException("templateType");
             }
+
             return
                 Templates.FirstOrDefault(
                     item => item.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));

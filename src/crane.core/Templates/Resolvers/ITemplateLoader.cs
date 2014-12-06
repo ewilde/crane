@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace Crane.Core.Templates.Resolvers
 {
-    public class Class1
+    public interface ITemplateLoader
     {
+        IEnumerable<ITemplate> Load();
     }
 }

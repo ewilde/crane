@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
@@ -7,17 +9,16 @@ using Crane.Core.Utility;
 
 namespace Crane.Core.Templates
 {
-    public abstract class BaseTemplate : ITemplate
+    public class BaseTemplate : ITemplate
     {
         private readonly IFileManager _fileManager;
         private readonly ITemplateParser _templateParser;
         private readonly IFileAndDirectoryTokenParser _fileAndDirectoryTokenParser;
         private readonly ICraneContext _context;
         private readonly IConfiguration _configuration;
-        private DirectoryInfo _templateSourceDirectory;
-        private DirectoryInfo _templateTargetDirectory;
+        private DirectoryInfo _templateInstallDirectory;
 
-        protected BaseTemplate(
+        public BaseTemplate(
             ICraneContext context, 
             IConfiguration configuration, 
             IFileManager fileManager, 
@@ -30,41 +31,62 @@ namespace Crane.Core.Templates
             _context = context;
             _configuration = configuration;
         }
-            
-        protected abstract void CreateCore();
-        
-        public abstract string Name { get; }
-        public abstract TemplateType TemplateType { get; }
+           
+        public string Name { get; set; }
 
-        public DirectoryInfo TemplateSourceDirectory
+        public TemplateType TemplateType { get; set; }
+
+        public DirectoryInfo TemplateSourceDirectory { get; set; }
+
+        public DirectoryInfo TemplateInstallDirectory
         {
             get
             {
-                if (_templateSourceDirectory == null)
+                if (_templateInstallDirectory == null)
                 {
-                    _templateSourceDirectory = new DirectoryInfo(Path.Combine(Context.CraneInstallDirectory.FullName, "Templates", this.Name, "Files"));
+                    _templateInstallDirectory = new DirectoryInfo(Path.Combine(this.Context.ProjectRootDirectory.FullName, this.TemplateInstallRootFolderName));
                 }
 
-                return _templateSourceDirectory;
+                return _templateInstallDirectory; 
             }
-            set { _templateSourceDirectory = value; }
         }
 
-        public DirectoryInfo TemplateTargetDirectory
+        public string TemplateInstallRootFolderName
         {
             get
             {
-                if (_templateTargetDirectory == null)
+                switch (TemplateType)
                 {
-                    _templateTargetDirectory = new DirectoryInfo(Context.ProjectRootDirectory.FullName);
+                    case TemplateType.Build:
+                        return _configuration.BuildFolderName;
+                    case TemplateType.Source:
+                        return _configuration.SourceFolderName;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-
-                return _templateTargetDirectory;
             }
-            set { _templateTargetDirectory = value; }
         }
-        
-        protected abstract IEnumerable<FileInfo> TemplatedFiles { get; }
+
+        protected IEnumerable<FileInfo> SourceFiles
+        {
+            get
+            {
+                return FileManager
+                    .EnumerateFiles(this.TemplateSourceDirectory.FullName, "*.*", SearchOption.AllDirectories)
+                    .Select(item => new FileInfo(item));
+            }
+        }
+
+        protected IEnumerable<FileInfo> InstalledFiles
+        {
+            get
+            {
+                return FileManager
+                    .EnumerateFiles(this.TemplateInstallDirectory.FullName, "*.*",
+                        SearchOption.AllDirectories)
+                    .Select(item => new FileInfo(item));
+            }
+        } 
 
         protected IFileManager FileManager
         {
@@ -83,7 +105,7 @@ namespace Crane.Core.Templates
 
         public void Create()
         {
-            this.CreateCore();
+            FileManager.CopyFiles(this.TemplateSourceDirectory.FullName, _context.ProjectRootDirectory.FullName, true);
             this.RenameDirectoriesAndFiles();
             this.ParseTemplate();
         }
@@ -95,11 +117,16 @@ namespace Crane.Core.Templates
 
         protected virtual void ParseTemplate()
         {
-            foreach (var file in this.TemplatedFiles)
+            foreach (var file in this.InstalledFiles.Where(IsTextFile))
             {
                 var parsed = _templateParser.Parse(FileManager.ReadAllText(file.FullName), this.Context);
                 FileManager.WriteAllText(file.FullName, parsed);
             }
+        }
+
+        private bool IsTextFile(FileInfo file)
+        {
+            return !file.Extension.Equals(".exe");
         }
     }
 }

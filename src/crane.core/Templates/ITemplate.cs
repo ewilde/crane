@@ -4,9 +4,9 @@ namespace Crane.Core.Templates
 {
     public interface ITemplate
     {
-        string Name { get; }
+        string Name { get; set; }
 
-        TemplateType TemplateType { get; }
+        TemplateType TemplateType { get; set; }
 
         DirectoryInfo TemplateSourceDirectory { get; set; }
         void Create();

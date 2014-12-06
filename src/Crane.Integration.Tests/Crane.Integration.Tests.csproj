@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
+    <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
     <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
@@ -87,11 +88,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+  <ItemGroup>
+    <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
+  </ItemGroup>
   <Target Name="AfterBuild">
+    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutputPath)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
-  -->
 </Project>
