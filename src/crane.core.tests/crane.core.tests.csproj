@@ -75,6 +75,8 @@
   <ItemGroup>
     <Compile Include="Commands\Execution\CommandExecutorTests.cs" />
     <Compile Include="Commands\Execution\DidYouMeanExecutorTests.cs" />
+    <Compile Include="Commands\Handlers\CommandFactoryTests.cs" />
+    <Compile Include="Commands\Handlers\CommandHandlerFactoryTests.cs" />
     <Compile Include="Commands\InitTests.cs" />
     <Compile Include="Commands\Resolvers\ClosestCommandMethodResolverTests.cs" />
     <Compile Include="Commands\Resolvers\CommandMethodResolverTests.cs" />

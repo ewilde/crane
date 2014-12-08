@@ -2,6 +2,7 @@
 using System.Linq;
 using Autofac;
 using Crane.Core.Commands;
+using Crane.Core.Commands.Handlers;
 using Crane.Core.Configuration.Modules;
 using Crane.Core.Tests.TestExtensions;
 using FluentAssertions;
@@ -27,5 +28,6 @@ namespace Crane.Core.Tests.Configuration.Modules
                             container.Resolve<IEnumerable<ICraneCommand>>().First(item => item.Name == "Help"))
                             .Should().BeTrue());
         }
+
     }
 }

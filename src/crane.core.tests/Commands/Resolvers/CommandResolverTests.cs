@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
 using FakeItEasy;
@@ -10,7 +11,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
     public class CommandResolverTests
     {
         [Scenario]
-        public void Resolve_gives_help_command_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, ICraneCommand result)
+        public void Resolve_gives_help_command_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
         {
             "Given I have the commands init and help"
                 ._(() =>
@@ -23,13 +24,13 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 ._(() => result = commandResolver.Resolve(commands, "bob"));
 
             "Then the help command is returned"
-                ._(() => result.Should().BeOfType<Help>());
+                ._(() => result.Should().Be(typeof(Help)));
 
 
         }
 
         [Scenario]
-        public void Resolve_gives_command_if_match(CommandResolver commandResolver, List<ICraneCommand> commands, ICraneCommand result)
+        public void Resolve_gives_command_if_match(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
         {
             "Given I have the commands init and help"
                ._(() =>
@@ -42,11 +43,11 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 ._(() => result = commandResolver.Resolve(commands, "Init"));
 
             "Then the init command is returned"
-                ._(() => result.Should().BeOfType<Init>());
+                ._(() => result.Should().Be(typeof(Init)));
         }
 
         [Scenario]
-        public void Resolve_does_not_care_about_case(CommandResolver commandResolver, List<ICraneCommand> commands, ICraneCommand result)
+        public void Resolve_does_not_care_about_case(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
         {
             "Given I have the commands init and help"
                ._(() =>
@@ -59,7 +60,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 ._(() => result = commandResolver.Resolve(commands, "init"));
 
             "Then the init command is returned"
-                ._(() => result.Should().BeOfType<Init>());
+                ._(() => result.Should().Be(typeof(Init)));
         }
     }
 }

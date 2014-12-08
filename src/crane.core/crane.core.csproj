@@ -60,6 +60,7 @@
     <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
     <Compile Include="Commands\Execution\IDidYouMeanExecutor.cs" />
+    <Compile Include="Commands\Handlers\CommandHandlerFactory.cs" />
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
     <Compile Include="Commands\InitCommand.cs" />
