@@ -55,12 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandArguments\InitCommandArgs.cs" />
     <Compile Include="Commands\CraneException.cs" />
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
     <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
     <Compile Include="Commands\Execution\IDidYouMeanExecutor.cs" />
+    <Compile Include="Commands\Handlers\ICommandHandler.cs" />
+    <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
+    <Compile Include="Commands\InitCommand.cs" />
     <Compile Include="Commands\Resolvers\ClosestCommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
