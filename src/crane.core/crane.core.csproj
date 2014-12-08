@@ -36,6 +36,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PowerArgs">
+      <HintPath>..\packages\PowerArgs.2.3.2.0\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine">
       <HintPath>..\packages\RazorEngine.3.4.2\lib\net45\RazorEngine.dll</HintPath>
     </Reference>
@@ -52,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandArguments\InitCommandArgs.cs" />
     <Compile Include="Commands\CraneException.cs" />
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
     <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
@@ -104,7 +108,9 @@
     <Compile Include="Utility\IEnumerableExtensions.cs" />
     <Compile Include="Utility\StringExtentions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
