@@ -20,8 +20,6 @@ namespace Crane.Core.Commands
             _fileManager = fileManager;
         }
 
-        public string Name { get { return "Init"; } }
-
         public void Execute(string projectName)
         {
             
