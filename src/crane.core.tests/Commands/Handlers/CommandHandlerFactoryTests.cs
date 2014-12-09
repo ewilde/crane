@@ -16,11 +16,15 @@ namespace Crane.Core.Tests.Commands.Handlers
         public void Gives_handler_that_can_handle_command(CommandHandlerFactory commandHandlerFactory,
             ICommandHandler commandHandler)
         {
-            "Given I have a command handler that can handle a dummy command command"
+            "Given I have a 2 command handlers one of which can handle a dummy command"
                 ._(
                     () =>
                         commandHandlerFactory =
-                            new CommandHandlerFactory(new ICommandHandler[] {new DummyCommandHandler()}));
+                            new CommandHandlerFactory(new ICommandHandler[]
+                            {
+                                new OtherCommandHandler(),
+                                new DummyCommandHandler()
+                            }));
 
             "When I create a command handler for a dummy command"
                 ._(() => commandHandler = commandHandlerFactory.Create(new DummyCommand()));
@@ -39,6 +43,19 @@ namespace Crane.Core.Tests.Commands.Handlers
             public bool CanHandle(ICraneCommand command)
             {
                 return true;
+            }
+
+            public void Handle(ICraneCommand craneCommand)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public class OtherCommandHandler : ICommandHandler
+        {
+            public bool CanHandle(ICraneCommand command)
+            {
+                return false;
             }
 
             public void Handle(ICraneCommand craneCommand)
