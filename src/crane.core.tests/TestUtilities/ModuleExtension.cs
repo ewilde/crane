@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Core.Tests.TestUtilities
 {
     public static class ModuleExtension
     {

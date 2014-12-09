@@ -8,6 +8,7 @@ param(
   $build_dir = (Split-Path $psake.build_script_file)
   $build_artifacts_dir = "$build_dir\..\build-output"
   $src_dir = "$build_dir\..\src"
+  $template_source_dir = "$src_dir\Crane.Templates"
   $sln_filename = "Crane.sln"
   $sln_filepath = "$src_dir\$sln_filename"
   $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
@@ -24,14 +25,15 @@ Task Info {
   Write-Host build_dir: $build_dir
   Write-Host build_artifacts_dir: $build_artifacts_dir
   Write-Host src_dir: $src_dir
+  Write-Host template_source_dir: $template_source_dir
   Write-Host sln_filename: $sln_filename
   Write-Host sln_filepath: $sln_filepath
-  Write-Host sln_filepath: $xunit_consoleRunner
+  Write-Host xunit_consoleRunner: $xunit_consoleRunner
 }
 
 Task Build -Depends Clean, NugetRestore { 
     Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild "$sln_filepath" /t:Build /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
+    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
 }
 
 Task Clean {
@@ -59,5 +61,21 @@ Task Test {
     Get-ChildItem -Path $build_artifacts_dir -Filter *.Tests.dll | 
     % {
         & $xunit_consoleRunner @($_.FullName, '/silent')
+        if($LastExitCode -ne 0)
+        {
+          throw "failed executing tests $_.FullName. See last error."
+        }
     }
+}
+
+Task ChocolateyExists{
+    try{
+	    & choco 
+    }catch{	    
+        iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+    }
+}
+
+Task ChocolateyBuildPackage -Depends ChocolateyExists{
+    Start-Process -FilePath cpack -WorkingDirectory "$src_dir\Crane.Chocolatey"    
 }

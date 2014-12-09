@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Autofac;
 using Crane.Core.Configuration.Modules;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Core.Tests.TestUtilities
 {
-    public static class a
+    public static class ioc
     {
         private static IContainer _container;
 

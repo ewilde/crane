@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using Autofac;
 using Crane.Core.Configuration.Modules;
+using Crane.Core.IO;
+using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities
 {
     public static class ioc
     {
         private static IContainer _container;
+        private static readonly ILog _log = LogManager.GetLogger(typeof(ioc));
+
 
         public static T Resolve<T>() where T : class
         {
@@ -43,7 +47,7 @@ namespace Crane.Integration.Tests.TestUtilities
                 }
                 catch (Exception)
                 {
-
+                    
                 }
             }
             throw new Exception("No contructor was found that had all the dependencies satisfied.");

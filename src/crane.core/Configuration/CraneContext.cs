@@ -11,7 +11,9 @@ namespace Crane.Core.Configuration
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "crane");
 
         private DirectoryInfo _buildDirectory;
+        private DirectoryInfo _sourceDirectory;
         private DirectoryInfo _craneInstallDiretory;
+        private DirectoryInfo _templateDirectory;
 
         public CraneContext(IConfiguration configuration)
         {
@@ -40,6 +42,29 @@ namespace Crane.Core.Configuration
         public IConfiguration Configuration { get; private set; }
 
         public string ProjectName { get; set; }
+
+        public DirectoryInfo SourceDirectory
+        {
+            get
+            {
+                return _sourceDirectory ??
+                       (_sourceDirectory =
+                           new DirectoryInfo(Path.Combine(ProjectRootDirectory.FullName, Configuration.SourceFolderName)));
+            }
+        }
+
+        public DirectoryInfo TemplateDirectory
+        {
+            get
+            {
+                if (_templateDirectory == null)
+                {
+                    _templateDirectory = new DirectoryInfo(Path.Combine(CraneInstallDirectory.FullName, "Templates"));
+                }
+                return _templateDirectory;
+            }
+
+        }
 
         public DirectoryInfo ProjectRootDirectory { get; set; }
     }

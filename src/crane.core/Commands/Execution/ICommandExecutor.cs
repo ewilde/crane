@@ -7,6 +7,6 @@ namespace Crane.Core.Commands.Execution
 {
     public interface ICommandExecutor
     {
-        void ExecuteCommand(string[] arguments);
+        int ExecuteCommand(string[] arguments);
     }
 }

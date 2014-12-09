@@ -7,24 +7,27 @@ namespace Crane.Core.Templates.Parsers
 {
     public class TokenTemplateParser : ITemplateParser
     {
-        private readonly Dictionary<string, Func<string>> _tokens; 
-
-        public TokenTemplateParser(ICraneContext context)
+        private readonly ITokenDictionary _tokenDictionary;
+        private readonly IGuidGenerator _guidGenerator;
+        private Dictionary<string, Guid> _guidCache;
+ 
+        public TokenTemplateParser(ITokenDictionary tokenDictionary, IGuidGenerator guidGenerator)
         {
-            _tokens = new Dictionary<string, Func<string>>
-            {
-                { "%context.ProjectName%", () => context.ProjectName},
-                { "%context.BuildDirectory.FullName%", () => context.BuildDirectory.FullName},
-                { "%context.CraneInstallDirectory.FullName%", () => context.CraneInstallDirectory.FullName},
-                { "%context.ProjectRootDirectory.FullName%", () => context.ProjectRootDirectory.FullName},
-                { "%context.Configuration.BuildFolderName%", () => context.Configuration.BuildFolderName},
-                { "%context.Configuration.BuildTemplateProviderName%", () => context.Configuration.BuildTemplateProviderName},
-            };
+            _tokenDictionary = tokenDictionary;
+            _guidGenerator = guidGenerator;
+            _guidCache = new Dictionary<string, Guid>();
         }
 
         public string Parse(string template, object model)
         {
-            foreach (var token in _tokens)
+            template = ParseContextTokens(template);
+            template = ParseGuidTokens(template);
+            return template;
+        }
+
+        private string ParseContextTokens(string template)
+        {
+            foreach (var token in _tokenDictionary.Tokens)
             {
                 if (template.Contains(token.Key))
                 {
@@ -33,6 +36,29 @@ namespace Crane.Core.Templates.Parsers
             }
 
             return template;
+        }
+
+        private string ParseGuidTokens(string template)
+        {
+            int guidIndex = 1;            
+            while (template.Contains("%GUID-"))
+            {
+                var guidToken = string.Format("%GUID-{0}%", guidIndex);
+                template = template.Replace(guidToken, GetGuid(guidToken));
+                guidIndex += 1;
+            }
+
+            return template;
+        }
+
+        private string GetGuid(string key)
+        {
+            if (!_guidCache.ContainsKey(key))
+            {
+                _guidCache.Add(key, _guidGenerator.Create());
+            }
+
+            return _guidCache[key].ToString("B");
         }
     }
 }

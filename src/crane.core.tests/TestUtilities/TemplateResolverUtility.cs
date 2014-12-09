@@ -1,16 +1,22 @@
-﻿using System.Collections.Generic;
-using Crane.Core.Templates;
+﻿using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
 using FakeItEasy;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Core.Tests.TestUtilities
 {
     public static class TemplateUtility
     {
         public static void Defaults(ITemplateResolver templateResolver)
         {
-            templateResolver.Templates = a.Resolve<IEnumerable<ITemplate>>();
+            var buildTemplate = B.AutoMock<BaseTemplate>().Subject;
+            buildTemplate.Name = "Psake";
+            buildTemplate.TemplateType = TemplateType.Build;
+            
+            var sourceTemplate = B.AutoMock<BaseTemplate>().Subject;
+            sourceTemplate.Name = "VisualStudio";
+            sourceTemplate.TemplateType = TemplateType.Source;
+            
+            templateResolver.Templates = new[] { buildTemplate, sourceTemplate };
         }
     }
 }

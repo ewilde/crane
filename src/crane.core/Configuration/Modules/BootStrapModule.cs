@@ -8,7 +8,11 @@ namespace Crane.Core.Configuration.Modules
         {
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyModules(typeof(BootStrap).Assembly);
-            return builder.Build();
+            var container = builder.Build();
+            var unRegisteredTypesAsTransientModule = new UnRegisteredTypesAsTransientModule();
+            unRegisteredTypesAsTransientModule.AddUnregisteredTypesToContainer(container);
+
+            return container;
         }
     }
 }

@@ -13,8 +13,7 @@ namespace Crane.Core.Hosts
 
         public int Run(string [] args)
         {
-            _commandExecutor.ExecuteCommand(args);
-            return 0;
+            return _commandExecutor.ExecuteCommand(args); 
         }
     }
 }

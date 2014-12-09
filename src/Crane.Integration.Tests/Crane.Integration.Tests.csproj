@@ -41,6 +41,10 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,15 +63,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\Templates\PsakeFeature.cs" />
-    <Compile Include="TestUtilities\FileUtilites.cs" />
+    <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
+    <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
+    <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
+    <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
+    <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
     <Compile Include="TestUtilities\Run.cs" />
-    <Compile Include="Features\InitFeature.cs" />
+    <Compile Include="TestUtilities\Throws.cs" />
+    <Compile Include="UserFeatures\CommandLine\InitFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserFeatures\CommandLine\ListCommandsFeature.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,11 +91,11 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+  <ItemGroup>
+    <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
+  </ItemGroup>
   <Target Name="AfterBuild">
+    <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
+    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
-  -->
 </Project>

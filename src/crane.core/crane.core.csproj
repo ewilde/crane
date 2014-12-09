@@ -36,6 +36,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PowerArgs">
+      <HintPath>..\packages\PowerArgs.2.3.2.0\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine">
       <HintPath>..\packages\RazorEngine.3.4.2\lib\net45\RazorEngine.dll</HintPath>
     </Reference>
@@ -52,18 +55,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Exceptions\CraneException.cs" />
+    <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
+    <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
-    <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
-    <Compile Include="Commands\Execution\IDidYouMeanExecutor.cs" />
-    <Compile Include="Commands\Resolvers\ClosestCommandMethodResolver.cs" />
-    <Compile Include="Commands\Resolvers\CommandMethodResolver.cs" />
+    <Compile Include="Commands\Factories\CommandFactory.cs" />
+    <Compile Include="Commands\Handlers\CommandHandler.cs" />
+    <Compile Include="Commands\Handlers\Factories\CommandHandlerFactory.cs" />
+    <Compile Include="Commands\Factories\ICommandFactory.cs" />
+    <Compile Include="Commands\Handlers\ICommandHandler.cs" />
+    <Compile Include="Commands\Handlers\Factories\ICommandHandlerFactory.cs" />
+    <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\ListCommandsHandler.cs" />
+    <Compile Include="Commands\Init.cs" />
+    <Compile Include="Commands\ListCommands.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
-    <Compile Include="Commands\Resolvers\IClosestCommandMethodResolver.cs" />
-    <Compile Include="Commands\Resolvers\ICommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
-    <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
@@ -81,35 +90,30 @@
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />
     <Compile Include="IO\IOutput.cs" />
-    <Compile Include="IO\Output.cs" />
+    <Compile Include="IO\ConsoleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Templates\BuildTemplate.cs" />
-    <Compile Include="Templates\IBuildTemplate.cs" />
+    <Compile Include="System\GuidGenerator.cs" />
+    <Compile Include="System\IGuidGenerator.cs" />
+    <Compile Include="Templates\BaseTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\Parsers\FileAndDirectoryTokenParser.cs" />
+    <Compile Include="Templates\Parsers\IFileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\ITemplateParser.cs" />
+    <Compile Include="Templates\Parsers\ITokenDictionary.cs" />
+    <Compile Include="Templates\Parsers\TokenDictionary.cs" />
     <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
-    <Compile Include="Templates\Psake\PsakeBuildTemplate.cs" />
     <Compile Include="Templates\Parsers\RazorTemplateParser.cs" />
+    <Compile Include="Templates\Resolvers\ITemplateLoader.cs" />
     <Compile Include="Templates\Resolvers\ITemplateResolver.cs" />
+    <Compile Include="Templates\Resolvers\TemplateLoader.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
     <Compile Include="Utility\AssemblyUtility.cs" />
+    <Compile Include="Utility\IEnumerableExtensions.cs" />
     <Compile Include="Utility\StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Templates\Psake\Files\default.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Psake\Files\psake-ext.psm1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Psake\Files\psake.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Psake\Files\psake.psm1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
