@@ -5,7 +5,6 @@ using System.Linq;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
-using Crane.Core.Utility;
 
 namespace Crane.Core.Templates
 {

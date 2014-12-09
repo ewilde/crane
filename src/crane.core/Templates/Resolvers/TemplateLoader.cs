@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Utility;
@@ -23,7 +22,7 @@ namespace Crane.Core.Templates.Resolvers
 
         public IEnumerable<ITemplate> Load()
         {
-            var folders = new Tuple<string, TemplateType>[]
+            var folders = new[]
             {
                 new Tuple<string, TemplateType>("build", TemplateType.Build),
                 new Tuple<string, TemplateType>("source", TemplateType.Source)
