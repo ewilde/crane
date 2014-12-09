@@ -7,7 +7,7 @@ using Crane.Core.Templates.Resolvers;
 
 namespace Crane.Core.Commands.Handlers
 {
-    public class InitCommandHandler : CommandHandler<InitCommand>
+    public class InitCommandHandler : CommandHandler<Init>
     {
         private readonly ICraneContext _context;
         private readonly ITemplateResolver _templateResolver;
@@ -20,7 +20,7 @@ namespace Crane.Core.Commands.Handlers
             _fileManager = fileManager;
         }
 
-        protected override void DoHandle(InitCommand command)
+        protected override void DoHandle(Init command)
         {
             _context.ProjectName = command.ProjectName;
             CreateProject();

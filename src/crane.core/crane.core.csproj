@@ -55,15 +55,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CraneException.cs" />
+    <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
     <Compile Include="Commands\Execution\DidYouMeanExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
     <Compile Include="Commands\Execution\IDidYouMeanExecutor.cs" />
-    <Compile Include="Commands\Handlers\CommandHandlerFactory.cs" />
+    <Compile Include="Commands\Factories\CommandFactory.cs" />
+    <Compile Include="Commands\Handlers\CommandHandler.cs" />
+    <Compile Include="Commands\Handlers\Factories\CommandHandlerFactory.cs" />
+    <Compile Include="Commands\Factories\ICommandFactory.cs" />
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
+    <Compile Include="Commands\Handlers\Factories\ICommandHandlerFactory.cs" />
     <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
-    <Compile Include="Commands\InitCommand.cs" />
+    <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\Resolvers\ClosestCommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
@@ -71,7 +75,6 @@
     <Compile Include="Commands\Resolvers\ICommandMethodResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
-    <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
