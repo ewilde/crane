@@ -62,10 +62,10 @@
 		</ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
-  </ItemGroup>
   <Target Name="AfterBuild">
+  	<ItemGroup>
+       <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
+	</ItemGroup>
     <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
     <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
