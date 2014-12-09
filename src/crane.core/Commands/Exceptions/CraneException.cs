@@ -14,24 +14,4 @@ namespace Crane.Core.Commands.Exceptions
 	        System.Runtime.Serialization.SerializationInfo info, 
 	        System.Runtime.Serialization.StreamingContext context ) : base( info, context ) { }
     }
-
-    public class MissingArgumentCraneException : CraneException
-    {
-        public IEnumerable<string> MissingArguments { get; private set; }
-
-        public MissingArgumentCraneException(IEnumerable<string> missingArguments)
-            : base("Arguments missing")
-        {
-            
-        }
-    }
-
-    public class DirectoryExistsCraneException : CraneException
-    {
-        public DirectoryExistsCraneException(string directoryName)
-            : base(string.Format("directory {0} already exists", directoryName))
-        {
-            
-        }
-    }
 }

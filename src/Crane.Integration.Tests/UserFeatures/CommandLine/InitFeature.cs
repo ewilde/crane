@@ -19,8 +19,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "When I run crane init"
                 ._(() => result = run.Command(craneTestContext.Directory, "crane init"));
 
-            "Then I receive the text did you mean 'crane init projectname'?"
-                ._(() => result.StandardOutput.Should().Be("did you mean 'crane init projectname'?"))
+            "Then I receive an error message 'error: The argument 'ProjectName' is required'"
+                ._(() => result.StandardOutput.Should().Contain("error: The argument 'ProjectName' is required"))
                 .Teardown(() => craneTestContext.TearDown());
         }
 

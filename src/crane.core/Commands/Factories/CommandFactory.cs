@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Resolvers;
 using PowerArgs;
 
@@ -18,9 +19,16 @@ namespace Crane.Core.Commands.Factories
 
         public ICraneCommand Create(string[] args)
         {
-            var commandType = _commandResolver.Resolve(_craneCommands, args[0]);
-            var commandWithArgs = Args.Parse(commandType, args.Skip(1).ToArray()) as ICraneCommand;
-            return commandWithArgs;
+            try
+            {
+                var commandType = _commandResolver.Resolve(_craneCommands, args[0]);
+                var commandWithArgs = Args.Parse(commandType, args.Skip(1).ToArray()) as ICraneCommand;
+                return commandWithArgs;
+            }
+            catch (ArgException argException)
+            {
+                throw new MissingArgumentCraneException(argException.Message);
+            }
         }
     }
 }

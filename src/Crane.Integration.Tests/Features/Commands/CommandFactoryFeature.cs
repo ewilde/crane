@@ -56,7 +56,10 @@ namespace Crane.Integration.Tests.Features.Commands
                 ._(() => craneException = Throws.Exception(() => commandFactory.Create(new[] { "init" })) as CraneException);
 
             "Then a missing argument exception should be thrown"
-                ._(() => craneException.Message.Should().Contain("missing argument -projectName"));
+                ._(() => craneException.Should().BeOfType<MissingArgumentCraneException>());
+
+            "And the message should contain -projectName"
+                ._(() => craneException.Message.Should().Contain("ProjectName"));
 
         }
     }
