@@ -17,7 +17,7 @@ $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.consol
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task TeamCityBuildStep -Depands PatchAssemblyInfo, BuildCrane, Test 
+Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test 
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
