@@ -4,7 +4,6 @@ using Autofac;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Handlers;
 using Crane.Core.Configuration.Modules;
-using Crane.Core.Tests.TestExtensions;
 using FluentAssertions;
 using Xbehave;
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Handlers;
+using Crane.Core.Commands.Handlers.Factories;
 using FluentAssertions;
 using Xbehave;
 

@@ -71,6 +71,7 @@
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
     <Compile Include="TestUtilities\Run.cs" />
+    <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\InitFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

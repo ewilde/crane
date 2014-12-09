@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
-using Crane.Core.Tests.TestExtensions;
 using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
 using Xbehave;

@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Crane.Core.Templates;
+﻿using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Core.Tests.TestUtilities
 {
     public static class TemplateUtility
     {

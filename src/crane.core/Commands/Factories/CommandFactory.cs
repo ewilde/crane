@@ -3,7 +3,7 @@ using System.Linq;
 using Crane.Core.Commands.Resolvers;
 using PowerArgs;
 
-namespace Crane.Core.Commands.Handlers
+namespace Crane.Core.Commands.Factories
 {
     public class CommandFactory : ICommandFactory
     {

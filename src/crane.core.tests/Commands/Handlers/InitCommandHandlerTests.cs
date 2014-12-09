@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crane.Core.Commands;
+﻿using Crane.Core.Commands;
 using Crane.Core.Commands.Handlers;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
@@ -14,7 +8,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Core.Tests.Commands
+namespace Crane.Core.Tests.Commands.Handlers
 {
     public class InitCommandHandlerTests
     {

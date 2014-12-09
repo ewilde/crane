@@ -1,8 +1,10 @@
 ﻿using Crane.Core.Commands;
-using Crane.Core.Commands.Handlers;
+using Crane.Core.Commands.Exceptions;
+using Crane.Core.Commands.Factories;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
+using Xunit;
 
 namespace Crane.Integration.Tests.Features.Commands
 {
@@ -40,6 +42,22 @@ namespace Crane.Integration.Tests.Features.Commands
 
             "And the ProjectName should be testproject"
                 ._(() => ((Init)craneCommand).ProjectName.Should().Be("testproject"));
+        }
+
+        [Scenario]
+        public void Throws_exception_detailing_missing_argument_when_all_arguments_not_passed(
+            ICommandFactory commandFactory,
+            CraneException craneException)
+        {
+            "Given I have a command factory"
+                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+
+            "When I create a command with based on the arguments 'init'"
+                ._(() => craneException = Throws.Exception(() => commandFactory.Create(new[] { "init" })) as CraneException);
+
+            "Then a missing argument exception should be thrown"
+                ._(() => craneException.Message.Should().Contain("missing argument -projectName"));
+
         }
     }
 }

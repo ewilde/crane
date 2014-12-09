@@ -1,19 +1,37 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Crane.Core.Commands
+namespace Crane.Core.Commands.Exceptions
 {
     [Serializable]
-    public class CraneException : Exception
+    public abstract class CraneException : Exception
     {
-      public CraneException() { }
-      public CraneException( string message ) : base( message ) { }
-      public CraneException( string message, Exception inner ) : base( message, inner ) { }
-      protected CraneException( 
-	    System.Runtime.Serialization.SerializationInfo info, 
-	    System.Runtime.Serialization.StreamingContext context ) : base( info, context ) { }
+        protected CraneException() { }
+        protected CraneException( string message ) : base( message ) { }
+        protected CraneException( string message, Exception inner ) : base( message, inner ) { }
+        protected CraneException( 
+	        System.Runtime.Serialization.SerializationInfo info, 
+	        System.Runtime.Serialization.StreamingContext context ) : base( info, context ) { }
+    }
+
+    public class MissingArgumentCraneException : CraneException
+    {
+        public IEnumerable<string> MissingArguments { get; private set; }
+
+        public MissingArgumentCraneException(IEnumerable<string> missingArguments)
+            : base("Arguments missing")
+        {
+            
+        }
+    }
+
+    public class DirectoryExistsCraneException : CraneException
+    {
+        public DirectoryExistsCraneException(string directoryName)
+            : base(string.Format("directory {0} already exists", directoryName))
+        {
+            
+        }
     }
 }

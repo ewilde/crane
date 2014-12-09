@@ -1,7 +1,7 @@
 ﻿using Crane.Core.Configuration;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Core.Tests.TestExtensions;
+using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
 using FluentAssertions;
 using Xbehave;

@@ -1,4 +1,4 @@
-﻿namespace Crane.Core.Commands.Handlers
+﻿namespace Crane.Core.Commands.Handlers.Factories
 {
     public interface ICommandHandlerFactory
     {

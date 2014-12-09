@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
@@ -31,7 +32,7 @@ namespace Crane.Core.Commands.Handlers
         {
             _context.ProjectRootDirectory = new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, _context.ProjectName));
             if (_fileManager.DirectoryExists(_context.ProjectRootDirectory.FullName))
-                throw new CraneException(string.Format("directory {0} already exists", _context.ProjectName));
+                throw new DirectoryExistsCraneException(_context.ProjectName);
 
             _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
 

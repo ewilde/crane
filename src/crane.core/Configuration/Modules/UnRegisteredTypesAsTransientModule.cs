@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Autofac;
+using Crane.Core.Commands.Factories;
 using Crane.Core.Commands.Handlers;
 
 namespace Crane.Core.Configuration.Modules

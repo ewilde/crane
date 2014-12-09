@@ -1,9 +1,7 @@
-﻿using System.IO;
-using Crane.Core.Configuration;
-using Crane.Core.Utility;
+﻿using Crane.Core.Configuration;
 using FakeItEasy;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Core.Tests.TestUtilities
 {
     public static class DefaultConfigurationUtility
     {

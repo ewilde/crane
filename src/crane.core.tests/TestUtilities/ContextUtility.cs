@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.Utility;
 using FakeItEasy;
 
-namespace Crane.Core.Tests.TestExtensions
+namespace Crane.Core.Tests.TestUtilities
 {
     public static class ContextUtility
     {
