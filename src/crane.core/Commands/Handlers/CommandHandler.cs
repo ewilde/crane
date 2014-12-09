@@ -1,6 +1,6 @@
 ﻿namespace Crane.Core.Commands.Handlers
 {
-    public abstract class CommandHandler<TCommand> : ICommandHandler where TCommand : class
+    public abstract class CommandHandler<TCommand> : ICommandHandler where TCommand : class, ICraneCommand
     {
         public bool CanHandle(ICraneCommand command)
         {
