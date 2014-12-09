@@ -11,7 +11,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
     public class CommandResolverTests
     {
         [Scenario]
-        public void Resolve_gives_help_command_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
+        public void Resolve_gives_list_commands_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
         {
             "Given I have the commands init and help"
                 ._(() =>

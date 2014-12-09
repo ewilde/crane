@@ -21,6 +21,9 @@ namespace Crane.Core.Commands.Factories
         {
             try
             {
+                if (args == null || args.Length == 0)
+                    return new ListCommands();
+
                 var commandType = _commandResolver.Resolve(_craneCommands, args[0]);
                 var commandWithArgs = Args.Parse(commandType, args.Skip(1).ToArray()) as ICraneCommand;
                 return commandWithArgs;

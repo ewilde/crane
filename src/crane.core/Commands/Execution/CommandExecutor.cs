@@ -1,6 +1,5 @@
 ﻿using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Factories;
-using Crane.Core.Commands.Handlers;
 using Crane.Core.Commands.Handlers.Factories;
 using Crane.Core.IO;
 
@@ -26,7 +25,9 @@ namespace Crane.Core.Commands.Execution
                 var command = _commandFactory.Create(args);
                 var commandHandler = _commandHandlerFactory.Create(command);
                 commandHandler.Handle(command);
-                _output.WriteSuccess("{0} success.", command.GetType().Name);
+
+                if (!(command is ListCommands))
+                    _output.WriteSuccess("{0} success.", command.GetType().Name);
             }
             catch (CraneException craneException)
             {
