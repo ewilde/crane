@@ -1,6 +1,7 @@
 properties{
     $configuration = "Debug"
     $build_number = 0
+	[switch]$teamcityBuild = $false
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
@@ -16,6 +17,7 @@ $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.consol
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
+Task TeamCityBuildStep -Depands PatchAssemblyInfo, BuildCrane, Test 
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
@@ -25,7 +27,7 @@ Task Info {
   Write-Host build_artifacts_dir: $build_artifacts_dir
   Write-Host build_number: $build_number
   Write-Host configuration: $configuration
-  Write-Host verbose: $verbose
+  Write-Host teamcityBuild: $teamcityBuild
   Write-Host src_dir: $src_dir
   Write-Host template_source_dir: $template_source_dir
   Write-Host sln_filename: $sln_filename
@@ -86,6 +88,10 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 Task PatchAssemblyInfo {
     $version = "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number"
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
+
+	if ($teamcityBuild) {
+		Write-Host "##teamcity[buildNumber '$version']"
+	}
 }
 
 function GenerateAssemblyInfo
