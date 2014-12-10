@@ -106,9 +106,9 @@
     <Compile Include="Templates\Resolvers\TemplateLoader.cs" />
     <Compile Include="Templates\Resolvers\TemplateResolver.cs" />
     <Compile Include="Templates\TemplateType.cs" />
-    <Compile Include="Utility\AssemblyUtility.cs" />
-    <Compile Include="Utility\IEnumerableExtensions.cs" />
-    <Compile Include="Utility\StringExtentions.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

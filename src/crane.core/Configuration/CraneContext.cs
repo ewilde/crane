@@ -35,7 +35,7 @@ namespace Crane.Core.Configuration
             get
             {
                 return _craneInstallDiretory ??
-                       (_craneInstallDiretory = AssemblyUtility.GetLocation(Assembly.GetExecutingAssembly()));
+                       (_craneInstallDiretory = Assembly.GetExecutingAssembly().GetLocation());
             }
         }
 

@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Crane.Core.Utility
 {
-    public static class AssemblyUtility
+    public static class AssemblyExtensions
     {
-        public static DirectoryInfo GetLocation(Assembly assembly)
+        public static DirectoryInfo GetLocation(this Assembly assembly)
         {
             string codeBase = assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
