@@ -116,3 +116,4 @@ NCrunch*
 # Crane specific
 build-output
 build/NuGet.exe
+chocolatey-output

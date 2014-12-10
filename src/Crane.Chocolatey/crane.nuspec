@@ -3,7 +3,7 @@
   <metadata>    
     <id>crane</id>
     <title>crane</title>
-    <version>0.0.1</version>
+    <version>##version_number##</version>
     <authors>Edward Wilde and Kevin Holditch</authors>
     <owners>Edward Wilde and Kevin Holditch</owners>
     <summary>crane - builds you into the pit of success</summary>
@@ -20,7 +20,7 @@
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="..\Crane.Console\bin\Release\**" target="tools" />
+    <file src="##build_output##**" target="tools" />
   </files>
 </package>
 

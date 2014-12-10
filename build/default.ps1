@@ -6,8 +6,8 @@ param(
 )
 
   $build_dir = (Split-Path $psake.build_script_file)
-  $build_artifacts_dir = "$build_dir\..\build-output\"
-  $src_dir = "$build_dir\..\src"
+  $build_artifacts_dir = Resolve-Path "$build_dir\..\build-output\"
+  $src_dir = Resolve-Path "$build_dir\..\src"
   $template_source_dir = "$src_dir\Crane.Templates"
   $sln_filename = "Crane.sln"
   $sln_filepath = "$src_dir\$sln_filename" 
@@ -77,5 +77,26 @@ Task ChocolateyExists{
 }
 
 Task ChocolateyBuildPackage -Depends ChocolateyExists{
-    Start-Process -FilePath cpack -WorkingDirectory "$src_dir\Crane.Chocolatey"    
+    $choco_output_dir = Resolve-Path "$src_dir\..\chocolatey-output"
+    $choco_nuspec = "$choco_output_dir\crane.nuspec"
+
+    Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
+    New-Item -ItemType directory -Path $choco_output_dir -Force
+
+    $template = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
+    $template = $template.Replace("##version_number##", $version)
+    $template = $template.Replace("##build_output##", $build_artifacts_dir)
+                     
+
+    New-Item -Path $choco_nuspec -ItemType File -Value $template
+    & cpack @($choco_nuspec)
+
+    Move-Item *.nupkg $choco_output_dir
+}
+
+Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
+    Get-ChildItem $choco_output_dir -Filter *.nupkg | `
+    Foreach-Object{
+        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $ChocolateyApiKey)
+    }
 }
