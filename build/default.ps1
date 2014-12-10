@@ -5,8 +5,8 @@ properties{
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
-$root_dir = "$build_dir\.."
-$build_artifacts_dir = "$build_dir\..\build-output"
+$root_dir =  Resolve-Path "$build_dir\.."
+$build_artifacts_dir = Resolve-Path "$build_dir\..\build-output"
 $src_dir = "$root_dir\src"
 $template_source_dir = "$src_dir\Crane.Templates"
 $sln_filename = "Crane.sln"
@@ -82,18 +82,18 @@ Task ChocolateyExists{
 }
 
 Task ChocolateyBuildPackage -Depends ChocolateyExists{
-    $choco_output_dir = Resolve-Path "$src_dir\..\chocolatey-output"
+    $choco_output_dir = Resolve-Path "$root_dir\chocolatey-output"
     $choco_nuspec = "$choco_output_dir\crane.nuspec"
 
     Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType directory -Path $choco_output_dir -Force
 
-    $template = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
-    $template = $template.Replace("##version_number##", $version)
-    $template = $template.Replace("##build_output##", $build_artifacts_dir)
+    $nuspectemplate = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
+    $nuspectemplate = $nuspectemplate.Replace("##version_number##", $version)
+    $nuspectemplate = $nuspectemplate.Replace("##build_output##", $build_artifacts_dir)
                      
 
-    New-Item -Path $choco_nuspec -ItemType File -Value $template
+    New-Item -Path $choco_nuspec -ItemType File -Value $nuspectemplate
     & cpack @($choco_nuspec)
 
     Move-Item *.nupkg $choco_output_dir
