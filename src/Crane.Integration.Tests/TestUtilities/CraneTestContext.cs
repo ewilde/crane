@@ -25,7 +25,7 @@ namespace Crane.Integration.Tests.TestUtilities
         {
             _fileManager = fileManager;
             _directory = new DirectoryInfo(_fileManager.GetTemporaryDirectory());
-            var currentDir = AssemblyUtility.GetLocation(typeof (CraneTestContext).Assembly);
+            var currentDir = typeof (CraneTestContext).Assembly.GetLocation();
             _fileManager.CopyFiles(currentDir.FullName, _directory.FullName, true);
             _log.DebugFormat("Copied files to {0}", _directory.FullName);
         }
