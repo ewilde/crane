@@ -92,7 +92,7 @@ Task PatchAssemblyInfo {
 	if ($teamcityBuild) {
 		#Write-Host "##teamcity[setParameter name='buildNumber' value='$version']"
         [System.Console]::WriteLine("##teamcity[setParameter name='buildNumber' value='$version']")
-        [System.Console]::WriteLine("##teamcity[buildNumber value='$version']")
+        [System.Console]::WriteLine("##teamcity[buildNumber '$version']")
 	}
 }
 
