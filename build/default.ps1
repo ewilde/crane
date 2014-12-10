@@ -90,7 +90,7 @@ Task PatchAssemblyInfo {
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
 
 	if ($teamcityBuild) {
-		Write-Host "##teamcity[buildNumber '$version']"
+		Write-Host "##teamcity[setParameter name='buildNumber' value='$version']"
 	}
 }
 
