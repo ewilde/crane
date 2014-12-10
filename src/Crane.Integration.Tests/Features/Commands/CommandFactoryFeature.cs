@@ -4,7 +4,6 @@ using Crane.Core.Commands.Factories;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
-using Xunit;
 
 namespace Crane.Integration.Tests.Features.Commands
 {
@@ -60,6 +59,36 @@ namespace Crane.Integration.Tests.Features.Commands
 
             "And the message should contain -projectName"
                 ._(() => craneException.Message.Should().Contain("ProjectName"));
+
+        }
+
+        [Scenario]
+        public void Returns_listcommands_command_when_no_args_are_passed(ICommandFactory commandFactory,
+                                                                                ICraneCommand craneCommand)
+        {
+            "Given I have a command factory"
+                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+
+            "When I create a command with no arguments"
+                ._(() => craneCommand = commandFactory.Create(new string[0]));
+
+            "Then the command returned should be the list commands command"
+                ._(() => craneCommand.Should().BeOfType<ListCommands>());
+
+        }
+
+        [Scenario]
+        public void Returns_listcommands_command_when_null_args_are_passed(ICommandFactory commandFactory,
+                                                                                ICraneCommand craneCommand)
+        {
+            "Given I have a command factory"
+                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+
+            "When I create a command with no arguments"
+                ._(() => craneCommand = commandFactory.Create(null));
+
+            "Then the command returned should be the list commands command"
+                ._(() => craneCommand.Should().BeOfType<ListCommands>());
 
         }
     }

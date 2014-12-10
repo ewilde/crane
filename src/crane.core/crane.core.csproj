@@ -67,7 +67,9 @@
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Commands\Handlers\Factories\ICommandHandlerFactory.cs" />
     <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\ListCommandsHandler.cs" />
     <Compile Include="Commands\Init.cs" />
+    <Compile Include="Commands\ListCommands.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />

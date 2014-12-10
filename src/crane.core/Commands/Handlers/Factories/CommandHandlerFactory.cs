@@ -14,7 +14,7 @@ namespace Crane.Core.Commands.Handlers.Factories
 
         public ICommandHandler Create(ICraneCommand command)
         {
-            var handler = _commandHandlers.FirstOrDefault(h => h.CanHandle(command));
+            var handler = _commandHandlers.First(h => h.CanHandle(command));
             return handler;
         }
     }
