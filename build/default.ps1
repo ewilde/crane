@@ -3,6 +3,7 @@ properties{
     $build_number = 0
 	[switch]$teamcityBuild = $false
     $chocolateyApiKey = ""
+    $chocolateyApiUrl = ""
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
@@ -18,7 +19,7 @@ $version = ""
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyBuildPackage
+Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
@@ -103,7 +104,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
     Get-ChildItem $choco_output_dir -Filter *.nupkg | `
     Foreach-Object{
-        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $chocolateyApiKey)
+        & $build_dir\nuget.exe @('push', $_.FullName, "-s", $chocolateyApiUrl, $chocolateyApiKey)
     }
 }
 
