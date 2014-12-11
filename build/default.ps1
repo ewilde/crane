@@ -111,12 +111,7 @@ Task PatchAssemblyInfo {
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
 
 	if ($teamcityBuild) {
-		[System.Console]::WriteLine("##teamcity[crane.buildnumber '$version']")
-        [System.Console]::WriteLine("##teamcity['crane.buildnumber' '$version']")
-        [System.Console]::WriteLine("##teamcity[setParameter name='crane.buildnumber' value='$version']")
-        Write-Host "##teamcity[crane.buildnumber '$version']"
-        Write-Host "##teamcity['crane.buildnumber' '$version']"
-        Write-Host "##teamcity[setParameter name='crane.buildnumber' value='$version']"
+		Write-Host "##teamcity[buildNumber '$version']"
 	}
 }
 
