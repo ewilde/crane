@@ -95,7 +95,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
                      
 
     New-Item -Path $choco_nuspec -ItemType File -Value $nuspectemplate
-    & cpack @($choco_nuspec)
+    & cpack @($choco_nuspec, "-Version", $version)
 
     Move-Item *.nupkg $choco_output_dir
 }
