@@ -2,6 +2,7 @@ properties{
     $configuration = "Debug"
     $build_number = 0
 	[switch]$teamcityBuild = $false
+    $chocolateyApiKey = ""
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
@@ -17,7 +18,7 @@ $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.consol
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test 
+Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyBuildPackage
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
@@ -102,7 +103,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
     Get-ChildItem $choco_output_dir -Filter *.nupkg | `
     Foreach-Object{
-        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $ChocolateyApiKey)
+        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $chocolateyApiKey)
     }
 }
 
