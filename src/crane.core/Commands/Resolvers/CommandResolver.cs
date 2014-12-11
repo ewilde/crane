@@ -6,7 +6,7 @@ namespace Crane.Core.Commands.Resolvers
 {
     public class CommandResolver : ICommandResolver
     {
-        private readonly Type _default = typeof (Help);
+        private readonly Type _default = typeof (UnknownCommand);
         public Type Resolve(IEnumerable<ICraneCommand> commands, string commandArgument)
         {
             

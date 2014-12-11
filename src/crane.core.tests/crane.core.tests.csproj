@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Commands\Handlers\CommandHandlerFactoryTests.cs" />
     <Compile Include="Commands\Handlers\InitCommandHandlerTests.cs" />
+    <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
     <Compile Include="Configuration\Modules\TemplateModuleTests.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Templates\TemplateResolverTests.cs" />
     <Compile Include="TestUtilities\ContextUtility.cs" />
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="TestUtilities\TokenDictionaryUtility.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />

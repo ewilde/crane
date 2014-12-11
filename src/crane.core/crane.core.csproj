@@ -70,10 +70,13 @@
     <Compile Include="Commands\Handlers\ListCommandsHandler.cs" />
     <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\ListCommands.cs" />
+    <Compile Include="Commands\Parsers\CommandArgParser.cs" />
+    <Compile Include="Commands\Parsers\ICommandArgParser.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
     <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\UnknownCommand.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />

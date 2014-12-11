@@ -23,8 +23,8 @@ namespace Crane.Core.Tests.Commands.Resolvers
             "When I resolve the command bob"
                 ._(() => result = commandResolver.Resolve(commands, "bob"));
 
-            "Then the help command is returned"
-                ._(() => result.Should().Be(typeof(Help)));
+            "Then the unknown command is returned"
+                ._(() => result.Should().Be(typeof(UnknownCommand)));
 
 
         }

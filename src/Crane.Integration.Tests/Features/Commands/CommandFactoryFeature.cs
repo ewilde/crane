@@ -10,7 +10,7 @@ namespace Crane.Integration.Tests.Features.Commands
     public class CommandFactoryFeature
     {
         [Scenario]
-        public void Can_fill_arguments_to_init_command_when_passed_by_position(ICommandFactory commandFactory, 
+        public void Creates_command_when_arguments_passed_by_position(ICommandFactory commandFactory, 
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
@@ -27,7 +27,7 @@ namespace Crane.Integration.Tests.Features.Commands
         }
 
         [Scenario]
-        public void Can_fill_arguments_to_init_command_when_passed_by_using_switches(ICommandFactory commandFactory,
+        public void Creates_command_when_arguments_passed_by_switches(ICommandFactory commandFactory,
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
@@ -63,7 +63,7 @@ namespace Crane.Integration.Tests.Features.Commands
         }
 
         [Scenario]
-        public void Returns_listcommands_command_when_no_args_are_passed(ICommandFactory commandFactory,
+        public void Creates_listcommands_command_when_no_arguments_passed(ICommandFactory commandFactory,
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
@@ -78,7 +78,7 @@ namespace Crane.Integration.Tests.Features.Commands
         }
 
         [Scenario]
-        public void Returns_listcommands_command_when_null_args_are_passed(ICommandFactory commandFactory,
+        public void Creates_listcommands_command_when_null_arguments_passed(ICommandFactory commandFactory,
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
