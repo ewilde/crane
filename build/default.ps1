@@ -90,12 +90,12 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
     New-Item -ItemType directory -Path $choco_output_dir -Force
 
     $nuspectemplate = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
-    $nuspectemplate = $nuspectemplate.Replace("##version_number##", $version)
+    $nuspectemplate = $nuspectemplate.Replace("##version_number##", "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number")
     $nuspectemplate = $nuspectemplate.Replace("##build_output##", $build_artifacts_dir)
                      
 
     New-Item -Path $choco_nuspec -ItemType File -Value $nuspectemplate
-    & cpack @($choco_nuspec, "-Version", $version)
+    & cpack @($choco_nuspec)
 
     Move-Item *.nupkg $choco_output_dir
 }
