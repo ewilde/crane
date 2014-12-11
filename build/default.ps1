@@ -2,6 +2,7 @@ properties{
     $configuration = "Debug"
     $build_number = 0
 	[switch]$teamcityBuild = $false
+    $chocolateyApiKey = ""
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
@@ -12,12 +13,12 @@ $template_source_dir = "$src_dir\Crane.Templates"
 $sln_filename = "Crane.sln"
 $sln_filepath = "$src_dir\$sln_filename" 
 $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
-  
+$version = ""
 
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test 
+Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyBuildPackage
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
@@ -82,14 +83,14 @@ Task ChocolateyExists{
 }
 
 Task ChocolateyBuildPackage -Depends ChocolateyExists{
-    $choco_output_dir = Resolve-Path "$root_dir\chocolatey-output"
+    $choco_output_dir = "$root_dir\chocolatey-output"
     $choco_nuspec = "$choco_output_dir\crane.nuspec"
 
     Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
     New-Item -ItemType directory -Path $choco_output_dir -Force
 
     $nuspectemplate = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
-    $nuspectemplate = $nuspectemplate.Replace("##version_number##", $version)
+    $nuspectemplate = $nuspectemplate.Replace("##version_number##", "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number")
     $nuspectemplate = $nuspectemplate.Replace("##build_output##", $build_artifacts_dir)
                      
 
@@ -102,7 +103,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
     Get-ChildItem $choco_output_dir -Filter *.nupkg | `
     Foreach-Object{
-        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $ChocolateyApiKey)
+        & $build_dir\nuget.exe @('push', $_.FullName, "-s", "http://chocolatey.cranebuild.com:8080/", $chocolateyApiKey)
     }
 }
 
@@ -111,12 +112,7 @@ Task PatchAssemblyInfo {
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
 
 	if ($teamcityBuild) {
-		[System.Console]::WriteLine("##teamcity[crane.buildnumber '$version']")
-        [System.Console]::WriteLine("##teamcity['crane.buildnumber' '$version']")
-        [System.Console]::WriteLine("##teamcity[setParameter name='crane.buildnumber' value='$version']")
-        Write-Host "##teamcity[crane.buildnumber '$version']"
-        Write-Host "##teamcity['crane.buildnumber' '$version']"
-        Write-Host "##teamcity[setParameter name='crane.buildnumber' value='$version']"
+		Write-Host "##teamcity[buildNumber '$version']"
 	}
 }
 
