@@ -92,6 +92,7 @@
     <Compile Include="Templates\TemplateResolverTests.cs" />
     <Compile Include="TestUtilities\ContextUtility.cs" />
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\EnableNCrunch.cs" />
     <Compile Include="TestUtilities\TokenDictionaryUtility.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />

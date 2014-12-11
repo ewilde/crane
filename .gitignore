@@ -117,3 +117,4 @@ NCrunch*
 build-output
 build/NuGet.exe
 chocolatey-output
+_NCrunch_*
