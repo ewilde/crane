@@ -44,7 +44,7 @@ namespace Crane.Core.Tests.Commands.Parsers
                 ._(() => commandArgParser = new CommandArgParser());
 
             "When I parse the command 'FooCommand -Bar Hello'"
-                ._(() => result = commandArgParser.Parse(typeof(FooCommand), new[] { "FooCommand", "-Bar", "Hello" }) as FooCommand);
+                ._(() => result = commandArgParser.Parse(typeof(FooCommand),  "FooCommand", "-Bar", "Hello" ) as FooCommand);
 
             "Then the result should have Bar set to Hello"
                 ._(() => result.Bar.Should().Be("Hello"));
@@ -61,7 +61,7 @@ namespace Crane.Core.Tests.Commands.Parsers
                 ._(() => commandArgParser = new CommandArgParser());
 
             "When I parse the command 'FooCommand Hello -Baz World'"
-                ._(() => result = commandArgParser.Parse(typeof(FooCommand), new[] { "FooCommand", "Hello", "-Baz", "World" }) as FooCommand);
+                ._(() => result = commandArgParser.Parse(typeof(FooCommand),  "FooCommand", "Hello", "-Baz", "World" ) as FooCommand);
 
             "Then the result should have Bar set to Hello"
                 ._(() => result.Bar.Should().Be("Hello"));
@@ -78,7 +78,7 @@ namespace Crane.Core.Tests.Commands.Parsers
                 ._(() => commandArgParser = new CommandArgParser());
 
             "When I parse the command 'FooCommand -Bar Hello -Baz World'"
-                ._(() => result = commandArgParser.Parse(typeof(FooCommand), new[] { "FooCommand", "-Bar", "Hello", "-Baz", "World" }) as FooCommand);
+                ._(() => result = commandArgParser.Parse(typeof(FooCommand), "FooCommand", "-Bar", "Hello", "-Baz", "World" ) as FooCommand);
 
             "Then the result should have Bar set to Hello"
                 ._(() => result.Bar.Should().Be("Hello"));
@@ -95,11 +95,12 @@ namespace Crane.Core.Tests.Commands.Parsers
                 ._(() => commandArgParser = new CommandArgParser());
 
             "When I dont pass in the Bar parameter"
-                ._(() => result = Throws.Exception(() => commandArgParser.Parse(typeof (FooCommand), new[] {"FooCommand"})));
+                ._(() => result = Throws.Exception(() => commandArgParser.Parse(typeof (FooCommand), "FooCommand")));
 
             "Then a MissingArgumentCraneException is thrown"
                 ._(() => result.Should().BeOfType<MissingArgumentCraneException>());
 
         }
+
     }
 }

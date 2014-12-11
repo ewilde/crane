@@ -18,7 +18,7 @@ namespace Crane.Core.Commands.Execution
             _output = output;
         }
 
-        public int ExecuteCommand(string[] args)
+        public int ExecuteCommand(params string[] args)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Crane.Core.Commands.Execution
             }
             catch (CraneException craneException)
             {
-                _output.WriteError("error: {0} ", craneException.Message);
+                _output.WriteError("error: {0}", craneException.Message);
                 return -1;
                 
             }

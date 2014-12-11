@@ -19,7 +19,7 @@ namespace Crane.Core.Commands.Factories
             _commandArgParser = commandArgParser;
         }
 
-        public ICraneCommand Create(string[] args)
+        public ICraneCommand Create(params string[] args)
         {
             if (args == null || args.Length == 0)
                 return new ListCommands();

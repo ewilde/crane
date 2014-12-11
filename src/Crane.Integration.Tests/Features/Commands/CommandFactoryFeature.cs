@@ -17,7 +17,7 @@ namespace Crane.Integration.Tests.Features.Commands
                 ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init testproject"
-                ._(() => craneCommand = commandFactory.Create(new[] { "init", "testproject" }));
+                ._(() => craneCommand = commandFactory.Create("init", "testproject"));
 
             "Then the command returned should be the init command"
                 ._(() => craneCommand.Should().BeOfType<Init>());
@@ -34,7 +34,7 @@ namespace Crane.Integration.Tests.Features.Commands
                 ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init testproject"
-                ._(() => craneCommand = commandFactory.Create(new[] { "init", "-projectName", "testproject" }));
+                ._(() => craneCommand = commandFactory.Create("init", "-projectName", "testproject"));
 
             "Then the command returned should be the init command"
                 ._(() => craneCommand.Should().BeOfType<Init>());
@@ -52,7 +52,7 @@ namespace Crane.Integration.Tests.Features.Commands
                 ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init'"
-                ._(() => craneException = Throws.Exception(() => commandFactory.Create(new[] { "init" })) as CraneException);
+                ._(() => craneException = Throws.Exception(() => commandFactory.Create("init")) as CraneException);
 
             "Then a missing argument exception should be thrown"
                 ._(() => craneException.Should().BeOfType<MissingArgumentCraneException>());
@@ -70,7 +70,7 @@ namespace Crane.Integration.Tests.Features.Commands
                 ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
 
             "When I create a command with no arguments"
-                ._(() => craneCommand = commandFactory.Create(new string[0]));
+                ._(() => craneCommand = commandFactory.Create());
 
             "Then the command returned should be the list commands command"
                 ._(() => craneCommand.Should().BeOfType<ListCommands>());

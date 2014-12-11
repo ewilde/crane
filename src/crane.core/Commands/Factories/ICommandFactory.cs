@@ -2,6 +2,6 @@
 {
     public interface ICommandFactory
     {
-        ICraneCommand Create(string[] args);
+        ICraneCommand Create(params string[] args);
     }
 }

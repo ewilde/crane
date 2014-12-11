@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Crane.Core.Commands;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Resolvers;
+using Crane.Integration.Tests.TestUtilities;
 using FakeItEasy;
 using FluentAssertions;
 using Xbehave;
@@ -11,7 +13,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
     public class CommandResolverTests
     {
         [Scenario]
-        public void Resolve_gives_list_commands_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, Type result)
+        public void Throws_unknown_command_exception_if_none_match(CommandResolver commandResolver, List<ICraneCommand> commands, Exception result)
         {
             "Given I have the commands init and help"
                 ._(() =>
@@ -21,10 +23,13 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 } );
 
             "When I resolve the command bob"
-                ._(() => result = commandResolver.Resolve(commands, "bob"));
+                ._(() => result = Throws.Exception(() => commandResolver.Resolve(commands, "bob")));
 
-            "Then the unknown command is returned"
-                ._(() => result.Should().Be(typeof(UnknownCommand)));
+            "Then an UnknownCommandCraneException is thrown"
+                ._(() => result.Should().BeOfType<UnknownCommandCraneException>());
+
+            "And the exception message should detail the command passed in"
+                ._(() => result.Message.Should().Contain("bob"));
 
 
         }

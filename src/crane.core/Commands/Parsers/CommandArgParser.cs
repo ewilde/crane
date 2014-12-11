@@ -7,7 +7,7 @@ namespace Crane.Core.Commands.Parsers
 {
     public class CommandArgParser : ICommandArgParser
     {
-        public ICraneCommand Parse(Type commandType, string[] args)
+        public ICraneCommand Parse(Type commandType, params string[] args)
         {
             try
             {
