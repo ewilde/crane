@@ -102,7 +102,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 }
 
 Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
-    Get-ChildItem $choco_output_dir -Filter *.nupkg | `
+    Get-ChildItem "$root_dir\chocolatey-output" -Filter *.nupkg |
     Foreach-Object{
         & $build_dir\nuget.exe @('push', $_.FullName, "-s", $chocolateyApiUrl, $chocolateyApiKey)
     }
