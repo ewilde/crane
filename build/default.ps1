@@ -83,7 +83,7 @@ Task ChocolateyExists{
 }
 
 Task ChocolateyBuildPackage -Depends ChocolateyExists{
-    $choco_output_dir = Resolve-Path "$root_dir\chocolatey-output"
+    $choco_output_dir = "$root_dir\chocolatey-output"
     $choco_nuspec = "$choco_output_dir\crane.nuspec"
 
     Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
