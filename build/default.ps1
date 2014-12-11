@@ -13,7 +13,7 @@ $template_source_dir = "$src_dir\Crane.Templates"
 $sln_filename = "Crane.sln"
 $sln_filepath = "$src_dir\$sln_filename" 
 $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
-  
+$version = ""
 
 Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
