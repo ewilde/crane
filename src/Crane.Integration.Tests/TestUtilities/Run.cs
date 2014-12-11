@@ -33,6 +33,7 @@ namespace Crane.Integration.Tests.TestUtilities
                 }
             };
 
+
             process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
             process.OutputDataReceived += (sender, args) => output.Append(args.Data);
 
@@ -41,6 +42,8 @@ namespace Crane.Integration.Tests.TestUtilities
             process.BeginErrorReadLine();
 
             process.WaitForExit();
+
+            _log.DebugFormat("standard out: {0}  error: {1}", output, error);
 
             return new RunResult
             {

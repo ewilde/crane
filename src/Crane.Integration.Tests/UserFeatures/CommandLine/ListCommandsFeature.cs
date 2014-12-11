@@ -6,10 +6,12 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 {
     public class ListCommandsFeature
     {
-        private const string PossibleCommands = @"list of possible crane commands:crane help crane init crane listcommands ";
+        private const string PossibleCommands =
+            @"list of possible crane commands:crane help crane init crane listcommands ";
 
         [Scenario]
-        public void Calling_crane_with_no_arguments_will_list_all_possible_commands_except_unknown(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Calling_crane_with_no_arguments_will_list_all_possible_commands_except_unknown(Run run,
+            RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
@@ -26,7 +28,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [Scenario]
-        public void Calling_crane_listcommands_will_list_all_possible_commands_except_unknown(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Calling_crane_listcommands_will_list_all_possible_commands_except_unknown(Run run, RunResult result,
+            CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());

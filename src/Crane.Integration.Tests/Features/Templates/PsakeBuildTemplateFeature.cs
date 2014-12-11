@@ -17,12 +17,14 @@ namespace Crane.Integration.Tests.Features.Templates
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>(); fileManager = ioc.Resolve<IFileManager>();
+                    context = ioc.Resolve<ICraneContext>();
+                    fileManager = ioc.Resolve<IFileManager>();
+
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
                 });
 
             "And I have a psake template builder"
-                ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Build));
+                ._(() => template = ioc.Resolve<ITemplateResolver>().Resolve(TemplateType.Build));
 
             "And I have been given a project name via init"
                 ._(() => context.ProjectName = "ServiceStack");
