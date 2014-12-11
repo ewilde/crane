@@ -8,7 +8,7 @@ properties{
 
 $build_dir = (Split-Path $psake.build_script_file)
 $root_dir =  Resolve-Path "$build_dir\.."
-$build_artifacts_dir = Resolve-Path "$build_dir\..\build-output"
+$build_artifacts_dir = "$root_dir\build-output"
 $src_dir = "$root_dir\src"
 $template_source_dir = "$src_dir\Crane.Templates"
 $sln_filename = "Crane.sln"
