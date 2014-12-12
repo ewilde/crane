@@ -20,7 +20,7 @@
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="##build_output##**" target="tools" />
+    <file src="##build_output##\**" target="tools" />
   </files>
 </package>
 
