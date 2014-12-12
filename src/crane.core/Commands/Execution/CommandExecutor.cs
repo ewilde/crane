@@ -1,4 +1,5 @@
-﻿using Crane.Core.Commands.Exceptions;
+﻿using System;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Factories;
 using Crane.Core.Commands.Handlers.Factories;
 using Crane.Core.IO;
@@ -33,7 +34,11 @@ namespace Crane.Core.Commands.Execution
             {
                 _output.WriteError("error: {0}", craneException.Message);
                 return -1;
-                
+            }
+            catch (Exception exception)
+            {
+                _output.WriteError("error: {0}", exception.Message);
+                return -1;
             }
             return 0;
         }
