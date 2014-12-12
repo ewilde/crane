@@ -51,6 +51,14 @@
     <Reference Include="FubuCsProjFile">
       <HintPath>..\packages\FubuCsProjFile.1.3.0.100\lib\net40\FubuCsProjFile.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerArgs, Version=2.3.2.0, Culture=neutral, PublicKeyToken=26a276264bbd55b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PowerArgs.2.3.2.0\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,11 +77,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Handlers\CommandHandlerFactoryTests.cs" />
+    <Compile Include="Commands\Handlers\InitCommandHandlerTests.cs" />
+    <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
+    <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModulesTests.cs" />
+    <Compile Include="Configuration\Modules\TemplateModuleTests.cs" />
+    <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModuleTests.cs" />
     <Compile Include="Data\Factory.cs" />
     <Compile Include="Data\SolutionWithProjectReferences.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestExtensions\ModuleExtension.cs" />
+    <Compile Include="Templates\Parsers\FileAndDirectoryTokenParserTests.cs" />
+    <Compile Include="Templates\Parsers\TokenParserTests.cs" />
+    <Compile Include="Templates\TemplateResolverTests.cs" />
+    <Compile Include="TestUtilities\ContextUtility.cs" />
+    <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\Throws.cs" />
+    <Compile Include="TestUtilities\EnableNCrunch.cs" />
+    <Compile Include="TestUtilities\TokenDictionaryUtility.cs" />
+    <Compile Include="TestUtilities\ModuleExtension.cs" />
+    <Compile Include="TestUtilities\ObjectFactory.cs" />
+    <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\crane.core\Crane.Core.csproj">
@@ -85,15 +110,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
+    <ItemGroup>
+      <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
+    </ItemGroup>
+    <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
+    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
   </Target>
-  -->
 </Project>

@@ -1,24 +1,15 @@
-﻿namespace Crane.Console
+﻿using Crane.Core.Hosts;
+
+namespace Crane.Console
 {
     public class Program
     {
         static int Main(string[] args)
         {
-            var program = new Program(null);
-            return program.Run();
+            var hostFactory = new HostFactory();
+            var consoleHost = hostFactory.CreateConsoleHost();
+            return consoleHost.Run(args);
         }
 
-        public Program(IOptions options)
-        {
-            if (!options.Validate())
-            {
-                options.ShowHelp();
-            }
-        }
-
-        public int Run()
-        {
-            return 0;
-        }
     }
 }

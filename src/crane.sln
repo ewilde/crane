@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core", "crane.core\Crane.Core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
 EndProject
@@ -10,8 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Console", "crane.console\Crane.Console.csproj", "{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4B027A09-255D-44AB-BA1A-02CED9D8624A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Console.Tests", "crane.console.tests\Crane.Console.Tests.csproj", "{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}"
 EndProject
@@ -19,7 +20,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
+		..\build.ps1 = ..\build.ps1
+		..\build\default.ps1 = ..\build\default.ps1
+		..\build\psake-ext.psm1 = ..\build\psake-ext.psm1
+		..\build\psake.ps1 = ..\build\psake.ps1
+		..\build\psake.psm1 = ..\build\psake.psm1
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Integration.Tests", "Crane.Integration.Tests\Crane.Integration.Tests.csproj", "{D7F4BD88-7AD2-493F-B12B-88D191B069F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,16 +47,16 @@ Global
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
-		{F1A4C9DF-2E38-48D2-B7DB-7826874B2B34} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
 	EndGlobalSection
 EndGlobal

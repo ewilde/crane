@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Crane.Core.Commands;
 using Module = Autofac.Module;
 
@@ -10,11 +9,16 @@ namespace Crane.Core.Configuration.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var commands = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(commands)
+            var assembly = typeof (ICraneCommand).Assembly;
+
+            builder.RegisterAssemblyTypes(assembly)
                 .AssignableTo<ICraneCommand>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            
         }
     }
+
+
 }
