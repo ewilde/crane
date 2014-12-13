@@ -30,11 +30,6 @@ namespace Crane.Core.Commands.Execution
                 if (!(command is ListCommands))
                     _output.WriteSuccess("{0} success.", command.GetType().Name);
             }
-            catch (CraneException craneException)
-            {
-                _output.WriteError("error: {0}", craneException.Message);
-                return -1;
-            }
             catch (Exception exception)
             {
                 _output.WriteError("error: {0}", exception.Message);
