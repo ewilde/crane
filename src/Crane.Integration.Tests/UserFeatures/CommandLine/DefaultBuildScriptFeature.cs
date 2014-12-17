@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
@@ -27,6 +28,10 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
             "It should have build the 'SallyFx' unit test library"
                 ._(() => File.Exists(Path.Combine(craneTestContext.Directory, "SallyFx", "build-output", "SallyFx.UnitTests.dll")));
+
+            "It should have a default assembly version 0.0.0.0 which is done via assembly info patching"
+                ._(() => FileVersionInfo.GetVersionInfo(Path.Combine(craneTestContext.Directory, "SallyFx", "build-output", "SallyFx.dll"))
+                    .FileVersion.Should().Be("0.0.0.0"));
 
             "It should not throw an error"
                 ._(() => result.ErrorOutput.Should().BeEmpty())

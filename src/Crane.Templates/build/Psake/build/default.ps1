@@ -1,28 +1,33 @@
-param(
-    [Parameter(Position=0,Mandatory=0)]
-    [string]$version = "0.0.1.0",
-    [Parameter(Position=1,Mandatory=0)]
-    [string]$configuration = "Debug"
-)
+properties{
+    $configuration = "Debug"
+    $build_number = 0
+    [switch]$teamcityBuild = $false
+    $chocolateyApiKey = ""
+    $chocolateyApiUrl = ""
+}
 
-  $build_dir = (Split-Path $psake.build_script_file)
-  $build_artifacts_dir = "$build_dir\..\build-output\"
-  $src_dir = "$build_dir\..\src"
-  $sln_filename = "%context.ProjectName%.sln"
-  $sln_filepath = "$src_dir\$sln_filename" 
-  $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
- 
+$build_dir = (Split-Path $psake.build_script_file)
+$root_dir =  Resolve-Path "$build_dir\.."
+$build_artifacts_dir = "$root_dir\build-output"
+$src_dir = "$root_dir\src"
+$sln_filename = "%context.ProjectName%.sln"
+$sln_filepath = "$src_dir\$sln_filename" 
+$xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
+$version = ""
 
 Import-Module (Join-Path $build_dir 'psake-ext.psm1')
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends BuildCore, Test
+Task Default -Depends PatchAssemblyInfo, BuildCore, Test
 
 Task BuildCore -Depends Info, Clean, Build
 
 Task Info {
   Write-Host build_dir: $build_dir
   Write-Host build_artifacts_dir: $build_artifacts_dir
+  Write-Host build_number: $build_number
+  Write-Host configuration: $configuration
+  Write-Host teamcityBuild: $teamcityBuild
   Write-Host src_dir: $src_dir
   Write-Host sln_filename: $sln_filename
   Write-Host sln_filepath: $sln_filepath
@@ -31,7 +36,7 @@ Task Info {
 
 Task Build -Depends Clean, NugetRestore { 
     Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild "$sln_filepath" /t:Build /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
+    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
 }
 
 Task Clean {
@@ -59,5 +64,26 @@ Task Test {
     Get-ChildItem -Path $build_artifacts_dir -Filter *.UnitTests.dll | 
     % {
         & $xunit_consoleRunner @($_.FullName, '/silent')
+        if($LastExitCode -ne 0)
+        {
+          throw "failed executing tests $_.FullName. See last error."
+        }
     }
+}
+Task PatchAssemblyInfo {
+    $version = "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number"
+    GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
+	if ($teamcityBuild) {
+		Write-Host "##teamcity[buildNumber '$version']"
+	}
+}
+function GenerateAssemblyInfo
+{
+param(
+	[string]$title, 
+	[string]$description, 
+	[string]$version,
+	[string]$file
+)
+    Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file
 }
