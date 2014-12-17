@@ -65,7 +65,6 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should not have an exit code of 0"
                 ._(() => result.ExitCode.Should().NotBe(0))
                 .Teardown(() => craneTestContext.TearDown());
-        }
-        
+        }       
     }
 }
