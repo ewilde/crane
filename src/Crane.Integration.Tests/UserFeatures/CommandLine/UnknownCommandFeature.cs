@@ -12,7 +12,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
 
-            "And I have a run context"
+            "And I have a crane run context"
                 ._(() => run = new Run());
 
             "When I run crane foobar"

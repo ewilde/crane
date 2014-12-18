@@ -21,7 +21,7 @@ function Read-GitCommitMessage
 		return ""
 	}
 	
-	return $gitLog.Split(' ')[0]
+	return $gitLog
 }
 
 function Read-VersionFromGitTag

@@ -74,9 +74,10 @@
     <Compile Include="TestUtilities\BuildScriptRunner.cs" />
     <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
+    <Compile Include="TestUtilities\Git.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
-    <Compile Include="TestUtilities\Run.cs" />
+    <Compile Include="TestUtilities\Crane.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\InitFeature.cs" />

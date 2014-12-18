@@ -93,7 +93,7 @@ param(
     $commit = ''
     if ($isGitRepo)
     {
-        $commit = Get-Git-CommitMessage
+        $commit = Read-GitCommitMessage
     }
 
     Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file -commitMessage $commit
