@@ -8,6 +8,7 @@ properties{
 
 $build_dir = (Split-Path $psake.build_script_file)
 $root_dir =  Resolve-Path "$build_dir\.."
+$isGitRepo = Test-Path (Join-Path $root_dir '.git')
 $build_artifacts_dir = "$root_dir\build-output"
 $src_dir = "$root_dir\src"
 $sln_filename = "%context.ProjectName%.sln"
@@ -70,13 +71,17 @@ Task Test {
         }
     }
 }
+
 Task PatchAssemblyInfo {
-    $version = "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number"
-    GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
-	if ($teamcityBuild) {
+  $version = "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number"
+  GenerateAssemblyInfo "%context.ProjectName%" "%context.ProjectName% functionality" $version "$src_dir\%context.ProjectName%\Properties\AssemblyInfo.cs"
+  GenerateAssemblyInfo "%context.ProjectName%.UnitTests" "%context.ProjectName%.UnitTests test library" $version "$src_dir\%context.ProjectName%.UnitTests\Properties\AssemblyInfo.cs"
+	
+  if ($teamcityBuild) {
 		Write-Host "##teamcity[buildNumber '$version']"
 	}
 }
+
 function GenerateAssemblyInfo
 {
 param(
@@ -85,5 +90,11 @@ param(
 	[string]$version,
 	[string]$file
 )
-    Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file
+    $commit = ''
+    if ($isGitRepo)
+    {
+        $commit = Get-Git-CommitMessage
+    }
+
+    Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file -commitMessage $commit
 }

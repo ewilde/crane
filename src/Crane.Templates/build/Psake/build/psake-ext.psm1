@@ -12,7 +12,7 @@ function Invoke-DownloadNuget()
     ((new-object net.webclient).DownloadFile('http://www.nuget.org/nuget.exe', $nugetFile))
 }
 
-function Get-Git-Commit
+function Read-GitCommitMessage
 {
 	$gitLog = git log --oneline -1
 	
@@ -23,11 +23,13 @@ function Get-Git-Commit
 	
 	return $gitLog.Split(' ')[0]
 }
-function Get-Version-From-Git-Tag
+
+function Read-VersionFromGitTag
 {
   $gitTag = git describe --tags --abbrev=0
   return $gitTag.Replace("v", "") + ".0"
 }
+
 function Invoke-GenerateAssemblyInfo
 {
 param(
@@ -38,9 +40,9 @@ param(
 	[string]$product, 
 	[string]$copyright, 
 	[string]$version,
-	[string]$file = $(throw "file is a required parameter.")
+	[string]$file = $(throw "file is a required parameter."),
+    [string]$commitMessage
 )
-  $commit = Get-Git-Commit
   $asmInfo = "using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -53,7 +55,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProductAttribute(""$product"")]
 [assembly: AssemblyCopyrightAttribute(""$copyright"")]
 [assembly: AssemblyVersionAttribute(""$version"")]
-[assembly: AssemblyInformationalVersionAttribute(""$version / $commit"")]
+[assembly: AssemblyInformationalVersionAttribute(""$version / $commitMessage"")]
 [assembly: AssemblyFileVersionAttribute(""$version"")]
 [assembly: AssemblyDelaySignAttribute(false)]
 "
@@ -66,4 +68,4 @@ using System.Runtime.InteropServices;
 	Write-Host "Generating assembly info file: $file"
 	Write-Output $asmInfo > $file
 }
-export-modulemember -function Invoke-DownloadNuget, Invoke-GenerateAssemblyInfo
+export-modulemember -function Invoke-DownloadNuget, Invoke-GenerateAssemblyInfo, Read-GitCommitMessage

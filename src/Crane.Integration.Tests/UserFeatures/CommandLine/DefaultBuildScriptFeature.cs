@@ -21,7 +21,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run.Command(craneTestContext.Directory, "crane init SallyFx").ErrorOutput.Should().BeEmpty());
 
             "When I build the project"
-                ._(() => result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "SallyFx")));
+                ._(() =>
+                {
+                    result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "SallyFx"));
+                    result.ErrorOutput.Should().BeEmpty();
+                });
 
             "It should have build the main 'SallyFx' class library"
                 ._(() => File.Exists(Path.Combine(craneTestContext.Directory, "SallyFx", "build-output", "SallyFx.dll")));
