@@ -83,7 +83,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                {
                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(Path.Combine(craneTestContext.Directory, "SallyFx", "build-output", "SallyFx.dll"));
                    fileVersionInfo.ProductVersion.Should().Contain("First commit of SallyFx");
-               });
+               })
+               .Teardown(() => craneTestContext.TearDown()); 
         }
     }
 }
