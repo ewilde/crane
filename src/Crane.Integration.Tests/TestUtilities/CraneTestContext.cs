@@ -32,7 +32,14 @@ namespace Crane.Integration.Tests.TestUtilities
 
         public void TearDown()
         {
-            _fileManager.Delete(_directory);
+            try
+            {
+                _fileManager.Delete(_directory);
+            }
+            catch (Exception exception)
+            {
+                _log.Warn(string.Format("Error tearing down test, trying to delete temp directory {0}.", _directory.FullName), exception);
+            }            
         }
     }
 }

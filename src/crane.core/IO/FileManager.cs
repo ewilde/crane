@@ -75,7 +75,22 @@ namespace Crane.Core.IO
 
         public void Delete(DirectoryInfo directory)
         {
-            Directory.Delete(directory.FullName, true);
+            DeleteFileSystemInfo(directory);
+        }
+
+        private static void DeleteFileSystemInfo(FileSystemInfo fileSystemInfo)
+        {
+            var directoryInfo = fileSystemInfo as DirectoryInfo;
+            if (directoryInfo != null)
+            {
+                foreach (var childInfo in directoryInfo.GetFileSystemInfos())
+                {
+                    DeleteFileSystemInfo(childInfo);
+                }
+            }
+
+            fileSystemInfo.Attributes = FileAttributes.Normal;
+            fileSystemInfo.Delete();
         }
 
         public string ReadAllText(string path)
