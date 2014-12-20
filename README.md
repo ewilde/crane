@@ -12,8 +12,7 @@ and ci template ready to rock.
 #Please show me?
 `crane init SallyFx`
 
-This create a new project called SallyFx in the current directory. (We were in
-c:\dev\temp)
+This creates a new project called SallyFx in the current directory.
 
 ```
 > crane init SallyFx
