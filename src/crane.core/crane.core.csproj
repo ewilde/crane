@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Crane.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,6 +88,13 @@
     <Compile Include="Configuration\Modules\IOModule.cs" />
     <Compile Include="Configuration\Modules\TemplateModule.cs" />
     <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModule.cs" />
+    <Compile Include="Documentation\CommandExample.cs" />
+    <Compile Include="Documentation\CommandHelp.cs" />
+    <Compile Include="Documentation\CommandHelpCollection.cs" />
+    <Compile Include="Documentation\CommandHelpParser.cs" />
+    <Compile Include="Documentation\ICommandHelpCollection.cs" />
+    <Compile Include="Documentation\ICommandHelpParser.cs" />
+    <Compile Include="Documentation\ICommandHelp.cs" />
     <Compile Include="Hosts\ConsoleHost.cs" />
     <Compile Include="Hosts\HostFactory.cs" />
     <Compile Include="Hosts\IHost.cs" />
