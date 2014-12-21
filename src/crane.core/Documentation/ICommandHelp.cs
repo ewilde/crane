@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Crane.Core.Documentation
@@ -7,8 +8,12 @@ namespace Crane.Core.Documentation
     {
         string CommandName { get; }
 
+        Type CommandType { get; }
+
         string Description { get; }
 
         IEnumerable<CommandExample> Examples { get; }
+
+        string FullName { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Xbehave;
 
 namespace Crane.Core.Tests.Configuration.Modules
 {
-    public class CommandModulesTests
+    public class CommandModuleTests
     {
         [Scenario]
         public void command_module_registration(IContainer container)

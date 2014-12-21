@@ -168,6 +168,80 @@ namespace Crane.Core.Utility
             var info = new FileInfo(value);
             return info.Name.Replace(info.Extension, string.Empty);
         }
+
+        /// <summary>
+        /// Get a particular line from a string. Assumes line seperator is
+        /// <see cref="Environment.NewLine"/>
+        /// </summary>
+        /// <param name="value">Text</param>
+        /// <param name="number">Zero-based line number</param>
+        public static string Line(this string value, int number)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            var lines = value.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+
+            if (number > lines.Length)
+            {
+                return null;
+            }
+
+            return lines[number];
+        }
+
+        public static int PadCountLeft(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0;
+            }
+
+            int padding = 0;
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (char.IsWhiteSpace(value[i]))
+                {
+                    padding += 1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return padding;
+        }
+
+        public static string Trim(this string value, char character, int count)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+
+            int removed = 0;
+            string result = value;
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (value[i] != character)
+                {
+                    break;
+                }
+
+                if (removed >= count)
+                {
+                    break;
+                }
+
+                removed += 1;
+                result = result.Substring(1);
+            }
+
+            return result;
+        }
     }
 
 }

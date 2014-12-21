@@ -21,6 +21,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Crane.Core.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Arguments\CommandArgument.cs" />
+    <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
     <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
@@ -66,6 +70,7 @@
     <Compile Include="Commands\Handlers\CommandHandler.cs" />
     <Compile Include="Commands\Handlers\Factories\CommandHandlerFactory.cs" />
     <Compile Include="Commands\Factories\ICommandFactory.cs" />
+    <Compile Include="Commands\Handlers\HelpCommandHandler.cs" />
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Commands\Handlers\Factories\ICommandHandlerFactory.cs" />
     <Compile Include="Commands\Handlers\InitCommandHandler.cs" />
@@ -73,7 +78,9 @@
     <Compile Include="Commands\Init.cs" />
     <Compile Include="Commands\ListCommands.cs" />
     <Compile Include="Commands\Parsers\CommandArgParser.cs" />
+    <Compile Include="Commands\Parsers\CommandTypeInfoParser.cs" />
     <Compile Include="Commands\Parsers\ICommandArgParser.cs" />
+    <Compile Include="Commands\Parsers\ICommandTypeInfoParser.cs" />
     <Compile Include="Commands\Resolvers\CommandResolver.cs" />
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
@@ -85,16 +92,21 @@
     <Compile Include="Configuration\Modules\BootStrapModule.cs" />
     <Compile Include="Configuration\Modules\CommandModule.cs" />
     <Compile Include="Configuration\Modules\ConfigurationModule.cs" />
+    <Compile Include="Configuration\Modules\DocumentationModule.cs" />
     <Compile Include="Configuration\Modules\IOModule.cs" />
     <Compile Include="Configuration\Modules\TemplateModule.cs" />
     <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModule.cs" />
     <Compile Include="Documentation\CommandExample.cs" />
     <Compile Include="Documentation\CommandHelp.cs" />
     <Compile Include="Documentation\CommandHelpCollection.cs" />
-    <Compile Include="Documentation\CommandHelpParser.cs" />
+    <Compile Include="Documentation\Formatters\ConsoleHelpFormatter.cs" />
+    <Compile Include="Documentation\Formatters\IHelpFormatter.cs" />
+    <Compile Include="Documentation\Parsers\XmlCommentCommandHelpParser.cs" />
     <Compile Include="Documentation\ICommandHelpCollection.cs" />
-    <Compile Include="Documentation\ICommandHelpParser.cs" />
+    <Compile Include="Documentation\Parsers\ICommandHelpParser.cs" />
     <Compile Include="Documentation\ICommandHelp.cs" />
+    <Compile Include="Documentation\Providers\IHelpProvider.cs" />
+    <Compile Include="Documentation\Providers\XmlHelpProvider.cs" />
     <Compile Include="Hosts\ConsoleHost.cs" />
     <Compile Include="Hosts\HostFactory.cs" />
     <Compile Include="Hosts\IHost.cs" />

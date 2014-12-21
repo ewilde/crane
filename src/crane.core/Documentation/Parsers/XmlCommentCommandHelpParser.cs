@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 
-namespace Crane.Core.Documentation
+namespace Crane.Core.Documentation.Parsers
 {
-    public class CommandHelpParser : ICommandHelpParser
+    public class XmlCommentCommandHelpParser : ICommandHelpParser
     {
         public ICommandHelpCollection Parse(string documentation)
         {
@@ -18,11 +19,22 @@ namespace Crane.Core.Documentation
             {
                 var fullName = member.Attribute("name").Value.TrimStart(new[] {'T', ':'});
                 var name = fullName.Split('.').Last().ToLower();
-                var examples = new List<CommandExample>();
-                commands.Add(fullName, new CommandHelp(name, GetValueOfDefault(member, "summary", string.Empty), examples));    
+                var examples = GetExamples(member);
+                commands.Add(name, new CommandHelp(name, fullName, GetValueOfDefault(member, "summary", string.Empty).Trim(), examples));    
             }
 
             return new CommandHelpCollection(commands);
+        }
+
+        private static List<CommandExample> GetExamples(XElement memberElement)
+        {
+            var examples = new List<CommandExample>();
+            foreach (var example in memberElement.Elements("example"))
+            {
+                examples.Add(new CommandExample { Value = example.Value.Trim()});
+            }
+
+            return examples;
         }
 
         private static string GetValueOfDefault(XElement member, string name, string defaultValue)

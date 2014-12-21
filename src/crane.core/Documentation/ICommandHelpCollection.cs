@@ -3,8 +3,9 @@
 namespace Crane.Core.Documentation
 {
     public interface ICommandHelpCollection
-    {
-        ICommandHelp Get<T>() where T : ICraneCommand;
+    {       
+        ICommandHelp Get(string command);
+
         int Count { get; }
     }
 }

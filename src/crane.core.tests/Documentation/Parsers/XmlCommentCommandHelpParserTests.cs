@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Crane.Core.Commands;
 using Crane.Core.Documentation;
+using Crane.Core.Documentation.Parsers;
 using Crane.Core.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Core.Tests.Documentation
+namespace Crane.Core.Tests.Documentation.Parsers
 {
-    public class CommandHelpParserTests
+    public class XmlCommentCommandHelpParserTests
     {
         [Scenario]
         public void can_parse_xml_comment_file_and_generate_command_help(string documentation, ICommandHelpParser parser, ICommandHelpCollection result)
@@ -41,19 +42,25 @@ namespace Crane.Core.Tests.Documentation
                     ");
 
             "And I have a command help parser"
-                ._(() => parser = ioc.Resolve<CommandHelpParser>());
+                ._(() => parser = ioc.Resolve<XmlCommentCommandHelpParser>());
 
             "When I parse the comment file"
                 ._(() => result = parser.Parse(documentation));
 
-            "It should return a command help collection"
+            "Then it should return a command help collection"
                 ._(() => result.Should().NotBeNull());
 
-            "It should have help for each command referenced in the comment file"
+            "And it should have help for each command referenced in the comment file"
                 ._(() => result.Count.Should().Be(2));
 
-            "It should contain parsed command help"
-                ._(() => result.Get<Init>().Should().NotBeNull());
+            "And it should contain parsed command help"
+                ._(() => result.Get("init").Should().NotBeNull());
+
+            "And it should have parsed the description"
+                ._(() => result.Get("init").Description.Should().Be("Initializes a new project"));
+
+            "And it should have parsed the example"
+                ._(() => result.Get("init").Examples.First().Value.Should().Contain("This example initializes a new project 'SallyFx' in the current directory"));
         }
     }
 }

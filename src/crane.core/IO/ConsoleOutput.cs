@@ -26,7 +26,7 @@ namespace Crane.Core.IO
 
         public void WriteInfo(string message, params object[] args)
         {
-            PrintColor(message, ConsoleColor.White, ConsoleColor.Black, args);
+            PrintColor(message, ConsoleColor.Gray, ConsoleColor.Black, args);
         }
 
         public void WriteFatal(string message, params object[] args)

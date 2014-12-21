@@ -12,13 +12,17 @@ namespace Crane.Core.Documentation
             _content = content;
         }
 
-        public ICommandHelp Get<T>() where T : ICraneCommand
+        /// <summary>
+        /// Gets a command help using the command's short name
+        /// </summary>
+        /// <param name="command">Command short name</param>
+        /// <returns>Command help for the corresponding <paramref name="command"/> short name</returns>
+        public ICommandHelp Get(string command)
         {
-            var name = typeof(T).FullName;
 
-            if (_content.ContainsKey(name))
+            if (_content.ContainsKey(command))
             {
-                return _content[name];
+                return _content[command];
             }
 
             return null;

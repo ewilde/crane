@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Crane.Core.Documentation
+﻿namespace Crane.Core.Documentation.Parsers
 {
     public interface ICommandHelpParser
     {

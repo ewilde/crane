@@ -27,7 +27,7 @@ namespace Crane.Core.Commands.Execution
                 var commandHandler = _commandHandlerFactory.Create(command);
                 commandHandler.Handle(command);
 
-                if (!(command is ListCommands))
+                if (ShowSuccess(command))
                     _output.WriteSuccess("{0} success.", command.GetType().Name);
             }
             catch (Exception exception)
@@ -36,6 +36,11 @@ namespace Crane.Core.Commands.Execution
                 return -1;
             }
             return 0;
+        }
+
+        private static bool ShowSuccess(ICraneCommand command)
+        {
+            return !(command is ListCommands || command is Help);
         }
     }
 

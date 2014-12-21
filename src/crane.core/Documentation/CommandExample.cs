@@ -2,6 +2,6 @@
 {
     public class CommandExample
     {
-         
+        public string Value { get; set; }
     }
 }

@@ -10,20 +10,20 @@ namespace Crane.Core.Tests.Documentation
     public class CommandHelpCollectionTests
     {
         [Scenario]
-        public void can_retrieve_command_help_specifying_a_type(CommandHelpCollection help, ICraneCommand command, ICommandHelp result)
+        public void can_retrieve_command_help_specifying_a_commands_short_name(CommandHelpCollection help, ICraneCommand command, ICommandHelp result)
         {
             "Given I have a help collection"
                 ._(() => help = new CommandHelpCollection(new Dictionary<string, ICommandHelp>
                 {
-                    {"Crane.Core.Commands.Init", new CommandHelp("init", "Initializes things", null)},
-                    {"Crane.Core.Commands.Help", new CommandHelp("help", "Helps things", null)},
+                    {"init", new CommandHelp("init", "Crane.Core.Commands.Init", "Initializes things", null)},
+                    {"help", new CommandHelp("help", "Crane.Core.Commands.Help", "Helps things", null)},
                 }));
 
-            "When I retrieve the command help using a type"
-                ._(() => result = help.Get<Init>());
+            "When I retrieve the command help using a short name"
+                ._(() => result = help.Get("help"));
 
-            "It should retrieve the command help associated with that type"
-                ._(() => result.CommandName.Should().Be("init"));
+            "Then it should retrieve the command help associated with that type"
+                ._(() => result.CommandName.Should().Be("help"));
         }
     }
 }
