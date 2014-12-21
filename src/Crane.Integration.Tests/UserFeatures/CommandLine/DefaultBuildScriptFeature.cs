@@ -62,12 +62,14 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     projectDir = Path.Combine(craneTestContext.Directory, "SallyFx");
                     git = ioc.Resolve<Git>();
                     git.Run("init", projectDir).ErrorOutput.Should().BeEmpty();
+                    git.Run("config user.email no-reply@cranebuild.com", projectDir).ErrorOutput.Should().BeEmpty();
                 });
 
             "And I have a previous commit"
                 ._(() =>
                 {
                     git.Run("add -A", projectDir).ErrorOutput.Should().BeEmpty();
+                    git.Run("config user.email no-reply@cranebuild.com", projectDir).ErrorOutput.Should().BeEmpty();
                     git.Run("commit -m \"First commit of SallyFx\"", projectDir).ErrorOutput.Should().BeEmpty();
                 });
 
