@@ -62,34 +62,21 @@ namespace Crane.Core.Documentation.Formatters
             return "For more information, visit https://github.com/ewilde/crane"; // update with commandline reference docs once we have some
         }
 
-        private string FormatExamples(IEnumerable<CommandExample> examples)
+        private string FormatDescription(ICommandHelp commandHelp)
         {
             var result = new StringBuilder();
-            examples.ForEach(
-                item =>
-                {
-                    var lines = item.Value.Split(new string[] {Environment.NewLine, "\n"}, StringSplitOptions.None);
-                    if (lines.Length == 0)
-                    {
-                        return;    
-                    }
-
-                    int removePaddingCount = lines.Length > 1 ? lines[1].PadCountLeft() : 0;
-
-                    lines.ForEach(
-                        line =>
-                            result.AppendLine(
-                                line.Trim(' ', removePaddingCount)
-                                    .Replace("<code>", string.Empty)
-                                    .Replace("</code>", string.Empty)));                    
-                });
+            AddLines(result, commandHelp.Description);
 
             return result.ToString();
         }
 
-        private string FormatDescription(ICommandHelp commandHelp)
+        private string FormatExamples(IEnumerable<CommandExample> examples)
         {
-            return commandHelp.Description;
+            var result = new StringBuilder();
+            examples.ForEach(
+                item => AddLines(result, item.Value));
+
+            return result.ToString();
         }
 
         private string FormatUsage(ICommandHelp commandHelp)
@@ -100,6 +87,34 @@ namespace Crane.Core.Documentation.Formatters
                 .ForEach(item => requiredArgs.AppendFormat("<{0}>", item.Name.PascalCaseToWords().ToLower()));
 
             return string.Format("usage: crane {0} {1}", commandHelp.CommandName, requiredArgs);
-        }       
+        }
+
+        private int GetRemovePaddingCount(string[] lines)
+        {
+            return lines.Length > 1 ? lines[1].PadCountLeft() : 0;
+        }
+
+        private string[] GetLines(string value)
+        {
+            return value.Split(new string[] {Environment.NewLine, "\n"}, StringSplitOptions.None);
+        }
+
+        private void AddLines(StringBuilder result, string value)
+        {
+            var lines = GetLines(value);
+            if (lines.Length == 0)
+            {
+                return;
+            }
+
+            int removePaddingCount = GetRemovePaddingCount(lines);
+
+            lines.ForEach(
+                line =>
+                    result.AppendLine(
+                        line.Trim(' ', removePaddingCount)
+                            .Replace("<code>", string.Empty)
+                            .Replace("</code>", string.Empty)));
+        }
     }
 }
