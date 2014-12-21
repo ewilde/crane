@@ -26,7 +26,7 @@ namespace Crane.Core.Documentation.Parsers
             return new CommandHelpCollection(commands);
         }
 
-        private static List<CommandExample> GetExamples(XElement memberElement)
+        private IEnumerable<CommandExample> GetExamples(XElement memberElement)
         {
             var examples = new List<CommandExample>();
             foreach (var example in memberElement.Elements("example"))
