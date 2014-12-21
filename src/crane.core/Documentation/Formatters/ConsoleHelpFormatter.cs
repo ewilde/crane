@@ -45,7 +45,6 @@ namespace Crane.Core.Documentation.Formatters
             result.AppendLine(FormatUsage(commandHelp));
             result.AppendLine();
             result.AppendLine(FormatDescription(commandHelp));
-            result.AppendLine();
 
             if (commandHelp.Examples.Any())
             {
