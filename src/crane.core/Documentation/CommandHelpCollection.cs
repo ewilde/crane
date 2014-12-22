@@ -19,7 +19,6 @@ namespace Crane.Core.Documentation
         /// <returns>Command help for the corresponding <paramref name="command"/> short name</returns>
         public ICommandHelp Get(string command)
         {
-
             if (_content.ContainsKey(command))
             {
                 return _content[command];

@@ -80,6 +80,7 @@
     <Compile Include="TestUtilities\RunResult.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
+    <Compile Include="UserFeatures\CommandLine\HelpFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\InitFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFeatures\CommandLine\ListCommandsFeature.cs" />
