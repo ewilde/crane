@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Xbehave;
-using %context.ProjectName%;
 
-namespace %context.ProjectName%.Tests
+namespace %context.ProjectName%.UnitTests
 {
     public class CalculatorFeature
     {
