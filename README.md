@@ -9,6 +9,13 @@ we start a new project. I'm sure you do as well. This is where `crane`comes in.
 Invoke `crane` and it will build you a blank project with a build script
 and ci template ready to rock.
 
+#Installation
+To install crane, run the following command from the command line or from PowerShell:
+`choco install crane`
+![choco install crane](doc/choco_install_crane.png)
+
+Don't have chocolatey installed? https://chocolatey.org/
+
 #Please show me?
 `crane init SallyFx`
 
@@ -83,9 +90,9 @@ last git commit message, if it's a git repo
 * Unit test library
  * Using xbehave, EasyFakes,  bdd style tests
 
- ##help
- `help {command}` lists required and optional parameters for commands
+##help
+`help {command}` lists required and optional parameters for commands
 
- **Example**:
+**Example**:
 
- `crane help init` show help for the init command
+`crane help init` show help for the init command
