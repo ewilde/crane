@@ -7,7 +7,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class ListCommandsFeature
     {
         private const string PossibleCommands =
-            @"list of possible crane commands:crane help crane init crane listcommands ";
+            @"list of possible crane commands:crane assemble crane help crane init crane listcommands ";
 
         [Scenario]
         public void Calling_crane_with_no_arguments_will_list_all_possible_commands_except_unknown(Run run,
