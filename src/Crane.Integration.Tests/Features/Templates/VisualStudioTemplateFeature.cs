@@ -12,20 +12,21 @@ namespace Crane.Integration.Tests.Features.Templates
     public class VisualStudioTemplateFeature
     {
         [Scenario]
-        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, ITemplate template, ICraneContext context, IFileManager fileManager)
+        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, ITemplate template, ICraneContext context, ITemplateInvoker templateInvoker)
         {
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>(); fileManager = ioc.Resolve<IFileManager>();
+                    context = ioc.Resolve<ICraneContext>(); var fileManager = ioc.Resolve<IFileManager>();
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
+                    templateInvoker = ioc.Resolve<ITemplateInvoker>();
                 });
 
             "And I have a psake template builder"
                 ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
             
             "When I call create on the template with ServiceStack as the project name and solution name"
-                ._(() => template.Create(new ProjectContext{ProjectName = "ServiceStack", SolutionName = "ServiceStack"}));
+                ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext{ProjectName = "ServiceStack", SolutionName = "ServiceStack"}));
 
             "It should rename the class library folder name with the current project name"
                 ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack")).Should().BeTrue());
