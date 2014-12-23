@@ -9,14 +9,12 @@ namespace Crane.Core.Tests.TestUtilities
     {
         public static void Configure(
             ICraneContext context, 
-            IConfiguration configuration = null, 
-            string projectName = null,
+            IConfiguration configuration = null,             
             DirectoryInfo projectRootDirectory = null,
             DirectoryInfo craneInstallDirectory = null,
             DirectoryInfo buildDirectory = null,
             DirectoryInfo sourceDirectory = null)
-        {
-            A.CallTo(() => context.ProjectName).Returns(projectName ?? StringExtensions.RandomString(8));
+        {            
             A.CallTo(() => context.ProjectRootDirectory).Returns(projectRootDirectory ?? new DirectoryInfo(Path.Combine(@"C:\", StringExtensions.RandomString(8))));
             A.CallTo(() => context.BuildDirectory).Returns(buildDirectory ?? new DirectoryInfo(Path.Combine(context.ProjectRootDirectory.FullName, CraneConfiguration.DefaultBuildFolderName)));            
             A.CallTo(() => context.CraneInstallDirectory).Returns(craneInstallDirectory ?? new DirectoryInfo(CraneContext.DefaultInstallationDirectory));

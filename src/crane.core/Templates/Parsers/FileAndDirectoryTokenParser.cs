@@ -12,35 +12,32 @@ namespace Crane.Core.Templates.Parsers
 {
     public class FileAndDirectoryTokenParser : IFileAndDirectoryTokenParser
     {
-        private readonly IFileManager _fileManager;
-        private readonly ITokenDictionary _tokenDictionary;
+        private readonly IFileManager _fileManager;        
 
         public FileAndDirectoryTokenParser(
-            IFileManager fileManager, 
-            ITokenDictionary tokenDictionary)
+            IFileManager fileManager)
         {
-            _fileManager = fileManager;
-            _tokenDictionary = tokenDictionary;
+            _fileManager = fileManager;            
         }
 
-        public void Parse(DirectoryInfo directory)
+        public void Parse(DirectoryInfo directory, ITokenDictionary tokenDictionary)
         {
             if (directory.Exists)
             {
-                directory.EnumerateFiles("*.*", SearchOption.AllDirectories).ForEach(ParseFile);
+                directory.EnumerateFiles("*.*", SearchOption.AllDirectories).ForEach(p => ParseFile(p, tokenDictionary));
             }
 
-            ParseDirectory(directory);
+            ParseDirectory(directory, tokenDictionary);
 
             if (directory.Exists)
             {
-                directory.EnumerateDirectories("*.*", SearchOption.AllDirectories).ForEach(ParseDirectory);
+                directory.EnumerateDirectories("*.*", SearchOption.AllDirectories).ForEach(p => ParseDirectory(p, tokenDictionary));
             }
         }
 
-        protected void ParseDirectory(DirectoryInfo directory)
+        protected void ParseDirectory(DirectoryInfo directory, ITokenDictionary tokenDictionary)
         {
-            foreach (var token in _tokenDictionary.Tokens)
+            foreach (var token in tokenDictionary.Tokens)
             {
                 if (directory.Name.Contains(token.Key))
                 {
@@ -49,9 +46,9 @@ namespace Crane.Core.Templates.Parsers
             }
         }
 
-        protected void ParseFile(FileInfo path)
+        protected void ParseFile(FileInfo path, ITokenDictionary tokenDictionary)
         {
-            foreach (var token in _tokenDictionary.Tokens)
+            foreach (var token in tokenDictionary.Tokens)
             {
                 if (path.Name.Contains(token.Key))
                 {

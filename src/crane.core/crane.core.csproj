@@ -90,6 +90,8 @@
     <Compile Include="Configuration\CraneConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\ICraneContext.cs" />
+    <Compile Include="Configuration\IProjectContext.cs" />
+    <Compile Include="Configuration\IProjectContextFactory.cs" />
     <Compile Include="Configuration\Modules\BootStrapModule.cs" />
     <Compile Include="Configuration\Modules\CommandModule.cs" />
     <Compile Include="Configuration\Modules\ConfigurationModule.cs" />
@@ -97,6 +99,8 @@
     <Compile Include="Configuration\Modules\IOModule.cs" />
     <Compile Include="Configuration\Modules\TemplateModule.cs" />
     <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModule.cs" />
+    <Compile Include="Configuration\ProjectContext.cs" />
+    <Compile Include="Configuration\ProjectContextFactory.cs" />
     <Compile Include="Documentation\CommandExample.cs" />
     <Compile Include="Documentation\CommandHelp.cs" />
     <Compile Include="Documentation\CommandHelpCollection.cs" />
@@ -118,13 +122,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\IGuidGenerator.cs" />
-    <Compile Include="Templates\BaseTemplate.cs" />
+    <Compile Include="Templates\Template.cs" />
     <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Templates\Parsers\FileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\IFileAndDirectoryTokenParser.cs" />
     <Compile Include="Templates\Parsers\ITemplateParser.cs" />
     <Compile Include="Templates\Parsers\ITokenDictionary.cs" />
+    <Compile Include="Templates\Parsers\ITokenDictionaryFactory.cs" />
     <Compile Include="Templates\Parsers\TokenDictionary.cs" />
+    <Compile Include="Templates\Parsers\TokenDictionaryFactory.cs" />
     <Compile Include="Templates\Parsers\TokenTemplateParser.cs" />
     <Compile Include="Templates\Parsers\RazorTemplateParser.cs" />
     <Compile Include="Templates\Resolvers\ITemplateLoader.cs" />

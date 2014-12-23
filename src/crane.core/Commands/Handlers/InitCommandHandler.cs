@@ -13,26 +13,29 @@ namespace Crane.Core.Commands.Handlers
         private readonly ICraneContext _context;
         private readonly ITemplateResolver _templateResolver;
         private readonly IFileManager _fileManager;
+        private readonly IProjectContextFactory _projectContextFactory;
 
-        public InitCommandHandler(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager)
+        public InitCommandHandler(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager, IProjectContextFactory projectContextFactory)
         {
             _context = context;
             _templateResolver = templateResolver;
             _fileManager = fileManager;
+            _projectContextFactory = projectContextFactory;
         }
 
         protected override void DoHandle(Init command)
         {
-            _context.ProjectName = command.ProjectName;
-            CreateProject();
-            CreateBuild();
+            
+            CreateProject(command.ProjectName);
+            CreateBuild(command.ProjectName);
         }
 
-        private void CreateProject()
+        private void CreateProject(string projectName)
         {
-            _context.ProjectRootDirectory = new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, _context.ProjectName));
+            var projectContext = _projectContextFactory.Create(projectName, projectName);
+            _context.ProjectRootDirectory = new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, projectContext.ProjectName));
             if (_fileManager.DirectoryExists(_context.ProjectRootDirectory.FullName))
-                throw new DirectoryExistsCraneException(_context.ProjectName);
+                throw new DirectoryExistsCraneException(projectContext.ProjectName);
 
             _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
 
@@ -42,18 +45,19 @@ namespace Crane.Core.Commands.Handlers
                 throw new Exception("Project template not found, please check your configuration");
             }
 
-            visualStudio.Create();
+            visualStudio.Create(projectContext);
         }
 
-        private void CreateBuild()
+        private void CreateBuild(string projectName)
         {
+            var projectContext = _projectContextFactory.Create(projectName, projectName);
             var build = _templateResolver.Resolve(TemplateType.Build);
             if (build == null)
             {
                 throw new Exception("Build template not found, please check your configuration");
             }
 
-            build.Create();
+            build.Create(projectContext);
         }
     }
 }

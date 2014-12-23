@@ -13,22 +13,18 @@ namespace Crane.Core.Tests.Templates.Parsers
     public class TokenParserTests
     {
         [Scenario]
-        public void Correctly_replaces_standard_context_tokens(MockContainer<TokenTemplateParser> tokenParser, string template)
-        {
-            string result = null;
+        public void Correctly_replaces_standard_context_tokens(MockContainer<TokenTemplateParser> tokenParser, string result)
+        {            
             "Given I have a token template parser"
                 ._(() => tokenParser = B.AutoMock<TokenTemplateParser>());
+                       
             
-            "And I have a context with a project name"
-                ._(() => TokenDictionaryUtility.Defaults(tokenParser.GetMock<ITokenDictionary>(),
-                    new Dictionary<string, Func<string>>
+            "When I parse the template with the project name and directory name"
+                ._(() => result = tokenParser.Subject.Parse(new TokenDictionary(new Dictionary<string, Func<string>>
                     {
                         { "%context.ProjectName%", () => @"ServiceStack" },
                         { "%context.ProjectRootDirectory.FullName%", () => @"c:\dev\servicestack" }
-                    }));
-            
-            "When I parse the template"
-                ._(() => result = tokenParser.Subject.Parse("Hello %context.ProjectName% in directory %context.ProjectRootDirectory.FullName%", null));
+                    }), "Hello %context.ProjectName% in directory %context.ProjectRootDirectory.FullName%"));
 
             "Then the token should be replaced"
                 ._(() => result.Should().Be(@"Hello ServiceStack in directory c:\dev\servicestack"));
@@ -45,7 +41,8 @@ namespace Crane.Core.Tests.Templates.Parsers
                 ._(() => A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).ReturnsNextFromSequence(guid1, guid2));
 
             "When I parse a template with guid tokens"
-                ._(() => result = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
+                ._(() => result = tokenParser.Subject.Parse(new TokenDictionary(new Dictionary<string, Func<string>>()), 
+                                @"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"));
 
             "Then the guid tokens should be replaced"
                 ._(() => result.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"
@@ -63,10 +60,10 @@ namespace Crane.Core.Tests.Templates.Parsers
                 ._(() => A.CallTo(() => tokenParser.GetMock<IGuidGenerator>().Create()).ReturnsNextFromSequence(guid1, guid2, guid3, guid4));
 
             "When I parse a template with guid tokens in one file"
-                ._(() => result1 = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
+                ._(() => result1 = tokenParser.Subject.Parse(new TokenDictionary(new Dictionary<string, Func<string>>()), @"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"));
 
             "When I parse a template with guid tokens in one file"
-                ._(() => result2 = tokenParser.Subject.Parse(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%", null));
+                ._(() => result2 = tokenParser.Subject.Parse(new TokenDictionary(new Dictionary<string, Func<string>>()), @"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"));
 
             "Then the guid tokens should be replaced in the first file"
                 ._(() => result1.Should().Be(@"proj1ID = %GUID-1%; proj2ID = %GUID-2%; lib1 = %GUID-1%"

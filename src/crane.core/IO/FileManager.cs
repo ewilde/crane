@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using log4net;
 
 namespace Crane.Core.IO
 {
     public class FileManager : IFileManager
-    {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(FileManager));
-
+    {        
         public void CopyFiles(string sourcePath, string destinationPath, bool copySubDirectories)
         {
             // Get the subdirectories for the specified directory.

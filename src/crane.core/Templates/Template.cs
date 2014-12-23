@@ -8,7 +8,7 @@ using Crane.Core.Templates.Parsers;
 
 namespace Crane.Core.Templates
 {
-    public class BaseTemplate : ITemplate
+    public class Template : ITemplate
     {
         private readonly IFileManager _fileManager;
         private readonly ITemplateParser _templateParser;
@@ -16,17 +16,19 @@ namespace Crane.Core.Templates
         private readonly ICraneContext _context;
         private readonly IConfiguration _configuration;
         private DirectoryInfo _templateInstallDirectory;
+        private readonly ITokenDictionaryFactory _tokenDictionaryFactory;
 
-        public BaseTemplate(
+        public Template(
             ICraneContext context, 
             IConfiguration configuration, 
             IFileManager fileManager, 
             ITemplateParser templateParser, 
-            IFileAndDirectoryTokenParser fileAndDirectoryTokenParser)
+            IFileAndDirectoryTokenParser fileAndDirectoryTokenParser, ITokenDictionaryFactory tokenDictionaryFactory)
         {
             _fileManager = fileManager;
             _templateParser = templateParser;
             _fileAndDirectoryTokenParser = fileAndDirectoryTokenParser;
+            _tokenDictionaryFactory = tokenDictionaryFactory;
             _context = context;
             _configuration = configuration;
         }
@@ -43,7 +45,7 @@ namespace Crane.Core.Templates
             {
                 if (_templateInstallDirectory == null)
                 {
-                    _templateInstallDirectory = new DirectoryInfo(Path.Combine(this.Context.ProjectRootDirectory.FullName, this.TemplateInstallRootFolderName));
+                    _templateInstallDirectory = new DirectoryInfo(Path.Combine(this._context.ProjectRootDirectory.FullName, this.TemplateInstallRootFolderName));
                 }
 
                 return _templateInstallDirectory; 
@@ -70,8 +72,8 @@ namespace Crane.Core.Templates
         {
             get
             {
-                return FileManager
-                    .EnumerateFiles(this.TemplateSourceDirectory.FullName, "*.*", SearchOption.AllDirectories)
+                return _fileManager
+                    .EnumerateFiles(TemplateSourceDirectory.FullName, "*.*", SearchOption.AllDirectories)
                     .Select(item => new FileInfo(item));
             }
         }
@@ -80,46 +82,29 @@ namespace Crane.Core.Templates
         {
             get
             {
-                return FileManager
-                    .EnumerateFiles(this.TemplateInstallDirectory.FullName, "*.*",
+                return _fileManager
+                    .EnumerateFiles(TemplateInstallDirectory.FullName, "*.*",
                         SearchOption.AllDirectories)
                     .Select(item => new FileInfo(item));
             }
         } 
+        
 
-        protected IFileManager FileManager
+        public void Create(IProjectContext projectContext)
         {
-            get { return _fileManager; }
+            var tokenDictionary = _tokenDictionaryFactory.Create(_context, projectContext);
+            _fileManager.CopyFiles(TemplateSourceDirectory.FullName, _context.ProjectRootDirectory.FullName, true);
+            _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory, tokenDictionary);
+            ParseTemplate(tokenDictionary);
         }
 
-        protected ICraneContext Context
-        {
-            get { return _context; }
-        }
 
-        protected IConfiguration Configuration
-        {
-            get { return _configuration; }
-        }
-
-        public void Create()
-        {
-            FileManager.CopyFiles(this.TemplateSourceDirectory.FullName, _context.ProjectRootDirectory.FullName, true);
-            this.RenameDirectoriesAndFiles();
-            this.ParseTemplate();
-        }
-
-        private void RenameDirectoriesAndFiles()
-        {
-            _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory);
-        }
-
-        protected virtual void ParseTemplate()
+        private void ParseTemplate(ITokenDictionary tokenDictionary)
         {
             foreach (var file in this.InstalledFiles.Where(IsTextFile))
             {
-                var parsed = _templateParser.Parse(FileManager.ReadAllText(file.FullName), this.Context);
-                FileManager.WriteAllText(file.FullName, parsed);
+                var parsed = _templateParser.Parse(tokenDictionary, _fileManager.ReadAllText(file.FullName));
+                _fileManager.WriteAllText(file.FullName, parsed);
             }
         }
 

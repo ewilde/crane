@@ -45,7 +45,7 @@ namespace Crane.Core.Tests.Templates
                 ._(() => buildTemplate = templateResolver.Subject.Resolve(TemplateType.Source));
 
             "Then I get a build template back"
-                ._(() => buildTemplate.Should().BeOfType<BaseTemplate>());
+                ._(() => buildTemplate.Should().BeOfType<Template>());
         }
     }
 }

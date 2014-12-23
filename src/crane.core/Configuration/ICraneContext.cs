@@ -10,11 +10,10 @@ namespace Crane.Core.Configuration
 
         DirectoryInfo CraneInstallDirectory { get; }
 
-        DirectoryInfo ProjectRootDirectory { get; set; }
-        
-        string ProjectName { get; set; }
+        DirectoryInfo ProjectRootDirectory { get; set; }               
 
         DirectoryInfo SourceDirectory { get; }
         DirectoryInfo TemplateDirectory { get; }
+        
     }
 }

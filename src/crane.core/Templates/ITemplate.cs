@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Crane.Core.Configuration;
 
 namespace Crane.Core.Templates
 {
@@ -9,6 +10,6 @@ namespace Crane.Core.Templates
         TemplateType TemplateType { get; set; }
 
         DirectoryInfo TemplateSourceDirectory { get; set; }
-        void Create();
+        void Create(IProjectContext projectContext);
     }
 }

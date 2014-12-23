@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
+using Crane.Core.Tests.Builders;
 using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
 using Xbehave;
@@ -16,7 +13,7 @@ namespace Crane.Core.Tests.Templates.Parsers
     public class FileAndDirectoryTokenParserTests
     {
         [Scenario]
-        public void RenamesDirectoryContainingToken(MockContainer<FileAndDirectoryTokenParser> parser, DirectoryInfo directoryPath)
+        public void RenamesDirectoryContainingToken(MockContainer<FileAndDirectoryTokenParser> parser, DirectoryInfo directoryPath, ITokenDictionary tokenDictionary)
         {
             "Given I have a file and directory token parser"
                 ._(() => parser = B.AutoMock<FileAndDirectoryTokenParser>());
@@ -24,14 +21,11 @@ namespace Crane.Core.Tests.Templates.Parsers
             "And I have a directory with a token"
                 ._(() => directoryPath = new DirectoryInfo(@"c:\dev\%context.ProjectName%"));
 
-            "And I have a token dictionary"
-                ._(
-                    () =>
-                        TokenDictionaryUtility.Defaults(parser.GetMock<ITokenDictionary>(),
-                            new Dictionary<string, Func<string>> {{"%context.ProjectName%", () => "ServiceStack"}}));
-
+            "And I have a token dictionary with the %context.ProjectName% set"
+                ._(() => tokenDictionary = BuildA.TokenDictionary.WithToken("%context.ProjectName%", "ServiceStack").Build());
+            
             "When I call parse on the file and directory parser"
-                ._(() => parser.Subject.Parse(directoryPath));
+                ._(() => parser.Subject.Parse(directoryPath, tokenDictionary));
 
             "Then is should rename the directory using the current project name"
                 ._(
@@ -43,7 +37,7 @@ namespace Crane.Core.Tests.Templates.Parsers
 
         [Scenario]
         public void RenamingAFileIgnoresTokenInFolderName(MockContainer<FileAndDirectoryTokenParser> parser, 
-            DirectoryInfo directoryPath, string directory)
+            DirectoryInfo directoryPath, string directory, ITokenDictionary tokenDictionary)
         {
             "Given I have a file and directory token parser"
                 ._(() => parser = B.AutoMock<FileAndDirectoryTokenParser>());
@@ -58,15 +52,12 @@ namespace Crane.Core.Tests.Templates.Parsers
             "And I have a file in that directory"
                 ._(() => File.Create(Path.Combine(directoryPath.FullName, "Class1.cs")));
 
-            "And I have a token dictionary"
-                ._(
-                    () =>
-                        TokenDictionaryUtility.Defaults(parser.GetMock<ITokenDictionary>(),
-                            new Dictionary<string, Func<string>> {{"%context.ProjectName%", () => "ServiceStack"}}));
-
+            "And I have a token dictionary with the %context.ProjectName% set"
+                ._(() => tokenDictionary = BuildA.TokenDictionary.WithToken("%context.ProjectName%", "ServiceStack").Build());
+        
 
             "When I call parse on the file and directory parser"
-                ._(() => parser.Subject.Parse(directoryPath));
+                ._(() => parser.Subject.Parse(directoryPath, tokenDictionary));
 
             "Then is should not try to rename the file"
                 ._(

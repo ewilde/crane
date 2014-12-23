@@ -77,8 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\BuildA.cs" />
+    <Compile Include="Builders\TokenDictionaryBuilder.cs" />
     <Compile Include="Commands\Handlers\CommandHandlerFactoryTests.cs" />
-    <Compile Include="Commands\Handlers\InitCommandHandlerTests.cs" />
     <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
     <Compile Include="Commands\Parsers\CommandTypeInfoParserTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
-    <Compile Include="TestUtilities\TokenDictionaryUtility.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\TemplateResolverUtility.cs" />

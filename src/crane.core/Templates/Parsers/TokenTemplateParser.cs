@@ -1,33 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using Crane.Core.Configuration;
 
 namespace Crane.Core.Templates.Parsers
 {
     public class TokenTemplateParser : ITemplateParser
-    {
-        private readonly ITokenDictionary _tokenDictionary;
+    {     
         private readonly IGuidGenerator _guidGenerator;
-        private Dictionary<string, Guid> _guidCache;
+        private readonly Dictionary<string, Guid> _guidCache;
  
-        public TokenTemplateParser(ITokenDictionary tokenDictionary, IGuidGenerator guidGenerator)
-        {
-            _tokenDictionary = tokenDictionary;
+        public TokenTemplateParser(IGuidGenerator guidGenerator)
+        {            
             _guidGenerator = guidGenerator;
             _guidCache = new Dictionary<string, Guid>();
         }
 
-        public string Parse(string template, object model)
+        public string Parse(ITokenDictionary tokenDictionary, string template)
         {
-            template = ParseContextTokens(template);
+            template = ParseContextTokens(tokenDictionary, template);
             template = ParseGuidTokens(template);
             return template;
         }
 
-        private string ParseContextTokens(string template)
+        private string ParseContextTokens(ITokenDictionary tokenDictionary, string template)
         {
-            foreach (var token in _tokenDictionary.Tokens)
+            foreach (var token in tokenDictionary.Tokens)
             {
                 if (template.Contains(token.Key))
                 {

@@ -25,12 +25,9 @@ namespace Crane.Integration.Tests.Features.Templates
 
             "And I have a psake template builder"
                 ._(() => template = ioc.Resolve<ITemplateResolver>().Resolve(TemplateType.Build));
-
-            "And I have been given a project name via init"
-                ._(() => context.ProjectName = "ServiceStack");
-
-            "When I call create on the template"
-                ._(() => template.Create());
+            
+            "When I call create on the template with service stack as the project name and solution name"
+                ._(() => template.Create(new ProjectContext {ProjectName = "ServiceStack", SolutionName = "ServiceStack"}));
 
             "It place a build.ps1 in the root project directory"
                 ._(() => File.Exists(Path.Combine(context.ProjectRootDirectory.FullName, "build.ps1")).Should().BeTrue("build.ps1 should be in root directory"));

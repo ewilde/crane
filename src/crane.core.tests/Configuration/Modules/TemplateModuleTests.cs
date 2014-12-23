@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
-using Crane.Core.Commands;
+﻿using Autofac;
 using Crane.Core.Configuration.Modules;
 using Crane.Core.Templates.Parsers;
 using FluentAssertions;
