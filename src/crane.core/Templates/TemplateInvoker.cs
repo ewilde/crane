@@ -67,8 +67,7 @@ namespace Crane.Core.Templates
                 _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
             }
 
-            
-
+           
             var tokenDictionary = _tokenDictionaryFactory.Create(_context, projectContext);
             _fileManager.CopyFiles(template.TemplateSourceDirectory.FullName, _context.ProjectRootDirectory.FullName, true);
             _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory, tokenDictionary);
