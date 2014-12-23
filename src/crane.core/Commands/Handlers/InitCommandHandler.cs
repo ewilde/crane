@@ -15,6 +15,7 @@ namespace Crane.Core.Commands.Handlers
         private readonly IFileManager _fileManager;
         private readonly IProjectContextFactory _projectContextFactory;
         private readonly ITemplateInvoker _templateInvoker;
+        
 
         public InitCommandHandler(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager, IProjectContextFactory projectContextFactory, ITemplateInvoker templateInvoker)
         {

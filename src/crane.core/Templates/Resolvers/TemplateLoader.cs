@@ -11,9 +11,9 @@ namespace Crane.Core.Templates.Resolvers
     {
         private readonly IFileManager _fileManager;
         private readonly ICraneContext _context;
-        private readonly Func<ITemplate> _templateFactory;
+        private readonly ITemplateFactory _templateFactory;
 
-        public TemplateLoader(IFileManager fileManager, ICraneContext context, Func<ITemplate> templateFactory)
+        public TemplateLoader(IFileManager fileManager, ICraneContext context, ITemplateFactory templateFactory)
         {
             _fileManager = fileManager;
             _context = context;
@@ -33,18 +33,11 @@ namespace Crane.Core.Templates.Resolvers
                 item =>
                     _fileManager.EnumerateDirectories(Path.Combine(_context.TemplateDirectory.FullName, item.Item1),
                         "*.*", SearchOption.TopDirectoryOnly).ForEach(
-                            directory => result.Add(CreateTemplateFromDirectory(directory, item.Item2))));
+                            directory => result.Add(_templateFactory.Create(new DirectoryInfo(directory), item.Item2))));
             return result;
         }
+        
 
-        private ITemplate CreateTemplateFromDirectory(string directory, TemplateType templateType)
-        {
-            var directoryInfo = new DirectoryInfo(directory);
-            var template = _templateFactory.Invoke();
-            template.Name = directoryInfo.Name;
-            template.TemplateType = templateType;
-            template.TemplateSourceDirectory = new DirectoryInfo(directory);
-            return template;
-        }
+        
     }
 }

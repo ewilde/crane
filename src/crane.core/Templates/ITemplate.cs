@@ -6,6 +6,8 @@ namespace Crane.Core.Templates
     {
         string Name { get; set; }
 
+        string InstallFolderRootName { get; set; }
+
         TemplateType TemplateType { get; set; }
 
         DirectoryInfo TemplateSourceDirectory { get; set; }        
