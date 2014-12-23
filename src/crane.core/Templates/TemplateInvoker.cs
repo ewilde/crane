@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
@@ -54,6 +55,20 @@ namespace Crane.Core.Templates
 
         public void InvokeTemplate(ITemplate template, IProjectContext projectContext)
         {
+            _context.ProjectRootDirectory =
+                    new DirectoryInfo(Path.Combine(_fileManager.CurrentDirectory, projectContext.ProjectName));
+
+            if (template.TemplateType == TemplateType.Source)
+            {
+                
+                if (_fileManager.DirectoryExists(_context.ProjectRootDirectory.FullName))
+                    throw new DirectoryExistsCraneException(projectContext.ProjectName);
+
+                _fileManager.CreateDirectory(_context.ProjectRootDirectory.FullName);
+            }
+
+            
+
             var tokenDictionary = _tokenDictionaryFactory.Create(_context, projectContext);
             _fileManager.CopyFiles(template.TemplateSourceDirectory.FullName, _context.ProjectRootDirectory.FullName, true);
             _fileAndDirectoryTokenParser.Parse(_context.ProjectRootDirectory, tokenDictionary);

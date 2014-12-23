@@ -8,12 +8,10 @@ namespace Crane.Core.Templates.Resolvers
     public class TemplateResolver : ITemplateResolver
     {
         private readonly IConfiguration _configuration;
-        private readonly ITemplateLoader _loader;
 
         public TemplateResolver(IConfiguration configuration, ITemplateLoader loader)
         {
             _configuration = configuration;
-            _loader = loader;
             Templates = loader.Load();
         }
 
@@ -21,7 +19,7 @@ namespace Crane.Core.Templates.Resolvers
 
         public ITemplate Resolve(TemplateType templateType)
         {
-            var name = string.Empty;
+            string name;
 
             switch (templateType)
             {

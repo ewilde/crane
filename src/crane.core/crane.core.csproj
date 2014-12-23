@@ -64,11 +64,12 @@
     <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
     <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
+    <Compile Include="Commands\Exceptions\TemplateNotFoundCraneException.cs" />
     <Compile Include="Commands\Exceptions\UnknownCommandCraneException.cs" />
     <Compile Include="Commands\Execution\CommandExecutor.cs" />
     <Compile Include="Commands\Execution\ICommandExecutor.cs" />
     <Compile Include="Commands\Factories\CommandFactory.cs" />
-    <Compile Include="Commands\Handlers\AsembleCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\AssembleCommandHandler.cs" />
     <Compile Include="Commands\Handlers\CommandHandler.cs" />
     <Compile Include="Commands\Handlers\Factories\CommandHandlerFactory.cs" />
     <Compile Include="Commands\Factories\ICommandFactory.cs" />

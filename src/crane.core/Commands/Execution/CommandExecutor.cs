@@ -28,7 +28,7 @@ namespace Crane.Core.Commands.Execution
                 commandHandler.Handle(command);
 
                 if (ShowSuccess(command))
-                    _output.WriteSuccess("{0} success.", command.GetType().Name);
+                    _output.WriteSuccess("{0} success. ", command.GetType().Name);
             }
             catch (Exception exception)
             {

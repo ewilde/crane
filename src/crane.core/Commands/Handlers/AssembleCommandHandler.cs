@@ -5,13 +5,13 @@ using Crane.Core.Templates.Resolvers;
 
 namespace Crane.Core.Commands.Handlers
 {
-    public class AsembleCommandHandler : CommandHandler<Assemble>
+    public class AssembleCommandHandler : CommandHandler<Assemble>
     {
         private readonly IProjectContextFactory _projectContextFactory;
         private readonly ITemplateResolver _templateResolver;
         private readonly ITemplateInvoker _templateInvoker;
 
-        public AsembleCommandHandler(IProjectContextFactory projectContextFactory, ITemplateResolver templateResolver, ITemplateInvoker templateInvoker)
+        public AssembleCommandHandler(IProjectContextFactory projectContextFactory, ITemplateResolver templateResolver, ITemplateInvoker templateInvoker)
         {
             _projectContextFactory = projectContextFactory;
             _templateResolver = templateResolver;

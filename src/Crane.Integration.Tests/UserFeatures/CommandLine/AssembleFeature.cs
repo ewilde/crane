@@ -10,7 +10,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class AssembleFeature
     {
         [Scenario]
-        public void Init_with_a_project_name_creates_a_project_with_build(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Assemble_with_a_folder_name_creates_a_project_with_build(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
@@ -27,7 +27,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
 
             "When I run crane assemble ServiceStack"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane assemble ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.Directory, "crane Assemble ServiceStack"));
 
             "It should say 'Assemble success.'"
                 ._(() => result.StandardOutput.Should().Be("Assemble success."));
@@ -35,7 +35,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should create a build.ps1 in the top level folder"
                 ._(
                     () =>
-                        Directory.GetFiles(Path.Combine(craneTestContext.Directory, "ServiceStack.zip"))
+                        Directory.GetFiles(Path.Combine(craneTestContext.Directory, "ServiceStack"))
                             .Count(f => f.ToLower() == "build.ps1")
                             .Should()
                             .Be(1));
