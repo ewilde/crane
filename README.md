@@ -73,7 +73,7 @@ You can now build this project...
 The default crane project is quite opinionated we have made lots of decisions.
 Here are the highlights:
 
-**Build **
+**Build**
 
 * psake powershell build system
 * restores nuget packages
