@@ -14,8 +14,7 @@ namespace Crane.Core.Templates
         private readonly ITemplateParser _templateParser;
         private readonly IFileAndDirectoryTokenParser _fileAndDirectoryTokenParser;
         private readonly ICraneContext _context;
-        private readonly IConfiguration _configuration;
-        private DirectoryInfo _templateInstallDirectory;
+        private readonly IConfiguration _configuration;        
         private readonly ITokenDictionaryFactory _tokenDictionaryFactory;
 
         public Template(
@@ -38,52 +37,31 @@ namespace Crane.Core.Templates
         public TemplateType TemplateType { get; set; }
 
         public DirectoryInfo TemplateSourceDirectory { get; set; }
+        
 
-        public DirectoryInfo TemplateInstallDirectory
+        public string GetTemplateInstallRootFolderName(TemplateType templateType)
         {
-            get
+         
+            switch (TemplateType)
             {
-                if (_templateInstallDirectory == null)
-                {
-                    _templateInstallDirectory = new DirectoryInfo(Path.Combine(this._context.ProjectRootDirectory.FullName, this.TemplateInstallRootFolderName));
-                }
-
-                return _templateInstallDirectory; 
+                case TemplateType.Build:
+                    return _configuration.BuildFolderName;
+                case TemplateType.Source:
+                    return _configuration.SourceFolderName;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+            
         }
-
-        public string TemplateInstallRootFolderName
+        private IEnumerable<FileInfo> InstalledFiles
         {
             get
             {
-                switch (TemplateType)
-                {
-                    case TemplateType.Build:
-                        return _configuration.BuildFolderName;
-                    case TemplateType.Source:
-                        return _configuration.SourceFolderName;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
-        protected IEnumerable<FileInfo> SourceFiles
-        {
-            get
-            {
+                var templateInstallDirectory =
+                    new DirectoryInfo(Path.Combine(this._context.ProjectRootDirectory.FullName,
+                        GetTemplateInstallRootFolderName(TemplateType)));
                 return _fileManager
-                    .EnumerateFiles(TemplateSourceDirectory.FullName, "*.*", SearchOption.AllDirectories)
-                    .Select(item => new FileInfo(item));
-            }
-        }
-
-        protected IEnumerable<FileInfo> InstalledFiles
-        {
-            get
-            {
-                return _fileManager
-                    .EnumerateFiles(TemplateInstallDirectory.FullName, "*.*",
+                    .EnumerateFiles(templateInstallDirectory.FullName, "*.*",
                         SearchOption.AllDirectories)
                     .Select(item => new FileInfo(item));
             }
