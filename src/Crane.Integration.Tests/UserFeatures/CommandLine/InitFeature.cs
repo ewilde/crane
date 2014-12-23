@@ -25,7 +25,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [Scenario]
-        public void Init_with_a_project_name_creates_a_project(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Init_with_a_project_name_creates_a_project_with_build(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
