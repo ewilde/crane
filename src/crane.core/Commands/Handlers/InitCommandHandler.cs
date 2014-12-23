@@ -14,13 +14,15 @@ namespace Crane.Core.Commands.Handlers
         private readonly ITemplateResolver _templateResolver;
         private readonly IFileManager _fileManager;
         private readonly IProjectContextFactory _projectContextFactory;
+        private readonly ITemplateInvoker _templateInvoker;
 
-        public InitCommandHandler(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager, IProjectContextFactory projectContextFactory)
+        public InitCommandHandler(ICraneContext context, ITemplateResolver templateResolver, IFileManager fileManager, IProjectContextFactory projectContextFactory, ITemplateInvoker templateInvoker)
         {
             _context = context;
             _templateResolver = templateResolver;
             _fileManager = fileManager;
             _projectContextFactory = projectContextFactory;
+            _templateInvoker = templateInvoker;
         }
 
         protected override void DoHandle(Init command)
@@ -45,19 +47,19 @@ namespace Crane.Core.Commands.Handlers
                 throw new Exception("Project template not found, please check your configuration");
             }
 
-            visualStudio.Create(projectContext);
+            _templateInvoker.InvokeTemplate(visualStudio, projectContext);            
         }
 
         private void CreateBuild(string projectName)
         {
             var projectContext = _projectContextFactory.Create(projectName, projectName);
-            var build = _templateResolver.Resolve(TemplateType.Build);
-            if (build == null)
+            var buildTemplate = _templateResolver.Resolve(TemplateType.Build);
+            if (buildTemplate == null)
             {
                 throw new Exception("Build template not found, please check your configuration");
             }
-
-            build.Create(projectContext);
+            
+            _templateInvoker.InvokeTemplate(buildTemplate, projectContext);
         }
     }
 }
