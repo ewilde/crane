@@ -29,7 +29,7 @@ namespace Crane.Core.Commands.Handlers
         {
             
             CreateProject(command.ProjectName);
-            _assembleCommandHandler.Handle(new Assemble{ FolderName = command.ProjectName});           
+            _assembleCommandHandler.Handle(new Assemble{ FolderName = command.ProjectName });           
         }
 
         private void CreateProject(string projectName)
