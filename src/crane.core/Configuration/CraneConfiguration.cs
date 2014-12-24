@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace Crane.Core.Configuration
+﻿namespace Crane.Core.Configuration
 {
     public class CraneConfiguration : IConfiguration
     {

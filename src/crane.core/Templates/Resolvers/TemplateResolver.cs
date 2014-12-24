@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Crane.Core.Commands.Exceptions;
 using Crane.Core.Configuration;
 
 namespace Crane.Core.Templates.Resolvers
@@ -33,9 +34,16 @@ namespace Crane.Core.Templates.Resolvers
                     throw new ArgumentOutOfRangeException("templateType");
             }
 
-            return
+            var template =
                 Templates.FirstOrDefault(
                     item => item.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+
+            if (template == null)
+            {
+                throw new TemplateNotFoundCraneException(templateType);
+            }
+
+            return template;
         }
     }
 }

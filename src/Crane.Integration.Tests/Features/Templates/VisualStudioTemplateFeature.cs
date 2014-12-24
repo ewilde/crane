@@ -48,8 +48,6 @@ namespace Crane.Integration.Tests.Features.Templates
             "It should replace the tokens in the project unit test file"
                 ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, string.Format("{0}.UnitTests", "ServiceStack"), string.Format("{0}.UnitTests.csproj", "ServiceStack")))
                     .Should().NotContain("%GUID-1%"))
-
-
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }
     }

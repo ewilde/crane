@@ -124,6 +124,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\IGuidGenerator.cs" />
+    <Compile Include="Templates\FileInfoExtensions.cs" />
     <Compile Include="Templates\ITemplateInvoker.cs" />
     <Compile Include="Templates\Resolvers\ITemplateFactory.cs" />
     <Compile Include="Templates\Resolvers\TemplateFactory.cs" />

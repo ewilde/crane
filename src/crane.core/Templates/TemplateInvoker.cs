@@ -41,17 +41,13 @@ namespace Crane.Core.Templates
        
         private void ParseTemplate(ITemplate template, ITokenDictionary tokenDictionary)
         {
-            foreach (var file in GetInstalledFiles(template).Where(IsTextFile))
+            foreach (var file in GetInstalledFiles(template).Where(f => f.IsTextFile()))
             {
                 var parsed = _templateParser.Parse(tokenDictionary, _fileManager.ReadAllText(file.FullName));
                 _fileManager.WriteAllText(file.FullName, parsed);
             }
         }
 
-        private bool IsTextFile(FileInfo file)
-        {
-            return !file.Extension.Equals(".exe");
-        }
 
         public void InvokeTemplate(ITemplate template, IProjectContext projectContext)
         {
