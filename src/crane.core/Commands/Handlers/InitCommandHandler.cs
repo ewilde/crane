@@ -2,7 +2,6 @@
 using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Execution;
 using Crane.Core.Configuration;
-using Crane.Core.IO;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
 
@@ -16,9 +15,7 @@ namespace Crane.Core.Commands.Handlers
         private readonly Func<ICommandExecutor> _commandExecutorFactory; 
         
 
-        public InitCommandHandler(ICraneContext context, 
-            ITemplateResolver templateResolver, 
-            IFileManager fileManager, 
+        public InitCommandHandler(ITemplateResolver templateResolver, 
             IProjectContextFactory projectContextFactory, 
             ITemplateInvoker templateInvoker,
             Func<ICommandExecutor> commandExecutorFactory)
