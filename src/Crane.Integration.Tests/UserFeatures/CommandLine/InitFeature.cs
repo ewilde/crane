@@ -37,7 +37,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
 
             "It should say 'Init success.'"
-                ._(() => result.StandardOutput.Should().Be("Assemble success. Init success. "));
+                ._(() => result.StandardOutput.Should().Be("Init success."));
 
             "It should replace the solution file name in the build script with the project name"
                 ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, @"ServiceStack\build\default.ps1")).Should().Contain("ServiceStack.sln"))

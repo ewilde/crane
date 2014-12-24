@@ -11,26 +11,25 @@ namespace Crane.Core.Commands.Handlers
         private readonly ITemplateResolver _templateResolver;
         private readonly IProjectContextFactory _projectContextFactory;
         private readonly ITemplateInvoker _templateInvoker;
-        private readonly Func<ICommandExecutor> _commandExecutorFactory; 
+        private readonly AssembleCommandHandler _assembleCommandHandler;
         
 
         public InitCommandHandler(ITemplateResolver templateResolver, 
             IProjectContextFactory projectContextFactory, 
             ITemplateInvoker templateInvoker,
-            Func<ICommandExecutor> commandExecutorFactory)
+            AssembleCommandHandler assembleCommandHandler)
         {
             _templateResolver = templateResolver;
             _projectContextFactory = projectContextFactory;
             _templateInvoker = templateInvoker;
-            _commandExecutorFactory = commandExecutorFactory;
+            _assembleCommandHandler = assembleCommandHandler;
         }
 
         protected override void DoHandle(Init command)
         {
             
             CreateProject(command.ProjectName);
-            var executor = _commandExecutorFactory();
-            executor.ExecuteCommand("Assemble", "-folderName", command.ProjectName);            
+            _assembleCommandHandler.Handle(new Assemble{ FolderName = command.ProjectName});           
         }
 
         private void CreateProject(string projectName)
