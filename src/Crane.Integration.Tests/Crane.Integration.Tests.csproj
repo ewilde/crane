@@ -98,11 +98,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\crane.console\Crane.Console.csproj">
+    <ProjectReference Include="..\Crane.Console\Crane.Console.csproj">
       <Project>{a3d16941-0ca5-4108-b5c9-7da47a46f1c7}</Project>
       <Name>Crane.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\crane.core\Crane.Core.csproj">
+    <ProjectReference Include="..\Crane.Core\Crane.Core.csproj">
       <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
       <Name>Crane.Core</Name>
     </ProjectReference>

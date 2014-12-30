@@ -56,7 +56,7 @@
 		<None Include="packages.config" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\crane.core\Crane.Core.csproj">
+		<ProjectReference Include="..\Crane.Core\Crane.Core.csproj">
 			<Project>{064704f3-134f-4e27-8a80-6d6f8420f17e}</Project>
 			<Name>Crane.Core</Name>
 		</ProjectReference>
