@@ -19,7 +19,7 @@ namespace Crane.Core.Tests.Templates.Parsers
                 ._(() => parser = B.AutoMock<FileAndDirectoryTokenParser>());
 
             "And I have a directory with a token"
-                ._(() => directoryPath = new DirectoryInfo(@"c:\dev\%context.ProjectName%"));
+                ._(() => directoryPath = new DirectoryInfo(@"%context.ProjectName%"));
 
             "And I have a token dictionary with the %context.ProjectName% set"
                 ._(() => tokenDictionary = BuildA.TokenDictionary.WithToken("%context.ProjectName%", "ServiceStack").Build());

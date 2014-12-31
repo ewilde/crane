@@ -11,7 +11,7 @@
     <AssemblyName>Crane.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates $(OutDir)/Templates</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates</PostBuildEvent>
     <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates $(OutDir)\Templates</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
