@@ -13,7 +13,7 @@
 		<FileAlignment>512</FileAlignment>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
-      cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./</PostBuildEvent>
+      cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./Crane.Core.XML</PostBuildEvent>
     	<PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates $(OutDir)\Templates</PostBuildEvent>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
