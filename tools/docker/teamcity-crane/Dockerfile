@@ -2,7 +2,7 @@ FROM mono
 MAINTAINER Edward Wilde
 
 RUN apt-get update && apt-get install -y git wget && apt-get install -y nano
-RUN apt-get install default-jre
+RUN apt-get install -y default-jre
 
 RUN mozroots --import --sync
 
