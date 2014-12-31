@@ -12,6 +12,8 @@
 		<TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
 		<FileAlignment>512</FileAlignment>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates $(OutDir)/Templates</PostBuildEvent>
+    	<PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates $(OutDir)\Templates</PostBuildEvent>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,11 +64,4 @@
 		</ProjectReference>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-  	<ItemGroup>
-       <TemplateFiles Include="$(MSBuildProjectDirectory)\..\Crane.Templates\**\*" />
-	</ItemGroup>
-    <Message Text="AfterBuild executing copy files to $(OutDir)" Importance="High" />
-    <Copy SourceFiles="@(TemplateFiles)" DestinationFiles="$(OutDir)Templates\$(DestFolder)%(RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

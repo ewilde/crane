@@ -4,6 +4,7 @@ properties{
 	[switch]$teamcityBuild = $false
     $chocolateyApiKey = ""
     $chocolateyApiUrl = ""
+    [switch]$verbose = $false
 }
 
 $build_dir = (Split-Path $psake.build_script_file)
@@ -35,11 +36,17 @@ Task Info {
   Write-Host sln_filename: $sln_filename
   Write-Host sln_filepath: $sln_filepath
   Write-Host xunit_consoleRunner: $xunit_consoleRunner
+  Write-Host verbose: $verbose
 }
 
 Task Build -Depends Clean, NugetRestore { 
     Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
+    $verboseLevel = "quiet"
+    if ($verbose)
+    {
+        $verboseLevel = "normal"
+    }
+    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:$verboseLevel /p:OutDir=$build_artifacts_dir } 
 }
 
 Task Clean {
