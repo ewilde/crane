@@ -16,7 +16,7 @@ namespace Crane.Core.Documentation.Providers
             _helpCollection =
                 parser.Parse(
                     fileManager.ReadAllText(Path.Combine(Assembly.GetExecutingAssembly().GetLocation().FullName,
-                        "Crane.Core.xml")));
+                        "Crane.Core.XML")));
         }
 
         public ICommandHelpCollection HelpCollection
