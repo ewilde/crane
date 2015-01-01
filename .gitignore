@@ -121,3 +121,6 @@ build-output
 build/NuGet.exe
 chocolatey-output
 _NCrunch_*
+
+# Xamarin studio specific
+*.userprefs

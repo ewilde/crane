@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Crane.Integration.Tests</RootNamespace>
     <AssemblyName>Crane.Integration.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
       cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./Crane.Core.XML</PostBuildEvent>
