@@ -10,8 +10,6 @@ namespace Crane.Integration.Tests.TestUtilities
     public static class ioc
     {
         private static IContainer _container;
-        private static readonly ILog _log = LogManager.GetLogger(typeof(ioc));
-
 
         public static T Resolve<T>() where T : class
         {
