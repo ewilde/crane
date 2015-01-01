@@ -8,7 +8,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 {
     public class DefaultBuildScriptFeature
     {
-        [Scenario]
+		[ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
         public void build_a_new_default_crane_project_sucessfully(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
@@ -42,8 +42,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 .Teardown(() => craneTestContext.TearDown()); 
         }
 
-        [Scenario]
-        public void building_a_default_crane_project_that_is_also_a_git_repo(Run run, RunResult result,
+		[ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
+		public void building_a_default_crane_project_that_is_also_a_git_repo(Run run, RunResult result,
             CraneTestContext craneTestContext, Git git)
         {
             string projectDir = null;

@@ -41,7 +41,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 );
 
             "It should create a build for the project with a reference to the solution file"
-                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, @"ServiceStack\build\default.ps1")).Should().Contain("ServiceStack.sln"))
+				._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, "ServiceStack" , "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
     }

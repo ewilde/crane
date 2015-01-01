@@ -40,7 +40,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => result.StandardOutput.Should().Be("Init success."));
 
             "It should replace the solution file name in the build script with the project name"
-                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, @"ServiceStack\build\default.ps1")).Should().Contain("ServiceStack.sln"))
+                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, "ServiceStack", "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
 

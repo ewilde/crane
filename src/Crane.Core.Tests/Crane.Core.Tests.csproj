@@ -24,6 +24,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Execute" command="../packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ${TargetDir}/${ProjectName}.dll" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
