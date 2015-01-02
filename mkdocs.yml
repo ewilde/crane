@@ -1,0 +1,3 @@
+site_name: crane
+docs_dir: doc
+theme: readthedocs
