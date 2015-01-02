@@ -182,7 +182,7 @@ namespace Crane.Core.Utility
                 return null;
             }
 
-            var lines = value.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+            var lines = value.Lines();
 
             if (number > lines.Length)
             {
@@ -190,6 +190,16 @@ namespace Crane.Core.Utility
             }
 
             return lines[number];
+        }
+
+        public static string[] Lines(this string value)
+        {
+            if (value == null)
+            {
+                return new string[]{};
+            }
+
+            return value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
 
         public static int PadCountLeft(this string value)

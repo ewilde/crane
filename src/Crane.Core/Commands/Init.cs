@@ -8,11 +8,11 @@ namespace Crane.Core.Commands
     /// </summary>
     /// <example>
     /// example 1
-    /// <code>
-    /// crane init SallyFx
-    /// </code>
+    /// <code>crane init SallyFx</code>
+    /// 
     /// This example initializes a new project 'SallyFx'. This will create the
     /// following new directory structure:
+    /// <code>
     /// SallyFx
     /// |   build.ps1
     /// |
@@ -22,7 +22,6 @@ namespace Crane.Core.Commands
     /// |       psake-ext.psm1
     /// |       psake.ps1
     /// |       psake.psm1
-    /// 
     /// |
     /// \---src
     ///     |   SallyFx.sln
@@ -44,6 +43,7 @@ namespace Crane.Core.Commands
     ///         |
     ///         \---Properties
     ///                 AssemblyInfo.cs
+    /// </code>
     /// </example>
     public class Init : ICraneCommand
     {

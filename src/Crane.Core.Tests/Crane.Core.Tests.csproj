@@ -98,6 +98,7 @@
     <Compile Include="Documentation\CommandHelpCollectionTests.cs" />
     <Compile Include="Documentation\CommandHelpTests.cs" />
     <Compile Include="Documentation\Formatters\ConsoleHelpFormatterTests.cs" />
+    <Compile Include="Documentation\Formatters\MarkdownHelpFormatterTests.cs" />
     <Compile Include="Documentation\Parsers\XmlCommentCommandHelpParserTests.cs" />
     <Compile Include="Documentation\Providers\XmlHelpProviderTests.cs" />
     <Compile Include="Properties\Annotations.cs" />

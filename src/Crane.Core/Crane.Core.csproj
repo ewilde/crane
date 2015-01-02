@@ -101,6 +101,7 @@
     <Compile Include="Documentation\CommandHelpCollection.cs" />
     <Compile Include="Documentation\Formatters\ConsoleHelpFormatter.cs" />
     <Compile Include="Documentation\Formatters\IHelpFormatter.cs" />
+    <Compile Include="Documentation\Formatters\MarkdownHelpFormatter.cs" />
     <Compile Include="Documentation\Parsers\XmlCommentCommandHelpParser.cs" />
     <Compile Include="Documentation\ICommandHelpCollection.cs" />
     <Compile Include="Documentation\Parsers\ICommandHelpParser.cs" />

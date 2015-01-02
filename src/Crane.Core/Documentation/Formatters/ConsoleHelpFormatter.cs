@@ -93,14 +93,9 @@ namespace Crane.Core.Documentation.Formatters
             return lines.Length > 1 ? lines[1].PadCountLeft() : 0;
         }
 
-        private string[] GetLines(string value)
-        {
-            return value.Split(new string[] {Environment.NewLine, "\n"}, StringSplitOptions.None);
-        }
-
         private void AddLines(StringBuilder result, string value)
         {
-            var lines = GetLines(value);
+            var lines = value.Lines();
             if (lines.Length == 0)
             {
                 return;
