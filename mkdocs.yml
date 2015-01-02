@@ -1,3 +1,5 @@
 site_name: crane
 docs_dir: doc
 theme: readthedocs
+theme_center_lead: true
+repo_url: https://github.com/ewilde/crane/
