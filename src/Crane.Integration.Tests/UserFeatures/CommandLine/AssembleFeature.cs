@@ -30,7 +30,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => result = run.Command(craneTestContext.Directory, "crane Assemble ServiceStack"));
 
             "It should say 'Assemble success.'"
-                ._(() => result.StandardOutput.Should().Be("Assemble success."));
+                ._(() =>
+                {
+                    result.ErrorOutput.Should().BeEmpty();
+                    result.StandardOutput.Should().Be("Assemble success.");
+                });
 
             "It should create a build.ps1 in the top level folder"
                 ._(

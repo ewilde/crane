@@ -15,8 +15,19 @@ namespace Crane.Core.Documentation.Providers
 
             _helpCollection =
                 parser.Parse(
-                    fileManager.ReadAllText(Path.Combine(Assembly.GetExecutingAssembly().GetLocation().FullName,
-                        "Crane.Core.XML")));
+                    fileManager.ReadAllText(GetPath()));
+        }
+
+        private string GetPath()
+        {
+            var location = Assembly.GetExecutingAssembly().GetLocation().FullName;
+            if (File.Exists(Path.Combine(location, "Crane.Core.XML"))) // msbuild & xbuild create the documentation file with upper case XML
+                return Path.Combine(location, "Crane.Core.XML");
+            
+            if (File.Exists(Path.Combine(location, "Crane.Core.xml"))) // ends up copied to dependant directories with lower case for some reason
+                return Path.Combine(location, "Crane.Core.xml");
+
+            throw new FileNotFoundException(string.Format("Could not find file Crane.Core.XML or Crane.Core.xml in directory{0}", location));
         }
 
         public ICommandHelpCollection HelpCollection
