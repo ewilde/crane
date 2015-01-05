@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Crane.Core.Commands.Exceptions;
 
 namespace Crane.Core.Commands.Handlers.Factories
 {
@@ -14,7 +15,11 @@ namespace Crane.Core.Commands.Handlers.Factories
 
         public ICommandHandler Create(ICraneCommand command)
         {
-            var handler = _commandHandlers.First(h => h.CanHandle(command));
+            var handler = _commandHandlers.FirstOrDefault(h => h.CanHandle(command));
+            if (handler == null)
+            {
+                throw new MissingCommandHandlerException(string.Format("No handler found for command {0}.", command));
+            }
             return handler;
         }
     }

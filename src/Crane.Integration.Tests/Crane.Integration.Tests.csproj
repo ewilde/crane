@@ -11,9 +11,6 @@
     <AssemblyName>Crane.Integration.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
-      cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./Crane.Core.XML</PostBuildEvent>
-    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates $(OutDir)\Templates</PostBuildEvent>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -87,9 +84,11 @@
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\Run.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
+    <Compile Include="TestUtilities\ShouldExtensions.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\AssembleFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
+    <Compile Include="UserFeatures\CommandLine\GenDocFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\HelpFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\InitFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,4 +114,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
+      cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./Crane.Core.XML</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates Templates</PostBuildEvent>
+  </PropertyGroup>
 </Project>
