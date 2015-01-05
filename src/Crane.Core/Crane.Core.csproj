@@ -54,6 +54,7 @@
     <Compile Include="Commands\Arguments\CommandArgument.cs" />
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Assemble.cs" />
+    <Compile Include="Commands\Attributes\HiddenCommandAttribute.cs" />
     <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
     <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
