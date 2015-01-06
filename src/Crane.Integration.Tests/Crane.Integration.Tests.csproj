@@ -80,6 +80,7 @@
     <Compile Include="TestUtilities\BuildScriptRunner.cs" />
     <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
+    <Compile Include="TestUtilities\Extensions\ConstraintExtensions.cs" />
     <Compile Include="TestUtilities\Extensions\GenericAssertions.cs" />
     <Compile Include="TestUtilities\Extensions\ShouldExtensions.cs" />
     <Compile Include="TestUtilities\Git.cs" />
