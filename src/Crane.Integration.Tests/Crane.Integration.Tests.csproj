@@ -103,6 +103,9 @@
     <Content Include="TestProjects\ServiceStack.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestProjects\SolutionInDirectoryProject.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crane.Console\Crane.Console.csproj">

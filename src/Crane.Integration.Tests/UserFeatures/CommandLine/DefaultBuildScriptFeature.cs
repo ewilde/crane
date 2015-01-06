@@ -37,6 +37,9 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => FileVersionInfo.GetVersionInfo(Path.Combine(craneTestContext.Directory, "SallyFx", "build-output", "SallyFx.dll"))
                     .FileVersion.Should().Be("0.0.0.0"));
 
+		    "It should build successfully"
+		        ._(() => result.StandardOutput.Should().Contain("Succeeded!"));
+
             "It should not throw an error"
                 ._(() => result.ErrorOutput.Should().BeEmpty())
                 .Teardown(() => craneTestContext.TearDown()); 
