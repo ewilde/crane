@@ -5,9 +5,9 @@ crane [![Appveyor build status](https://ci.appveyor.com/api/projects/status/0ej0
 > Builds you into the pit of success
 
 We hate writing build scripts and continuous integration (ci) templates every time
-we start a new project. I'm sure you do as well. This is where `crane`comes in.
-Invoke `crane` and it will build you a blank project with a build script
-and ci template ready to rock.
+we start a new project or when we work on a project that does not have them. I'm sure you do as well. This is where `crane`comes in.
+Invoke `crane` and it can build you a blank project, complete with a build or you can get `crane` to assemble you a build on an existing project.  No more messing around for hours on a build server!!
+
 
 #Installation
 To install crane, run the following command from the command line or from PowerShell:
