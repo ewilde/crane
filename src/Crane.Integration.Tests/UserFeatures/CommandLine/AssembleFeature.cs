@@ -48,8 +48,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() =>
                 {
                     var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "ServiceStack"));
-                    buildResult.ErrorOutput.Should().BeEmpty();
-                    buildResult.StandardOutput.Should().Contain("Succeeded!");
+                    buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
 
                 });
 

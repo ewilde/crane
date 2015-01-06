@@ -19,11 +19,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => result = run.Command(craneTestContext.Directory, "crane gendoc"));
 
             "Then there should be no errors"
-                ._(() =>
-                {
-                    result.StandardOutput.Should().BeCraneOutputErrorFree();
-                    result.ErrorOutput.Should().BeEmpty();
-                });
+                ._(() => result.Should().BeErrorFree());
         }
     }
 }
