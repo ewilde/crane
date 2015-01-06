@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using Crane.Integration.Tests.TestUtilities;
+using Crane.Integration.Tests.TestUtilities.Extensions;
 using FluentAssertions;
 using Ionic.Zip;
 using Xbehave;

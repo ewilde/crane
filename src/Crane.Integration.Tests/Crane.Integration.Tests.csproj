@@ -80,11 +80,12 @@
     <Compile Include="TestUtilities\BuildScriptRunner.cs" />
     <Compile Include="TestUtilities\CraneTestContext.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
+    <Compile Include="TestUtilities\Extensions\GenericAssertions.cs" />
+    <Compile Include="TestUtilities\Extensions\ShouldExtensions.cs" />
     <Compile Include="TestUtilities\Git.cs" />
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\Run.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
-    <Compile Include="TestUtilities\ShouldExtensions.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\AssembleFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
