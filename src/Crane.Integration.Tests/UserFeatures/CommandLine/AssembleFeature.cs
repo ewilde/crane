@@ -8,9 +8,10 @@ using Xbehave;
 
 namespace Crane.Integration.Tests.UserFeatures.CommandLine
 {
+
     public class AssembleFeature
-    {
-        [Scenario]
+    {        
+        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
         public void Assemble_with_a_folder_name_creates_a_project_with_build_when_folder_name_matches_solution_name(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
