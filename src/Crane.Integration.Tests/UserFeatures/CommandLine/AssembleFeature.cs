@@ -23,8 +23,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called ServiceStack with no build"
                 ._(() =>
                 {
-                    File.Copy("./TestProjects/ServiceStack.zip", Path.Combine(craneTestContext.Directory, "ServiceStack.zip"), true);
-                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.Directory, "ServiceStack.zip"));
+                    File.Copy("./TestProjects/ProjectNameSameAsSolution.zip", Path.Combine(craneTestContext.Directory, "ProjectNameSameAsSolution.zip"), true);
+                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.Directory, "ProjectNameSameAsSolution.zip"));
                     zipFile.ExtractAll(craneTestContext.Directory, ExtractExistingFileAction.OverwriteSilently);
                 });
 
