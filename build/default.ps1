@@ -33,7 +33,7 @@ Task NugetExists {
 
 Task PatchAssemblyInfo {
     $version = $global:context.build_version
-    GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
+    GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$($global:context.sln_file_info.Directory.FullName)\src\crane.core\Properties\AssemblyInfo.cs"
 
   	if ($teamcityBuild) {
   		Write-Host "##teamcity[buildNumber '$version']"
