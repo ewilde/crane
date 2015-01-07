@@ -35,4 +35,4 @@ function ContextClass {
   $context
 }
 
-export-modulemember -function ContextClass
+Export-ModuleMember -function ContextClass

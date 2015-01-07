@@ -54,12 +54,12 @@ function Debug($message){
 }
 
 
-function Get-Git-Commit{
+function Get-GitCommit{
   $gitLog = git log --oneline -1
   return $gitLog.Split(' ')[0]
 }
 
-function Get-Version-From-Git-Tag{
+function Get-VersionFromGitTag{
   $gitTag = git describe --tags --abbrev=0
   return $gitTag.Replace("v", "") + ".0"
 }
@@ -76,7 +76,7 @@ function Invoke-GenerateAssemblyInfo{
     [string]$file = $(throw "file is a required parameter.")
   )
 
-  $commit = Get-Git-Commit
+  $commit = Get-GitCommit
   $asmInfo = "using System;
   using System.Reflection;
   using System.Runtime.CompilerServices;
