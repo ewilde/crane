@@ -26,21 +26,9 @@ Task SetupContext {
 
 Task PatchAssemblyInfo {
     $version = $global:context.build_version
-    GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$($global:context.sln_file_info.Directory.FullName)\src\crane.core\Properties\AssemblyInfo.cs"
+    Invoke-GenerateAssemblyInfo  -title "Crane.Core" -description "Core crane functionality" -version $version -file "$($global:context.sln_file_info.Directory.FullName)\src\crane.core\Properties\AssemblyInfo.cs"
 
   	if ($teamcityBuild) {
   		Write-Host "##teamcity[buildNumber '$version']"
   	}
-}
-
-function GenerateAssemblyInfo
-{
-  param(
-  	[string]$title,
-  	[string]$description,
-  	[string]$version,
-  	[string]$file
-  )
-
-  Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file
 }
