@@ -1,5 +1,6 @@
 ﻿using Crane.Core.Commands;
 using Crane.Core.Commands.Handlers;
+using Crane.Core.Commands.Resolvers;
 using Crane.Core.IO;
 using Crane.Core.Tests.TestUtilities;
 using FakeItEasy;
@@ -17,7 +18,7 @@ namespace Crane.Core.Tests.Commands.Handlers
                 ._(() =>
                 {
                     output = new MockOutput();
-                    handler = new ListCommandsHandler(new ICraneCommand[]{new VisableCommand(), new HiddenCommand()}, output);                    
+                    handler = new ListCommandsHandler(new VisibleCommandResolver(new ICraneCommand[]{new VisableCommand(), new HiddenCommand()}), output);                    
                 });
 
             "When I invoke the command"

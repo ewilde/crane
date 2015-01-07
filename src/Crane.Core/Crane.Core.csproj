@@ -85,6 +85,8 @@
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
     <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\Resolvers\IVisibleCommandResolver.cs" />
+    <Compile Include="Commands\Resolvers\VisibleCommandResolver.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />

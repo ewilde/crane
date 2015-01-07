@@ -1,4 +1,5 @@
-﻿using Crane.Integration.Tests.TestUtilities;
+﻿using System.IO;
+using Crane.Integration.Tests.TestUtilities;
 using Crane.Integration.Tests.TestUtilities.Extensions;
 using FluentAssertions;
 using Xbehave;
@@ -16,11 +17,14 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a run context"
                 ._(() => run = new Run());
 
-            "When I run crane init"
+            "When I run crane gendoc"
                 ._(() => result = run.Command(craneTestContext.Directory, "crane gendoc"));
 
             "Then there should be no errors"
                 ._(() => result.Should().BeErrorFree());
+
+            //"And there should me an index.md created in the docs folder"
+            //    ._(() => File.Exists(Path.GetFullPath(Path.Combine(craneTestContext.Directory, "..", "doc", "index.md"))).Should().BeTrue());
         }
     }
 }
