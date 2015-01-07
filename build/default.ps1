@@ -25,12 +25,6 @@ Task SetupContext {
   $global:context
 }
 
-
-Task NugetExists {
-  Invoke-DownloadNuget "$($global:context.build_dir)"
-}
-
-
 Task PatchAssemblyInfo {
     $version = $global:context.build_version
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$($global:context.sln_file_info.Directory.FullName)\src\crane.core\Properties\AssemblyInfo.cs"

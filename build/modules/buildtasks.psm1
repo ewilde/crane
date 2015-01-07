@@ -1,3 +1,13 @@
+Task NugetExists {
+
+  $nugetFile = Join-Path "$($global:context.build_dir)" NuGet.exe
+
+  if (Test-Path $nugetFile){
+    return
+  }
+  
+  ((new-object net.webclient).DownloadFile('http://www.nuget.org/nuget.exe', $nugetFile))
+}
 
 Task Clean {
   Write-Host "Creating build-output directory" -ForegroundColor Green
