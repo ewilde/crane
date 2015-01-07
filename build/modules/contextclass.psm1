@@ -5,7 +5,6 @@ $contextclass = new-object psobject -Property @{
   build_version = $null
   build_artifacts_dir = $null
   configuration = $null
-  project_name = $null
   chocolatey_api_key = $null
   chocolatey_api_url = $null
   teamcity_build = $null
