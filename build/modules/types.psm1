@@ -5,6 +5,7 @@ $contextclass = new-object psobject -Property @{
   build_version = $null
   build_artifacts_dir = $null
   configuration = $null
+  project_name = $null
 }
 
 function ContextClass {
@@ -17,10 +18,6 @@ function ContextClass {
     [String]$build_number
   )
 
-  Write-Host "passed in..."
-  Write-Host $relative_solution_path
-  Write-Host $configuration
-
   $context = $ContextClass.psobject.copy()
   $context.root_dir = Resolve-Path "$psake_build_script_dir\.."
   $context.build_dir = $psake_build_script_dir
@@ -28,6 +25,9 @@ function ContextClass {
   $context.build_version = "$(Get-Content -Path "$($context.root_dir)\VERSION.txt").$build_number"
   $context.build_artifacts_dir = "$($context.root_dir)\build-output"
   $context.configuration = $configuration
+
+  $rootdir = Get-Item $context.root_dir
+  $context.project_name = $rootdir.Parent.Name
 
   $context
 }
