@@ -12,7 +12,6 @@ function ContextClass {
     [String]$psake_build_script_dir,
     [Parameter(Mandatory=$true)]
     [String]$relative_solution_path,
-    [Parameter(Mandatory=$true)]
     [String]$build_number
   )
 

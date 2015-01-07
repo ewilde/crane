@@ -17,9 +17,9 @@ $sln_filepath = "$src_dir\$sln_filename"
 $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
 $version = ""
 
+$add_includes = Join-Path $build_dir "add-includes.ps1"
 
-Import-Module (Join-Path $build_dir 'includes.psm1') -Force
-Add-Includes -module_dir $build_dir
+& $add_includes @($build_dir)
 
 $context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -build_number $build_number
 $context
