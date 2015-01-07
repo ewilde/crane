@@ -1,7 +1,7 @@
 properties{
     $configuration = "Debug"
     $build_number = 0
-	[switch]$teamcityBuild = $false
+    [switch]$teamcityBuild = $false
     $chocolateyApiKey = ""
     $chocolateyApiUrl = ""
     [switch]$verbose = $false
@@ -13,17 +13,32 @@ $build_artifacts_dir = "$root_dir\build-output"
 $src_dir = "$root_dir\src"
 $template_source_dir = "$src_dir\Crane.Templates"
 $sln_filename = "Crane.sln"
-$sln_filepath = "$src_dir\$sln_filename" 
+$sln_filepath = "$src_dir\$sln_filename"
 $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
 $version = ""
 
-Import-Module (Join-Path $build_dir 'psake-ext.psm1') -Force
+
+Import-Module (Join-Path $build_dir 'includes.psm1') -Force
+Add-Includes -module_dir $build_dir
+
+$context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -build_number $build_number
+$context
+
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
+
+Task Default -Depends writeoutstuff
+
+
+
+<#
+put this back
+=============
 
 Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
+#>
 
 Task Info {
   Write-Host build_dir: $build_dir
@@ -39,39 +54,39 @@ Task Info {
   Write-Host verbose: $verbose
 }
 
-Task Build -Depends Clean, NugetRestore { 
+Task Build -Depends Clean, NugetRestore {
     Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
     $verboseLevel = "quiet"
     if ($verbose)
     {
         $verboseLevel = "normal"
     }
-    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:$verboseLevel /p:OutDir=$build_artifacts_dir } 
+    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:$verboseLevel /p:OutDir=$build_artifacts_dir }
 }
 
 Task Clean {
     Write-Host "Creating build-output directory" -ForegroundColor Green
-    if (Test-Path $build_artifacts_dir) 
-    {   
+    if (Test-Path $build_artifacts_dir)
+    {
         rd $build_artifacts_dir -rec -force | out-null
     }
-    
+
     mkdir $build_artifacts_dir | out-null
-    
+
     Write-Host "Cleaning $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild $sln_filepath /t:Clean /p:Configuration=$configuration /v:quiet } 
+    Exec { msbuild $sln_filepath /t:Clean /p:Configuration=$configuration /v:quiet }
 }
 
-Task NugetRestore -Depends NugetExists { 
+Task NugetRestore -Depends NugetExists {
    & $build_dir\nuget.exe @('restore', $sln_filepath)
 }
 
-Task NugetExists { 
+Task NugetExists {
     Invoke-DownloadNuget $build_dir #doesn't download if exists
 }
 
 Task Test {
-    Get-ChildItem -Path $build_artifacts_dir -Filter *.Tests.dll | 
+    Get-ChildItem -Path $build_artifacts_dir -Filter *.Tests.dll |
     % {
         Debug("$xunit_consoleRunner @($($_.FullName), '/silent')")
         & $xunit_consoleRunner @($_.FullName, '/silent')
@@ -84,8 +99,8 @@ Task Test {
 
 Task ChocolateyExists{
     try{
-	    & choco 
-    }catch{	    
+	    & choco
+    }catch{
         iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
     }
 }
@@ -100,7 +115,7 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
     $nuspectemplate = Get-Content "$src_dir\Crane.Chocolatey\crane.nuspec" | Out-String
     $nuspectemplate = $nuspectemplate.Replace("##version_number##", "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number")
     $nuspectemplate = $nuspectemplate.Replace("##build_output##", $build_artifacts_dir)
-                     
+
 
     New-Item -Path $choco_nuspec -ItemType File -Value $nuspectemplate
     & cpack @($choco_nuspec)
@@ -119,16 +134,16 @@ Task PatchAssemblyInfo {
     $version = "$(Get-Content -Path "$root_dir\VERSION.txt").$build_number"
     GenerateAssemblyInfo "Crane.Core" "Core crane functionality" $version "$src_dir\crane.core\Properties\AssemblyInfo.cs"
 
-	if ($teamcityBuild) {
-		Write-Host "##teamcity[buildNumber '$version']"
-	}
+  	if ($teamcityBuild) {
+  		Write-Host "##teamcity[buildNumber '$version']"
+  	}
 }
 
 function GenerateAssemblyInfo
 {
 param(
-	[string]$title, 
-	[string]$description, 
+	[string]$title,
+	[string]$description,
 	[string]$version,
 	[string]$file
 )
