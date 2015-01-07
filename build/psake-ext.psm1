@@ -42,8 +42,7 @@ using System.Runtime.InteropServices;
 "
 
 	$dir = [System.IO.Path]::GetDirectoryName($file)
-    if ([System.IO.Directory]::Exists($dir) -eq $false)
-	{
+  if ([System.IO.Directory]::Exists($dir) -eq $false){
 		Write-Host "Creating directory $dir"
 		[System.IO.Directory]::CreateDirectory($dir)
 	}
@@ -51,4 +50,4 @@ using System.Runtime.InteropServices;
 	Write-Output $asmInfo > $file
 }
 
-export-modulemember -function Invoke-DownloadNuget, Invoke-GenerateAssemblyInfo
+export-modulemember -function Invoke-GenerateAssemblyInfo
