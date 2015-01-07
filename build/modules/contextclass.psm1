@@ -26,10 +26,6 @@ function ContextClass {
   $context.build_version = "$(Get-Content -Path "$($context.root_dir)\VERSION.txt").$($props.build_number)"
   $context.build_artifacts_dir = "$($context.root_dir)\build-output"
   $context.configuration = $props.configuration
-
-  $rootdir = Get-Item $context.root_dir
-  $context.project_name = $rootdir.Parent.Name
-
   $context.chocolatey_api_key = $props.chocolateyApiKey
   $context.chocolatey_api_url = $props.chocolateyApiUrl
 
