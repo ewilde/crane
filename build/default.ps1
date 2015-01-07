@@ -15,13 +15,18 @@ $add_includes = Join-Path $build_dir "add-includes.ps1"
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
+<#
 Task TeamCityBuildStep -Depends SetupContext, PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
 Task Default -Depends SetupContext, BuildCrane, Test
 Task BuildCrane -Depends Clean, Build
+#>
 
+Task Default -Depends SetupContext
+
+$properties
 
 Task SetupContext {
-  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -configuration $configuration -build_number $build_number -chocolatey_api_key $ChocolateyApiKey -chocolatey_api_url $ChocolateyApiUrl
+  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -props $properties
   $global:context
 }
 
@@ -42,5 +47,6 @@ function GenerateAssemblyInfo
   	[string]$version,
   	[string]$file
   )
-    Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file
+
+  Invoke-GenerateAssemblyInfo -title $title -description $description -version $version -file $file
 }
