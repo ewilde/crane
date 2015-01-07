@@ -27,6 +27,6 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
 Task ChocolateyPublishPackage -Depends ChocolateyBuildPackage{
   Get-ChildItem "$($global:context.root_dir)\chocolatey-output" -Filter *.nupkg |
   Foreach-Object{
-    & "$($global:context.build_dir)\nuget.exe" @('push', $_.FullName, "-s", $chocolateyApiUrl, $chocolateyApiKey)
+    & "$($global:context.build_dir)\nuget.exe" @('push', $_.FullName, "-s", $($global:context.chocolatey_api_url), $($global:context.chocolatey_api_key))
   }
 }

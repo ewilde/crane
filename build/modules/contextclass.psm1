@@ -6,6 +6,8 @@ $contextclass = new-object psobject -Property @{
   build_artifacts_dir = $null
   configuration = $null
   project_name = $null
+  chocolatey_api_key = $null
+  chocolatey_api_url = $null
 }
 
 function ContextClass {
@@ -15,7 +17,9 @@ function ContextClass {
     [Parameter(Mandatory=$true)]
     [String]$relative_solution_path,
     [String]$configuration,
-    [String]$build_number
+    [String]$build_number,
+    [String]$chocolatey_api_key,
+    [String]$chocolatey_api_url
   )
 
   $context = $ContextClass.psobject.copy()
@@ -28,6 +32,9 @@ function ContextClass {
 
   $rootdir = Get-Item $context.root_dir
   $context.project_name = $rootdir.Parent.Name
+
+  $context.chocolatey_api_key = $chocolatey_api_key
+  $context.chocolatey_api_url = $chocolatey_api_url
 
   $context
 }

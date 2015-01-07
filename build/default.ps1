@@ -21,7 +21,7 @@ Task BuildCrane -Depends Clean, Build
 
 
 Task SetupContext {
-  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -configuration $configuration -build_number $build_number
+  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -configuration $configuration -build_number $build_number -chocolatey_api_key $ChocolateyApiKey -chocolatey_api_url $ChocolateyApiUrl )
   $global:context
 }
 
