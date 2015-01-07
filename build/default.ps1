@@ -12,7 +12,6 @@ $add_includes = Join-Path $build_dir "add-includes.ps1"
 
 & $add_includes @($build_dir)
 
-
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
 Task TeamCityBuildStep -Depends SetupContext, PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
