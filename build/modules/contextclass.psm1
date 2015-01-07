@@ -30,8 +30,8 @@ function ContextClass {
   $rootdir = Get-Item $context.root_dir
   $context.project_name = $rootdir.Parent.Name
 
-  $context.chocolatey_api_key = $props.chocolateyApiUrl
-  $context.chocolatey_api_url = $props.chocolateyApiKey
+  $context.chocolatey_api_key = $props.chocolateyApiKey
+  $context.chocolatey_api_url = $props.chocolateyApiUrl
 
   $context
 }
