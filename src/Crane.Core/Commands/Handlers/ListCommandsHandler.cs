@@ -13,7 +13,7 @@ namespace Crane.Core.Commands.Handlers
         private readonly IEnumerable<ICraneCommand> _commands;
         private readonly IOutput _output;
 
-        public ListCommandsHandler(IVisibleCommandResolver commandResolver, IOutput output)
+        public ListCommandsHandler(IPublicCommandResolver commandResolver, IOutput output)
         {
             _commands = commandResolver.Resolve();
             _output = output;
@@ -23,7 +23,7 @@ namespace Crane.Core.Commands.Handlers
         protected override void DoHandle(ListCommands listCommands)
         {
             _output.WriteInfo("list of possible crane commands:");
-            foreach (var command in _commands.Select(c => c.GetType().Name.ToLowerInvariant())
+            foreach (var command in _commands.Select(c => c.Name())
                                              .OrderBy(n => n))
             {
                 _output.WriteInfo("crane {0} ", command);

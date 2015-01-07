@@ -2,7 +2,7 @@
 
 namespace Crane.Core.Commands.Resolvers
 {
-    public interface IVisibleCommandResolver
+    public interface IPublicCommandResolver
     {
         IEnumerable<ICraneCommand> Resolve();
     }

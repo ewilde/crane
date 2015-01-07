@@ -18,7 +18,7 @@ namespace Crane.Core.Tests.Commands.Handlers
                 ._(() =>
                 {
                     output = new MockOutput();
-                    handler = new ListCommandsHandler(new VisibleCommandResolver(new ICraneCommand[]{new VisableCommand(), new HiddenCommand()}), output);                    
+                    handler = new ListCommandsHandler(new PublicCommandResolver(new ICraneCommand[]{new VisableCommand(), new HiddenCommand()}), output);                    
                 });
 
             "When I invoke the command"

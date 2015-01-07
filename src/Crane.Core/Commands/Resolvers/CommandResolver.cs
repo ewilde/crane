@@ -11,7 +11,7 @@ namespace Crane.Core.Commands.Resolvers
         public Type Resolve(IEnumerable<ICraneCommand> commands, string commandArgument)
         {
             
-            var command = commands.FirstOrDefault(c => c.GetType().Name.ToLowerInvariant() == commandArgument.ToLowerInvariant());
+            var command = commands.FirstOrDefault(c => c.Name() == commandArgument.ToLowerInvariant());
 
             if (command == null)
                 throw new UnknownCommandCraneException(string.Format("crane {0} is not a crane command. See 'crane listcommands'", commandArgument));

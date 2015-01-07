@@ -13,10 +13,10 @@ namespace Crane.Core.Tests.Commands.Resolvers
     public class VisibleCommandResolverTests
     {
         [Scenario]
-        public void only_returns_commands_that_dont_have_the_hidden_attribute(VisibleCommandResolver commandResolver, IEnumerable<ICraneCommand> result)
+        public void only_returns_commands_that_dont_have_the_hidden_attribute(PublicCommandResolver commandResolver, IEnumerable<ICraneCommand> result)
         {
             "Given I have a command resolver"
-                ._(() => commandResolver = new VisibleCommandResolver(new ICraneCommand[] { new VisableCommand(), new HiddenCommand()}));
+                ._(() => commandResolver = new PublicCommandResolver(new ICraneCommand[] { new VisableCommand(), new HiddenCommand()}));
 
             "When I resolve all the visible commands"
                 ._(() => result = commandResolver.Resolve());

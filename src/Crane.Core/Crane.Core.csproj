@@ -55,6 +55,7 @@
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Assemble.cs" />
     <Compile Include="Commands\Attributes\HiddenCommandAttribute.cs" />
+    <Compile Include="Commands\CommandExtensions.cs" />
     <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
     <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
@@ -85,8 +86,8 @@
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
     <Compile Include="Commands\Help.cs" />
-    <Compile Include="Commands\Resolvers\IVisibleCommandResolver.cs" />
-    <Compile Include="Commands\Resolvers\VisibleCommandResolver.cs" />
+    <Compile Include="Commands\Resolvers\IPublicCommandResolver.cs" />
+    <Compile Include="Commands\Resolvers\PublicCommandResolver.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />

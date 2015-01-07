@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Builders\BuildA.cs" />
     <Compile Include="Builders\TokenDictionaryBuilder.cs" />
+    <Compile Include="Commands\CommandExtensionTests.cs" />
     <Compile Include="Commands\Handlers\Factories\CommandHandlerFactoryTests.cs" />
     <Compile Include="Commands\Handlers\ListCommandsHandlerTests.cs" />
     <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />

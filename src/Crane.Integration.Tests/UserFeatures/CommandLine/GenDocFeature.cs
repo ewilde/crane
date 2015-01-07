@@ -1,4 +1,7 @@
 ﻿using System.IO;
+using Crane.Core.Commands;
+using Crane.Core.Commands.Resolvers;
+using Crane.Core.Utility;
 using Crane.Integration.Tests.TestUtilities;
 using Crane.Integration.Tests.TestUtilities.Extensions;
 using FluentAssertions;
@@ -9,10 +12,15 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class GenDocFeature
     {
         [Scenario]
-        public void generate_markdown_dynamic_documentation_for_crane_commands(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void generate_markdown_dynamic_documentation_for_crane_commands(Run run, RunResult result, CraneTestContext craneTestContext, string docDirectory)
         {
             "Given I have my own private copy of the crane console"
-               ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+               ._(() =>
+               {
+                   craneTestContext = ioc.Resolve<CraneTestContext>();
+                   docDirectory = Path.GetFullPath(Path.Combine(craneTestContext.Directory, "..", "doc"));
+                   Directory.Delete(docDirectory, true);
+               });
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -23,8 +31,12 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "Then there should be no errors"
                 ._(() => result.Should().BeErrorFree());
 
-            //"And there should me an index.md created in the docs folder"
-            //    ._(() => File.Exists(Path.GetFullPath(Path.Combine(craneTestContext.Directory, "..", "doc", "index.md"))).Should().BeTrue());
+            "And there should be an index.md created in the doc folder"
+                ._(() => File.Exists(Path.Combine(docDirectory , "index.md")).Should().BeTrue());
+
+            "And there should be a markdown file for each public crane command in the doc directory"
+                ._(() => ioc.Resolve<IPublicCommandResolver>().Resolve().ForEach(
+                    command => File.Exists(Path.Combine(docDirectory, command.Name() + ".md")).Should().BeTrue("missing {0} in directory {1}", command.Name() + ".md", docDirectory)));
         }
     }
 }

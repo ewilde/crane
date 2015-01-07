@@ -6,11 +6,11 @@ using Crane.Core.Commands.Attributes;
 
 namespace Crane.Core.Commands.Resolvers
 {
-    public class VisibleCommandResolver : IVisibleCommandResolver
+    public class PublicCommandResolver : IPublicCommandResolver
     {
         private readonly IEnumerable<ICraneCommand> _commands;
 
-        public VisibleCommandResolver(IEnumerable<ICraneCommand> commands)
+        public PublicCommandResolver(IEnumerable<ICraneCommand> commands)
         {
             _commands = commands;
         }
