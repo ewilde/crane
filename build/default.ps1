@@ -24,7 +24,7 @@ $add_includes = Join-Path $build_dir "add-includes.ps1"
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends SetupContext, Build
+Task Default -Depends SetupContext, Clean, Build
 <#
 Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
 Task Default -Depends BuildCrane, Test
@@ -50,35 +50,9 @@ Task Info {
   Write-Host verbose: $verbose
 }
 
-Task Build -Depends Clean, NugetRestore {
 
-    Write-Host "Building $($global:context.sln_file_info.Name) ($($global:context.configuration))" -ForegroundColor Green
-    $verboseLevel = "quiet"
-    if ($verbose)
-    {
-        $verboseLevel = "normal"
-    }
-    Write-Host $configuration
-    Write-Host $global:context.configuration
-    Exec { msbuild "$($global:context.sln_file_info.FullName)" /t:ReBuild /p:Configuration=$($global:context.configuration) /v:$verboseLevel /p:OutDir=$($global:context.build_artifacts_dir) }
-}
 
-Task Clean {
-    Write-Host "Creating build-output directory" -ForegroundColor Green
-    if (Test-Path $build_artifacts_dir)
-    {
-        rd $build_artifacts_dir -rec -force | out-null
-    }
 
-    mkdir $build_artifacts_dir | out-null
-
-    Write-Host "Cleaning $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild $sln_filepath /t:Clean /p:Configuration=$configuration /v:quiet }
-}
-
-Task NugetRestore -Depends NugetExists {
-   & $build_dir\nuget.exe @('restore', $sln_filepath)
-}
 
 Task NugetExists {
     Invoke-DownloadNuget $build_dir #doesn't download if exists
