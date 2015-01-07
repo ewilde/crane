@@ -21,24 +21,20 @@ $add_includes = Join-Path $build_dir "add-includes.ps1"
 
 & $add_includes @($build_dir)
 
-$context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -build_number $build_number
-$context
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends writeoutstuff
-
-
-
+Task Default -Depends SetupContext, Build
 <#
-put this back
-=============
-
 Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
 Task Default -Depends BuildCrane, Test
 
 Task BuildCrane -Depends Info, Clean, Build
 #>
+Task SetupContext {
+  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -configuration $configuration -build_number $build_number
+  $global:context
+}
 
 Task Info {
   Write-Host build_dir: $build_dir
@@ -55,13 +51,16 @@ Task Info {
 }
 
 Task Build -Depends Clean, NugetRestore {
-    Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
+
+    Write-Host "Building $($global:context.sln_file_info.Name) ($($global:context.configuration))" -ForegroundColor Green
     $verboseLevel = "quiet"
     if ($verbose)
     {
         $verboseLevel = "normal"
     }
-    Exec { msbuild "$sln_filepath" /t:ReBuild /p:Configuration=$configuration /v:$verboseLevel /p:OutDir=$build_artifacts_dir }
+    Write-Host $configuration
+    Write-Host $global:context.configuration
+    Exec { msbuild "$($global:context.sln_file_info.FullName)" /t:ReBuild /p:Configuration=$($global:context.configuration) /v:$verboseLevel /p:OutDir=$($global:context.build_artifacts_dir) }
 }
 
 Task Clean {
