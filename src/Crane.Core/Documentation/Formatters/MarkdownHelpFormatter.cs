@@ -36,7 +36,9 @@ namespace Crane.Core.Documentation.Formatters
 
         public string FormatSummary(ICommandHelp commandHelp)
         {
-            return string.Format("* [`crane {0}`]({0}.md) - {1}.", commandHelp.CommandName, commandHelp.Description);
+            var result = new StringBuilder();
+            AddLines(result, commandHelp.Description);
+            return string.Format("* [`crane {0}`]({0}.md)  {2}{1}{2}", commandHelp.CommandName, result, Environment.NewLine);
         }
 
         private string FormatDescription(ICommandHelp commandHelp)
@@ -81,18 +83,29 @@ namespace Crane.Core.Documentation.Formatters
 
         private void AddLines(StringBuilder result, IEnumerable<string> lines)
         {
-            lines.ForEach(
-                line =>
-                {
-                    if (line.StartsWith("<code>") && line.EndsWith("</code>"))
-                    {
-                        result.AppendLine(line.Replace("<code>", "`").Replace("</code>", "`"));
-                    }
-                    else
-                    {
-                        result.AppendLine(line.Replace("<code>", "```").Replace("</code>", "```"));
-                    }
-                });
+            var items = lines as string[] ?? lines.ToArray();
+            int removePaddingCount = GetRemovePaddingCount(items.ToArray());
+
+            items.ForEach(
+                line => GetMarkDownLine(result, line, removePaddingCount));
+        }
+
+        private void GetMarkDownLine(StringBuilder result, string line, int removePaddingCount)
+        {
+            line = line.Trim(' ', removePaddingCount);
+            if (line.StartsWith("<code>") && line.EndsWith("</code>"))
+            {
+                result.AppendLine(line.Replace("<code>", "`").Replace("</code>", "`"));
+            }
+            else
+            {
+                result.AppendLine(line.Replace("<code>", "```").Replace("</code>", "```"));
+            }
+        }
+
+        private int GetRemovePaddingCount(string[] lines)
+        {
+            return lines.Length > 1 ? lines[1].PadCountLeft() : 0;
         }
 
         private string FormatUsage(ICommandHelp commandHelp)
