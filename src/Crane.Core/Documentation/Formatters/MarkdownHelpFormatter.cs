@@ -34,6 +34,11 @@ namespace Crane.Core.Documentation.Formatters
             return result.ToString();
         }
 
+        public string FormatSummary(ICommandHelp commandHelp)
+        {
+            return string.Format("* [`crane {0}`]({0}.md) - {1}.", commandHelp.CommandName, commandHelp.Description);
+        }
+
         private string FormatDescription(ICommandHelp commandHelp)
         {
             var result = new StringBuilder();

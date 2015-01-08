@@ -11,7 +11,8 @@ namespace Crane.Core.Configuration.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<XmlHelpProvider>().As<IHelpProvider>().SingleInstance();            
-            builder.RegisterType<ConsoleHelpFormatter>().As<IHelpFormatter>().SingleInstance();            
+            builder.RegisterType<ConsoleHelpFormatter>().As<IHelpFormatter>().SingleInstance();
+            builder.RegisterType<MarkdownHelpFormatter>().SingleInstance();
         }
     }
 }

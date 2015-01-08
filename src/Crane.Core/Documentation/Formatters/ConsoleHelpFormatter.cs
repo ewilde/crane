@@ -56,6 +56,11 @@ namespace Crane.Core.Documentation.Formatters
             return result.ToString();
         }
 
+        public string FormatSummary(ICommandHelp commandHelp)
+        {
+            return string.Empty;
+        }
+
         private string MoreInformation()
         {
             return "For more information, visit https://github.com/ewilde/crane"; // update with commandline reference docs once we have some
