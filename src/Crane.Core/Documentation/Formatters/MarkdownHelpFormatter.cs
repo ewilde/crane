@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crane.Core.Commands.Parsers;
-using Crane.Core.Utility;
+using Crane.Core.Extensions;
 
 namespace Crane.Core.Documentation.Formatters
 {
@@ -66,7 +66,7 @@ namespace Crane.Core.Documentation.Formatters
                 return;
             }
 
-            result.AppendLine(string.Format("**{0}**", lines[0]));
+            result.AppendLine(string.Format("**{0}**  ", lines[0]));
             AddLines(result, lines.Skip(1));
         }
 
@@ -93,7 +93,7 @@ namespace Crane.Core.Documentation.Formatters
         private void GetMarkDownLine(StringBuilder result, string line, int removePaddingCount)
         {
             line = line.Trim(' ', removePaddingCount);
-            if (line.StartsWith("<code>") && line.EndsWith("</code>"))
+            if (line.Contains("<code>") && line.Contains("</code>"))
             {
                 result.AppendLine(line.Replace("<code>", "`").Replace("</code>", "`"));
             }

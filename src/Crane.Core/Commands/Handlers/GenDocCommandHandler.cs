@@ -5,8 +5,8 @@ using Crane.Core.Commands.Resolvers;
 using Crane.Core.Configuration;
 using Crane.Core.Documentation.Formatters;
 using Crane.Core.Documentation.Providers;
+using Crane.Core.Extensions;
 using Crane.Core.IO;
-using Crane.Core.Utility;
 
 namespace Crane.Core.Commands.Handlers
 {
@@ -59,7 +59,8 @@ namespace Crane.Core.Commands.Handlers
 
         private void CreateCommandPage(ICraneCommand command)
         {
-            _fileManager.WriteAllText(Path.Combine(_docDirectory, command.Name() + ".md"), string.Empty);            
+            _fileManager.WriteAllText(Path.Combine(_docDirectory, command.Name() + ".md"),
+                _helpFormatter.Format(_helpProvider.HelpCollection.Get(command.Name())));
         }
     }
 }

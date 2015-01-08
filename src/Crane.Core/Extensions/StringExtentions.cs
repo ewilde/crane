@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace Crane.Core.Utility
+namespace Crane.Core.Extensions
 {
     public static class StringExtensions
     {

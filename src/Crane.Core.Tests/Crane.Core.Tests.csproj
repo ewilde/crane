@@ -101,6 +101,7 @@
     <Compile Include="Documentation\Formatters\MarkdownHelpFormatterTests.cs" />
     <Compile Include="Documentation\Parsers\XmlCommentCommandHelpParserTests.cs" />
     <Compile Include="Documentation\Providers\XmlHelpProviderTests.cs" />
+    <Compile Include="Extensions\XDocumentExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\Parsers\FileAndDirectoryTokenParserTests.cs" />
     <Compile Include="Templates\Parsers\TokenParserTests.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Crane.Core.Utility;
+using Crane.Core.Extensions;
 
 namespace Crane.Core.Configuration
 {

@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crane.Core.Extensions;
 using Crane.Core.IO;
-using Crane.Core.Utility;
 using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Crane.Core.Configuration;
+using Crane.Core.Extensions;
 using Crane.Core.IO;
-using Crane.Core.Utility;
 
 namespace Crane.Core.Templates.Resolvers
 {

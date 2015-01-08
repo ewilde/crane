@@ -115,6 +115,7 @@
     <Compile Include="Documentation\ICommandHelp.cs" />
     <Compile Include="Documentation\Providers\IHelpProvider.cs" />
     <Compile Include="Documentation\Providers\XmlHelpProvider.cs" />
+    <Compile Include="Extensions\XDocumentExtensions.cs" />
     <Compile Include="Hosts\ConsoleHost.cs" />
     <Compile Include="Hosts\HostFactory.cs" />
     <Compile Include="Hosts\IHost.cs" />

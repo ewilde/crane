@@ -26,9 +26,7 @@ namespace Crane.Core.Tests.Documentation.Parsers
                                 </summary>
                                 <example>
                                 EXAMPLE 1
-                                <code>
-                                    crane init SallyFx
-                                </code>
+                                <code>usage: crane init SallyFx</code>
                                 This example initializes a new project 'SallyFx' in the current directory
                                 </example>
                             </member>

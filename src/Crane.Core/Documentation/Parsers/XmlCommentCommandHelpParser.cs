@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Xml.Linq;
+using Crane.Core.Extensions;
 
 namespace Crane.Core.Documentation.Parsers
 {
@@ -31,7 +32,7 @@ namespace Crane.Core.Documentation.Parsers
             var examples = new List<CommandExample>();
             foreach (var example in memberElement.Elements("example"))
             {
-                examples.Add(new CommandExample { Value = example.Value.Trim()});
+                examples.Add(new CommandExample { Value = example.InnerXml().Trim()});
             }
 
             return examples;

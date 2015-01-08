@@ -3,7 +3,7 @@ using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Providers;
-using Crane.Core.Utility;
+using Crane.Core.Extensions;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
