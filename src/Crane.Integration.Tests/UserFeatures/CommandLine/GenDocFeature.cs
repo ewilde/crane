@@ -19,7 +19,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                {
                    craneTestContext = ioc.Resolve<CraneTestContext>();
                    docDirectory = Path.GetFullPath(Path.Combine(craneTestContext.Directory, "..", "doc"));
-                   Directory.Delete(docDirectory, true);
+                   if (Directory.Exists(docDirectory))
+                    Directory.Delete(docDirectory, true);
                });
 
             "And I have a run context"
