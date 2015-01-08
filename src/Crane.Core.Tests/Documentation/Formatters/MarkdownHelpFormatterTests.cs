@@ -37,7 +37,7 @@ namespace Crane.Core.Tests.Documentation.Formatters
             "And it should display the first line of an example as a title"
                 ._(() => result.Lines().First(item => item.Contains("Example"))
                     .Should().StartWith("**")
-                    .And.EndWith("**"));
+                    .And.EndWith("**  "));
 
             "And it should display any code element values that start and begin on the same line as markdown code blocks using single back ticks"
                 ._(() => result.Should().Contain("`usage`"));
