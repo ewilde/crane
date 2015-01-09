@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Autofac;
 using Crane.Core.Configuration.Modules;
 using Crane.Core.IO;
@@ -48,6 +49,8 @@ namespace Crane.Integration.Tests.TestUtilities
                     
                 }
             }
+
+            Debugger.Launch();
             throw new Exception("No contructor was found that had all the dependencies satisfied.");
         }
     }

@@ -40,12 +40,22 @@ namespace Crane.Integration.Tests.TestUtilities
             _rootDirectory = new DirectoryInfo(_fileManager.GetTemporaryDirectory());
             _directory = System.IO.Directory.CreateDirectory(Path.Combine(_rootDirectory.FullName, "build-output"));
             var currentDir = typeof (CraneTestContext).Assembly.GetLocation();
-            _gitRepoRootDirectory = new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..\..\..\..\")));
+            _gitRepoRootDirectory = GetGitRepoRootDirectory(currentDir);
             _fileManager.CopyFiles(currentDir.FullName, _directory.FullName, true);
             _log.DebugFormat("Copied integration test files from {0} to {1}", currentDir.FullName, _directory.FullName);
 
             File.Copy(Path.Combine(_gitRepoRootDirectory.FullName, "mkdocs.yml"), Path.Combine(_rootDirectory.FullName, "mkdocs.yml"));
             _log.DebugFormat("Copied other mkdoc.yml from {0} to {1}", Path.Combine(_gitRepoRootDirectory.FullName, "mkdocs.yml"), Path.Combine(_rootDirectory.FullName, "mkdocs.yml"));
+        }
+
+        private static DirectoryInfo GetGitRepoRootDirectory(DirectoryInfo currentDir)
+        {
+            if (Directory.Exists(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..", "doc"))))
+            {
+                return new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..")));
+            }
+
+            return new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..\..\..\..\")));
         }
 
         public void TearDown()
