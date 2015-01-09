@@ -118,6 +118,10 @@
       <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
       <Name>Crane.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crane.Tests.Common\Crane.Tests.Common.csproj">
+      <Project>{ff1c67a7-d871-42c3-b2fc-b6f88a35d80b}</Project>
+      <Name>Crane.Tests.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
