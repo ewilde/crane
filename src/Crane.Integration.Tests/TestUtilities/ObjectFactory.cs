@@ -12,6 +12,8 @@ namespace Crane.Integration.Tests.TestUtilities
     {
         private static IContainer _container;
 
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Run));
+
         public static T Resolve<T>() where T : class
         {
             if (_container == null)
@@ -44,13 +46,12 @@ namespace Crane.Integration.Tests.TestUtilities
                     }
                     return Activator.CreateInstance(type, parameterInstances.ToArray());
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    
+                    _log.ErrorFormat("Error trying to create an instance of {0}. {1}{2}", type.FullName, Environment.NewLine, exception.ToString());
                 }
             }
 
-            Debugger.Launch();
             throw new Exception("No contructor was found that had all the dependencies satisfied.");
         }
     }
