@@ -10,7 +10,10 @@ Task ChocolateyBuildPackage -Depends ChocolateyExists{
   $choco_output_dir = "$($global:context.root_dir)\chocolatey-output"
   $choco_nuspec = "$choco_output_dir\crane.nuspec"
 
-  Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
+  if (Test-Path $choco_output_dir)
+  {
+     Remove-Item $choco_output_dir -Recurse -Force -ErrorAction SilentlyContinue
+  }
   New-Item -ItemType directory -Path $choco_output_dir -Force
 
   $nuspectemplate = Get-Content "$($global:context.root_dir)\src\Crane.Chocolatey\crane.nuspec" | Out-String
