@@ -95,3 +95,4 @@ last git commit message, if it's a git repo
 **Example**:
 
 `crane help init` show help for the init command
+ 
