@@ -55,7 +55,7 @@ namespace Crane.Integration.Tests.TestUtilities
                 return new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..")));
             }
 
-            return new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, @"..\..\..\..\")));
+            return new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir.FullName, string.Format("..{0}..{0}..{0}..{0}", Path.PathSeparator))));
         }
 
         public void TearDown()
