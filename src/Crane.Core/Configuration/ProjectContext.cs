@@ -3,6 +3,6 @@
     public class ProjectContext : IProjectContext
     {
         public string ProjectName { get; set; }
-        public string SolutionName { get; set; }
+        public string SolutionPath { get; set; }
     }
 }

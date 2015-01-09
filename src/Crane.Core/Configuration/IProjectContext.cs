@@ -3,7 +3,7 @@
     public interface IProjectContext
     {
         string ProjectName { get; set; }
-        string SolutionName { get; set; }
+        string SolutionPath { get; set; }
     }
     
 }

@@ -2,12 +2,12 @@
 {
     public class ProjectContextFactory : IProjectContextFactory
     {
-        public IProjectContext Create(string projectName, string solutionName)
+        public IProjectContext Create(string projectName, string solutionPath)
         {
             return new ProjectContext
             {
                 ProjectName = projectName,
-                SolutionName = solutionName
+                SolutionPath = solutionPath
             };
         }
     }

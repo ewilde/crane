@@ -11,7 +11,7 @@ namespace Crane.Core.Templates.Parsers
             return new TokenDictionary(new Dictionary<string, Func<string>>
             {
                 { "%context.ProjectName%", () => projectContext.ProjectName},
-                { "%context.SolutionName%", () => projectContext.SolutionName},
+                { "%context.SolutionPath%", () => projectContext.SolutionPath},
                 { "%context.BuildDirectory.FullName%", () => craneContext.BuildDirectory.FullName},
                 { "%context.CraneInstallDirectory.FullName%", () => craneContext.CraneInstallDirectory.FullName},
                 { "%context.ProjectRootDirectory.FullName%", () => craneContext.ProjectRootDirectory.FullName},

@@ -68,7 +68,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a run context"
                 ._(() => run = new Run());
 
-            "And I have a project called ServiceStack with no build"
+            "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
                 {
                     File.Copy("./TestProjects/SolutionInDirectoryProject.zip", Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject.zip"), true);
@@ -76,7 +76,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     zipFile.ExtractAll(craneTestContext.Directory, ExtractExistingFileAction.OverwriteSilently);
                 });
 
-            "When I run crane assemble ServiceStack"
+            "When I run crane assemble SolutionInDirectoryProject"
                 ._(() => result = run.Command(craneTestContext.Directory, "crane Assemble SolutionInDirectoryProject"));
 
             "It should say 'Assemble success.'"
@@ -99,7 +99,6 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 {
                     var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject"));
                     buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
-
                 });
 
             "It should create a build for the project with a reference to the solution file"

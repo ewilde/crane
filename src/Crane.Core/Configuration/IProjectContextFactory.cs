@@ -2,6 +2,6 @@
 {
     public interface IProjectContextFactory
     {
-        IProjectContext Create(string projectName, string solutionName);
+        IProjectContext Create(string projectName, string solutionPath);
     }
 }

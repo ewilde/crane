@@ -14,9 +14,9 @@ $add_includes = Join-Path $build_dir "add-includes.ps1"
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task TeamCityBuildStep -Depends SetupContext, PatchAssemblyInfo, BuildCrane, Test, ChocolateyPublishPackage
-Task Default -Depends SetupContext, BuildCrane, Test
-Task BuildCrane -Depends Clean, Build
+Task TeamCityBuildStep -Depends SetupContext, PatchAssemblyInfo, BuildSolution, Test, ChocolateyPublishPackage
+Task Default -Depends SetupContext, BuildSolution, Test
+Task BuildSolution -Depends Clean, Build
 
 Task SetupContext {
   $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -props $properties

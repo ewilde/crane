@@ -26,7 +26,7 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
             
             "When I call create on the template with ServiceStack as the project name and solution name"
-                ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext{ProjectName = "ServiceStack", SolutionName = "ServiceStack"}));
+                ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext{ProjectName = "ServiceStack", SolutionPath = "ServiceStack"}));
 
             "It should rename the class library folder name with the current project name"
                 ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack")).Should().BeTrue());
