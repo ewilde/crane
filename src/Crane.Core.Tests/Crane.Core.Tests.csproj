@@ -88,6 +88,7 @@
     <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
     <Compile Include="Commands\Parsers\CommandTypeInfoParserTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
+    <Compile Include="Commands\Resolvers\RelativeSolutionPathToBuildFolderResolverTests.cs" />
     <Compile Include="Configuration\Modules\CommandModuleTests.cs" />
     <Compile Include="Configuration\Modules\DocumentationModuleTests.cs" />
     <Compile Include="Configuration\Modules\TemplateModuleTests.cs" />
@@ -121,8 +122,33 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="TestProjects\DeeperLevel\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\Templates\template.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\test.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\NoSolutions\test.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\SameLevel\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestProjects\DeeperLevel\Solutions\sln\deep.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\SameLevel\test.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
