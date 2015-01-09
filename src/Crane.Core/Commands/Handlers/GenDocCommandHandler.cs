@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Crane.Core.Commands.Resolvers;
 using Crane.Core.Configuration;
@@ -25,7 +27,7 @@ namespace Crane.Core.Commands.Handlers
             _fileManager = fileManager;
             _helpProvider = helpProvider;
             _helpFormatter = helpFormatter;
-            _commands = commandResolver.Resolve();
+            _commands = commandResolver.Resolve().OrderBy(command => command.Name());
         }
 
         protected override void DoHandle(GenDoc command)
@@ -40,8 +42,18 @@ namespace Crane.Core.Commands.Handlers
                 _fileManager.CreateDirectory(_docDirectory);
             }
 
+            this.UpdateMkdocsYml();
             this.CreateIndex();
             _commands.ForEach(this.CreateCommandPage);
+        }
+
+        private void UpdateMkdocsYml()
+        {
+            var mkdocsTemplateFilePath = Path.Combine(_docTemplateDirectory, "mkdocs.yml");
+            var mkdocsContent = _fileManager.ReadAllText(mkdocsTemplateFilePath);
+            var result = new StringBuilder();
+            _commands.ForEach(command => result.AppendLine(string.Format(" - ['{0}.md', 'Commands', '{0}']", command.Name())));
+            _fileManager.WriteAllText(Path.Combine(_rootDirectory, "mkdocs.yml"), mkdocsContent.Replace("%crane.commandpages%", result.ToString().TrimEnd()));
         }
 
         private void CreateIndex()
@@ -52,15 +64,17 @@ namespace Crane.Core.Commands.Handlers
             {
                 var helpCommand = _helpProvider.HelpCollection.Get(command.Name());
                 result.AppendLine(_helpFormatter.FormatSummary(helpCommand));
+                result.AppendLine();
+                result.AppendLine();
             }
 
-            _fileManager.WriteAllText(Path.Combine(_docDirectory, "index.md"), indexTemplate.Replace("%crane.listcommands%", result.ToString()));
+            _fileManager.WriteAllText(Path.Combine(_docDirectory, "index.md"), indexTemplate.Replace("%crane.listcommands%", result.ToString().TrimEnd(Environment.NewLine.ToCharArray())));
         }
 
         private void CreateCommandPage(ICraneCommand command)
         {
             _fileManager.WriteAllText(Path.Combine(_docDirectory, command.Name() + ".md"),
-                _helpFormatter.Format(_helpProvider.HelpCollection.Get(command.Name())));
+            _helpFormatter.Format(_helpProvider.HelpCollection.Get(command.Name())));
         }
     }
 }

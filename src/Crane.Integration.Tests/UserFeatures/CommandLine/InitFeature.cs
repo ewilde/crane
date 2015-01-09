@@ -17,7 +17,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane init"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane init"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init"));
 
             "Then I receive an error message 'error: The argument 'ProjectName' is required'"
                 ._(() => result.StandardOutput.Should().Contain("error: The argument 'ProjectName' is required"))
@@ -34,13 +34,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "It should say 'Init success.'"
                 ._(() => result.StandardOutput.Should().Be("Init success."));
 
             "It should replace the solution file name in the build script with the project name"
-                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, "ServiceStack", "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
+                ._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
 
@@ -54,10 +54,10 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "And I have run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane init ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "It should give an error'"
                 ._(() => result.StandardOutput.Should().Contain("ServiceStack"));

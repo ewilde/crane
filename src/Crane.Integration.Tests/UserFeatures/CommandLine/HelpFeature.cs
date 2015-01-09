@@ -22,7 +22,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane help init"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane help init"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane help init"));
 
             "Then crane outputs the usage statement for the command'"
                 ._(() => result.StandardOutput.Line(0).Should().Contain("usage: crane init"));
@@ -45,7 +45,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane help listcommands"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane help listcommands"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane help listcommands"));
 
             "Then crane outputs the usage statement for the command'"
                 ._(() => result.StandardOutput.Line(0).Should().Contain("usage: crane listcommands"))

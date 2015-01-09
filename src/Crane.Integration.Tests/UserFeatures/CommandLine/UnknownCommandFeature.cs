@@ -16,7 +16,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane foobar"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane foobar"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane foobar"));
 
             "Then I receive a message saying 'error: crane foosadf is not a crane command. See 'crane listcommands'"
                 ._(() => result.StandardOutput.Should().Be("error: crane foobar is not a crane command. See 'crane listcommands'"))

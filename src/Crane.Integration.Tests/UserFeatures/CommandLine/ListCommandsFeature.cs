@@ -20,7 +20,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane"));
 
             "Then I receive a message containing all of the possible commands listed alphabetically"
                 ._(() => result.StandardOutput.Should().Be(PossibleCommands))
@@ -38,7 +38,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => run = new Run());
 
             "When I run crane"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane listcommands"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane listcommands"));
 
             "Then I receive a message containing all of the possible commands listed alphabetically"
                 ._(() => result.StandardOutput.Should().Be(PossibleCommands))
