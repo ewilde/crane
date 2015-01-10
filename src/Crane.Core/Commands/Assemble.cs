@@ -27,7 +27,6 @@ namespace Crane.Core.Commands
     ///         ".\build.ps1 -tasklist @("TeamCityBuildStep") -build_number %build.number% -teamcity_build"
     /// 
     /// That's it! You will now have a fully running CI build on TeamCity.  
-
     /// 
     /// </example>
     public class Assemble : ICraneCommand
