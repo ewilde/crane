@@ -17,3 +17,10 @@ Whilst Crane is still in it's infancy (version 0.1) below are the following feat
 Using msbuild out of the box you only get `compilation` the other features would need to be scripted using msbuild or other tools by hand
 
 We are actively working to release new crane features in the near future. One of the big ticket items for the 0.2 release will be automatically creating `TeamCity builds`.
+
+## Targeted Powershell & Visual Studio Versions
+**Answer:** Powershell version 3.0 or greater & Visual Studio 2013
+
+Crane builds will run with powershell. For now we are not going to target VS2012 specifically.
+
+If you run `crane init {projectname}` and open it in VS2012 it won't compile. This is because the nuget restore behaviour changes between VS2012 and VS2013. We rely on the automatic restore behaviour in VS2013. However if you run `.\build.ps1` first in powershell it will compile as that runs the nuget restore for you.
