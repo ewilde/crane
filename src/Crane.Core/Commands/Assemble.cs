@@ -12,6 +12,7 @@ namespace Crane.Core.Commands
     /// 
     /// This creates a new build inside the SallyFx folder.  The build scripts will be contained inside a build folder.
     ///  
+    /// 
     /// By default the build will perform the following steps
     ///     - Patch assembly info - the assembly info of your assemblies with the version found in the version.txt 
     ///     - Build the solution
