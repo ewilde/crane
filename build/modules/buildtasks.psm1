@@ -9,7 +9,7 @@ Task NugetExists {
   ((new-object net.webclient).DownloadFile('http://www.nuget.org/nuget.exe', $nugetFile))
 }
 
-Task Clean {
+Task Clean -Depends SetupContext {
   Write-Host "Creating build-output directory" -ForegroundColor Green
   if (Test-Path $($global:context.build_artifacts_dir)){
     rd $($global:context.build_artifacts_dir) -rec -force | out-null
@@ -22,11 +22,11 @@ Task Clean {
 }
 
 
-Task NugetRestore -Depends NugetExists {
+Task NugetRestore -Depends SetupContext, NugetExists {
   & "$($global:context.build_dir)\nuget.exe" @('restore', $($global:context.sln_file_info.FullName))
 }
 
-Task Build -Depends Clean, NugetRestore {
+Task Build -Depends SetupContext, Clean, NugetRestore{
   Write-Host "Building $($global:context.sln_file_info.Name) ($($global:context.configuration))" -ForegroundColor Green
   $verboseLevel = "quiet"
   if ($verbose) {
@@ -36,7 +36,7 @@ Task Build -Depends Clean, NugetRestore {
 }
 
 
-Task Test {
+Task Test -Depends SetupContext {
   $xunit_consoleRunner = Join-Path $($global:context.sln_file_info.Directory.FullName) "\packages\xunit.runners.**\tools\xunit.console.clr4.exe"
 
   Get-ChildItem -Path $($global:context.build_artifacts_dir) -Filter *.Tests.dll |
@@ -104,7 +104,7 @@ function Invoke-GenerateAssemblyInfo{
   Write-Output $asmInfo > $file
 }
 
-Task PatchAssemblyInfo {
+Task PatchAssemblyInfo -Depends SetupContext {
   $version = $global:context.build_version
   Invoke-GenerateAssemblyInfo  -title "Crane.Core" -description "Core crane functionality" -version $version -file "$($global:context.sln_file_info.Directory.FullName)\Crane.Core\Properties\AssemblyInfo.cs"
 
