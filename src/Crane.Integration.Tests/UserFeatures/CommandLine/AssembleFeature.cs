@@ -71,13 +71,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
                 {
-                    File.Copy("./TestProjects/SolutionInDirectoryProject.zip", Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject.zip"), true);
-                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject.zip"));
-                    zipFile.ExtractAll(craneTestContext.Directory, ExtractExistingFileAction.OverwriteSilently);
+                    File.Copy("./TestProjects/SolutionInDirectoryProject.zip", Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject.zip"), true);
+                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject.zip"));
+                    zipFile.ExtractAll(craneTestContext.BuildOutputDirectory, ExtractExistingFileAction.OverwriteSilently);
                 });
 
             "When I run crane assemble SolutionInDirectoryProject"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane Assemble SolutionInDirectoryProject"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble SolutionInDirectoryProject"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
@@ -88,7 +88,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
             "It should create a build.ps1 in the top level folder"
                 ._(
-                    () => new DirectoryInfo(Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject")).GetFiles()
+                    () => new DirectoryInfo(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject")).GetFiles()
                             .Count(f => f.Name.ToLower() == "build.ps1")
                             .Should()
                             .Be(1)
@@ -97,12 +97,12 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should be able to be built"
                 ._(() =>
                 {
-                    var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject"));
+                    var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject"));
                     buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
                 });
 
             "It should create a build for the project with a reference to the solution file"
-                ._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, "SolutionInDirectoryProject", "build", "default.ps1")).Should().Contain("MySolution.sln"))
+                ._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "build", "default.ps1")).Should().Contain("MySolution.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
     }
