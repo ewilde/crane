@@ -14,17 +14,17 @@ namespace Crane.Core.Commands
     ///  
     /// 
     /// By default the build will perform the following steps
-    ///     - Patch assembly info - the assembly info of your assemblies with the version found in the version.txt 
-    ///     - Build the solution
-    ///     - Run your tests (if they are xunit tests at the moment only xunit is supported)
+    ///  - Patch assembly info - the assembly info of your assemblies with the version found in the version.txt 
+    ///  - Build the solution
+    ///  - Run your tests (if they are xunit tests at the moment only xunit is supported)
     /// 
     /// Once you have the build you can invoke by running
-    ///     .\build
+    ///  .\build
     /// 
     /// To setup in TeamCity.
-    ///     - Create a new build
-    ///     - Add one build step to invoke a powershell script and paste in the following:
-    ///         ".\build.ps1 -tasklist @("TeamCityBuildStep") -build_number %build.number% -teamcity_build"
+    ///  - Create a new build
+    ///  - Add one build step to invoke a powershell script and paste in the following:
+    ///  ".\build.ps1 -tasklist @("TeamCityBuildStep") -build_number %build.number% -teamcity_build"
     /// 
     /// That's it! You will now have a fully running CI build on TeamCity.  
     /// 
