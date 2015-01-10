@@ -5,5 +5,6 @@ theme_center_lead: true
 repo_url: https://github.com/ewilde/crane/
 pages:
  - ['index.md', 'Home', 'Introduction']
+ - ['faq.md', 'Home', 'FAQ']
 %crane.commandpages%
  - ['contributors.md', 'About', 'Contributors']
