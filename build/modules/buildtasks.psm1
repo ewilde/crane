@@ -76,7 +76,13 @@ function Invoke-GenerateAssemblyInfo{
     [string]$file = $(throw "file is a required parameter.")
   )
 
-  $commit = Get-GitCommit
+  if ($($global:context.is_git_repo)){
+    $commit = Get-GitCommit
+    $versionInfo = "$version / $commit"
+  }else{
+    $versionInfo = "$version"
+  }
+
   $asmInfo = "using System;
   using System.Reflection;
   using System.Runtime.CompilerServices;
@@ -90,7 +96,7 @@ function Invoke-GenerateAssemblyInfo{
   [assembly: AssemblyProductAttribute(""$product"")]
   [assembly: AssemblyCopyrightAttribute(""$copyright"")]
   [assembly: AssemblyVersionAttribute(""$version"")]
-  [assembly: AssemblyInformationalVersionAttribute(""$version / $commit"")]
+  [assembly: AssemblyInformationalVersionAttribute(""$versionInfo"")]
   [assembly: AssemblyFileVersionAttribute(""$version"")]
   [assembly: AssemblyDelaySignAttribute(false)]
   "
