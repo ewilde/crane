@@ -4,9 +4,9 @@ theme: readthedocs
 theme_center_lead: true
 repo_url: https://github.com/ewilde/crane/
 pages:
- - ['index.md', 'Introduction']
+ - ['index.md', 'Home', 'Introduction']
  - ['assemble.md', 'Commands', 'assemble']
  - ['help.md', 'Commands', 'help']
  - ['init.md', 'Commands', 'init']
  - ['listcommands.md', 'Commands', 'listcommands']
- - ['contributors.md', 'Contributors']
+ - ['contributors.md', 'About', 'Contributors']
