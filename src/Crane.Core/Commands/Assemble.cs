@@ -3,7 +3,7 @@
 namespace Crane.Core.Commands
 {
     /// <summary>
-    /// Takes an existing solution located using the supplied FolderName argument
+    /// Takes an existing solution found using the FolderName argument
     /// and assembles a build script.
     /// </summary>
     /// <example>
