@@ -64,9 +64,19 @@ function Get-VersionFromGitTag{
   return $gitTag.Replace("v", "") + ".0"
 }
 
+function Read-GitCommitMessage{
+  $gitLog = git log --oneline -1
+  
+  if ($LASTEXITCODE -gt 0)
+  {
+    return ""
+  }
+  
+  return $gitLog
+}
+
 function Invoke-GenerateAssemblyInfo{
   param(
-    [string]$clsCompliant = "true",
     [string]$title,
     [string]$description,
     [string]$company,
@@ -77,7 +87,7 @@ function Invoke-GenerateAssemblyInfo{
   )
 
   if ($($global:context.is_git_repo)){
-    $commit = Get-GitCommit
+    $commit = Read-GitCommitMessage
     $versionInfo = "$version / $commit"
   }else{
     $versionInfo = "$version"
@@ -88,7 +98,6 @@ function Invoke-GenerateAssemblyInfo{
   using System.Runtime.CompilerServices;
   using System.Runtime.InteropServices;
 
-  [assembly: CLSCompliantAttribute($clsCompliant )]
   [assembly: ComVisibleAttribute(false)]
   [assembly: AssemblyTitleAttribute(""$title"")]
   [assembly: AssemblyDescriptionAttribute(""$description"")]
@@ -112,8 +121,18 @@ function Invoke-GenerateAssemblyInfo{
 
 Task PatchAssemblyInfo -Depends SetupContext {
   $version = $global:context.build_version
-  Invoke-GenerateAssemblyInfo  -title "Crane.Core" -description "Core crane functionality" -version $version -file "$($global:context.sln_file_info.Directory.FullName)\Crane.Core\Properties\AssemblyInfo.cs"
+  $assemblyInfoFiles = Get-ChildItem -Path $($global:context.root_dir) -Filter "AssemblyInfo.cs" -Recurse  | 
+                        Where { -not $_.FullName.Contains("Templates\") -and -not $_.FullName.Contains("\bin\") }
+                        
+  ForEach ($assemblyInfoFile in $assemblyInfoFiles){
+      $assemblyTitle = $assemblyInfoFile.Directory.Parent.Name
+      $assemblyDescription = $assemblyTitle.Replace(".", " ") + " functionlity"
+      
+      Invoke-GenerateAssemblyInfo  -title $assemblyTitle -description $assemblyDescription -version $version -file $assemblyInfoFile.FullName
 
+
+  }
+  
   if ($($global:context.teamcity_build)) {
     Write-Host "##teamcity[buildNumber '$version']"
   }
