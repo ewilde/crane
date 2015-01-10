@@ -3,7 +3,7 @@
 ## Commands
 
 * [`crane assemble`](assemble.md)  
-Takes an existing solution located using the supplied FolderName argument.
+Takes an existing solution located using the supplied FolderName argument
 and assembles a build script.
 
 
