@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
 using Crane.Core.Documentation.Parsers;
+using Crane.Core.Extensions;
 using Crane.Core.IO;
-using Crane.Core.Utility;
 
 namespace Crane.Core.Documentation.Providers
 {

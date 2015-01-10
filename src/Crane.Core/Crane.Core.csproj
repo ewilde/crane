@@ -55,6 +55,7 @@
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Assemble.cs" />
     <Compile Include="Commands\Attributes\HiddenCommandAttribute.cs" />
+    <Compile Include="Commands\CommandExtensions.cs" />
     <Compile Include="Commands\Exceptions\CraneException.cs" />
     <Compile Include="Commands\Exceptions\DirectoryExistsCraneException.cs" />
     <Compile Include="Commands\Exceptions\MissingArgumentCraneException.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Resolvers\IRelativeSolutionPathResolver.cs" />
     <Compile Include="Commands\Resolvers\RelativeSolutionPathResolver.cs" />
+    <Compile Include="Commands\Resolvers\IPublicCommandResolver.cs" />
+    <Compile Include="Commands\Resolvers\PublicCommandResolver.cs" />
     <Compile Include="Configuration\CraneContext.cs" />
     <Compile Include="Configuration\CraneConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Documentation\ICommandHelp.cs" />
     <Compile Include="Documentation\Providers\IHelpProvider.cs" />
     <Compile Include="Documentation\Providers\XmlHelpProvider.cs" />
+    <Compile Include="Extensions\XDocumentExtensions.cs" />
     <Compile Include="Hosts\ConsoleHost.cs" />
     <Compile Include="Hosts\HostFactory.cs" />
     <Compile Include="Hosts\IHost.cs" />

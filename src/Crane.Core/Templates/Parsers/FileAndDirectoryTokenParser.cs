@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using Crane.Core.Extensions;
 using Crane.Core.IO;
-using Crane.Core.Utility;
 
 namespace Crane.Core.Templates.Parsers
 {

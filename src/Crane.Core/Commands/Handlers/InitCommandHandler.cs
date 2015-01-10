@@ -26,10 +26,9 @@ namespace Crane.Core.Commands.Handlers
         }
 
         protected override void DoHandle(Init command)
-        {
-            
+        {            
             CreateProject(command.ProjectName);
-            _assembleCommandHandler.Handle(new Assemble{ FolderName = command.ProjectName });           
+            _assembleCommandHandler.Handle(new Assemble {FolderName = command.ProjectName});
         }
 
         private void CreateProject(string projectName)

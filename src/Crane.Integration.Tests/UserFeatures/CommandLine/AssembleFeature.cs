@@ -23,13 +23,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called ServiceStack with no build"
                 ._(() =>
                 {
-                    File.Copy("./TestProjects/ProjectNameSameAsSolution.zip", Path.Combine(craneTestContext.Directory, "ProjectNameSameAsSolution.zip"), true);
-                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.Directory, "ProjectNameSameAsSolution.zip"));
-                    zipFile.ExtractAll(craneTestContext.Directory, ExtractExistingFileAction.OverwriteSilently);
+                    File.Copy("./TestProjects/ProjectNameSameAsSolution.zip", Path.Combine(craneTestContext.BuildOutputDirectory, "ProjectNameSameAsSolution.zip"), true);
+                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.BuildOutputDirectory, "ProjectNameSameAsSolution.zip"));
+                    zipFile.ExtractAll(craneTestContext.BuildOutputDirectory, ExtractExistingFileAction.OverwriteSilently);
                 });
 
             "When I run crane assemble ServiceStack"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane Assemble ServiceStack"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble ServiceStack"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
@@ -40,7 +40,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
             "It should create a build.ps1 in the top level folder"
                 ._(
-                    () => new DirectoryInfo(Path.Combine(craneTestContext.Directory, "ServiceStack")).GetFiles()
+                    () => new DirectoryInfo(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack")).GetFiles()
                             .Count(f => f.Name.ToLower() == "build.ps1")
                             .Should()
                             .Be(1)
@@ -49,13 +49,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should be able to be built"
                 ._(() =>
                 {
-                    var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.Directory, "ServiceStack"));
+                    var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
                     buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
 
                 });
 
             "It should create a build for the project with a reference to the solution file"
-				._(() => File.ReadAllText(Path.Combine(craneTestContext.Directory, "ServiceStack" , "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
+				._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack" , "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
                 .Teardown(() => craneTestContext.TearDown());
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Crane.Core.Configuration;
-using Crane.Core.Utility;
+using Crane.Core.Extensions;
 using FakeItEasy;
 
 namespace Crane.Core.Tests.TestUtilities

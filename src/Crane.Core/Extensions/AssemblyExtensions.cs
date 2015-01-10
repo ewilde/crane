@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Crane.Core.Utility
+namespace Crane.Core.Extensions
 {
     public static class AssemblyExtensions
     {

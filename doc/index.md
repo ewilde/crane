@@ -2,7 +2,25 @@
 
 ## Commands
 
-* `crane init` - Creates a new project.
-* `crane assemble` - Creates a new project from an existing c# solution.
-* `crane listcommands` - Print this help message.
-* `crane help {command}` - Prints detailed help for a {command}.
+* [`crane assemble`](assemble.md)  
+Takes an existing solution located using the supplied FolderName argument
+and assembles a build script.
+
+
+
+
+* [`crane help`](help.md)  
+Get help for a crane command
+
+
+
+
+* [`crane init`](init.md)  
+Initializes a new project in the current working directory using the
+default crane project and build templates.
+
+
+
+
+* [`crane listcommands`](listcommands.md)  
+Lists all the available commands that crane supports

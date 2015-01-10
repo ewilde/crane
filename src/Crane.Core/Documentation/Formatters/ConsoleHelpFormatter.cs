@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Crane.Core.Commands.Parsers;
-using Crane.Core.Utility;
+using Crane.Core.Extensions;
 using PowerArgs;
 
 namespace Crane.Core.Documentation.Formatters
@@ -54,6 +54,11 @@ namespace Crane.Core.Documentation.Formatters
 
             result.AppendLine(MoreInformation());
             return result.ToString();
+        }
+
+        public string FormatSummary(ICommandHelp commandHelp)
+        {
+            return string.Empty;
         }
 
         private string MoreInformation()
