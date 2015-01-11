@@ -2,7 +2,7 @@ crane [![Appveyor build status](https://ci.appveyor.com/api/projects/status/0ej0
 =====
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/ewilde/crane?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![Crane logo](doc/crane.png)
+<img src="doc/crane_with_padding.png" align="left" />
 > Builds you into the pit of success
 
 We hate writing build scripts and continuous integration (ci) templates every time
