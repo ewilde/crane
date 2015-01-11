@@ -18,7 +18,7 @@ and assembles a build script.
  Once you have the build you can invoke by running
   .\build
 
- To setup in TeamCity.
+ To setup in TeamCity:
 
  - Create a new build
  - Add one build step to invoke a powershell script and paste in the following:
