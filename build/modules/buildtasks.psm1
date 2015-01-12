@@ -126,7 +126,7 @@ Task PatchAssemblyInfo -Depends SetupContext {
                         
   ForEach ($assemblyInfoFile in $assemblyInfoFiles){
       $assemblyTitle = $assemblyInfoFile.Directory.Parent.Name
-      $assemblyDescription = $assemblyTitle.Replace(".", " ") + " functionlity"
+      $assemblyDescription = $assemblyTitle.Replace(".", " ") + " functionality"
       
       Invoke-GenerateAssemblyInfo  -title $assemblyTitle -description $assemblyDescription -version $version -file $assemblyInfoFile.FullName
 

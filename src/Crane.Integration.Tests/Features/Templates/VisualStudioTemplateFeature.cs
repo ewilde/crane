@@ -47,7 +47,16 @@ namespace Crane.Integration.Tests.Features.Templates
 
             "It should replace the tokens in the project unit test file"
                 ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, string.Format("{0}.UnitTests", "ServiceStack"), string.Format("{0}.UnitTests.csproj", "ServiceStack")))
-                    .Should().NotContain("%GUID-1%"))
+                    .Should().NotContain("%GUID-1%"));
+
+            "It should rename the nuget specification file with the current project name"
+                ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack"))).Should().BeTrue());
+
+            "It should replace the tokens in the nuget specification file"
+                ._(() =>File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack")))
+                    .Should().NotContain("%username%")
+                    .And.NotContain("%context.ProjectName%")
+                    .And.NotContain("%DateTime.Now.Year%"))
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }
     }

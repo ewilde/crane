@@ -18,6 +18,7 @@ namespace Crane.Core.Templates.Parsers
                 { "%context.Configuration.BuildFolderName%", () => craneContext.Configuration.BuildFolderName},
                 { "%context.Configuration.BuildTemplateProviderName%", () => craneContext.Configuration.BuildTemplateProviderName},
                 { "%DateTime.Now.Year%", () => DateTime.Now.Year.ToString()},
+                { "%System.Environment.UserName%", () => System.Environment.UserName},
                 {
                     "%nuget%", () => ".nuget" // cpack doesn't include folder name .nuget so we just tokenize it
                 },
