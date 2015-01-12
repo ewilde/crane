@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="b06cef2d-8146-4fe2-b69a-ad47fc42dd29" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>master</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowExternalStatus" value="true" />
+      <option name="artifactRules" value="%teamcity.build.checkoutDir%/src/Crane.Chocolatey/*.nupkg" />
+      <option name="checkoutMode" value="ON_AGENT" />
+    </options>
+    <parameters>
+      <param name="branch.default" value="refs/heads/master" />
+      <param name="branch.specification" value="" />
+      <param name="chocolatey.api.key" value="16bffb0b-9ef4-42f0-9b72-ff9ccc0b998c" />
+      <param name="chocolatey.api.url" value="https://chocolatey.org/" />
+      <param name="vcs.checkout.rules" value="+:/" />
+      <param name="vcs.trigger.rules"><![CDATA[-:user=cranebuild
++:/src
++:/build]]></param>
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_2" name="Build" type="jetbrains_powershell">
+        <parameters>
+          <param name="jetbrains_powershell_bitness" value="x64" />
+          <param name="jetbrains_powershell_execution" value="PS1" />
+          <param name="jetbrains_powershell_script_code" value=".\build.ps1 -tasklist @(&quot;TeamCityBuildStep&quot;) -build_number %build.number% -teamcity_build -chocolatey_api_key %chocolatey.api.key% -chocolatey_api_url %chocolatey.api.url%" />
+          <param name="jetbrains_powershell_script_file" value="build.ps1" />
+          <param name="jetbrains_powershell_script_mode" value="CODE" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="Generate documentation" type="jetbrains_powershell">
+        <parameters>
+          <param name="jetbrains_powershell_bitness" value="x64" />
+          <param name="jetbrains_powershell_execution" value="PS1" />
+          <param name="jetbrains_powershell_script_code"><![CDATA[.\build.ps1 -tasklist @("generatedocs")
+
+Write-Host git add doc/*
+git add doc/*
+
+Write-Host git add mkdocs.yml
+git add mkdocs.yml
+
+Write-Host git commit -m "Updated documentation build no: %build.number%"
+git commit -m "Updated documentation build no: %build.number%"
+
+Write-Host git push origin %teamcity.build.branch%
+git push origin %teamcity.build.branch%
+
+<#
+if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne $null)
+{
+   Write-Host "Error in build exiting with $LASTEXITCODE"
+   exit $LASTEXITCODE
+}
+
+if ($Error.Count -ne 0)
+{
+   Write-Host $Error[0].Exception
+   Write-Host "Error in build exiting with -1"
+   exit -1
+}
+#>]]></param>
+          <param name="jetbrains_powershell_script_mode" value="CODE" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="Tweet new build" type="jetbrains_powershell">
+        <parameters>
+          <param name="jetbrains_powershell_bitness" value="x64" />
+          <param name="jetbrains_powershell_execution" value="PS1" />
+          <param name="jetbrains_powershell_script_code"><![CDATA[Import-Module .\build\modules\twitter.psm1 -Force
+Send-Tweet -Message "New official version %build.number% of crane available from the %teamcity.build.branch% branch. 'cinst crane' to install"]]></param>
+          <param name="jetbrains_powershell_script_mode" value="CODE" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="crane_CraneGit">
+        <checkout-rule rule="%vcs.checkout.rules%" />
+      </vcs-entry-ref>
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+          <param name="triggerRules" value="%vcs.trigger.rules%" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <cleanup />
+  </settings>
+</build-type>
+
