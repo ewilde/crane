@@ -28,7 +28,7 @@ namespace Crane.Integration.Tests.TestUtilities
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command {0}", buildps1)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} @('PatchAssemblyInfo', 'BuildSolution', 'Test')\"", buildps1)
                 }
             };
 
