@@ -22,7 +22,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
             "When I resolve the path relative to the build folder"
                 ._(() => result = relativeSolutionPathToBuildFolderResolver.ResolveSolutionPath(path));
 
-            "Then the resolved path should be '..test.sln"
+            "Then the resolved path should be '..\\test.sln"
                 ._(() => result.Should().Be(string.Format("..{0}test.sln", Path.DirectorySeparatorChar)));
         }
 
