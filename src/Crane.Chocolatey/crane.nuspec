@@ -11,7 +11,7 @@
     <description>We hate writing build scripts and continuous integration (ci) templates every time we start a new project or when we work on a project that does not have them. I'm sure you do as well. This is where crane comes in. Invoke crane and it can build you a blank project, complete with a build or you can get crane to assemble you a build on an existing project. No more messing around for hours on a build server!</description>
     <projectUrl>https://github.com/ewilde/crane</projectUrl>
     <tags></tags>
-    <copyright>Copyright &copy;2015 Edward Wilde &amp; Kevin Holditch</copyright>
+    <copyright>Copyright ©2015 Edward Wilde &amp; Kevin Holditch</copyright>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
