@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="acd2bb9a-e0bc-448a-80f8-5c342cd5201d" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
-  <name>crane</name>
-  <description>building you into the pit of success</description>
-  <parameters />
-  <cleanup />
-</project>
-
