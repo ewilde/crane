@@ -10,7 +10,7 @@
     </options>
     <parameters>
       <param name="branch.default" value="refs/heads/master" />
-      <param name="branch.specification" value="" />
+      <param name="branch.specification" value="+:refs/heads/master" />
       <param name="chocolatey.api.key" value="16bffb0b-9ef4-42f0-9b72-ff9ccc0b998c" />
       <param name="chocolatey.api.url" value="https://chocolatey.org/" />
       <param name="vcs.checkout.rules" value="+:/" />
