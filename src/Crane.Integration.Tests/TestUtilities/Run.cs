@@ -51,9 +51,6 @@ namespace Crane.Integration.Tests.TestUtilities
                 ErrorOutput = error.ToString(),
                 ExitCode = process.ExitCode
             };
-        }
-
-        
-
+        }      
     }
 }

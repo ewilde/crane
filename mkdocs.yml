@@ -1,0 +1,13 @@
+site_name: crane
+docs_dir: doc
+theme: readthedocs
+theme_center_lead: true
+repo_url: https://github.com/ewilde/crane/
+pages:
+ - ['index.md', 'Home', 'Introduction']
+ - ['faq.md', 'Home', 'FAQ']
+ - ['assemble.md', 'Commands', 'assemble']
+ - ['help.md', 'Commands', 'help']
+ - ['init.md', 'Commands', 'init']
+ - ['listcommands.md', 'Commands', 'listcommands']
+ - ['contributors.md', 'About', 'Contributors']

@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core", "Crane.Core\Crane.Core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Console", "Crane.Console\Crane.Console.csproj", "{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4B027A09-255D-44AB-BA1A-02CED9D8624A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core.Tests", "Crane.Core.Tests\Crane.Core.Tests.csproj", "{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Integration.Tests", "Crane.Integration.Tests\Crane.Integration.Tests.csproj", "{D7F4BD88-7AD2-493F-B12B-88D191B069F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38B0FE02-C5A4-4B5D-99DE-688F58798D32}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\build.ps1 = ..\build.ps1
+		..\build.sh = ..\build.sh
+		..\build\default.ps1 = ..\build\default.ps1
+		..\build\psake-ext.psm1 = ..\build\psake-ext.psm1
+		..\build\psake.ps1 = ..\build\psake.ps1
+		..\build\psake.psm1 = ..\build\psake.psm1
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Tests.Common", "Crane.Tests.Common\Crane.Tests.Common.csproj", "{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Crane.Core.Tests\Crane.Core.Tests.csproj
+	EndGlobalSection
+EndGlobal

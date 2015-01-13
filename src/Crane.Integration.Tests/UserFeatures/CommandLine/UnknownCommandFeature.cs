@@ -12,11 +12,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
 
-            "And I have a run context"
+            "And I have a crane run context"
                 ._(() => run = new Run());
 
             "When I run crane foobar"
-                ._(() => result = run.Command(craneTestContext.Directory, "crane foobar"));
+                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane foobar"));
 
             "Then I receive a message saying 'error: crane foosadf is not a crane command. See 'crane listcommands'"
                 ._(() => result.StandardOutput.Should().Be("error: crane foobar is not a crane command. See 'crane listcommands'"))

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
@@ -17,23 +12,21 @@ namespace Crane.Integration.Tests.Features.Templates
     public class VisualStudioTemplateFeature
     {
         [Scenario]
-        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, ITemplate template, ICraneContext context, IFileManager fileManager)
+        public void creating_a_visual_studio_setup_using_the_template(DirectoryInfo root, ITemplate template, ICraneContext context, ITemplateInvoker templateInvoker)
         {
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>(); fileManager = ioc.Resolve<IFileManager>();
+                    context = ioc.Resolve<ICraneContext>(); var fileManager = ioc.Resolve<IFileManager>();
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
+                    templateInvoker = ioc.Resolve<ITemplateInvoker>();
                 });
 
             "And I have a psake template builder"
                 ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
-
-            "And I have been given a project name via init"
-                ._(() => context.ProjectName = "ServiceStack");
-
-            "When I call create on the template"
-                ._(() => template.Create());
+            
+            "When I call create on the template with ServiceStack as the project name and solution name"
+                ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext{ProjectName = "ServiceStack", SolutionPath = "ServiceStack"}));
 
             "It should rename the class library folder name with the current project name"
                 ._(() => Directory.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack")).Should().BeTrue());
@@ -49,14 +42,21 @@ namespace Crane.Integration.Tests.Features.Templates
                     .Should().NotContain("%GUID-1%").And.NotContain("%GUID-2%"));
 
             "It should replace the tokens in the project file"
-                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, context.ProjectName, string.Format("{0}.csproj", context.ProjectName)))
+                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.csproj", "ServiceStack")))
                     .Should().NotContain("%GUID-1%"));
 
             "It should replace the tokens in the project unit test file"
-                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, string.Format("{0}.UnitTests", context.ProjectName), string.Format("{0}.UnitTests.csproj", context.ProjectName)))
-                    .Should().NotContain("%GUID-1%"))
+                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, string.Format("{0}.UnitTests", "ServiceStack"), string.Format("{0}.UnitTests.csproj", "ServiceStack")))
+                    .Should().NotContain("%GUID-1%"));
 
+            "It should rename the nuget specification file with the current project name"
+                ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack"))).Should().BeTrue());
 
+            "It should replace the tokens in the nuget specification file"
+                ._(() =>File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack")))
+                    .Should().NotContain("%username%")
+                    .And.NotContain("%context.ProjectName%")
+                    .And.NotContain("%DateTime.Now.Year%"))
                 .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }
     }

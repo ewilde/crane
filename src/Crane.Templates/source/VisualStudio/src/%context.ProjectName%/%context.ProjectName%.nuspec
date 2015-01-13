@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>%context.ProjectName%</id>
+    <version>##version_number##</version>
+    <authors>%System.Environment.UserName%</authors>
+    <owners>%System.Environment.UserName%</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>%context.ProjectName% functionality</description>
+    <copyright>Copyright %DateTime.Now.Year%</copyright>
+    <files>
+        <file src="##build_output##\%context.ProjectName%.dll" target="lib\net45\%context.ProjectName%.dll" />
+    </files>
+  </metadata>
+</package>

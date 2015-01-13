@@ -1,63 +1,24 @@
-param(
-    [Parameter(Position=0,Mandatory=0)]
-    [string]$version = "0.0.1.0",
-    [Parameter(Position=1,Mandatory=0)]
-    [string]$configuration = "Debug"
-)
+properties{
+    $configuration = "Debug"
+    $build_number = 0
+    [switch]$teamcityBuild = $false
+    $chocolateyApiKey = ""
+    $chocolateyApiUrl = ""
+    [switch]$verbose = $false
+}
 
-  $build_dir = (Split-Path $psake.build_script_file)
-  $build_artifacts_dir = "$build_dir\..\build-output\"
-  $src_dir = "$build_dir\..\src"
-  $sln_filename = "%context.ProjectName%.sln"
-  $sln_filepath = "$src_dir\$sln_filename" 
-  $xunit_consoleRunner = "$src_dir\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"
- 
+$build_dir = (Split-Path $psake.build_script_file)
+$add_includes = Join-Path $build_dir "add-includes.ps1"
 
-Import-Module (Join-Path $build_dir 'psake-ext.psm1')
+& $add_includes @($build_dir)
+
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task Default -Depends BuildCore, Test
+Task TeamCityBuildStep -Depends PatchAssemblyInfo, BuildSolution, Test, ChocolateyPublishPackage
+Task Default -Depends BuildSolution, Test
+Task BuildSolution -Depends Clean, Build
 
-Task BuildCore -Depends Info, Clean, Build
-
-Task Info {
-  Write-Host build_dir: $build_dir
-  Write-Host build_artifacts_dir: $build_artifacts_dir
-  Write-Host src_dir: $src_dir
-  Write-Host sln_filename: $sln_filename
-  Write-Host sln_filepath: $sln_filepath
-  Write-Host xunit_consoleRunner: $xunit_consoleRunner
-}
-
-Task Build -Depends Clean, NugetRestore { 
-    Write-Host "Building $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild "$sln_filepath" /t:Build /p:Configuration=$configuration /v:quiet /p:OutDir=$build_artifacts_dir } 
-}
-
-Task Clean {
-    Write-Host "Creating build-output directory" -ForegroundColor Green
-    if (Test-Path $build_artifacts_dir) 
-    {   
-        rd $build_artifacts_dir -rec -force | out-null
-    }
-    
-    mkdir $build_artifacts_dir | out-null
-    
-    Write-Host "Cleaning $sln_filename ($configuration)" -ForegroundColor Green
-    Exec { msbuild $sln_filepath /t:Clean /p:Configuration=$configuration /v:quiet } 
-}
-
-Task NugetRestore -Depends NugetExists { 
-   & $build_dir\nuget.exe @('restore', $sln_filepath)
-}
-
-Task NugetExists { 
-    Invoke-DownloadNuget $build_dir #doesn't download if exists
-}
-
-Task Test {
-    Get-ChildItem -Path $build_artifacts_dir -Filter *.UnitTests.dll | 
-    % {
-        & $xunit_consoleRunner @($_.FullName, '/silent')
-    }
+Task SetupContext {
+  $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path %context.SolutionPath% -props $properties
+  $global:context
 }

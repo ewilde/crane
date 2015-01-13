@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Crane.Core.Tests</RootNamespace>
+    <AssemblyName>Crane.Core.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Execute" command="../packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ${TargetDir}/${ProjectName}.dll" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.25.1\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy.AutoMocker">
+      <HintPath>..\packages\FakeItEasy.Automocker.1.13.0\lib\net40\FakeItEasy.AutoMocker.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCore">
+      <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\packages\FubuCsProjFile.1.3.0.100\lib\net40\FubuCsProjFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Xbehave">
+      <HintPath>..\packages\Xbehave.1.1.0\lib\net45\Xbehave.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerArgs">
+      <HintPath>..\packages\PowerArgs.2.3.2.0\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Builders\BuildA.cs" />
+    <Compile Include="Builders\TokenDictionaryBuilder.cs" />
+    <Compile Include="Commands\CommandExtensionTests.cs" />
+    <Compile Include="Commands\Handlers\Factories\CommandHandlerFactoryTests.cs" />
+    <Compile Include="Commands\Handlers\ListCommandsHandlerTests.cs" />
+    <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
+    <Compile Include="Commands\Parsers\CommandTypeInfoParserTests.cs" />
+    <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
+    <Compile Include="Commands\Resolvers\RelativeSolutionPathToBuildFolderResolverTests.cs" />
+    <Compile Include="Commands\Resolvers\VisibleCommandResolverTests.cs" />
+    <Compile Include="Configuration\Modules\CommandModuleTests.cs" />
+    <Compile Include="Configuration\Modules\DocumentationModuleTests.cs" />
+    <Compile Include="Configuration\Modules\TemplateModuleTests.cs" />
+    <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModuleTests.cs" />
+    <Compile Include="Data\Factory.cs" />
+    <Compile Include="Documentation\CommandHelpCollectionTests.cs" />
+    <Compile Include="Documentation\CommandHelpTests.cs" />
+    <Compile Include="Documentation\Formatters\ConsoleHelpFormatterTests.cs" />
+    <Compile Include="Documentation\Formatters\MarkdownHelpFormatterTests.cs" />
+    <Compile Include="Documentation\Parsers\XmlCommentCommandHelpParserTests.cs" />
+    <Compile Include="Documentation\Providers\XmlHelpProviderTests.cs" />
+    <Compile Include="Extensions\XDocumentExtensionsTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\Parsers\FileAndDirectoryTokenParserTests.cs" />
+    <Compile Include="Templates\Parsers\TokenParserTests.cs" />
+    <Compile Include="Templates\TemplateResolverTests.cs" />
+    <Compile Include="TestUtilities\ContextUtility.cs" />
+    <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\MockOutput.cs" />
+    <Compile Include="TestUtilities\Throws.cs" />
+    <Compile Include="TestUtilities\EnableNCrunch.cs" />
+    <Compile Include="TestUtilities\ModuleExtension.cs" />
+    <Compile Include="TestUtilities\ObjectFactory.cs" />
+    <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crane.Core\Crane.Core.csproj">
+      <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
+      <Name>Crane.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crane.Tests.Common\Crane.Tests.Common.csproj">
+      <Project>{ff1c67a7-d871-42c3-b2fc-b6f88a35d80b}</Project>
+      <Name>Crane.Tests.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <Content Include="TestProjects\DeeperLevel\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\Templates\template.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\test.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\NoSolutions\test.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\SameLevel\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\MultipleSolutions\Build\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestProjects\DeeperLevel\Solutions\sln\deep.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestProjects\SameLevel\test.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition=" '$(OS)' == 'Unix' ">cp -r $(MSBuildProjectDirectory)/../Crane.Templates ./Templates
+      cp $(MSBuildProjectDirectory)/../Crane.Core/bin/$(Configuration)/Crane.Core.XML ./Crane.Core.XML</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Unix' ">xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates Templates</PostBuildEvent>
+  </PropertyGroup>
+</Project>

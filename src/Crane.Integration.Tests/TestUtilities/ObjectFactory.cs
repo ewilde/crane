@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Autofac;
 using Crane.Core.Configuration.Modules;
 using Crane.Core.IO;
@@ -10,8 +11,8 @@ namespace Crane.Integration.Tests.TestUtilities
     public static class ioc
     {
         private static IContainer _container;
-        private static readonly ILog _log = LogManager.GetLogger(typeof(ioc));
 
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Run));
 
         public static T Resolve<T>() where T : class
         {
@@ -45,11 +46,12 @@ namespace Crane.Integration.Tests.TestUtilities
                     }
                     return Activator.CreateInstance(type, parameterInstances.ToArray());
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    
+                    _log.ErrorFormat("Error trying to create an instance of {0}. {1}{2}", type.FullName, Environment.NewLine, exception.ToString());
                 }
             }
+
             throw new Exception("No contructor was found that had all the dependencies satisfied.");
         }
     }
