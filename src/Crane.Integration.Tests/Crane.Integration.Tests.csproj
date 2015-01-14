@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Api\CraneApiFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
