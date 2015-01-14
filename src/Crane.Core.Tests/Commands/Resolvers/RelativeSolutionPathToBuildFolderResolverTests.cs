@@ -10,6 +10,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
 {
     public class RelativeSolutionPathToBuildFolderResolverTests
     {
+        [Scenario]
         public void Resolves_when_solution_is_at_same_level_at_build_folder(string result, string path, RelativeSolutionPathToBuildFolderResolver relativeSolutionPathToBuildFolderResolver)
         {
             "Given I have a path to a project where the solution is at the same level as the build dir"
@@ -26,6 +27,7 @@ namespace Crane.Core.Tests.Commands.Resolvers
                 ._(() => result.Should().Be(string.Format("..{0}test.sln", Path.DirectorySeparatorChar)));
         }
 
+        [Scenario]
                
         public void Resolves_when_solution_is_at_a_deeper_level_than_build_folder(string result, string path, RelativeSolutionPathToBuildFolderResolver relativeSolutionPathToBuildFolderResolver)
         {
