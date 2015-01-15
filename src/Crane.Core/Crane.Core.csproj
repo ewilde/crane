@@ -51,7 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Builders\ISolutionBuilder.cs" />
+    <Compile Include="Api\Builders\ISolutionBuilderFactory.cs" />
+    <Compile Include="Api\Builders\SolutionBuilderFactory.cs" />
     <Compile Include="Api\CraneApi.cs" />
+    <Compile Include="Api\Builders\ProjectBuilder.cs" />
+    <Compile Include="Api\Builders\SolutionBuilder.cs" />
+    <Compile Include="Api\ISolutionContext.cs" />
+    <Compile Include="Api\Model\Project.cs" />
+    <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Commands\Arguments\CommandArgument.cs" />
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Assemble.cs" />

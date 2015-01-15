@@ -62,7 +62,7 @@ namespace Crane.Integration.Tests.TestUtilities
         {
             try
             {
-                _fileManager.Delete(_directory);
+                _fileManager.Delete(_rootDirectory);
             }
             catch (Exception exception)
             {
