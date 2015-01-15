@@ -36,9 +36,16 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="FubuCore">
+      <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\packages\FubuCsProjFile.1.7.1.149\lib\net40\FubuCsProjFile.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build" />
     <Reference Include="PowerArgs">
       <HintPath>..\packages\PowerArgs.2.3.2.0\lib\net40\PowerArgs.dll</HintPath>
     </Reference>
@@ -51,14 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Builders\Factories\FubuSolutionFactory.cs" />
     <Compile Include="Api\Builders\ISolutionBuilder.cs" />
-    <Compile Include="Api\Builders\ISolutionBuilderFactory.cs" />
-    <Compile Include="Api\Builders\SolutionBuilderFactory.cs" />
+    <Compile Include="Api\Builders\Factories\ISolutionBuilderFactory.cs" />
+    <Compile Include="Api\Builders\Factories\ISolutionFactory.cs" />
+    <Compile Include="Api\Builders\Factories\SolutionBuilderFactory.cs" />
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
     <Compile Include="Api\Model\Project.cs" />
+    <Compile Include="Api\Model\Solution.cs" />
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Commands\Arguments\CommandArgument.cs" />
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />

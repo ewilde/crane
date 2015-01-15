@@ -10,17 +10,29 @@ namespace Crane.Integration.Tests.TestUtilities
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(SolutionBuilderContext));
         private readonly IFileManager _fileManager;
+        private readonly ISolutionBuilderFactory _builderFactory;
         private readonly DirectoryInfo _rootDirectory;
         
         public SolutionBuilderContext(IFileManager fileManager, ISolutionBuilderFactory builderFactory)
         {
             _fileManager = fileManager;
+            _builderFactory = builderFactory;
             _rootDirectory = new DirectoryInfo(_fileManager.GetTemporaryDirectory());
-            this.SolutionBuilder = builderFactory.Create(_rootDirectory.FullName);
+            
+        }
+
+        public void CreateBuilder(string solutionName)
+        {
+            this.SolutionBuilder = _builderFactory.Create(Path.Combine(this.RootDirectory, solutionName));
         }
 
         public ISolutionBuilder SolutionBuilder { get; set; }
 
+        public string RootDirectory
+        {
+            get { return _rootDirectory.FullName; }
+        }
+        
         public void TearDown()
         {
             try

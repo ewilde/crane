@@ -54,8 +54,9 @@
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
     </Reference>
-    <Reference Include="FubuCsProjFile">
-      <HintPath>..\packages\FubuCsProjFile.1.3.0.100\lib\net40\FubuCsProjFile.dll</HintPath>
+    <Reference Include="FubuCsProjFile, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FubuCsProjFile.1.7.1.149\lib\net40\FubuCsProjFile.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

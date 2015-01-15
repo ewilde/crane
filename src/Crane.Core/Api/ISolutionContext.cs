@@ -4,6 +4,6 @@ namespace Crane.Core.Api
 {
     public interface ISolutionContext
     {
-        IEnumerable<Project> Projects { get; set; }
+        Solution Solution { get; set; }
     }
 }
