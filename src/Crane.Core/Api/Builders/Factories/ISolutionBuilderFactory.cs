@@ -2,6 +2,6 @@
 {
     public interface ISolutionBuilderFactory
     {
-        ISolutionBuilder Create(string rootPath);
+        ISolutionBuilder Create();
     }
 }

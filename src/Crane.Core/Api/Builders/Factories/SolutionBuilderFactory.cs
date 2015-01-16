@@ -11,11 +11,9 @@ namespace Crane.Core.Api.Builders
             _solutionBuilder = solutionBuilder;
         }
 
-        public ISolutionBuilder Create(string rootPath)
+        public ISolutionBuilder Create()
         {
-            var result = _solutionBuilder;
-            result.RootPath = rootPath;
-            return result; 
+            return _solutionBuilder;
         }
     }
 }

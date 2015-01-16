@@ -12,7 +12,10 @@ namespace Crane.Core.Api.Builders
         public Solution Create(string fullName, IEnumerable<Project> projects)
         {
             var file = new FileInfo(fullName);
-            var fubuProjects = projects.Select(project => FubuCsProjFile.CsProjFile.CreateAtSolutionDirectory(project.Name, file.DirectoryName));            
+            var fubuProjects = projects.Select(project => 
+                 project.Path == null ?
+                FubuCsProjFile.CsProjFile.CreateAtSolutionDirectory(project.Name, file.DirectoryName) :
+                FubuCsProjFile.CsProjFile.CreateAtLocation(project.Path, project.Name));            
             var fubuSolution = FubuCsProjFile.Solution.CreateNew(file.DirectoryName, file.Name);
 
             var csProjFiles = fubuProjects as CsProjFile[] ?? fubuProjects.ToArray();

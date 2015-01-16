@@ -21,14 +21,9 @@ namespace Crane.Integration.Tests.TestUtilities
             
         }
 
-        public ISolutionBuilder CreateBuilder(string solutionName)
+        public ISolutionBuilder CreateBuilder()
         {
-            return CreateBuilder(this.RootDirectory, solutionName);
-        }
-
-        public ISolutionBuilder CreateBuilder(string solutionDirectory,string solutionName)
-        {
-            return _builderFactory.Create(Path.Combine(solutionDirectory, solutionName));
+            return _builderFactory.Create();
         }
 
         public string RootDirectory

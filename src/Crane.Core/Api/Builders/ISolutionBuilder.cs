@@ -4,8 +4,9 @@ namespace Crane.Core.Api.Builders
 {
     public interface ISolutionBuilder
     {
-        string RootPath { get; set; }
         ISolutionBuilder WithProject(Action<Project> assign);
+
+        ISolutionBuilder WithSolution(Action<Solution> assign);
 
         ISolutionContext Build();
     }
