@@ -14,14 +14,10 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         public void build_project_with_name(SolutionBuilderContext context, ISolutionContext result, Project project)
         {
             "Given I have a solution builder context"
-                ._(() =>
-                {
-                    context = ioc.Resolve<SolutionBuilderContext>();
-                    context.CreateBuilder("Sally.sln");
-                });
+                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
 
             "When I call build"
-                ._(() => result = context.SolutionBuilder.WithProject(item => item.Name = "FrodoFx").Build());
+                ._(() => result = context.CreateBuilder("Sally.sln").WithProject(item => item.Name = "FrodoFx").Build());
 
             "It should return the build project"
                 ._(() =>
