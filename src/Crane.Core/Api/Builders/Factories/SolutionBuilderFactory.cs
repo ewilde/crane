@@ -4,16 +4,16 @@ namespace Crane.Core.Api.Builders
 {
     public class SolutionBuilderFactory : ISolutionBuilderFactory
     {
-        private readonly Func<ISolutionBuilder> _activator;
+        private readonly ISolutionBuilder _solutionBuilder;
 
-        public SolutionBuilderFactory(Func<ISolutionBuilder> activator)
+        public SolutionBuilderFactory(ISolutionBuilder solutionBuilder)
         {
-            _activator = activator;
+            _solutionBuilder = solutionBuilder;
         }
 
         public ISolutionBuilder Create(string rootPath)
         {
-            var result = _activator.Invoke();
+            var result = _solutionBuilder;
             result.RootPath = rootPath;
             return result; 
         }

@@ -5,13 +5,13 @@ namespace Crane.Core.Api.Builders
 {
     public class SolutionBuilder : ISolutionBuilder
     {
-        private readonly Func<ISolutionContext> _activator;
+        private readonly ISolutionContext _solutionContext;
         private readonly ISolutionFactory _solutionFactory;
         private readonly List<Project> _projects; 
 
-        public SolutionBuilder(Func<ISolutionContext> activator, ISolutionFactory solutionFactory)
+        public SolutionBuilder(ISolutionContext solutionContext, ISolutionFactory solutionFactory)
         {
-            _activator = activator;
+            _solutionContext = solutionContext;
             _solutionFactory = solutionFactory;
             _projects = new List<Project>();
         }
@@ -29,7 +29,7 @@ namespace Crane.Core.Api.Builders
 
         public ISolutionContext Build()
         {
-            var result = _activator.Invoke();
+            var result = _solutionContext;
             result.Solution = _solutionFactory.Create(RootPath, _projects);
             return result;
         }
