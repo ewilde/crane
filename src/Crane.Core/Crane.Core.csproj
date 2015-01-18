@@ -66,6 +66,7 @@
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
+    <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
     <Compile Include="Api\Model\Project.cs" />
     <Compile Include="Api\Model\Solution.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Configuration\ICraneContext.cs" />
     <Compile Include="Configuration\IProjectContext.cs" />
     <Compile Include="Configuration\IProjectContextFactory.cs" />
+    <Compile Include="Configuration\Modules\ApiModule.cs" />
     <Compile Include="Configuration\Modules\BootStrapModule.cs" />
     <Compile Include="Configuration\Modules\CommandModule.cs" />
     <Compile Include="Configuration\Modules\ConfigurationModule.cs" />

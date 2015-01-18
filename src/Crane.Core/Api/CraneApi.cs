@@ -2,9 +2,9 @@
 
 namespace Crane.Core.Api
 {
-    public static class CraneApi
+    public class CraneApi : ICraneApi
     {
-        public static SolutionContext GetSolutionContext(string rootFolderPath)
+        public ISolutionContext GetSolutionContext(string rootFolderPath)
         {
             return new SolutionContext();
         }        

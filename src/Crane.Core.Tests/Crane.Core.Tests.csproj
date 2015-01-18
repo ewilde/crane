@@ -92,6 +92,7 @@
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
     <Compile Include="Commands\Resolvers\RelativeSolutionPathToBuildFolderResolverTests.cs" />
     <Compile Include="Commands\Resolvers\VisibleCommandResolverTests.cs" />
+    <Compile Include="Configuration\Modules\ApiModuleTests.cs" />
     <Compile Include="Configuration\Modules\CommandModuleTests.cs" />
     <Compile Include="Configuration\Modules\DocumentationModuleTests.cs" />
     <Compile Include="Configuration\Modules\TemplateModuleTests.cs" />
