@@ -90,7 +90,7 @@
     <Compile Include="Commands\Parsers\CommandArgParserTests.cs" />
     <Compile Include="Commands\Parsers\CommandTypeInfoParserTests.cs" />
     <Compile Include="Commands\Resolvers\CommandResolverTests.cs" />
-    <Compile Include="Commands\Resolvers\RelativeSolutionPathToBuildFolderResolverTests.cs" />
+    <Compile Include="Commands\Resolvers\SolutionPathResolverTests.cs" />
     <Compile Include="Commands\Resolvers\VisibleCommandResolverTests.cs" />
     <Compile Include="Configuration\Modules\ApiModuleTests.cs" />
     <Compile Include="Configuration\Modules\CommandModuleTests.cs" />

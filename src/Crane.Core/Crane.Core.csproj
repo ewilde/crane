@@ -70,6 +70,8 @@
     <Compile Include="Api\ISolutionContext.cs" />
     <Compile Include="Api\Model\Project.cs" />
     <Compile Include="Api\Model\Solution.cs" />
+    <Compile Include="Api\Readers\FubuSolutionReader.cs" />
+    <Compile Include="Api\Readers\ISolutionReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Commands\Arguments\CommandArgument.cs" />
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
@@ -108,8 +110,8 @@
     <Compile Include="Commands\Resolvers\ICommandResolver.cs" />
     <Compile Include="Commands\ICraneCommand.cs" />
     <Compile Include="Commands\Help.cs" />
-    <Compile Include="Commands\Resolvers\IRelativeSolutionPathResolver.cs" />
-    <Compile Include="Commands\Resolvers\RelativeSolutionPathResolver.cs" />
+    <Compile Include="Commands\Resolvers\ISolutionPathResolver.cs" />
+    <Compile Include="Commands\Resolvers\SolutionPathResolver.cs" />
     <Compile Include="Commands\Resolvers\IPublicCommandResolver.cs" />
     <Compile Include="Commands\Resolvers\PublicCommandResolver.cs" />
     <Compile Include="Configuration\CraneContext.cs" />

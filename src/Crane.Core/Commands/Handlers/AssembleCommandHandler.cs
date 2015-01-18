@@ -11,20 +11,20 @@ namespace Crane.Core.Commands.Handlers
         private readonly IProjectContextFactory _projectContextFactory;
         private readonly ITemplateResolver _templateResolver;
         private readonly ITemplateInvoker _templateInvoker;
-        private readonly IRelativeSolutionPathToBuildFolderResolver _solutionPathToBuildFolderResolver;
+        private readonly ISolutionPathResolver _solutionPathResolver;
 
-        public AssembleCommandHandler(IProjectContextFactory projectContextFactory, ITemplateResolver templateResolver, ITemplateInvoker templateInvoker, IRelativeSolutionPathToBuildFolderResolver solutionPathToBuildFolderResolver)
+        public AssembleCommandHandler(IProjectContextFactory projectContextFactory, ITemplateResolver templateResolver, ITemplateInvoker templateInvoker, ISolutionPathResolver solutionPathResolver)
         {
             _projectContextFactory = projectContextFactory;
             _templateResolver = templateResolver;
             _templateInvoker = templateInvoker;
-            _solutionPathToBuildFolderResolver = solutionPathToBuildFolderResolver;
+            _solutionPathResolver = solutionPathResolver;
         }
 
         protected override void DoHandle(Assemble command)
         {
             var projectName = command.FolderName;
-            var solutionPath = _solutionPathToBuildFolderResolver.ResolveSolutionPath(command.FolderName);
+            var solutionPath = _solutionPathResolver.GetPathRelativeFromBuildFolder(command.FolderName);
             var projectContext = _projectContextFactory.Create(projectName, solutionPath);
             var buildTemplate = _templateResolver.Resolve(TemplateType.Build);
 
