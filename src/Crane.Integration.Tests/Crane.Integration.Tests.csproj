@@ -84,6 +84,8 @@
     <Compile Include="Features\Api\CraneApiFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />
+    <Compile Include="Features\Model\Mappers\FubuSolutionMapperFeatures.cs" />
+    <Compile Include="Features\Model\Mappers\FubuProjectMapperFeatures.cs" />
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
     <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />

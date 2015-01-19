@@ -28,11 +28,14 @@ namespace Crane.Integration.Tests.Features.Api.Builders
                     project.Should().NotBeNull();
                 });
 
-            "And the project file should have the name set correctly"
+            "And the project should have a name"
                 ._(() => project.Name.Should().Be("FrodoFx"));
+            
+            "And the project should have a path"
+                ._(() => project.Path.Should().Be(Path.Combine(context.RootDirectory, "FrodoFx", "FrodoFx.csproj")));
 
             "And the project file should exist on disk"
-                ._(() => File.Exists(Path.Combine(context.RootDirectory, "FrodoFx", "FrodoFx.csproj")).Should().BeTrue());
+                ._(() => File.Exists(project.Path).Should().BeTrue());
                 
             "And it should create a solution file on disk"
                 ._(() => File.Exists(Path.Combine(context.RootDirectory, "Sally.sln")).Should().BeTrue())

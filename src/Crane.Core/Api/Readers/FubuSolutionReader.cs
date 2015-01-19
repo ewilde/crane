@@ -1,27 +1,24 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using Crane.Core.Api.Mappers;
+using Crane.Core.Api.Model.Mappers;
 
 namespace Crane.Core.Api.Readers
 {
+    [CLSCompliant(false)]
     public class FubuSolutionReader : ISolutionReader
     {
+        private readonly IFubuSolutionMapper _mapper;
+
+        public FubuSolutionReader(IFubuSolutionMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         public Solution FromPath(string path)
         {
-            var fubuSolution = FubuCsProjFile.Solution.LoadFrom(path);
-
-            var projects = fubuSolution.Projects.Select(item => new Project
-            {
-                Name = item.ProjectName,
-                Path = Path.GetFullPath(item.Project.FileName)
-            });
-
-            var solution = new Solution
-            {
-                Name = fubuSolution.Name,
-                Path = fubuSolution.Filename,
-                Projects = projects
-            };
-
+            var solution = _mapper.Map(FubuCsProjFile.Solution.LoadFrom(path));
             return solution;
         }
     }

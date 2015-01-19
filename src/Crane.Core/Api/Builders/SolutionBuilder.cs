@@ -36,6 +36,7 @@ namespace Crane.Core.Api.Builders
         {
             var result = _solutionContext;
             result.Solution = _solutionFactory.Create(_solution.Path, _projects);
+            result.Solution.SolutionContext = result;
             return result;
         }
     }

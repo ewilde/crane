@@ -68,7 +68,12 @@
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
+    <Compile Include="Api\Model\Mappers\FubuProjectMapper.cs" />
+    <Compile Include="Api\Model\Mappers\FubuSolutionMapper.cs" />
+    <Compile Include="Api\Model\Mappers\IFubuProjectMapper.cs" />
+    <Compile Include="Api\Model\Mappers\IFubuSolutionMapper.cs" />
     <Compile Include="Api\Model\Project.cs" />
+    <Compile Include="Api\Model\ProjectFile.cs" />
     <Compile Include="Api\Model\Solution.cs" />
     <Compile Include="Api\Readers\FubuSolutionReader.cs" />
     <Compile Include="Api\Readers\ISolutionReader.cs" />

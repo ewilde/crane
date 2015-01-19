@@ -22,8 +22,15 @@ namespace Crane.Core.Api
         public ISolutionContext GetSolutionContext(string rootFolderPath)
         {
             var context = _solutionContext();
+            context.Path = rootFolderPath;
             context.Solution = _solutionReader.FromPath(Path.Combine(rootFolderPath, GetRelativePathToSolution(rootFolderPath)));
+            context.Solution.SolutionContext = context;
             return context;
+        }
+
+        public ISolutionContext PatchAssemblyInfo(Project project)
+        {
+            return GetSolutionContext(project.Solution.SolutionContext.Path);
         }
 
         private string GetRelativePathToSolution(string rootFolderPath)

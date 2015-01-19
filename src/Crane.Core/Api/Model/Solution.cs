@@ -17,5 +17,7 @@ namespace Crane.Core.Api
         /// </summary>
         /// <example>c:\dev\sallyfx\sallyfx.sln</example>
         public string Path { get; set; }
+
+        public ISolutionContext SolutionContext { get; set; }
     }
 }
