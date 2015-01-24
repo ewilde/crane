@@ -4,6 +4,7 @@ $contextclass = new-object psobject -Property @{
   sln_file_info = $null
   build_version = $null
   build_artifacts_dir = $null
+  packages_folder = $null
   configuration = $null
   chocolatey_api_key = $null
   chocolatey_api_url = $null
@@ -27,6 +28,7 @@ function ContextClass {
   $context.build_version = "$(Get-Content -Path "$($context.root_dir)\VERSION.txt").$($props.build_number)"
   $context.build_artifacts_dir = "$($context.root_dir)\build-output"
   $context.is_git_repo = Test-Path (Join-Path $context.root_dir '.git')
+  $context.packages_folder = Join-Path $context.sln_file_info.Directory.FullName "packages"
 
   $context.configuration = $props.configuration
   $context.chocolatey_api_key = $props.chocolateyApiKey

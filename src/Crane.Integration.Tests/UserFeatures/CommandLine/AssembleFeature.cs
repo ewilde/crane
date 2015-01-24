@@ -46,11 +46,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                             .Be(1)
                 );
 
-            "It should be able to be built"
+            "It should be able to be built successfuly with all tests passing"
                 ._(() =>
                 {
                     var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
-                    buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
+                    buildResult.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
 
                 });
 
@@ -94,12 +94,13 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                             .Be(1)
                 );
 
-            "It should be able to be built"
+            "It should be able to be built successfully with all tests passing"
                 ._(() =>
                 {
                     var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject"));
-                    buildResult.Should().BeBuildSuccessful().And.BeErrorFree();
+                    buildResult.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
                 });
+
 
             "It should create a build for the project with a reference to the solution file"
                 ._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "build", "default.ps1")).Should().Contain("MySolution.sln"))
