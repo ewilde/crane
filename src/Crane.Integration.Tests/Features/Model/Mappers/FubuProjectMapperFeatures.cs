@@ -7,7 +7,7 @@ using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Core.Tests.Model.Mappers
+namespace Crane.Integration.Tests.Features.Model.Mappers
 {
     public class FubuProjectMapperFeatures
     {
@@ -37,7 +37,7 @@ namespace Crane.Core.Tests.Model.Mappers
                 ._(() => result.Name.Should().Be("FrodoFx"));
 
             "It should map the projects assemblyinfo"
-                ._(() => result.AssemblyInfo.Title.Should().Be("FrodoFx"));
+                ._(() => result.AssemblyInfo.Title.Should().Be("FrodoFx", string.Format("File contents of {0} is {1}.", result.AssemblyInfo.Path, File.ReadAllText(result.AssemblyInfo.Path))));
 
             "It should map the projects path"
                 ._(() => result.Path.Should().Be(Path.Combine(context.RootDirectory, "FrodoFx", "FrodoFx.csproj")))            
