@@ -52,7 +52,7 @@ namespace Crane.Core.Api.Builders
                     assemblyInfo.Title, assemblyInfo.Description, assemblyInfo.Version.ToString(),
                     assemblyInfo.InformationalVersion, assemblyInfo.FileVersion.ToString());
 
-                projFile.Add<CodeFile>(@"Properties\AssemblyInfo.cs");
+                projFile.Add<CodeFile>(Path.Combine("Properties", "AssemblyInfo.cs"));
             }
 
             return projFile;
