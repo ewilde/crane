@@ -1,4 +1,6 @@
-﻿namespace Crane.Core.Api.Builders
+﻿using Crane.Core.Api.Model;
+
+namespace Crane.Core.Api.Builders
 {
     public class ProjectBuilder
     {

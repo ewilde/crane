@@ -1,4 +1,5 @@
 using System;
+using Crane.Core.Api.Model;
 
 namespace Crane.Core.Api.Builders
 {
@@ -9,5 +10,6 @@ namespace Crane.Core.Api.Builders
         ISolutionBuilder WithSolution(Action<Solution> assign);
 
         ISolutionContext Build();
+        ISolutionBuilder WithFile<T>(Action<T> assign) where T : ProjectFile, new();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Crane.Core.Api.Model;
 
 namespace Crane.Core.Api.Mappers
 {

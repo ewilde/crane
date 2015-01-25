@@ -48,6 +48,11 @@ namespace Crane.Core.IO
             get { return System.Environment.CurrentDirectory; }
         }
 
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
+
         public void CreateDirectory(string path)
         {
             Directory.CreateDirectory(path);
@@ -73,6 +78,21 @@ namespace Crane.Core.IO
         public void Delete(DirectoryInfo directory)
         {
             DeleteFileSystemInfo(directory);
+        }
+
+        public void EnsureDirectoryExists(DirectoryInfo directory)
+        {
+            if (directory.Exists)
+            {
+                return;
+            }
+
+            if (directory.Parent != null && !directory.Parent.Exists)
+            {
+                EnsureDirectoryExists(directory.Parent);
+            }
+
+            Directory.CreateDirectory(directory.FullName);            
         }
 
         private static void DeleteFileSystemInfo(FileSystemInfo fileSystemInfo)

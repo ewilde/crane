@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Writers\AssemblyInfoWriterTests.cs" />
     <Compile Include="Builders\BuildA.cs" />
     <Compile Include="Builders\TokenDictionaryBuilder.cs" />
     <Compile Include="Commands\CommandExtensionTests.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Templates\TemplateResolverTests.cs" />
     <Compile Include="TestUtilities\ContextUtility.cs" />
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
+    <Compile Include="TestUtilities\MockFileManager.cs" />
     <Compile Include="TestUtilities\MockOutput.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />

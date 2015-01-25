@@ -1,4 +1,6 @@
-﻿namespace Crane.Core.Api.Readers
+﻿using Crane.Core.Api.Model;
+
+namespace Crane.Core.Api.Readers
 {
     public interface ISolutionReader
     {

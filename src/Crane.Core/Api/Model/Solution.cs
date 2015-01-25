@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Crane.Core.Api
+namespace Crane.Core.Api.Model
 {
     public class Solution
     {

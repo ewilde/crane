@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Crane.Core.Api;
 using Crane.Core.Api.Builders;
+using Crane.Core.Api.Model;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
@@ -36,7 +38,10 @@ namespace Crane.Integration.Tests.Features.Api.Builders
 
             "And the project file should exist on disk"
                 ._(() => File.Exists(project.Path).Should().BeTrue());
-                
+
+            "And the solution context path should be the root directory"
+                ._(() => result.Path.Should().Be(context.RootDirectory));
+            
             "And it should create a solution file on disk"
                 ._(() => File.Exists(Path.Combine(context.RootDirectory, "Sally.sln")).Should().BeTrue())
                 .Teardown(() => context.TearDown());
@@ -101,6 +106,48 @@ namespace Crane.Integration.Tests.Features.Api.Builders
 
             "And it should create a solution file on disk"
                 ._(() => File.Exists(Path.Combine(context.RootDirectory, "Solutions", "MySolution.sln")).Should().BeTrue())
+                .Teardown(() => context.TearDown());
+        }
+
+
+        [Scenario]
+        public void build_project_with_assembly_info(SolutionBuilderContext context, ISolutionContext result, Project project, AssemblyInfo assemblyInfo)
+        {
+            "Given I have a solution builder context"
+                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+
+            "When I call build with a solution, a project and an assembly info"
+                ._(() => result = context.CreateBuilder()
+                    .WithSolution(item => item.Path = Path.Combine(context.RootDirectory, "Sally.sln"))
+                    .WithProject(item => item.Name = "FrodoFx")
+                    .WithFile<AssemblyInfo>(item =>
+                    {
+                        item.Title = "FrodoFx";
+                        item.Description = "Middle earth web server";
+                        item.FileVersion = new Version(0, 0, 1, 2049);
+                        item.Version = new Version(0, 0, 1);
+                        item.InformationalVersion = "release";
+                    })
+                    .Build());
+
+            "It should return the build project with an assembly info"
+                ._(() =>
+                {
+                    project = result.Solution.Projects.FirstOrDefault();
+                    project.Should().NotBeNull("the project should not be null");
+                    assemblyInfo = project.AssemblyInfo;
+                    assemblyInfo.Should().NotBeNull("the assembly info should not be null");
+                });
+
+            "And the assembly info title should be set"
+                ._(() => project.Name.Should().Be("FrodoFx"));
+
+            
+            "And the assembly info file should exist on disk"
+                ._(() => File.Exists(assemblyInfo.Path).Should().BeTrue(string.Format("assembly info with path: {0} did not exist on disk", assemblyInfo.Path)));
+            
+            "And it should create a solution file on disk"
+                ._(() => File.Exists(Path.Combine(context.RootDirectory, "Sally.sln")).Should().BeTrue())
                 .Teardown(() => context.TearDown());
         }
     }

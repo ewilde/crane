@@ -1,9 +1,11 @@
-﻿namespace Crane.Core.Api
+﻿using Crane.Core.Api.Model;
+
+namespace Crane.Core.Api
 {
     public interface ICraneApi
     {
         ISolutionContext GetSolutionContext(string rootFolderPath);
 
-        ISolutionContext PatchAssemblyInfo(Project project);
+        void PatchAssemblyInfo(AssemblyInfo assemblyInfo);
     }
 }

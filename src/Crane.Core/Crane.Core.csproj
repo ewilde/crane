@@ -68,6 +68,7 @@
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
+    <Compile Include="Api\Model\AssemblyInfo.cs" />
     <Compile Include="Api\Model\Mappers\FubuProjectMapper.cs" />
     <Compile Include="Api\Model\Mappers\FubuSolutionMapper.cs" />
     <Compile Include="Api\Model\Mappers\IFubuProjectMapper.cs" />
@@ -78,6 +79,10 @@
     <Compile Include="Api\Readers\FubuSolutionReader.cs" />
     <Compile Include="Api\Readers\ISolutionReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
+    <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />
+    <Compile Include="Api\Writers\IAssemblyInfoWriter.cs" />
+    <Compile Include="Api\Writers\ISolutionWriter.cs" />
+    <Compile Include="Api\Writers\SolutionWriter.cs" />
     <Compile Include="Commands\Arguments\CommandArgument.cs" />
     <Compile Include="Commands\Arguments\ICommandArgument.cs" />
     <Compile Include="Commands\Assemble.cs" />
@@ -156,6 +161,11 @@
     <Compile Include="IO\IOutput.cs" />
     <Compile Include="IO\ConsoleOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\IGuidGenerator.cs" />
     <Compile Include="Templates\FileInfoExtensions.cs" />
@@ -183,9 +193,21 @@
     <Compile Include="Extensions\StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Api\Writers\AssemblyInfoTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\Writers\Exceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

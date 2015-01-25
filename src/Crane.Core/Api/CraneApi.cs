@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using Crane.Core.Api.Builders;
+using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
+using Crane.Core.Api.Writers;
 using Crane.Core.Commands.Resolvers;
 
 namespace Crane.Core.Api
@@ -9,12 +11,17 @@ namespace Crane.Core.Api
     public class CraneApi : ICraneApi
     {
         private readonly ISolutionReader _solutionReader;
+        private readonly IAssemblyInfoWriter _assemblyInfoWriter;
         private readonly Func<ISolutionContext> _solutionContext;
         private readonly ISolutionPathResolver _solutionPathResolver;
 
-        public CraneApi(ISolutionReader solutionReader, Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver)
+        public CraneApi(
+            ISolutionReader solutionReader,
+            IAssemblyInfoWriter assemblyInfoWriter,
+            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver)
         {
             _solutionReader = solutionReader;
+            _assemblyInfoWriter = assemblyInfoWriter;
             _solutionContext = solutionContext;
             _solutionPathResolver = solutionPathResolver;
         }
@@ -28,9 +35,9 @@ namespace Crane.Core.Api
             return context;
         }
 
-        public ISolutionContext PatchAssemblyInfo(Project project)
+        public void PatchAssemblyInfo(AssemblyInfo assemblyInfo)
         {
-            return GetSolutionContext(project.Solution.SolutionContext.Path);
+            _assemblyInfoWriter.Patch(assemblyInfo);            
         }
 
         private string GetRelativePathToSolution(string rootFolderPath)

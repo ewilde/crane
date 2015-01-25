@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Crane.Core.Api.Mappers;
+using Crane.Core.Api.Model;
 using Crane.Core.Api.Model.Mappers;
 
 namespace Crane.Core.Api.Readers
