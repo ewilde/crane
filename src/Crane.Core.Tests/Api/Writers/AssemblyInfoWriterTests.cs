@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Crane.Core.Api;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Writers;
@@ -22,7 +23,7 @@ namespace Crane.Core.Tests.Api.Writers
                 ._(() => assemblyInfoWriter =  new AssemblyInfoWriter(fileManager));
 
             "When I call create"
-                ._(() =>  assemblyInfoWriter.Create(@"c:\dev\sallyfx\properties\AssemblyInfo.cs", "SallyFx", "SallyFx is a new generation web server", "0.0.2", "0.0.2/f1214 x64", "0.0.2.1"));
+                ._(() =>  assemblyInfoWriter.Create(@"c:/dev/sallyfx/properties/AssemblyInfo.cs", "SallyFx", "SallyFx is a new generation web server", "0.0.2", "0.0.2/f1214 x64", "0.0.2.1"));
 
             "It should replace the title token"
                 ._(() => fileManager.Output.Should().Contain("[assembly: AssemblyTitleAttribute(\"SallyFx\")]"));
@@ -43,7 +44,7 @@ namespace Crane.Core.Tests.Api.Writers
         [Scenario]
         public void patch_updates_assembly_info(IAssemblyInfoWriter assemblyInfoWriter, AssemblyInfo assemblyInfo, MockFileManager fileManager)
         {
-            string path = @"c:\dev\sallyfx\properties\AssemblyInfo.cs";
+            string path = Path.Combine("c:", "dev", "sallyfx", "properties", "AssemblyInfo.cs");
 
             "Given I have a file manager"
                 ._(() => fileManager = new MockFileManager());
@@ -62,8 +63,8 @@ namespace Crane.Core.Tests.Api.Writers
                     FileVersion = new Version(0, 0, 3, 1),
                     Version = new Version(0, 0, 3, 0),
                     InformationalVersion = "RELEASE",
-                    RootDirectory = @"c:\dev\sallyfx",
-                    Include = @"properties\AssemblyInfo.cs"                    
+                    RootDirectory = Path.Combine("c:", "dev", "sallyfx"),
+                    Include = Path.Combine("properties", "AssemblyInfo.cs")
                 });
 
             "When I patch the assembly"
