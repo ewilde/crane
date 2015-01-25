@@ -28,7 +28,7 @@ namespace Crane.Core.Api.Model.Mappers
                         Description = info.AssemblyDescription,
                         FileVersion = info.AssemblyFileVersion,
                         Version = info.AssemblyVersion,
-                        InformationalVersion = info.AssemblyInformationalVersionAttribute
+                        InformationalVersion = info.AssemblyInformationalVersion
                     };
                 }
                 else
