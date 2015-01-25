@@ -140,9 +140,17 @@ namespace Crane.Integration.Tests.Features.Api.Builders
                 });
 
             "And the assembly info title should be set"
-                ._(() => project.Name.Should().Be("FrodoFx"));
+                ._(() => assemblyInfo.Title.Should().Be("FrodoFx"));
 
-            
+            "And the assembly info version should be set"
+                ._(() => assemblyInfo.Version.Should().Be(new Version(0, 0, 1)));
+
+            "And the assembly info file version should be set"
+                ._(() => assemblyInfo.FileVersion.Should().Be(new Version(0, 0, 1, 2049)));
+
+            "And the assembly informational attribute should be set"
+                ._(() => assemblyInfo.Title.Should().Be("release"));
+
             "And the assembly info file should exist on disk"
                 ._(() => File.Exists(assemblyInfo.Path).Should().BeTrue(string.Format("assembly info with path: {0} did not exist on disk", assemblyInfo.Path)));
             
