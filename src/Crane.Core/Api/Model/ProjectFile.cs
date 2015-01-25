@@ -2,7 +2,13 @@
 {
     public class ProjectFile
     {
-        public string Include { get; set; }
+        private string _include;
+
+        public string Include
+        {
+            get { return _include; }
+            set { _include = value; }
+        }
 
         public string Path
         {

@@ -97,5 +97,10 @@ namespace Crane.Core.Tests.TestUtilities
         {
             _fake.EnsureDirectoryExists(directory);
         }
+
+        public string GetPathForHostEnvironment(string path)
+        {
+            return _fake.GetPathForHostEnvironment(path);
+        }
     }
 }

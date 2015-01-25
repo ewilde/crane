@@ -32,5 +32,7 @@ namespace Crane.Core.IO
         void Delete(DirectoryInfo directory);
 
         void EnsureDirectoryExists(DirectoryInfo directory);
+
+        string GetPathForHostEnvironment(string path);
     }
 }

@@ -4,7 +4,14 @@ using System.IO;
 namespace Crane.Core.IO
 {
     public class FileManager : IFileManager
-    {        
+    {
+        private readonly IHostEnvironment _hostEnvironment;
+
+        public FileManager(IHostEnvironment hostEnvironment)
+        {
+            _hostEnvironment = hostEnvironment;
+        }
+
         public void CopyFiles(string sourcePath, string destinationPath, bool copySubDirectories)
         {
             // Get the subdirectories for the specified directory.
@@ -93,6 +100,16 @@ namespace Crane.Core.IO
             }
 
             Directory.CreateDirectory(directory.FullName);            
+        }
+
+        public string GetPathForHostEnvironment(string path)
+        {
+            if (_hostEnvironment.IsRunningOnMono())
+            {
+                return path.Replace('\\', '/');
+            }
+
+            return path.Replace('/', '\\');
         }
 
         private static void DeleteFileSystemInfo(FileSystemInfo fileSystemInfo)
