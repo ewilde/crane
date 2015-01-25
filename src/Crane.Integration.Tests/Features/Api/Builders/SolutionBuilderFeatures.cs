@@ -6,7 +6,9 @@ using Crane.Core.Api.Builders;
 using Crane.Core.Api.Model;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
+using FubuCsProjFile;
 using Xbehave;
+using AssemblyInfo = Crane.Core.Api.Model.AssemblyInfo;
 
 namespace Crane.Integration.Tests.Features.Api.Builders
 {
@@ -149,13 +151,48 @@ namespace Crane.Integration.Tests.Features.Api.Builders
                 ._(() => assemblyInfo.FileVersion.Should().Be(new Version(0, 0, 1, 2049)));
 
             "And the assembly informational attribute should be set"
-                ._(() => assemblyInfo.Title.Should().Be("release"));
+                ._(() => assemblyInfo.InformationalVersion.Should().Be("release"));
 
             "And the assembly info file should exist on disk"
                 ._(() => File.Exists(assemblyInfo.Path).Should().BeTrue(string.Format("assembly info with path: {0} did not exist on disk", assemblyInfo.Path)));
             
             "And it should create a solution file on disk"
                 ._(() => File.Exists(Path.Combine(context.RootDirectory, "Sally.sln")).Should().BeTrue())
+                .Teardown(() => context.TearDown());
+        }
+
+
+        [Scenario]
+        public void build_project_with_assembly_info_fubu_test(SolutionBuilderContext context, ISolutionContext solutionContext, FubuCsProjFile.CsProjFile project)
+        {
+            "Given I have a solution builder context"
+                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+
+            "When I call build with a solution, a project and an assembly info"
+                ._(() => solutionContext = context.CreateBuilder()
+                    .WithSolution(item => item.Path = Path.Combine(context.RootDirectory, "Sally.sln"))
+                    .WithProject(item => item.Name = "FrodoFx")
+                    .WithFile<AssemblyInfo>(item =>
+                    {
+                        item.Title = "FrodoFx";
+                        item.Description = "Middle earth web server";
+                        item.FileVersion = new Version(0, 0, 1, 2049);
+                        item.Version = new Version(0, 0, 1);
+                        item.InformationalVersion = "release";
+                    })
+                    .Build());
+
+            "It should return the build project with an assembly info"
+                ._(() =>
+                {
+                    project = new CsProjFile(solutionContext.Solution.Projects.FirstOrDefault().Path);
+                    project.Should().NotBeNull("the project should not be null");
+                    
+                    project.AssemblyInfo.Should().NotBeNull("the assembly info should not be null");
+                });
+
+            "And the assembly info title should be set"
+                ._(() => project.AssemblyInfo.AssemblyTitle.Should().Be("FrodoFx"))
                 .Teardown(() => context.TearDown());
         }
     }
