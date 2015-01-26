@@ -9,6 +9,7 @@ namespace Crane.Core.IO
         void CopyFiles(string source, string destination, bool copySubDirectories);
 
         string CurrentDirectory { get; }
+        bool FileExists(string path);
 
         void CreateDirectory(string destination);
 
@@ -27,6 +28,11 @@ namespace Crane.Core.IO
         string GetTemporaryDirectory();
 
         void RenameFile(string path, string name);
+        
         void Delete(DirectoryInfo directory);
+
+        void EnsureDirectoryExists(DirectoryInfo directory);
+
+        string GetPathForHostEnvironment(string path);
     }
 }

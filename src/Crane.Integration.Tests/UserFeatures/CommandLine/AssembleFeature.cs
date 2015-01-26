@@ -12,7 +12,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class AssembleFeature
     {        
         [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
-        public void Assemble_with_a_folder_name_creates_a_build_when_folder_name_matches_solution_name(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Assemble_with_a_folder_name_creates_a_build_when_folder_name_matches_solution_name(
+            Run run, 
+            RunResult result, 
+            CraneTestContext craneTestContext,
+            SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
@@ -23,9 +27,12 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called ServiceStack with no build"
                 ._(() =>
                 {
-                    File.Copy("./TestProjects/ProjectNameSameAsSolution.zip", Path.Combine(craneTestContext.BuildOutputDirectory, "ProjectNameSameAsSolution.zip"), true);
-                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.BuildOutputDirectory, "ProjectNameSameAsSolution.zip"));
-                    zipFile.ExtractAll(craneTestContext.BuildOutputDirectory, ExtractExistingFileAction.OverwriteSilently);
+                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext
+                        .CreateBuilder()
+                        .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "ServiceStack.sln"))
+                        .WithProject(project => project.Name = "ServiceStack.Core")
+                        .Build();
                 });
 
             "When I run crane assemble ServiceStack"
@@ -55,11 +62,19 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
             "It should create a build for the project with a reference to the solution file"
 				._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack" , "build", "default.ps1")).Should().Contain("ServiceStack.sln"))
-                .Teardown(() => craneTestContext.TearDown());
+                .Teardown(() =>
+                {
+                    solutionBuilderContext.TearDown();
+                    craneTestContext.TearDown();
+                });
         }
 
         [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
-        public void Assemble_with_a_folder_name_creates_a_build_when_solution_is_a_different_name_and_in_different_location(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Assemble_with_a_folder_name_creates_a_build_when_solution_is_a_different_name_and_in_different_location(
+            Run run, 
+            RunResult result, 
+            CraneTestContext craneTestContext,
+            SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
@@ -70,9 +85,16 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
                 {
-                    File.Copy("./TestProjects/SolutionInDirectoryProject.zip", Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject.zip"), true);
-                    var zipFile = ZipFile.Read(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject.zip"));
-                    zipFile.ExtractAll(craneTestContext.BuildOutputDirectory, ExtractExistingFileAction.OverwriteSilently);
+                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext
+                        .CreateBuilder()
+                        .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", "MySolution.sln"))
+                        .WithProject(project =>
+                        {
+                            project.Name = "ServiceStack";
+                            project.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "ServiceStack", "ServiceStack.csproj");
+                        })
+                        .Build();
                 });
 
             "When I run crane assemble SolutionInDirectoryProject"

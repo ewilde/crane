@@ -43,6 +43,12 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FubuCore">
+      <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\packages\FubuCsProjFile.1.8.0.151\lib\net40\FubuCsProjFile.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -73,8 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Api\Builders\SolutionBuilderFeatures.cs" />
+    <Compile Include="Features\Api\CraneApiFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />
+    <Compile Include="Features\Model\Mappers\FubuSolutionMapperFeatures.cs" />
+    <Compile Include="Features\Model\Mappers\FubuProjectMapperFeatures.cs" />
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
     <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
@@ -88,6 +98,7 @@
     <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\Run.cs" />
     <Compile Include="TestUtilities\RunResult.cs" />
+    <Compile Include="TestUtilities\SolutionBuilderContext.cs" />
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\AssembleFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
@@ -101,12 +112,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="TestProjects\ProjectNameSameAsSolution.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestProjects\SolutionInDirectoryProject.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crane.Console\Crane.Console.csproj">

@@ -4,7 +4,14 @@ using System.IO;
 namespace Crane.Core.IO
 {
     public class FileManager : IFileManager
-    {        
+    {
+        private readonly IHostEnvironment _hostEnvironment;
+
+        public FileManager(IHostEnvironment hostEnvironment)
+        {
+            _hostEnvironment = hostEnvironment;
+        }
+
         public void CopyFiles(string sourcePath, string destinationPath, bool copySubDirectories)
         {
             // Get the subdirectories for the specified directory.
@@ -48,6 +55,11 @@ namespace Crane.Core.IO
             get { return System.Environment.CurrentDirectory; }
         }
 
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
+
         public void CreateDirectory(string path)
         {
             Directory.CreateDirectory(path);
@@ -73,6 +85,31 @@ namespace Crane.Core.IO
         public void Delete(DirectoryInfo directory)
         {
             DeleteFileSystemInfo(directory);
+        }
+
+        public void EnsureDirectoryExists(DirectoryInfo directory)
+        {
+            if (directory.Exists)
+            {
+                return;
+            }
+
+            if (directory.Parent != null && !directory.Parent.Exists)
+            {
+                EnsureDirectoryExists(directory.Parent);
+            }
+
+            Directory.CreateDirectory(directory.FullName);            
+        }
+
+        public string GetPathForHostEnvironment(string path)
+        {
+            if (_hostEnvironment.IsRunningOnMono())
+            {
+                return path.Replace('\\', '/');
+            }
+
+            return path.Replace('/', '\\');
         }
 
         private static void DeleteFileSystemInfo(FileSystemInfo fileSystemInfo)
