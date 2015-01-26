@@ -111,8 +111,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
                 .Teardown(() => context.TearDown());
         }
 
-
-        [Scenario]
+        [ScenarioIgnoreOnMono("suspect fubucsprojfile does not work on mono")]
         public void build_project_with_assembly_info(SolutionBuilderContext context, ISolutionContext result, Project project, AssemblyInfo assemblyInfo)
         {
             "Given I have a solution builder context"
@@ -162,7 +161,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         }
 
 
-        [Scenario]
+        [ScenarioIgnoreOnMono("suspect fubucsprojfile does not work on mono")]
         public void build_project_with_assembly_info_fubu_test(SolutionBuilderContext context, ISolutionContext solutionContext, FubuCsProjFile.CsProjFile project)
         {
             "Given I have a solution builder context"

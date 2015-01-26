@@ -11,7 +11,7 @@ namespace Crane.Integration.Tests.Features.Model.Mappers
 {
     public class FubuProjectMapperFeatures
     {
-        [Scenario]
+        [ScenarioIgnoreOnMono("suspect fubucsprojfile does not work on mono")]
         public void map_fubu_project_to_crane_project(IFubuProjectMapper projectMapper, SolutionBuilderContext context, ISolutionContext solutionContext, Project result)
         {
             "Given I have a project mapper"
