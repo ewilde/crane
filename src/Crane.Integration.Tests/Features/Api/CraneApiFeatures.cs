@@ -66,7 +66,7 @@ namespace Crane.Integration.Tests.Features.Api
                 .Teardown(() => context.TearDown());
         }
 
-        [Scenario]
+        [ScenarioIgnoreOnMono("suspect fubucsprojfile does not work on mono")]
         public void patch_assembly_info(ICraneApi craneApi,
             SolutionBuilderContext context, ISolutionContext solutionContext, Project project, AssemblyInfo updatedInfo, string updatedRawInfo)
         {
