@@ -58,11 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Builders\Factories\FileFactory.cs" />
     <Compile Include="Api\Builders\Factories\FubuSolutionFactory.cs" />
+    <Compile Include="Api\Builders\Factories\IFileFactory.cs" />
     <Compile Include="Api\Builders\ISolutionBuilder.cs" />
     <Compile Include="Api\Builders\Factories\ISolutionBuilderFactory.cs" />
     <Compile Include="Api\Builders\Factories\ISolutionFactory.cs" />
     <Compile Include="Api\Builders\Factories\SolutionBuilderFactory.cs" />
+    <Compile Include="Api\Builders\PlainFile.cs" />
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />

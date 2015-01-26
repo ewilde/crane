@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using Crane.Core.Api.Builders;
 using Crane.Integration.Tests.TestUtilities;
 using Crane.Integration.Tests.TestUtilities.Extensions;
 using FluentAssertions;
@@ -31,6 +32,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "ServiceStack.sln"))
+                        .WithFile(text => AddSolutionPackagesConfigWithXUnitRunner(text, Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", ".nuget", "packages.config")))
                         .WithProject(project => project.Name = "ServiceStack.Core")
                         .Build();
                 });
@@ -89,6 +91,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", "MySolution.sln"))
+                        .WithFile(text => AddSolutionPackagesConfigWithXUnitRunner(text, Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", ".nuget", "packages.config")))
                         .WithProject(project =>
                         {
                             project.Name = "ServiceStack";
@@ -126,6 +129,15 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should create a build for the project with a reference to the solution file"
                 ._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "build", "default.ps1")).Should().Contain("MySolution.sln"))
                 .Teardown(() => craneTestContext.TearDown());
+        }
+
+        private static void AddSolutionPackagesConfigWithXUnitRunner(PlainFile text, string path)
+        {
+            text.Path = path;
+            text.Text = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<packages>
+  <package id=""xunit.runners"" version=""1.9.2"" />
+</packages>";
         }
     }
 

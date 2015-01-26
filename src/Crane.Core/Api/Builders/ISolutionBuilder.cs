@@ -11,5 +11,7 @@ namespace Crane.Core.Api.Builders
 
         ISolutionContext Build();
         ISolutionBuilder WithFile<T>(Action<T> assign) where T : ProjectFile, new();
+
+        ISolutionBuilder WithFile(Action<PlainFile> assign);
     }
 }

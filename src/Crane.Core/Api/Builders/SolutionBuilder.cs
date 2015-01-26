@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Crane.Core.Api.Model;
+using Crane.Core.IO;
 
 namespace Crane.Core.Api.Builders
 {
@@ -9,15 +10,19 @@ namespace Crane.Core.Api.Builders
     {
         private readonly ISolutionContext _solutionContext;
         private readonly ISolutionFactory _solutionFactory;
+        private readonly IFileFactory _fileFactory;
         private readonly List<Project> _projects;
+        private readonly List<PlainFile> _plainFiles;
         private Project _currentProject;
         private readonly Solution _solution;
 
-        public SolutionBuilder(ISolutionContext solutionContext, ISolutionFactory solutionFactory)
+        public SolutionBuilder(ISolutionContext solutionContext, ISolutionFactory solutionFactory, IFileFactory fileFactory)
         {
             _solutionContext = solutionContext;
             _solutionFactory = solutionFactory;
+            _fileFactory = fileFactory;
             _projects = new List<Project>();
+            _plainFiles = new List<PlainFile>();
             _solution = new Solution();
         }
         
@@ -47,6 +52,15 @@ namespace Crane.Core.Api.Builders
             return this;
         }
 
+        public ISolutionBuilder WithFile(Action<PlainFile> assign)
+        {
+            var file = new PlainFile();
+            assign(file);
+            _plainFiles.Add(file);
+
+            return this;
+        }
+
         public ISolutionBuilder WithSolution(Action<Solution> assign)
         {
             assign(_solution);
@@ -56,6 +70,8 @@ namespace Crane.Core.Api.Builders
 
         public ISolutionContext Build()
         {
+            _plainFiles.ForEach(_fileFactory.Create);
+
             var result = _solutionContext;
             result.Solution = _solutionFactory.Create(_solution.Path, _projects);
             result.Solution.SolutionContext = result;
