@@ -37,9 +37,12 @@ Task Build -Depends SetupContext, Clean, NugetRestore{
 
 
 Task Test -Depends SetupContext {
-  $xunit_consoleRunner = Join-Path $($global:context.sln_file_info.Directory.FullName) "\packages\xunit.runners.**\tools\xunit.console.clr4.exe"
+  
+  $xunit_consoleRunner = Join-Path $($global:context.packages_folder) "\xunit.runners.**\tools\xunit.console.clr4.exe"
+  $xunit_consoleRunner = $(Resolve-Path $xunit_consoleRunner).ProviderPath
+  Write-Host $xunit_consoleRunner
 
-  Get-ChildItem -Path $($global:context.build_artifacts_dir) -Filter *.Tests.dll |
+  Get-ChildItem -Path $($global:context.build_artifacts_dir) -Filter *Tests.dll |
   % {
     Debug("$xunit_consoleRunner @($($_.FullName), '/silent')")
     & $xunit_consoleRunner @($_.FullName, '/silent')
