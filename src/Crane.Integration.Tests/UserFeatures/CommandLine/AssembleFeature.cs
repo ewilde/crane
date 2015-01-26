@@ -51,7 +51,6 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 {
                     var buildResult = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
                     buildResult.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
-
                 });
 
             "It should create a build for the project with a reference to the solution file"
