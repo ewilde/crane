@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Providers;
 using Crane.Core.Extensions;

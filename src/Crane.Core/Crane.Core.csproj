@@ -84,6 +84,7 @@
     <Compile Include="Api\Model\ProjectFile.cs" />
     <Compile Include="Api\Model\Solution.cs" />
     <Compile Include="Api\PowerShell\CraneCmdlet.cs" />
+    <Compile Include="Api\PowerShell\Get-CraneSolutionContext.cs" />
     <Compile Include="Api\Readers\FubuSolutionReader.cs" />
     <Compile Include="Api\Readers\ISolutionReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Configuration\Modules\UnRegisteredTypesAsTransientModule.cs" />
     <Compile Include="Configuration\ProjectContext.cs" />
     <Compile Include="Configuration\ProjectContextFactory.cs" />
+    <Compile Include="Configuration\ServiceLocator.cs" />
     <Compile Include="Documentation\CommandExample.cs" />
     <Compile Include="Documentation\CommandHelp.cs" />
     <Compile Include="Documentation\CommandHelpCollection.cs" />

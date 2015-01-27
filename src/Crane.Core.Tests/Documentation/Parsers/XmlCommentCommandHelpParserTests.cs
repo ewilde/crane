@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Crane.Core.Commands;
+using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Parsers;
 using Crane.Core.Tests.TestUtilities;

@@ -4,7 +4,7 @@ using log4net;
 using Crane.Core.Extensions;
 namespace Crane.Core.Api.PowerShell
 {
-    internal abstract class CraneCmdlet : PSCmdlet
+    public abstract class CraneCmdlet : PSCmdlet
     {
         protected override void ProcessRecord()
         {

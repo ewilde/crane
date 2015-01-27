@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Formatters;
 using Crane.Core.Extensions;

@@ -4,6 +4,7 @@ using System.Linq;
 using Crane.Core.Api;
 using Crane.Core.Api.Builders;
 using Crane.Core.Api.Model;
+using Crane.Core.Configuration;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using FubuCsProjFile;

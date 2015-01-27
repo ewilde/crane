@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using Crane.Core.Configuration.Modules;
 
-namespace Crane.Core.Tests.TestUtilities
+namespace Crane.Core.Configuration
 {
     public static class ioc
     {

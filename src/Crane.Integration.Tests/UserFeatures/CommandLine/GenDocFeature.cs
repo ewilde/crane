@@ -2,6 +2,7 @@
 using System.IO;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Configuration;
 using Crane.Core.Extensions;
 using Crane.Integration.Tests.TestUtilities;
 using Crane.Integration.Tests.TestUtilities.Extensions;

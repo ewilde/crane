@@ -4,6 +4,7 @@ using System.Linq;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Arguments;
 using Crane.Core.Commands.Parsers;
+using Crane.Core.Configuration;
 using Crane.Core.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;

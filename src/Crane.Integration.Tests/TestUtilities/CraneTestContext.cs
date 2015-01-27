@@ -10,7 +10,7 @@ using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities
 {
-    public class CraneTestContext
+    public class CraneTestContext : ICraneTestContext
     {
         private readonly IFileManager _fileManager;
         private readonly DirectoryInfo _directory;

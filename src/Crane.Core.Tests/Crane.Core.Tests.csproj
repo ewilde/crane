@@ -118,7 +118,6 @@
     <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />
-    <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
   </ItemGroup>
   <ItemGroup>

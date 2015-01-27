@@ -1,4 +1,5 @@
-﻿using Crane.Core.Documentation;
+﻿using Crane.Core.Configuration;
+using Crane.Core.Documentation;
 using Crane.Core.Documentation.Formatters;
 using Crane.Core.Extensions;
 using Crane.Core.Tests.TestUtilities;

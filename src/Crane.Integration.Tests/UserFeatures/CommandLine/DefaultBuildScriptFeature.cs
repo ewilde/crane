@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using Crane.Core.Configuration;
 using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;

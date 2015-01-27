@@ -1,4 +1,5 @@
-﻿using Crane.Integration.Tests.TestUtilities;
+﻿using Crane.Core.Configuration;
+using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
 
