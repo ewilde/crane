@@ -71,7 +71,7 @@
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
-    <Compile Include="Api\Model\AssemblyInfo.cs" />
+    <Compile Include="Api\Model\AssemblyInfoModel.cs" />
     <Compile Include="Api\Model\Mappers\FubuProjectMapper.cs" />
     <Compile Include="Api\Model\Mappers\FubuSolutionMapper.cs" />
     <Compile Include="Api\Model\Mappers\IFubuProjectMapper.cs" />
