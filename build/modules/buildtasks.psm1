@@ -98,7 +98,6 @@ function Invoke-GenerateAssemblyInfo{
   using System.Runtime.CompilerServices;
   using System.Runtime.InteropServices;
 
-  [assembly: CLSCompliantAttribute(true)]
   [assembly: ComVisibleAttribute(false)]
   [assembly: AssemblyTitleAttribute(""$title"")]
   [assembly: AssemblyDescriptionAttribute(""$description"")]

@@ -66,7 +66,6 @@ namespace Crane.Core.Properties {
         ///using System.Runtime.CompilerServices;
         ///using System.Runtime.InteropServices;
         ///
-        ///[assembly: CLSCompliantAttribute(true )]
         ///[assembly: ComVisibleAttribute(false)]
         ///[assembly: AssemblyTitleAttribute(&quot;%project.Name%&quot;)]
         ///[assembly: AssemblyDescriptionAttribute(&quot;%project.Description%&quot;)]
