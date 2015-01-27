@@ -21,10 +21,11 @@ namespace Crane.Integration.Tests.Features.Api
                 ._(() => context = ioc.Resolve<SolutionBuilderContext>());
 
             "And I have a solution with two projects"
-                ._(() => result = context.CreateBuilder()
+                ._(() => context.CreateBuilder()
                     .WithSolution(item => item.Path = Path.Combine(context.RootDirectory, "Sally.sln"))
                     .WithProject(item => item.Name = "FrodoFx")
-                    .WithProject(item => item.Name = "FrodoFx.UnitTests").Build());
+                    .WithProject(item => item.Name = "FrodoFx.UnitTests")
+                    .Build());
 
             "When I get the solution context via the api"
                 ._(() =>
@@ -102,6 +103,7 @@ namespace Crane.Integration.Tests.Features.Api
                 ._(() =>
                 {
                     craneApi.PatchAssemblyInfo(updatedInfo);
+
                     solutionContext = craneApi.GetSolutionContext(solutionContext.Path); // reload to get updated model
                     project = solutionContext.Solution.Projects.First();
                     updatedRawInfo = File.ReadAllText(project.AssemblyInfo.Path);
