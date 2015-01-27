@@ -4,7 +4,6 @@ using Crane.Core.Api.Mappers;
 
 namespace Crane.Core.Api.Model.Mappers
 {
-    [CLSCompliant(false)]
     public class FubuSolutionMapper : IFubuSolutionMapper
     {
         private readonly IFubuProjectMapper _mapper;

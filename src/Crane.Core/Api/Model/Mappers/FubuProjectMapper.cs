@@ -6,7 +6,6 @@ using FubuCsProjFile;
 
 namespace Crane.Core.Api.Model.Mappers
 {
-    [CLSCompliant(false)]
     public class FubuProjectMapper : IFubuProjectMapper
     {
         private readonly IFileManager _fileManager;

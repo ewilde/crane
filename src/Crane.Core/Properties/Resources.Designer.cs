@@ -22,7 +22,7 @@ namespace Crane.Core.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -66,7 +66,6 @@ namespace Crane.Core.Properties {
         ///using System.Runtime.CompilerServices;
         ///using System.Runtime.InteropServices;
         ///
-        ///[assembly: CLSCompliantAttribute(true )]
         ///[assembly: ComVisibleAttribute(false)]
         ///[assembly: AssemblyTitleAttribute(&quot;%project.Name%&quot;)]
         ///[assembly: AssemblyDescriptionAttribute(&quot;%project.Description%&quot;)]
@@ -76,7 +75,7 @@ namespace Crane.Core.Properties {
         ///[assembly: AssemblyVersionAttribute(&quot;%version%&quot;)]
         ///[assembl [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string AssemblyInfoTemplate {
+        public static string AssemblyInfoTemplate {
             get {
                 return ResourceManager.GetString("AssemblyInfoTemplate", resourceCulture);
             }

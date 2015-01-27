@@ -12,7 +12,6 @@ using Solution = Crane.Core.Api.Model.Solution;
 
 namespace Crane.Core.Api.Builders
 {
-    [CLSCompliant(false)]
     public class FubuSolutionFactory : ISolutionFactory
     {
         private readonly IFubuSolutionMapper _mapper;

@@ -7,7 +7,6 @@ using Crane.Core.Api.Model.Mappers;
 
 namespace Crane.Core.Api.Readers
 {
-    [CLSCompliant(false)]
     public class FubuSolutionReader : ISolutionReader
     {
         private readonly IFubuSolutionMapper _mapper;
