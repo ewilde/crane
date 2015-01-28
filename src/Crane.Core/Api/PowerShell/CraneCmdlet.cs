@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Management.Automation;
+using Crane.Core.Configuration;
 using log4net;
 using Crane.Core.Extensions;
 namespace Crane.Core.Api.PowerShell
 {
     public abstract class CraneCmdlet : PSCmdlet
     {
+        protected CraneCmdlet()
+        {
+            ServiceLocator.BuildUp(this);
+        }
+
         protected override void ProcessRecord()
         {
             try

@@ -16,10 +16,10 @@ namespace Crane.Integration.Tests.Features.Api
         public void Get_context_with_root_folder_path_returns_all_projects(ICraneApi craneApi, SolutionBuilderContext context, ISolutionContext result, Project project)
         {
             "Given I have a crane api"
-                ._(() => craneApi = ioc.Resolve<CraneApi>());
+                ._(() => craneApi = ServiceLocator.Resolve<CraneApi>());
 
             "And I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "And I have a solution with two projects"
                 ._(() => context.CreateBuilder()
@@ -73,10 +73,10 @@ namespace Crane.Integration.Tests.Features.Api
             SolutionBuilderContext context, ISolutionContext solutionContext, Project project, AssemblyInfo updatedInfo, string updatedRawInfo)
         {
             "Given I have a crane api"
-                ._(() => craneApi = ioc.Resolve<CraneApi>());
+                ._(() => craneApi = ServiceLocator.Resolve<CraneApi>());
 
             "And I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "And I have a solution with two projects"
                 ._(() => solutionContext = context.CreateBuilder()

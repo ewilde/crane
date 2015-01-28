@@ -13,7 +13,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void build_a_new_default_crane_project_sucessfully(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a crane run context"
                 ._(() => run = new Run());
@@ -52,7 +52,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         {
             string projectDir = null;
             "Given I have my own private copy of the crane console"
-               ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+               ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a crane run context"
                 ._(() => run = new Run());
@@ -64,7 +64,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() =>
                 {
                     projectDir = Path.Combine(craneTestContext.BuildOutputDirectory, "SallyFx");
-                    git = ioc.Resolve<Git>();
+                    git = ServiceLocator.Resolve<Git>();
                     git.Run("init", projectDir).ErrorOutput.Should().BeEmpty();
                     git.Run("config user.email no-reply@cranebuild.com", projectDir).ErrorOutput.Should().BeEmpty();
                 });

@@ -12,7 +12,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void showing_help_for_a_command(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -35,7 +35,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void showing_help_for_a_command_that_has_no_arguments(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());

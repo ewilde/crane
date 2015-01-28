@@ -46,7 +46,7 @@ namespace Crane.Core.Tests.Templates.Parsers
             "And I have a directory on disk"
                 ._(() =>
                 {
-                    directory = ioc.Resolve<IFileManager>().GetTemporaryDirectory();
+                    directory = ServiceLocator.Resolve<IFileManager>().GetTemporaryDirectory();
                     directoryPath = Directory.CreateDirectory("%context.ProjectName%");
                });
 

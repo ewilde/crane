@@ -17,14 +17,14 @@ namespace Crane.Integration.Tests.Features.Templates
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>();
-                    var fileManager = ioc.Resolve<IFileManager>();
-                    templateInvoker = ioc.Resolve<ITemplateInvoker>();
+                    context = ServiceLocator.Resolve<ICraneContext>();
+                    var fileManager = ServiceLocator.Resolve<IFileManager>();
+                    templateInvoker = ServiceLocator.Resolve<ITemplateInvoker>();
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
                 });
 
             "And I have a psake template builder"
-                ._(() => template = ioc.Resolve<ITemplateResolver>().Resolve(TemplateType.Build));
+                ._(() => template = ServiceLocator.Resolve<ITemplateResolver>().Resolve(TemplateType.Build));
             
             "When I call create on the template with service stack as the project name and solution name"
                 ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext {ProjectName = "ServiceStack", SolutionPath = "../ServiceStack.sln"}));

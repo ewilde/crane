@@ -19,10 +19,10 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "Given I have my own private copy of the crane console"
                ._(() =>
                {
-                   craneTestContext = ioc.Resolve<CraneTestContext>();
+                   craneTestContext = ServiceLocator.Resolve<CraneTestContext>();
                    rootDirectory = craneTestContext.RootDirectory;
                    docDirectory = Path.Combine(rootDirectory, "doc");
-                   userCommands = ioc.Resolve<IPublicCommandResolver>().Resolve();
+                   userCommands = ServiceLocator.Resolve<IPublicCommandResolver>().Resolve();
                    if (Directory.Exists(docDirectory))
                        Directory.Delete(docDirectory, true);
                });
@@ -51,7 +51,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
             
             "And there should be a markdown file for each public crane command in the doc directory"
-                ._(() => ioc.Resolve<IPublicCommandResolver>().Resolve().ForEach(
+                ._(() => ServiceLocator.Resolve<IPublicCommandResolver>().Resolve().ForEach(
                     command => File.Exists(Path.Combine(docDirectory, command.Name() + ".md")).Should().BeTrue("missing {0} in directory {1}", command.Name() + ".md", docDirectory)));
 
             "And each command help file should have valid content"
