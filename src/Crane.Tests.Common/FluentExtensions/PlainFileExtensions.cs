@@ -1,6 +1,6 @@
 ﻿using Crane.Core.Api.Builders;
 
-namespace Crane.Integration.Tests.TestUtilities.Extensions
+namespace Crane.Tests.Common.FluentExtensions
 {
     public static class PlainFileExtensions
     {

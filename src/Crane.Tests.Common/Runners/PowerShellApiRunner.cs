@@ -4,9 +4,10 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Timers;
+using Crane.Tests.Common.Context;
 using log4net;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Tests.Common.Runners
 {
     public class PowerShellApiRunner
     {
@@ -45,7 +46,7 @@ namespace Crane.Integration.Tests.TestUtilities
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1}\"", Path.Combine(_testContext.BuildOutputDirectory, "Crane.Core.dll"), apiCommand)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1}\"", Path.Combine(_testContext.BuildOutputDirectory, "Crane.PowerShell.dll"), apiCommand)
                 }
             };
 

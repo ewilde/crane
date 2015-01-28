@@ -1,6 +1,6 @@
 using System;
 
-namespace Crane.Integration.Tests
+namespace Crane.Tests.Common
 {
     public static class TestEnvironment
     {

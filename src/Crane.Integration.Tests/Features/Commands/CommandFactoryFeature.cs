@@ -2,7 +2,7 @@
 using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Factories;
 using Crane.Core.Configuration;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Tests.Common;
 using FluentAssertions;
 using Xbehave;
 

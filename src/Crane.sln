@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core", "Crane.Core\Crane.Core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
 EndProject
@@ -32,32 +32,70 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Tests.Common", "Crane.Tests.Common\Crane.Tests.Common.csproj", "{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.PowerShell", "Crane.PowerShell\Crane.PowerShell.csproj", "{B254EC37-60E5-427B-937E-EC8F46106EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.PowerShell.Tests", "Crane.PowerShell.Tests\Crane.PowerShell.Tests.csproj", "{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-Mono|Any CPU = Debug-Mono|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Mono|Any CPU = Release-Mono|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Debug-Mono|Any CPU.Build.0 = Debug|Any CPU
 		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{064704F3-134F-4E27-8A80-6D6F8420F17E}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Debug-Mono|Any CPU.Build.0 = Debug|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D16941-0CA5-4108-B5C9-7DA47A46F1C7}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Debug-Mono|Any CPU.Build.0 = Debug|Any CPU
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Debug-Mono|Any CPU.Build.0 = Debug|Any CPU
 		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F4BD88-7AD2-493F-B12B-88D191B069F2}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
 		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Debug-Mono|Any CPU.Build.0 = Release|Any CPU
 		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}.Release-Mono|Any CPU.Build.0 = Release|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B254EC37-60E5-427B-937E-EC8F46106EBF}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Debug-Mono|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7}.Release-Mono|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +104,7 @@ Global
 		{2ECAB7EA-6E22-4AC3-9B39-41D4748F7E80} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
 		{D7F4BD88-7AD2-493F-B12B-88D191B069F2} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
 		{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
+		{48E1D7C5-0B95-4453-A8E8-621650C9CAB7} = {D1A1D6DD-B209-4EE0-BDB1-71648A1A3774}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Crane.Core.Tests\Crane.Core.Tests.csproj

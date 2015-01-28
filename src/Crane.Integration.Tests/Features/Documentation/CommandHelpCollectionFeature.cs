@@ -5,7 +5,6 @@ using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Providers;
 using Crane.Core.Extensions;
-using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
 

@@ -2,7 +2,7 @@
 using System.IO;
 using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Tests.Common;
 using FluentAssertions;
 using Xbehave;
 

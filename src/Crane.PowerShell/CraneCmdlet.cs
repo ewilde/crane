@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Management.Automation;
 using Crane.Core.Configuration;
-using log4net;
 using Crane.Core.Extensions;
-namespace Crane.Core.Api.PowerShell
+using log4net;
+
+namespace Crane.PowerShell
 {
     public abstract class CraneCmdlet : PSCmdlet
     {

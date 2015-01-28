@@ -1,4 +1,6 @@
-namespace Crane.Integration.Tests.TestUtilities.Extensions
+using Crane.Tests.Common.Runners;
+
+namespace Crane.Tests.Common.FluentExtensions
 {
     public static class ShouldExtensions
     {    

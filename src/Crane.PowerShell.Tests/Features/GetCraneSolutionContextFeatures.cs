@@ -1,8 +1,8 @@
-﻿using Crane.Core.Api.PowerShell;
+﻿using Crane.PowerShell;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Integration.Tests.Features.Api.PowerShell
+namespace Crane.Integration.Tests.Features.PowerShell
 {
     public class GetCraneSolutionContextFeatures
     {

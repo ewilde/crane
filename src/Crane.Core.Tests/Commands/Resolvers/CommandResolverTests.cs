@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Tests.Common;
 using FakeItEasy;
 using FluentAssertions;
 using Xbehave;

@@ -36,12 +36,31 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mono|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-Mono\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU'">
+    <OutputPath>bin\Release-Mono\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
@@ -51,7 +70,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,9 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnableNCrunch.cs" />
     <Compile Include="Features\Api\Builders\SolutionBuilderFeatures.cs" />
     <Compile Include="Features\Api\CraneApiFeatures.cs" />
-    <Compile Include="Features\Api\PowerShell\GetCraneSolutionContextFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />
     <Compile Include="Features\Model\Mappers\FubuSolutionMapperFeatures.cs" />
@@ -87,20 +105,6 @@
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
     <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
-    <Compile Include="TestUtilities\Extensions\PlainFileExtensions.cs" />
-    <Compile Include="TestUtilities\ICraneTestContext.cs" />
-    <Compile Include="TestUtilities\PowerShellApiRunner.cs" />
-    <Compile Include="TestUtilities\BuildScriptRunner.cs" />
-    <Compile Include="TestUtilities\CraneTestContext.cs" />
-    <Compile Include="TestUtilities\EnableNCrunch.cs" />
-    <Compile Include="TestUtilities\Extensions\ConstraintExtensions.cs" />
-    <Compile Include="TestUtilities\Extensions\GenericAssertions.cs" />
-    <Compile Include="TestUtilities\Extensions\ShouldExtensions.cs" />
-    <Compile Include="TestUtilities\Git.cs" />
-    <Compile Include="TestUtilities\Run.cs" />
-    <Compile Include="TestUtilities\RunResult.cs" />
-    <Compile Include="TestUtilities\SolutionBuilderContext.cs" />
-    <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\AssembleFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\GenDocFeature.cs" />
@@ -109,7 +113,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFeatures\CommandLine\ListCommandsFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\UnknownCommandFeature.cs" />
-    <Compile Include="UserFeatures\Powershell\GetCraneSolutionContextFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

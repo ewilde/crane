@@ -8,7 +8,6 @@ using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
 using Xbehave;
 
 namespace Crane.Integration.Tests.Features.Templates

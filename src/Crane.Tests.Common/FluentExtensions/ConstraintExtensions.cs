@@ -1,7 +1,8 @@
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using FluentAssertions.Execution;
 
-namespace Crane.Integration.Tests.TestUtilities.Extensions
+namespace Crane.Tests.Common.FluentExtensions
 {
     public static class ConstraintExtensions
     {

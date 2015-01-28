@@ -1,9 +1,8 @@
-﻿using System;
-using System.Management.Automation;
-using Crane.Core.Configuration;
+﻿using System.Management.Automation;
+using Crane.Core.Api;
 using log4net;
 
-namespace Crane.Core.Api.PowerShell
+namespace Crane.PowerShell
 {
     [System.Management.Automation.Cmdlet(VerbsCommon.Get, "CraneSolutionContext"), OutputType(typeof(ISolutionContext))]
     public class GetCraneSolutionContext : CraneCmdlet

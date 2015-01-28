@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using Crane.Core.Configuration;
-using Crane.Integration.Tests.TestUtilities;
-using Crane.Integration.Tests.TestUtilities.Extensions;
+using Crane.Tests.Common;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.FluentExtensions;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -10,8 +12,8 @@ namespace Crane.Integration.Tests.UserFeatures.Powershell
 {
     public class GetCraneSolutionContextFeatures
     {
-        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
-        public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, Run craneRunner)
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
+        public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, CraneRunner craneRunner)
         {
             "Given I have my own private copy of the crane console"
                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
@@ -22,7 +24,7 @@ namespace Crane.Integration.Tests.UserFeatures.Powershell
             "And I have initialized a project called ServiceStack"
                 ._(() =>
                 {
-                    craneRunner = new Run();
+                    craneRunner = new CraneRunner();
                     craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack");
                 });
 

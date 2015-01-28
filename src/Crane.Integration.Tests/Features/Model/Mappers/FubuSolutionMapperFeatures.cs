@@ -5,7 +5,7 @@ using Crane.Core.Api.Mappers;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Model.Mappers;
 using Crane.Core.Configuration;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Tests.Common.Context;
 using FluentAssertions;
 using Xbehave;
 

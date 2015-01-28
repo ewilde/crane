@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Integration.Tests
 {
     public class EnableNCrunch
     {

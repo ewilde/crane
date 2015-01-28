@@ -1,39 +1,38 @@
-﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using log4net;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Tests.Common.Runners
 {
-    public class BuildScriptRunner
+    public class CraneRunner
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(BuildScriptRunner));
+        private static readonly ILog _log = LogManager.GetLogger(typeof(CraneRunner));
 
-        public RunResult Run(string projectRootPath)
+        public RunResult Command(string path, string command)
         {
-            var buildps1 = Path.Combine(projectRootPath, "build.ps1");
-            if (!File.Exists(buildps1))
-            {
-                throw new FileNotFoundException(string.Format("Could not find the build.ps1 in the project root directory {0}.", projectRootPath));
-            }
+            _log.DebugFormat("Running process {0} using path {1}", command, path);
+            var error = new StringBuilder();
+            var output = new StringBuilder();
+
+            var arguments = command.Split(' ').ToList();
+            arguments.RemoveAt(0);
 
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    WorkingDirectory = projectRootPath,
+                    WorkingDirectory = path,
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} @('PatchAssemblyInfo', 'BuildSolution', 'Test')\"", buildps1)
+                    FileName = Path.Combine(path, @"crane.exe"),
+                    Arguments = string.Join(" ", arguments)
                 }
             };
 
-            var error = new StringBuilder();
-            var output = new StringBuilder();
 
             process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
             process.OutputDataReceived += (sender, args) => output.Append(args.Data);
@@ -52,6 +51,6 @@ namespace Crane.Integration.Tests.TestUtilities
                 ErrorOutput = error.ToString(),
                 ExitCode = process.ExitCode
             };
-        }
+        }      
     }
 }

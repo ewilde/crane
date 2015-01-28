@@ -2,7 +2,7 @@
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
-namespace Crane.Integration.Tests.TestUtilities.Extensions
+namespace Crane.Tests.Common.FluentExtensions
 {
     public class GenericAssertions<T> : ReferenceTypeAssertions<T, GenericAssertions<T>> where T : class 
     {

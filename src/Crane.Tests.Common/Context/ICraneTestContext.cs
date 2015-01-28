@@ -1,4 +1,4 @@
-﻿namespace Crane.Integration.Tests.TestUtilities
+﻿namespace Crane.Tests.Common.Context
 {
     public interface ICraneTestContext
     {

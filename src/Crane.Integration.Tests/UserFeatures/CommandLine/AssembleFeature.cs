@@ -1,8 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
 using Crane.Core.Configuration;
-using Crane.Integration.Tests.TestUtilities;
-using Crane.Integration.Tests.TestUtilities.Extensions;
+using Crane.Tests.Common;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.FluentExtensions;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -11,9 +13,9 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
     public class AssembleFeature
     {        
-        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void Assemble_with_a_folder_name_creates_a_build_when_folder_name_matches_solution_name(
-            Run run, 
+            CraneRunner craneRunner, 
             RunResult result, 
             CraneTestContext craneTestContext,
             SolutionBuilderContext solutionBuilderContext)
@@ -22,7 +24,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "And I have a project called ServiceStack with no build"
                 ._(() =>
@@ -37,7 +39,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
 
             "When I run crane assemble ServiceStack"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble ServiceStack"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane Assemble ServiceStack"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
@@ -70,9 +72,9 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
         }
 
-        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void Assemble_with_a_folder_name_creates_a_build_when_solution_is_a_different_name_and_in_different_location(
-            Run run, 
+            CraneRunner craneRunner, 
             RunResult result, 
             CraneTestContext craneTestContext,
             SolutionBuilderContext solutionBuilderContext)
@@ -81,7 +83,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
@@ -100,7 +102,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
 
             "When I run crane assemble SolutionInDirectoryProject"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble SolutionInDirectoryProject"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane Assemble SolutionInDirectoryProject"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
