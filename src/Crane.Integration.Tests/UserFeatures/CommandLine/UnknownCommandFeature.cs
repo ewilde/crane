@@ -11,7 +11,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void Calling_crane_with_a_command_that_does_not_exist_prompts_for_help(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a crane run context"
                 ._(() => run = new Run());

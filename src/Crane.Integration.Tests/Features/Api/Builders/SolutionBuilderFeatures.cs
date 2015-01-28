@@ -19,7 +19,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         public void build_project_with_name(SolutionBuilderContext context, ISolutionContext result, Project project)
         {
             "Given I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "When I call build"
                 ._(() => result = context.CreateBuilder()
@@ -80,7 +80,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         public void build_solution_with_projects_in_sibling_directories(SolutionBuilderContext context, ISolutionContext result, Project project)
         {
             "Given I have a solution builder context"
-               ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+               ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "When I call build"
                 ._(() => result = context.CreateBuilder()
@@ -116,7 +116,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         public void build_project_with_assembly_info(SolutionBuilderContext context, ISolutionContext result, Project project, AssemblyInfo assemblyInfo)
         {
             "Given I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "When I call build with a solution, a project and an assembly info"
                 ._(() => result = context.CreateBuilder()
@@ -166,7 +166,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         public void build_project_with_assembly_info_fubu_test(SolutionBuilderContext context, ISolutionContext solutionContext, FubuCsProjFile.CsProjFile project)
         {
             "Given I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "When I call build with a solution, a project and an assembly info"
                 ._(() => solutionContext = context.CreateBuilder()

@@ -41,7 +41,7 @@ namespace Crane.Core.Tests.Documentation.Parsers
                     ");
 
             "And I have a command help parser"
-                ._(() => parser = ioc.Resolve<XmlCommentCommandHelpParser>());
+                ._(() => parser = ServiceLocator.Resolve<XmlCommentCommandHelpParser>());
 
             "When I parse the comment file"
                 ._(() => result = parser.Parse(documentation));

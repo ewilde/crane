@@ -16,8 +16,9 @@ namespace Crane.Integration.Tests.TestUtilities
             _testContext = testContext;
         }
 
-        public RunResult Run(string apiCommand)
+        public RunResult Run(string apiCommand, params Object[] commandArgs)
         {
+            apiCommand = string.Format(apiCommand, commandArgs);
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -28,15 +29,18 @@ namespace Crane.Integration.Tests.TestUtilities
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1} ", Path.Combine(_testContext.BuildOutputDirectory, "Crane.Core.dll"), apiCommand)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1}\"", Path.Combine(_testContext.BuildOutputDirectory, "Crane.Core.dll"), apiCommand)
                 }
             };
+
 
             var error = new StringBuilder();
             var output = new StringBuilder();
 
             process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
             process.OutputDataReceived += (sender, args) => output.Append(args.Data);
+
+            _log.DebugFormat("About to execture powershell: {0} {1}", process.StartInfo.FileName, process.StartInfo.Arguments);
 
             process.Start();
             process.BeginOutputReadLine();

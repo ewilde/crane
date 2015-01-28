@@ -19,7 +19,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -27,7 +27,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called ServiceStack with no build"
                 ._(() =>
                 {
-                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext = ServiceLocator.Resolve<SolutionBuilderContext>();
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "ServiceStack.sln"))
@@ -78,7 +78,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -86,7 +86,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
                 {
-                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext = ServiceLocator.Resolve<SolutionBuilderContext>();
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", "MySolution.sln"))

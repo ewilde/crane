@@ -19,7 +19,7 @@ namespace Crane.Core.Tests.Documentation.Formatters
         public void formatting_help_command_with_console_formatter(IHelpFormatter formatter, ICommandHelp commandHelp, string result)
         {
             "Given I have a markdown formatter"
-                ._(() => formatter = ioc.Resolve<MarkdownHelpFormatter>());
+                ._(() => formatter = ServiceLocator.Resolve<MarkdownHelpFormatter>());
 
             "And I have a help command"
                 ._(() => commandHelp = new CommandHelp("init", "Crane.Core.Commands.Init", 

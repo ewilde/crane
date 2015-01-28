@@ -17,7 +17,7 @@ namespace Crane.Core.Tests.Commands.Parsers
         public void can_retrieve_command_arguments_from_a_type_with_required_arguments(ICommandTypeInfoParser infoParser, IEnumerable<ICommandArgument> result)
         {
             "Give I have a command type info parser"
-                ._(() => infoParser = ioc.Resolve<CommandTypeInfoParser>());
+                ._(() => infoParser = ServiceLocator.Resolve<CommandTypeInfoParser>());
 
             "When I parse the arguments"
                 ._(() => result = infoParser.GetArguments(typeof(Init)));

@@ -12,7 +12,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void Init_with_no_arguments_returns_did_you_mean_init_projectname(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -29,7 +29,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void Init_with_a_project_name_creates_a_project_with_build(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
@@ -49,7 +49,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         public void Init_with_a_project_name_twice_gives_error(Run run, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => run = new Run());
