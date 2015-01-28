@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Crane.Core.Configuration;
 using Crane.Integration.Tests.TestUtilities;
 using Crane.Integration.Tests.TestUtilities.Extensions;
@@ -16,7 +17,7 @@ namespace Crane.Integration.Tests.UserFeatures.Powershell
                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
 
             "And I have my powershell api runner"
-                ._(() => apiRunner = new PowerShellApiRunner(craneTestContext));
+                ._(() => apiRunner = new PowerShellApiRunner(craneTestContext, TimeSpan.FromSeconds(30)));
 
             "And I have initialized a project called ServiceStack"
                 ._(() =>

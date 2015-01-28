@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Timers;
 using log4net;
 
 namespace Crane.Integration.Tests.TestUtilities
@@ -10,15 +11,27 @@ namespace Crane.Integration.Tests.TestUtilities
     {
         private readonly ICraneTestContext _testContext;
         private static readonly ILog _log = LogManager.GetLogger(typeof(PowerShellApiRunner));
+        private readonly System.Timers.Timer _timer;
+        private bool _running;
+        private Process _process;
 
-        public PowerShellApiRunner(ICraneTestContext testContext)
+
+        public PowerShellApiRunner(ICraneTestContext testContext, TimeSpan timeout)
         {
             _testContext = testContext;
+            _timer = new Timer
+            {
+                Interval = timeout.TotalMilliseconds
+            };
+             
+            _timer.Elapsed += OnTimerElapsed;
         }
+
+        public TimeSpan Timeout { get; set; }
 
         public RunResult Run(string apiCommand)
         {
-            var process = new Process
+            _process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
@@ -35,23 +48,33 @@ namespace Crane.Integration.Tests.TestUtilities
             var error = new StringBuilder();
             var output = new StringBuilder();
 
-            process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
-            process.OutputDataReceived += (sender, args) => output.Append(args.Data);
+            _process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
+            _process.OutputDataReceived += (sender, args) => output.Append(args.Data);
 
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
+            _process.Start();
+            _running = true;
+            _process.BeginOutputReadLine();
+            _process.BeginErrorReadLine();
 
-            process.WaitForExit();
-
+            _process.WaitForExit();
+            _running = false;
             _log.DebugFormat("standard out: {0}  error: {1}", output, error);
-
             return new RunResult
             {
                 StandardOutput = output.ToString(),
                 ErrorOutput = error.ToString(),
-                ExitCode = process.ExitCode
+                ExitCode = _process.ExitCode
             };
+        }
+
+        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            _timer.Stop();
+            if (_running)
+            {
+                _running = false;
+                _process.Close();            
+            }
         }
     }
 }
