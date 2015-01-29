@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates.Parsers;
 using Crane.Core.Tests.Builders;
@@ -45,7 +46,7 @@ namespace Crane.Core.Tests.Templates.Parsers
             "And I have a directory on disk"
                 ._(() =>
                 {
-                    directory = ioc.Resolve<IFileManager>().GetTemporaryDirectory();
+                    directory = ServiceLocator.Resolve<IFileManager>().GetTemporaryDirectory();
                     directoryPath = Directory.CreateDirectory("%context.ProjectName%");
                });
 

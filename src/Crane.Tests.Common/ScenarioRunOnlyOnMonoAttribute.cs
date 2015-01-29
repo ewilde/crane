@@ -1,4 +1,5 @@
-﻿namespace Crane.Integration.Tests
+﻿
+namespace Crane.Tests.Common
 {
     public class ScenarioRunOnlyOnMonoAttribute : Xbehave.ScenarioAttribute
     {

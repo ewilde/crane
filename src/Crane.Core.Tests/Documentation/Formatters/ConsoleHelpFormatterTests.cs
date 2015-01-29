@@ -1,4 +1,5 @@
-﻿using Crane.Core.Documentation;
+﻿using Crane.Core.Configuration;
+using Crane.Core.Documentation;
 using Crane.Core.Documentation.Formatters;
 using Crane.Core.Extensions;
 using Crane.Core.Tests.TestUtilities;
@@ -14,7 +15,7 @@ namespace Crane.Core.Tests.Documentation.Formatters
         public void formatting_help_command_with_console_formatter(IHelpFormatter formatter, ICommandHelp commandHelp, string result)
         {
             "Given I have a console formatter"
-                ._(() => formatter = ioc.Resolve<ConsoleHelpFormatter>());
+                ._(() => formatter = ServiceLocator.Resolve<ConsoleHelpFormatter>());
 
             "And I have a help command"
                 ._(() => commandHelp = new CommandHelp("init", "Crane.Core.Commands.Init", "Initializes a new project with foo and bar.", new[] { new CommandExample{ Value = "Example 1"} }));

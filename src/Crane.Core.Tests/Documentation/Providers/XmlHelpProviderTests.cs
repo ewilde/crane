@@ -1,4 +1,5 @@
 ﻿using Crane.Core.Commands;
+using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Providers;
 using Crane.Core.Tests.TestUtilities;
@@ -13,7 +14,7 @@ namespace Crane.Core.Tests.Documentation.Providers
         public void xml_help_provider_returns_crane_help_collection(IHelpProvider xmlProvider, ICommandHelpCollection helpCollection)
         {
             "Given I have an instance of the xml help provider"
-                ._(() => xmlProvider = ioc.Resolve<XmlHelpProvider>());
+                ._(() => xmlProvider = ServiceLocator.Resolve<XmlHelpProvider>());
 
             "It should return a help collection"
                 ._(() =>

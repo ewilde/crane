@@ -4,7 +4,7 @@ using Crane.Core.Api.Builders;
 using Crane.Core.IO;
 using log4net;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Tests.Common.Context
 {
     public class SolutionBuilderContext
     {

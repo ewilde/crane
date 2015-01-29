@@ -8,7 +8,6 @@ using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
 using Xbehave;
 
 namespace Crane.Integration.Tests.Features.Templates
@@ -24,12 +23,12 @@ namespace Crane.Integration.Tests.Features.Templates
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>(); fileManager = ioc.Resolve<IFileManager>();
+                    context = ServiceLocator.Resolve<ICraneContext>(); fileManager = ServiceLocator.Resolve<IFileManager>();
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
                 });
 
             "And a template loader"
-                ._(() => templateLoader = ioc.Resolve<ITemplateLoader>());
+                ._(() => templateLoader = ServiceLocator.Resolve<ITemplateLoader>());
 
             "When I call load"
                 ._(() => result = templateLoader.Load());

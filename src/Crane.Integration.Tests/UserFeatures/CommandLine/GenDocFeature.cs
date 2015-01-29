@@ -2,9 +2,11 @@
 using System.IO;
 using Crane.Core.Commands;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Configuration;
 using Crane.Core.Extensions;
-using Crane.Integration.Tests.TestUtilities;
-using Crane.Integration.Tests.TestUtilities.Extensions;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.FluentExtensions;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -13,24 +15,24 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class GenDocFeature
     {
         [Scenario]
-        public void generate_markdown_dynamic_documentation_for_crane_commands(Run run, RunResult result, CraneTestContext craneTestContext, string docDirectory, string rootDirectory, IEnumerable<ICraneCommand> userCommands)
+        public void generate_markdown_dynamic_documentation_for_crane_commands(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext, string docDirectory, string rootDirectory, IEnumerable<ICraneCommand> userCommands)
         {
             "Given I have my own private copy of the crane console"
                ._(() =>
                {
-                   craneTestContext = ioc.Resolve<CraneTestContext>();
+                   craneTestContext = ServiceLocator.Resolve<CraneTestContext>();
                    rootDirectory = craneTestContext.RootDirectory;
                    docDirectory = Path.Combine(rootDirectory, "doc");
-                   userCommands = ioc.Resolve<IPublicCommandResolver>().Resolve();
+                   userCommands = ServiceLocator.Resolve<IPublicCommandResolver>().Resolve();
                    if (Directory.Exists(docDirectory))
                        Directory.Delete(docDirectory, true);
                });
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "When I run crane gendoc"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane gendoc"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane gendoc"));
 
             "Then there should be no errors"
                 ._(() => result.Should().BeErrorFree());
@@ -50,7 +52,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
             
             "And there should be a markdown file for each public crane command in the doc directory"
-                ._(() => ioc.Resolve<IPublicCommandResolver>().Resolve().ForEach(
+                ._(() => ServiceLocator.Resolve<IPublicCommandResolver>().Resolve().ForEach(
                     command => File.Exists(Path.Combine(docDirectory, command.Name() + ".md")).Should().BeTrue("missing {0} in directory {1}", command.Name() + ".md", docDirectory)));
 
             "And each command help file should have valid content"

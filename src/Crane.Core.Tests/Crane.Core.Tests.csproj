@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  </PropertyGroup> 
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -47,10 +47,10 @@
       <HintPath>..\packages\FakeItEasy.Automocker.1.13.0\lib\net40\FakeItEasy.AutoMocker.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
@@ -115,10 +115,8 @@
     <Compile Include="TestUtilities\DefaultConfigurationUtility.cs" />
     <Compile Include="TestUtilities\MockFileManager.cs" />
     <Compile Include="TestUtilities\MockOutput.cs" />
-    <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="TestUtilities\EnableNCrunch.cs" />
     <Compile Include="TestUtilities\ModuleExtension.cs" />
-    <Compile Include="TestUtilities\ObjectFactory.cs" />
     <Compile Include="TestUtilities\TemplateResolverUtility.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using System.IO;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Core.Configuration;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -8,16 +10,16 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class InitFeature
     {      
         [Scenario]
-        public void Init_with_no_arguments_returns_did_you_mean_init_projectname(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Init_with_no_arguments_returns_did_you_mean_init_projectname(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "When I run crane init"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init"));
 
             "Then I receive an error message 'error: The argument 'ProjectName' is required'"
                 ._(() => result.StandardOutput.Should().Contain("error: The argument 'ProjectName' is required"))
@@ -25,16 +27,16 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [Scenario]
-        public void Init_with_a_project_name_creates_a_project_with_build(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Init_with_a_project_name_creates_a_project_with_build(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "It should say 'Init success.'"
                 ._(() => result.StandardOutput.Should().Be("Init success."));
@@ -45,19 +47,19 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [Scenario]
-        public void Init_with_a_project_name_twice_gives_error(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void Init_with_a_project_name_twice_gives_error(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "And I have run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "When I run crane init ServiceStack"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
 
             "It should give an error'"
                 ._(() => result.StandardOutput.Should().Contain("ServiceStack"));

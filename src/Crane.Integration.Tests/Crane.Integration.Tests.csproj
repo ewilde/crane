@@ -35,22 +35,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  </PropertyGroup>  
   <ItemGroup>
     <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
     </Reference>
     <Reference Include="FubuCsProjFile">
       <HintPath>..\packages\FubuCsProjFile.1.8.0.151\lib\net40\FubuCsProjFile.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnableNCrunch.cs" />
     <Compile Include="Features\Api\Builders\SolutionBuilderFeatures.cs" />
     <Compile Include="Features\Api\CraneApiFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
@@ -88,18 +86,6 @@
     <Compile Include="Features\Templates\PsakeBuildTemplateFeature.cs" />
     <Compile Include="Features\Templates\TemplateLoaderFeature.cs" />
     <Compile Include="Features\Templates\VisualStudioTemplateFeature.cs" />
-    <Compile Include="TestUtilities\BuildScriptRunner.cs" />
-    <Compile Include="TestUtilities\CraneTestContext.cs" />
-    <Compile Include="TestUtilities\EnableNCrunch.cs" />
-    <Compile Include="TestUtilities\Extensions\ConstraintExtensions.cs" />
-    <Compile Include="TestUtilities\Extensions\GenericAssertions.cs" />
-    <Compile Include="TestUtilities\Extensions\ShouldExtensions.cs" />
-    <Compile Include="TestUtilities\Git.cs" />
-    <Compile Include="TestUtilities\ObjectFactory.cs" />
-    <Compile Include="TestUtilities\Run.cs" />
-    <Compile Include="TestUtilities\RunResult.cs" />
-    <Compile Include="TestUtilities\SolutionBuilderContext.cs" />
-    <Compile Include="TestUtilities\Throws.cs" />
     <Compile Include="UserFeatures\CommandLine\AssembleFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\DefaultBuildScriptFeature.cs" />
     <Compile Include="UserFeatures\CommandLine\GenDocFeature.cs" />

@@ -1,7 +1,8 @@
 ﻿using Crane.Core.Commands;
 using Crane.Core.Commands.Exceptions;
 using Crane.Core.Commands.Factories;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Core.Configuration;
+using Crane.Tests.Common;
 using FluentAssertions;
 using Xbehave;
 
@@ -14,7 +15,7 @@ namespace Crane.Integration.Tests.Features.Commands
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
-                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+                ._(() => commandFactory = ServiceLocator.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init testproject"
                 ._(() => craneCommand = commandFactory.Create("init", "testproject"));
@@ -31,7 +32,7 @@ namespace Crane.Integration.Tests.Features.Commands
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
-                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+                ._(() => commandFactory = ServiceLocator.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init testproject"
                 ._(() => craneCommand = commandFactory.Create("init", "-projectName", "testproject"));
@@ -49,7 +50,7 @@ namespace Crane.Integration.Tests.Features.Commands
             CraneException craneException)
         {
             "Given I have a command factory"
-                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+                ._(() => commandFactory = ServiceLocator.Resolve<ICommandFactory>());
 
             "When I create a command with based on the arguments 'init'"
                 ._(() => craneException = Throws.Exception(() => commandFactory.Create("init")) as CraneException);
@@ -67,7 +68,7 @@ namespace Crane.Integration.Tests.Features.Commands
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
-                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+                ._(() => commandFactory = ServiceLocator.Resolve<ICommandFactory>());
 
             "When I create a command with no arguments"
                 ._(() => craneCommand = commandFactory.Create());
@@ -82,7 +83,7 @@ namespace Crane.Integration.Tests.Features.Commands
                                                                                 ICraneCommand craneCommand)
         {
             "Given I have a command factory"
-                ._(() => commandFactory = ioc.Resolve<ICommandFactory>());
+                ._(() => commandFactory = ServiceLocator.Resolve<ICommandFactory>());
 
             "When I create a command with no arguments"
                 ._(() => craneCommand = commandFactory.Create(null));

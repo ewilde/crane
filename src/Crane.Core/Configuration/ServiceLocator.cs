@@ -1,27 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
+using Crane.Core.Api;
 using Crane.Core.Configuration.Modules;
 
-namespace Crane.Core.Tests.TestUtilities
+namespace Crane.Core.Configuration
 {
-    public static class ioc
+    /// <summary>
+    /// In the powershell cmdlet, havn't figured out a way to wire up
+    /// the ioc engine, so using ServiceLocator until we do.
+    /// </summary>
+    public static class ServiceLocator
     {
         private static IContainer _container;
 
+        private static IContainer Container
+        {
+            get
+            {
+                if (_container == null)
+                {
+                    _container = BootStrap.Start();
+                }
+
+                return _container;
+            }
+        }
+
+        public static T BuildUp<T>(T item)
+        {
+            return Container.InjectProperties(item);
+        }
+
         public static T Resolve<T>() where T : class
         {
-            if (_container == null)
+            
+            if (Container.IsRegistered<T>())
             {
-                _container = BootStrap.Start();
+                return Container.Resolve<T>();
             }
 
-            if (_container.IsRegistered<T>())
-            {
-                return _container.Resolve<T>();
-            }
-
-            return ResolveUnregistered(_container, typeof(T)) as T;
+            return ResolveUnregistered(Container, typeof(T)) as T;
         }
 
         public static object ResolveUnregistered(IContainer container, Type type)

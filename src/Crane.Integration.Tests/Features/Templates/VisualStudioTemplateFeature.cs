@@ -3,7 +3,6 @@ using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
-using Crane.Integration.Tests.TestUtilities;
 using FluentAssertions;
 using Xbehave;
 
@@ -17,13 +16,13 @@ namespace Crane.Integration.Tests.Features.Templates
             "Given I have a project root folder"
                 ._(() =>
                 {
-                    context = ioc.Resolve<ICraneContext>(); var fileManager = ioc.Resolve<IFileManager>();
+                    context = ServiceLocator.Resolve<ICraneContext>(); var fileManager = ServiceLocator.Resolve<IFileManager>();
                     context.ProjectRootDirectory = new DirectoryInfo(fileManager.GetTemporaryDirectory());
-                    templateInvoker = ioc.Resolve<ITemplateInvoker>();
+                    templateInvoker = ServiceLocator.Resolve<ITemplateInvoker>();
                 });
 
             "And I have a psake template builder"
-                ._(() => template = ioc.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
+                ._(() => template = ServiceLocator.Resolve<TemplateResolver>().Resolve(TemplateType.Source));
             
             "When I call create on the template with ServiceStack as the project name and solution name"
                 ._(() => templateInvoker.InvokeTemplate(template, new ProjectContext{ProjectName = "ServiceStack", SolutionPath = "ServiceStack"}));

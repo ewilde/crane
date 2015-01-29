@@ -1,10 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
-using Crane.Core.Api.Builders;
-using Crane.Integration.Tests.TestUtilities;
-using Crane.Integration.Tests.TestUtilities.Extensions;
+using Crane.Core.Configuration;
+using Crane.Tests.Common;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.FluentExtensions;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
-using Ionic.Zip;
 using Xbehave;
 
 namespace Crane.Integration.Tests.UserFeatures.CommandLine
@@ -12,33 +13,33 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
     public class AssembleFeature
     {        
-        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void Assemble_with_a_folder_name_creates_a_build_when_folder_name_matches_solution_name(
-            Run run, 
+            CraneRunner craneRunner, 
             RunResult result, 
             CraneTestContext craneTestContext,
             SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "And I have a project called ServiceStack with no build"
                 ._(() =>
                 {
-                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext = ServiceLocator.Resolve<SolutionBuilderContext>();
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "ServiceStack.sln"))
-                        .WithFile(text => AddSolutionPackagesConfigWithXUnitRunner(text, Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", ".nuget", "packages.config")))
+                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", ".nuget", "packages.config")))
                         .WithProject(project => project.Name = "ServiceStack.Core")
                         .Build();
                 });
 
             "When I run crane assemble ServiceStack"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble ServiceStack"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane Assemble ServiceStack"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
@@ -71,27 +72,27 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
         }
 
-        [ScenarioIgnoreOnMonoAttribute("Powershell not fully supported on mono")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void Assemble_with_a_folder_name_creates_a_build_when_solution_is_a_different_name_and_in_different_location(
-            Run run, 
+            CraneRunner craneRunner, 
             RunResult result, 
             CraneTestContext craneTestContext,
             SolutionBuilderContext solutionBuilderContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "And I have a project called SolutionInDirectoryProject with no build"
                 ._(() =>
                 {
-                    solutionBuilderContext = ioc.Resolve<SolutionBuilderContext>();
+                    solutionBuilderContext = ServiceLocator.Resolve<SolutionBuilderContext>();
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", "MySolution.sln"))
-                        .WithFile(text => AddSolutionPackagesConfigWithXUnitRunner(text, Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", ".nuget", "packages.config")))
+                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", ".nuget", "packages.config")))
                         .WithProject(project =>
                         {
                             project.Name = "ServiceStack";
@@ -101,7 +102,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 });
 
             "When I run crane assemble SolutionInDirectoryProject"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane Assemble SolutionInDirectoryProject"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane Assemble SolutionInDirectoryProject"));
 
             "It should say 'Assemble success.'"
                 ._(() =>
@@ -129,16 +130,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "It should create a build for the project with a reference to the solution file"
                 ._(() => File.ReadAllText(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "build", "default.ps1")).Should().Contain("MySolution.sln"))
                 .Teardown(() => craneTestContext.TearDown());
-        }
-
-        private static void AddSolutionPackagesConfigWithXUnitRunner(PlainFile text, string path)
-        {
-            text.Path = path;
-            text.Text = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<packages>
-  <package id=""xunit.runners"" version=""1.9.2"" />
-</packages>";
-        }
+        }       
     }
 
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Crane.Core.Configuration;
 using Crane.Core.Extensions;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Tests.Common.Context;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -13,16 +10,16 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
     public class HelpFeature
     {
         [Scenario]
-        public void showing_help_for_a_command(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void showing_help_for_a_command(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "When I run crane help init"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane help init"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane help init"));
 
             "Then crane outputs the usage statement for the command'"
                 ._(() => result.StandardOutput.Line(0).Should().Contain("usage: crane init"));
@@ -36,16 +33,16 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [Scenario]
-        public void showing_help_for_a_command_that_has_no_arguments(Run run, RunResult result, CraneTestContext craneTestContext)
+        public void showing_help_for_a_command_that_has_no_arguments(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext)
         {
             "Given I have my own private copy of the crane console"
-                ._(() => craneTestContext = ioc.Resolve<CraneTestContext>());
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
-                ._(() => run = new Run());
+                ._(() => craneRunner = new CraneRunner());
 
             "When I run crane help listcommands"
-                ._(() => result = run.Command(craneTestContext.BuildOutputDirectory, "crane help listcommands"));
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane help listcommands"));
 
             "Then crane outputs the usage statement for the command'"
                 ._(() => result.StandardOutput.Line(0).Should().Contain("usage: crane listcommands"))

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Crane.Core.Extensions;
 using Crane.Core.IO;
+using Crane.Tests.Common.Runners;
 using log4net;
 
-namespace Crane.Integration.Tests.TestUtilities
+namespace Crane.Tests.Common.Context
 {
-    public class CraneTestContext
+    public class CraneTestContext : ICraneTestContext
     {
         private readonly IFileManager _fileManager;
         private readonly DirectoryInfo _directory;

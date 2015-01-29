@@ -4,7 +4,8 @@ using Crane.Core.Api;
 using Crane.Core.Api.Mappers;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Model.Mappers;
-using Crane.Integration.Tests.TestUtilities;
+using Crane.Core.Configuration;
+using Crane.Tests.Common.Context;
 using FluentAssertions;
 using Xbehave;
 
@@ -16,10 +17,10 @@ namespace Crane.Core.Tests.Model.Mappers
         public void map_fubu_solution_to_crane_solution(IFubuSolutionMapper solutionMapper, SolutionBuilderContext context, ISolutionContext solutionContext, Solution result)
         {
             "Given I have a solution mapper"
-                ._(() => solutionMapper = ioc.Resolve<IFubuSolutionMapper>());
+                ._(() => solutionMapper = ServiceLocator.Resolve<IFubuSolutionMapper>());
 
             "And I have a solution builder context"
-                ._(() => context = ioc.Resolve<SolutionBuilderContext>());
+                ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
             "And I have a solution with two projects"
                 ._(() => solutionContext = context.CreateBuilder()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crane.Core.Configuration;
 using Crane.Core.Documentation;
 using Crane.Core.Documentation.Formatters;
 using Crane.Core.Extensions;
@@ -18,7 +19,7 @@ namespace Crane.Core.Tests.Documentation.Formatters
         public void formatting_help_command_with_console_formatter(IHelpFormatter formatter, ICommandHelp commandHelp, string result)
         {
             "Given I have a markdown formatter"
-                ._(() => formatter = ioc.Resolve<MarkdownHelpFormatter>());
+                ._(() => formatter = ServiceLocator.Resolve<MarkdownHelpFormatter>());
 
             "And I have a help command"
                 ._(() => commandHelp = new CommandHelp("init", "Crane.Core.Commands.Init", 
