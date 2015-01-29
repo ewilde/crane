@@ -1,0 +1,1 @@
+cov-build.exe --dir c:\dev\crane\cov-int  MSBuild  C:\dev\crane\src\crane.sln /t:ReBuild /p:Confiuration=Debug /v:quiet /p:OutDir=C:\dev\crane\build-output
