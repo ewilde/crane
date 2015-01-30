@@ -56,11 +56,11 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack")))
                     .Should().NotContain("%username%")
                     .And.NotContain("%context.ProjectName%")
-                    .And.NotContain("%DateTime.Now.Year%"))
-                .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
+                    .And.NotContain("%DateTime.Now.Year%"));                
 
             "It should create a .gitignore file in the project root"
-                ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, ".gitignore")));
+                ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, ".gitignore")))
+                .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }
     }
 }
