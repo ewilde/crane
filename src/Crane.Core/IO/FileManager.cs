@@ -134,7 +134,13 @@ namespace Crane.Core.IO
 
         public void RenameDirectory(string path, string name)
         {
-            Directory.Move(path, Path.Combine(new DirectoryInfo(path).Parent.FullName, name));
+            var directoryInfo = new DirectoryInfo(path).Parent;
+            if (directoryInfo == null)
+            {
+                throw new DirectoryNotFoundException(string.Format("Directory not found for path {0}", path));
+            }
+
+            Directory.Move(path, Path.Combine(directoryInfo.FullName, name));
         }
 
         public void WriteAllText(string path, string text)

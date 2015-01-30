@@ -19,7 +19,13 @@ namespace Crane.Core.Api.Model
         {
             get
             {
-                return new FileInfo(this.Path).DirectoryName;
+                var directory = new FileInfo(this.Path).DirectoryName;
+                if (directory == null)
+                {
+                    throw new DirectoryNotFoundException(string.Format("Could not find directory for path {0} in project {1}.", Path, Name));    
+                }
+
+                return directory;
             }
         }
 
