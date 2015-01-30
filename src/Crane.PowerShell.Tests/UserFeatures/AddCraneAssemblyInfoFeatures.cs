@@ -12,11 +12,11 @@ using Xbehave;
 
 namespace Crane.PowerShell.Tests.UserFeatures
 {
-    public class UpdateCraneAssemblyInfoFeatures
+    public class AddCraneAssemblyInfoFeatures
     {
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
-        public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, string assemblyInfoPath,
-            ICraneApi craneApi)
+        public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, 
+            ICraneApi craneApi, string projectDir)
         {
             "Given I have my own private copy of the crane console"
                 ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
@@ -29,35 +29,26 @@ namespace Crane.PowerShell.Tests.UserFeatures
                 {
                     var craneRunner = new CraneRunner();
                     craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack");
-                    
-                });
+                    projectDir = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack");
 
-            "And I know the path to a assembly info file in the project"
-                ._(() =>
-                {
-                    craneApi = ServiceLocator.Resolve<CraneApi>();
-                    assemblyInfoPath =
-                        craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"))
-                            .Solution.Projects.First(p => p.Name == "ServiceStack")
-                            .AssemblyInfo.Path;
                 });
 
             "When I update the assembly info using powershell"
-                ._(() => commandResult = apiRunner.Run("Update-CraneAssemblyInfo -Path {0} -Version \"1.2.3.4\"", assemblyInfoPath));
+                ._(() => commandResult = apiRunner.Run(@"(Get-CraneSolutionContext -Path {0}).Solution.Projects ", projectDir));
 
             "Then the assembly info file should be patched"
                 ._(
                     () =>
-                        craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"))
+                        craneApi.GetSolutionContext(projectDir)
                             .Solution.Projects.First(p => p.Name == "ServiceStack")
-                            .AssemblyInfo.Version.ToString().Should().Be("1.2.3.4"));
+                            .AssemblyInfo.Description.Should().Be("Test Description"));
 
             "And there should be no error"
                 ._(() => commandResult.Should().BeErrorFree());
 
             "It should write the solution context to the powershell pipeline"
                 ._(() => commandResult.StandardOutput.Should()
-                    .Contain(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack")))
+                    .Contain(projectDir))
                 .Teardown(() => craneTestContext.TearDown());
         }
     }
