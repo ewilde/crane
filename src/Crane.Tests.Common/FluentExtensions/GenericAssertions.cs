@@ -30,7 +30,11 @@ namespace Crane.Tests.Common.FluentExtensions
         ///             </param>
         public AndConstraint<GenericAssertions<T>> Be(T expected, string because = "", params object[] reasonArgs)
         {
-            Execute.Assertion.BecauseOf(because, reasonArgs).ForCondition(this.Subject.Equals(expected)).FailWith("Expected {context:object} to be {0}{reason}, but found {1}.", expected, this.Subject);
+            using (var assertionScope = Execute.Assertion)
+            {
+                assertionScope.BecauseOf(because, reasonArgs).ForCondition(this.Subject.Equals(expected)).FailWith("Expected {context:object} to be {0}{reason}, but found {1}.", expected, this.Subject);                
+            }
+
             return new AndConstraint<GenericAssertions<T>>(this);
         }
 
@@ -44,10 +48,14 @@ namespace Crane.Tests.Common.FluentExtensions
         ///             </param>
         public AndConstraint<GenericAssertions<T>> NotBe(T unexpected, string because = "", params object[] reasonArgs)
         {
-            Execute.Assertion.ForCondition(!this.Subject.Equals(unexpected)).BecauseOf(because, reasonArgs).FailWith("Did not expect {context:object} to be equal to {0}{reason}.", new object[1]
-      {
-        unexpected
-      });
+            using (var assertionScope = Execute.Assertion)
+            {
+                assertionScope.ForCondition(!this.Subject.Equals(unexpected)).BecauseOf(because, reasonArgs).FailWith("Did not expect {context:object} to be equal to {0}{reason}.", new object[1]
+                {
+                    unexpected
+                });
+            }
+
             return new AndConstraint<GenericAssertions<T>>(this);
         }
     }
