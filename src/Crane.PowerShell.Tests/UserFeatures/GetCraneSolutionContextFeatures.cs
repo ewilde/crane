@@ -8,7 +8,7 @@ using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
-namespace Crane.Integration.Tests.UserFeatures.Powershell
+namespace Crane.PowerShell.Tests.UserFeatures
 {
     public class GetCraneSolutionContextFeatures
     {
