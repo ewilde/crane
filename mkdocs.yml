@@ -10,4 +10,5 @@ pages:
  - ['help.md', 'Commands', 'help']
  - ['init.md', 'Commands', 'init']
  - ['listcommands.md', 'Commands', 'listcommands']
+ - ['contribution-guidelines.md', 'About', 'Contribution guildines']
  - ['contributors.md', 'About', 'Contributors']
