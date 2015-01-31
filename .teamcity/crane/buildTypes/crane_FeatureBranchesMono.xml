@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="e68c8332-5712-41db-8452-def061ee6346" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>feature branches - mono</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowExternalStatus" value="true" />
+      <option name="cleanBuild" value="true" />
+    </options>
+    <parameters>
+      <param name="branch.default" value="refs/heads/develop" />
+      <param name="branch.specification"><![CDATA[+:refs/heads/*
+-:refs/heads/master]]></param>
+      <param name="chocolatey.api.key" value="zxxe10d1f514444181d8220131010da6206bf932b2d40d24b09e00c530493f5025af894f7d1f490d06a" spec="password display='normal'" />
+      <param name="chocolatey.api.url" value="http://localhost:8080/" />
+      <param name="crane.buildnumber" value="0" />
+      <param name="vcs.checkout.rules" value="+:/" />
+      <param name="vcs.trigger.rules"><![CDATA[-:user=cranebuild
++:/src
++:/build]]></param>
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_4" name="Compile (xbuild)" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[mono /usr/bin/nuget restore %teamcity.build.checkoutDir%/src/Crane.sln
+xbuild %teamcity.build.checkoutDir%/src/Crane.sln
+mono %teamcity.build.checkoutDir%/src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe %teamcity.build.checkoutDir%/src/Crane.Core.Tests/bin/Debug/Crane.Core.Tests.dll /teamcity
+mono %teamcity.build.checkoutDir%/src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe %teamcity.build.checkoutDir%/src/Crane.Integration.Tests/bin/Debug/Crane.Integration.Tests.dll /teamcity]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="crane_CraneGit">
+        <checkout-rule rule="%vcs.checkout.rules%" />
+      </vcs-entry-ref>
+    </vcs-settings>
+    <requirements>
+      <equals name="system.agent.name" value="Linux Agent" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="perCheckinTriggering" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+          <param name="triggerRules" value="%vcs.trigger.rules%" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <cleanup />
+  </settings>
+</build-type>
+

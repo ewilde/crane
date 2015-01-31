@@ -2,8 +2,9 @@ crane [![Appveyor build status](https://ci.appveyor.com/api/projects/status/0ej0
 =====
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/ewilde/crane?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![Crane logo](doc/crane.png)
 > Builds you into the pit of success
+
+<img src="doc/crane_with_padding.png" align="left" />
 
 We hate writing build scripts and continuous integration (ci) templates every time
 we start a new project or when we work on a project that does not have them. I'm sure you do as well. This is where `crane`comes in.
