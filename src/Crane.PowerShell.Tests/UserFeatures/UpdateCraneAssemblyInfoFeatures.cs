@@ -12,7 +12,7 @@ using Xbehave;
 
 namespace Crane.PowerShell.Tests.UserFeatures
 {
-    public class AddCraneAssemblyInfoFeatures
+    public class UpdateCraneAssemblyInfoFeatures
     {
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, 
@@ -24,6 +24,9 @@ namespace Crane.PowerShell.Tests.UserFeatures
             "And I have my powershell api runner"
                 ._(() => apiRunner = new PowerShellApiRunner(craneTestContext, TimeSpan.FromSeconds(15)));
 
+            "And I have a crane api"
+                ._(() => craneApi = ServiceLocator.Resolve<ICraneApi>());
+
             "And I have initialized a project called ServiceStack"
                 ._(() =>
                 {
@@ -34,22 +37,29 @@ namespace Crane.PowerShell.Tests.UserFeatures
                 });
 
             "When I update the assembly info using powershell"
-                ._(() => commandResult = apiRunner.Run(@"(Get-CraneSolutionContext -Path {0}).Solution.Projects ", projectDir));
+                ._(() => commandResult = apiRunner.Run(@"(Get-CraneSolutionContext -Path '{0}').Solution.Projects | % {{ $_.AssemblyInfo.Description = $_.Name + ' Project'; $_.AssemblyInfo.Version = '1.2.3.4'; Update-CraneAssemblyInfo $_ }}", projectDir));
 
-            "Then the assembly info file should be patched"
+            "Then the assembly info file should be patched for each project"
                 ._(
                     () =>
+                    { 
+                        var projects =
                         craneApi.GetSolutionContext(projectDir)
-                            .Solution.Projects.First(p => p.Name == "ServiceStack")
-                            .AssemblyInfo.Description.Should().Be("Test Description"));
+                            .Solution.Projects.ToList();
+
+                        foreach (var project in projects)
+                        {
+                            project.AssemblyInfo.Description.Should().Be(string.Format("{0} Project", project.Name));
+                            project.AssemblyInfo.Version.Should().Be(new Version(1, 2, 3, 4));
+                        }
+                            
+                    });
 
             "And there should be no error"
-                ._(() => commandResult.Should().BeErrorFree());
-
-            "It should write the solution context to the powershell pipeline"
-                ._(() => commandResult.StandardOutput.Should()
-                    .Contain(projectDir))
+                ._(() => commandResult.Should().BeErrorFree())
                 .Teardown(() => craneTestContext.TearDown());
+
+        
         }
     }
 }

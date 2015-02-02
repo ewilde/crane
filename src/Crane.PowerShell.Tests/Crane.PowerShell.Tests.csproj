@@ -67,7 +67,7 @@
     <Compile Include="Features\GetCraneSolutionContextFeatures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFeatures\GetCraneSolutionContextFeatures.cs" />
-    <Compile Include="UserFeatures\AddCraneAssemblyInfoFeatures.cs" />
+    <Compile Include="UserFeatures\UpdateCraneAssemblyInfoFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

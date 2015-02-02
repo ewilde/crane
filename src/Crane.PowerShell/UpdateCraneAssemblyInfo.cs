@@ -5,10 +5,10 @@ using log4net;
 
 namespace Crane.PowerShell
 {
-    [Cmdlet(VerbsCommon.Add, "CraneAssemblyInfo"), OutputType(typeof(ISolutionContext))]
-    public class AddCraneAssemblyInfo : CraneCmdlet
+    [Cmdlet("Update", "CraneAssemblyInfo"), OutputType(typeof(ISolutionContext))]
+    public class UpdateCraneAssemblyInfo : CraneCmdlet
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(AddCraneAssemblyInfo));
+        private static readonly ILog _log = LogManager.GetLogger(typeof(UpdateCraneAssemblyInfo));
 
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
         public Project Project
