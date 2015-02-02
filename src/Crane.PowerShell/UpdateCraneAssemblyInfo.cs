@@ -1,16 +1,17 @@
 ﻿using System.Management.Automation;
 using Crane.Core.Api;
+using Crane.Core.Api.Model;
 using log4net;
 
 namespace Crane.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "CraneSolutionContext"), OutputType(typeof(ISolutionContext))]
-    public class GetCraneSolutionContext : CraneCmdlet
+    [Cmdlet("Update", "CraneAssemblyInfo"), OutputType(typeof(ISolutionContext))]
+    public class UpdateCraneAssemblyInfo : CraneCmdlet
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(GetCraneSolutionContext));
-        
+        private static readonly ILog _log = LogManager.GetLogger(typeof(UpdateCraneAssemblyInfo));
+
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
-        public string Path
+        public Project Project
         {
             get;
             set;
@@ -25,7 +26,8 @@ namespace Crane.PowerShell
 
         internal override void Process()
         {
-            WriteObject(Api.GetSolutionContext(Path));                        
+            Api.PatchAssemblyInfo(Project.AssemblyInfo);
+            WriteVerbose(string.Format("AssemblyInfo file: {0} Updated.", Project.AssemblyInfo.Path));
         }
     }
 }

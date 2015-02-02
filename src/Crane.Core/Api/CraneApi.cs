@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Crane.Core.Api.Builders;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
@@ -30,7 +29,15 @@ namespace Crane.Core.Api
         {
             var context = _solutionContext();
             context.Path = rootFolderPath;
-            context.Solution = _solutionReader.FromPath(Path.Combine(rootFolderPath, GetRelativePathToSolution(rootFolderPath)));
+            if (rootFolderPath.EndsWith(".sln"))
+            {
+                context.Solution = _solutionReader.FromPath(rootFolderPath);
+            }
+            else
+            {
+                context.Solution =
+                    _solutionReader.FromPath(Path.Combine(rootFolderPath, GetRelativePathToSolution(rootFolderPath)));
+            }
             context.Solution.SolutionContext = context;
             return context;
         }

@@ -37,6 +37,13 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FubuCore">
+      <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FubuCsProjFile.1.8.0.151\lib\net40\FubuCsProjFile.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -60,11 +67,16 @@
     <Compile Include="Features\GetCraneSolutionContextFeatures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFeatures\GetCraneSolutionContextFeatures.cs" />
+    <Compile Include="UserFeatures\UpdateCraneAssemblyInfoFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crane.Console\Crane.Console.csproj">
+      <Project>{a3d16941-0ca5-4108-b5c9-7da47a46f1c7}</Project>
+      <Name>Crane.Console</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crane.Core\Crane.Core.csproj">
       <Project>{064704F3-134F-4E27-8A80-6D6F8420F17E}</Project>
       <Name>Crane.Core</Name>
@@ -80,6 +92,13 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /E /I $(MSBuildProjectDirectory)\..\Crane.Templates Templates</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

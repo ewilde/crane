@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdateCraneAssemblyInfo.cs" />
     <Compile Include="CraneCmdlet.cs" />
     <Compile Include="Get-CraneSolutionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

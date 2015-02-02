@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>  
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.dll</HintPath>
@@ -78,7 +78,8 @@
   <ItemGroup>
     <Compile Include="EnableNCrunch.cs" />
     <Compile Include="Features\Api\Builders\SolutionBuilderFeatures.cs" />
-    <Compile Include="Features\Api\CraneApiFeatures.cs" />
+    <Compile Include="Features\Api\CraneApiReadingFeatures.cs" />
+    <Compile Include="Features\Api\CraneApiWritingFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />
     <Compile Include="Features\Model\Mappers\FubuSolutionMapperFeatures.cs" />
