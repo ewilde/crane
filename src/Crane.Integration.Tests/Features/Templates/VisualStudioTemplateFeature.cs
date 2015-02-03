@@ -52,11 +52,23 @@ namespace Crane.Integration.Tests.Features.Templates
                 ._(() => File.Exists(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack"))).Should().BeTrue());
 
             "It should replace the tokens in the nuget specification file"
-                ._(() =>File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack")))
+                ._(() => File.ReadAllText(Path.Combine(context.SourceDirectory.FullName, "ServiceStack", string.Format("{0}.nuspec", "ServiceStack")))
                     .Should().NotContain("%username%")
                     .And.NotContain("%context.ProjectName%")
-                    .And.NotContain("%DateTime.Now.Year%"))
-                .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
+                    .And.NotContain("%DateTime.Now.Year%"));
+
+            "It should create a .gitignore file in the project root"
+                ._(() =>
+                  File.Exists(Path.Combine(context.ProjectRootDirectory.FullName, ".gitignore"))
+                    .Should().Be(true)
+                );
+
+            "It should create a .gitattributes file in the project root"
+              ._(() =>
+                File.Exists(Path.Combine(context.ProjectRootDirectory.FullName, ".gitattributes"))
+                  .Should().Be(true)
+              )
+              .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));
         }
     }
 }
