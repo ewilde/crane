@@ -7,5 +7,5 @@ pages:
  - ['index.md', 'Home', 'Introduction']
  - ['faq.md', 'Home', 'FAQ']
 %crane.commandpages%
- - ['contribution-guidelines.md', 'About', 'Contribution guildines']
+ - ['contribution-guidelines.md', 'About', 'Contribution guidelines']
  - ['contributors.md', 'About', 'Contributors']
