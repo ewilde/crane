@@ -13,16 +13,18 @@ namespace Crane.Core.Api
         private readonly IAssemblyInfoWriter _assemblyInfoWriter;
         private readonly Func<ISolutionContext> _solutionContext;
         private readonly ISolutionPathResolver _solutionPathResolver;
+        private readonly ISourceControlInformationReader _sourceControlInformationReader;
 
         public CraneApi(
             ISolutionReader solutionReader,
             IAssemblyInfoWriter assemblyInfoWriter,
-            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver)
+            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver, ISourceControlInformationReader sourceControlInformationReader)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
             _solutionContext = solutionContext;
             _solutionPathResolver = solutionPathResolver;
+            _sourceControlInformationReader = sourceControlInformationReader;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
@@ -47,9 +49,9 @@ namespace Crane.Core.Api
             _assemblyInfoWriter.Patch(assemblyInfo);            
         }
 
-        public ISourceControlInformation GetSourceInformation(ISolutionContext solutionContext)
+        public ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext)
         {
-            throw new NotImplementedException();
+            return _sourceControlInformationReader.ReadSourceControlInformation(solutionContext);
         }
 
     }

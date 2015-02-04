@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Timers;
+using Crane.Core.Runners;
 using Crane.Tests.Common.Context;
 using log4net;
 

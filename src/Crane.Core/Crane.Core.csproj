@@ -69,6 +69,7 @@
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
+    <Compile Include="Api\GitSourceControlInformation.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
     <Compile Include="Api\ISourceControlInformation.cs" />
@@ -81,7 +82,9 @@
     <Compile Include="Api\Model\ProjectFile.cs" />
     <Compile Include="Api\Model\Solution.cs" />
     <Compile Include="Api\Readers\FubuSolutionReader.cs" />
+    <Compile Include="Api\Readers\GitSourceControlInformationReader.cs" />
     <Compile Include="Api\Readers\ISolutionReader.cs" />
+    <Compile Include="Api\Readers\ISourceControlInformationReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />
     <Compile Include="Api\Writers\IAssemblyInfoWriter.cs" />
@@ -171,6 +174,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Runners\Git.cs" />
+    <Compile Include="Runners\RunResult.cs" />
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\HostEnvironment.cs" />
     <Compile Include="System\IGuidGenerator.cs" />

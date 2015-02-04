@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Crane.Core.Api;
 using Crane.Core.Configuration;
+using Crane.Core.Runners;
 using Crane.Tests.Common.Context;
 using Crane.Tests.Common.Runners;
 using FluentAssertions;

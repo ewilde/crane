@@ -7,6 +7,6 @@ namespace Crane.Core.Api
         ISolutionContext GetSolutionContext(string rootFolderPath);
 
         void PatchAssemblyInfo(AssemblyInfo assemblyInfo);
-        ISourceControlInformation GetSourceInformation(ISolutionContext solutionContext);
+        ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext);
     }
 }

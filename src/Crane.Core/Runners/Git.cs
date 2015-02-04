@@ -2,11 +2,11 @@
 using System.Text;
 using log4net;
 
-namespace Crane.Tests.Common.Runners
+namespace Crane.Core.Runners
 {
     public class Git
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(BuildScriptRunner));
+        private static readonly ILog _log = LogManager.GetLogger(typeof(Git));
 
         public RunResult Run(string command, string workingDirectory)
         {
