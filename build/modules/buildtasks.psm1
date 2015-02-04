@@ -116,20 +116,7 @@ function Invoke-GenerateAssemblyInfo{
 Task PatchAssemblyInfo -Depends SetupContext, LoadCranePowerShellModule {
   $version = $global:context.build_version
 
-  $solutionContext = Get-CraneSolutionContext -Path $($global:context.sln_file_info)
-
-  $solutionContext.Solution.Projects | % {
-    
-    if ($_.AssemblyInfo -ne $null){
-      $_.AssemblyInfo.Version = $version
-      $_.AssemblyInfo.Title = $_.Name
-      $_.AssemblyInfo.Description = $_.Name.Replace(".", " ") + " functionality"
-      $result = Update-CraneAssemblyInfo $_
-      Write-Host $result
-    }
-  }
-
-  <#
+  
   $assemblyInfoFiles = Get-ChildItem -Path $($global:context.root_dir) -Filter "AssemblyInfo.cs" -Recurse  | 
                         Where { -not $_.FullName.Contains("Templates\") -and -not $_.FullName.Contains("\bin\") }
                         
@@ -141,7 +128,7 @@ Task PatchAssemblyInfo -Depends SetupContext, LoadCranePowerShellModule {
 
 
   }
-  #>
+  
   
   if ($($global:context.teamcity_build)) {
     Write-Host "##teamcity[buildNumber '$version']"
