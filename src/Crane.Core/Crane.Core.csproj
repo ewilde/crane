@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>  
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -71,6 +71,7 @@
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
+    <Compile Include="Api\ISourceControlInformation.cs" />
     <Compile Include="Api\Model\AssemblyInfoModel.cs" />
     <Compile Include="Api\Model\Mappers\FubuProjectMapper.cs" />
     <Compile Include="Api\Model\Mappers\FubuSolutionMapper.cs" />

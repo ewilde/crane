@@ -30,4 +30,6 @@ namespace Crane.PowerShell
             WriteVerbose(string.Format("AssemblyInfo file: {0} Updated.", Project.AssemblyInfo.Path));
         }
     }
+
+    
 }

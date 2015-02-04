@@ -78,7 +78,8 @@
   <ItemGroup>
     <Compile Include="EnableNCrunch.cs" />
     <Compile Include="Features\Api\Builders\SolutionBuilderFeatures.cs" />
-    <Compile Include="Features\Api\CraneApiReadingFeatures.cs" />
+    <Compile Include="Features\Api\CraneApiGetSolutionContextFeature.cs" />
+    <Compile Include="Features\Api\CraneApiGetSourceControlInformationFeature.cs" />
     <Compile Include="Features\Api\CraneApiWritingFeatures.cs" />
     <Compile Include="Features\Commands\CommandFactoryFeature.cs" />
     <Compile Include="Features\Documentation\CommandHelpCollectionFeature.cs" />

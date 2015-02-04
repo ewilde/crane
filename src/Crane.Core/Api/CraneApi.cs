@@ -36,7 +36,7 @@ namespace Crane.Core.Api
             else
             {
                 context.Solution =
-                    _solutionReader.FromPath(Path.Combine(rootFolderPath, GetRelativePathToSolution(rootFolderPath)));
+                    _solutionReader.FromPath(Path.Combine(rootFolderPath, _solutionPathResolver.GetPath(rootFolderPath)));
             }
             context.Solution.SolutionContext = context;
             return context;
@@ -47,9 +47,10 @@ namespace Crane.Core.Api
             _assemblyInfoWriter.Patch(assemblyInfo);            
         }
 
-        private string GetRelativePathToSolution(string rootFolderPath)
+        public ISourceControlInformation GetSourceInformation(ISolutionContext solutionContext)
         {
-            return _solutionPathResolver.GetPath(rootFolderPath);
+            throw new NotImplementedException();
         }
+
     }
 }

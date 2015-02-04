@@ -9,7 +9,7 @@ using Xbehave;
 
 namespace Crane.Integration.Tests.Features.Api
 {
-    public class CraneApiReadingFeatures
+    public class CraneApiGetSolutionContextFeature
     {
         [Scenario]
         public void Api_can_read_a_solution_with_multiple_projects(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
@@ -115,7 +115,6 @@ namespace Crane.Integration.Tests.Features.Api
                     solutionContext.Solution.CodeProjects.Count().Should().Be(1);
                     solutionContext.Solution.CodeProjects.First().Name.Should().Be("ServiceStack");
                 }).Teardown(() => craneTestContext.TearDown());
-
         }
     }
 }

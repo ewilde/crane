@@ -14,5 +14,6 @@ namespace Crane.Core.Api
         /// The main solution associated with this project
         /// </summary>
         Solution Solution { get; set; }
+
     }
 }

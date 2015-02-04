@@ -58,17 +58,6 @@ function Debug($message){
   Write-Verbose $message
 }
 
-
-function Get-GitCommit{
-  $gitLog = git log --oneline -1
-  return $gitLog.Split(' ')[0]
-}
-
-function Get-VersionFromGitTag{
-  $gitTag = git describe --tags --abbrev=0
-  return $gitTag.Replace("v", "") + ".0"
-}
-
 function Read-GitCommitMessage{
   $gitLog = git log --oneline -1
   
