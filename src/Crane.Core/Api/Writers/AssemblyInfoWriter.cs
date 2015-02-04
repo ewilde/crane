@@ -22,8 +22,13 @@ namespace Crane.Core.Api.Writers
             var lines = this._fileManager.ReadAllText(assemblyInfo.Path).Lines();
             this.UpdateLine(lines, "AssemblyTitle", assemblyInfo.Title);
             this.UpdateLine(lines, "AssemblyDescription", assemblyInfo.Description);
-            this.UpdateLine(lines, "AssemblyVersion", assemblyInfo.Version.ToString());
-            this.UpdateLine(lines, "AssemblyFileVersion", assemblyInfo.FileVersion.ToString());
+
+            if (assemblyInfo.Version != null)
+                this.UpdateLine(lines, "AssemblyVersion", assemblyInfo.Version.ToString());
+
+            if (assemblyInfo.FileVersion != null)
+                this.UpdateLine(lines, "AssemblyFileVersion", assemblyInfo.FileVersion.ToString());
+
             this.UpdateLine(lines, "AssemblyInformationalVersionAttribute", assemblyInfo.InformationalVersion);
 
             var result = new StringBuilder();

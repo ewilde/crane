@@ -37,5 +37,17 @@ namespace Crane.Core.Api.Model
         public Solution Solution { get; set; }
 
         public IList<ProjectFile> Files { get; set; }
+
+        public bool TestProject
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    return false;
+                }
+                return Name.ToUpper().EndsWith("TESTS");
+            }
+        }
     }
 }
