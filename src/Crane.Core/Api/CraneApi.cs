@@ -51,9 +51,26 @@ namespace Crane.Core.Api
 
         public void PatchSolutionAssemblyInfo(ISolutionContext solutionContext, string version)
         {
+            var sourceControlInformation = GetSourceControlInformation(solutionContext);
+
+
             foreach (var project in solutionContext.Solution.Projects)
             {
-                project.AssemblyInfo.Version = new Version(version);
+                var ver = new Version(version);
+                project.AssemblyInfo.Version = ver;
+                project.AssemblyInfo.FileVersion = ver;
+
+                if (sourceControlInformation == null)
+                {
+                    project.AssemblyInfo.InformationalVersion = ver.ToString();
+                }
+                else
+                {
+                    project.AssemblyInfo.InformationalVersion = string.Format("{0} / {1}", ver,
+                        sourceControlInformation.LastCommitMessage);
+                }
+
+
                 _assemblyInfoWriter.Patch(project.AssemblyInfo);
             }    
         }
