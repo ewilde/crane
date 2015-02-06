@@ -6,7 +6,8 @@ namespace Crane.Core.Templates
     {
         public static bool IsTextFile(this FileInfo fileInfo)
         {
-            return !fileInfo.Extension.Equals(".exe");
+            return !fileInfo.Extension.Equals(".exe") &&
+                   !fileInfo.Extension.Equals(".dll");
         }
     }
 }
