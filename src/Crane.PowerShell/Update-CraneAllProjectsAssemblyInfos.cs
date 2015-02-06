@@ -5,13 +5,13 @@ using log4net;
 
 namespace Crane.PowerShell
 {
-    [Cmdlet("Update", "CraneAllProjectsAssemblyInfos"), OutputType(typeof(ISolutionContext))]
+    [Cmdlet("Update", "CraneAllProjectsAssemblyInfos")]
     public class UpdateCraneAllProjectsAssemblyInfos : CraneCmdlet
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(UpdateCraneAssemblyInfo));
+        private static readonly ILog _log = LogManager.GetLogger(typeof(UpdateCraneAllProjectsAssemblyInfos));
 
         [Parameter(Position = 0, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
-        public string Path
+        public ISolutionContext SolutionContext
         {
             get;
             set;
@@ -33,8 +33,7 @@ namespace Crane.PowerShell
 
         internal override void Process()
         {
-            var solutionContext = Api.GetSolutionContext(Path);
-            Api.PatchSolutionAssemblyInfo(solutionContext, Version);
+            Api.PatchSolutionAssemblyInfo(SolutionContext, Version);
         }
     }
 }
