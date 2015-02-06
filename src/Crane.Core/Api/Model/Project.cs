@@ -46,7 +46,7 @@ namespace Crane.Core.Api.Model
                 {
                     return false;
                 }
-                return Name.ToUpper().EndsWith("TESTS");
+                return Name.ToUpper().Contains("TESTS");
             }
         }
     }

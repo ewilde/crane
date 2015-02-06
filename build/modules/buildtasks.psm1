@@ -48,8 +48,6 @@ Task Test -Depends SetupContext {
   }
 }
 
-
-
 Task PatchAssemblyInfo -Depends SetupContext {
   $version = $global:context.build_version
 
