@@ -38,7 +38,7 @@ namespace Crane.PowerShell.Tests.UserFeatures
                 });
 
             "When I update the solution assembly infos"
-                ._(() => commandResult = apiRunner.Run(@"Update-CraneAllProjectsAssemblyInfos -Path '{0}' -Version '4.5.6.7'", projectDir));
+                ._(() => commandResult = apiRunner.Run(@"$context = Get-CraneSolutionContext -Path '{0}'; Update-CraneAllProjectsAssemblyInfos -SolutionContext $context -Version '4.5.6.7'", projectDir));
 
             "Then there should be no error"
                ._(() => commandResult.Should().BeErrorFree());

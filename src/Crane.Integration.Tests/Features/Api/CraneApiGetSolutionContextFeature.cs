@@ -37,6 +37,9 @@ namespace Crane.Integration.Tests.Features.Api
                             .Be(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "src",
                                 "ServiceStack.sln")));
 
+            "It should set the solution context path to the root folder"
+                ._(() => solutionContext.Path.Should().Be(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack")));
+
             "It should have 2 projects"
                 ._(() => solutionContext.Solution.Projects.Count().Should().Be(2));
 
@@ -72,6 +75,9 @@ namespace Crane.Integration.Tests.Features.Api
                 ._(() => solutionContext.Solution.Path.Should()
                             .Be(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "src",
                                 "ServiceStack.sln")));
+
+            "It should set the solution context path to the root folder"
+                ._(() => solutionContext.Path.Should().Be(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "src")));
 
             "It should have 2 projects"
                 ._(() => solutionContext.Solution.Projects.Count().Should().Be(2));

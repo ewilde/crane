@@ -31,15 +31,17 @@ namespace Crane.Core.Api
         public ISolutionContext GetSolutionContext(string rootFolderPath)
         {
             var context = _solutionContext();
-            context.Path = rootFolderPath;
+            
             if (rootFolderPath.EndsWith(".sln"))
             {
                 context.Solution = _solutionReader.FromPath(rootFolderPath);
+                context.Path = new FileInfo(rootFolderPath).DirectoryName;
             }
             else
             {
                 context.Solution =
                     _solutionReader.FromPath(Path.Combine(rootFolderPath, _solutionPathResolver.GetPath(rootFolderPath)));
+                context.Path = rootFolderPath;
             }
             context.Solution.SolutionContext = context;
             return context;
