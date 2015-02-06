@@ -29,7 +29,7 @@ namespace Crane.Core.Api.Writers
             if (assemblyInfo.FileVersion != null)
                 this.UpdateLine(lines, "AssemblyFileVersion", assemblyInfo.FileVersion.ToString());
 
-            this.UpdateLine(lines, "AssemblyInformationalVersionAttribute", assemblyInfo.InformationalVersion);
+            this.UpdateLine(lines, "AssemblyInformationalVersion", assemblyInfo.InformationalVersion);
 
             var result = new StringBuilder();
             Array.ForEach(lines, s => result.AppendLine(s));

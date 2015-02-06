@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
@@ -54,7 +55,7 @@ namespace Crane.Core.Api
             var sourceControlInformation = GetSourceControlInformation(solutionContext);
 
 
-            foreach (var project in solutionContext.Solution.Projects)
+            foreach (var project in solutionContext.Solution.Projects.Where(p => !p.TestProject))
             {
                 var ver = new Version(version);
                 project.AssemblyInfo.Version = ver;

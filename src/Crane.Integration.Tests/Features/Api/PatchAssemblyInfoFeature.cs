@@ -7,6 +7,7 @@ using Crane.Core.Configuration;
 using Crane.Core.Runners;
 using Crane.Tests.Common;
 using Crane.Tests.Common.Context;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using Xbehave;
 
@@ -226,6 +227,70 @@ namespace Crane.Integration.Tests.Features.Api
                                     .Should()
                                     .BeTrue())
                   .Teardown(() => context.TearDown());
+        }
+
+        [ScenarioIgnoreOnMono("suspect fubucsprojfile does not work on mono")]
+        public void patch_solution_assembly_should_only_patch_non_test_projects(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
+            ISolutionContext solutionContext, ICraneApi craneApi, AssemblyInfo originalAssemblyInfo)
+        {
+            "Given I have my own private copy of the crane console"
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
+
+            "And I have a run context"
+                ._(() => craneRunner = new CraneRunner());
+
+            "And I have an instance of the crane api"
+                ._(() => craneApi = ServiceLocator.Resolve<ICraneApi>());
+
+            "And I have run crane init ServiceStack"
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+
+            "And I have got the solution context using the api"
+                ._(() =>
+                {
+                    craneApi = ServiceLocator.Resolve<ICraneApi>();
+                    solutionContext = craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
+                    originalAssemblyInfo =
+                        solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack.UnitTests").AssemblyInfo;
+                });
+
+            "And I have created one a solution with one code project called ServiceStack"
+                ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack").TestProject.Should().BeFalse());
+
+            "And I have created one a solution with one test project called ServiceStack.UnitTests"
+                ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack.UnitTests").TestProject.Should().BeTrue());
+
+            "When I path the solution assembly info for all projects"
+                ._(() =>
+                {
+                    craneApi.PatchSolutionAssemblyInfo(solutionContext, "1.2.3.4");
+                    solutionContext = craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
+                });
+
+            "It should patch the code project's assemblyinfo version"
+                ._(() => solutionContext.Solution.Projects.First(p => !p.TestProject)
+                    .AssemblyInfo.Version.ToString().Should().Be( "1.2.3.4"));
+
+            "It should patch the code project's assemblyinfo file version"
+                ._(() => solutionContext.Solution.Projects.First(p => !p.TestProject)
+                    .AssemblyInfo.FileVersion.ToString().Should().Be("1.2.3.4"));
+
+            "It should patch the code project's assemblyinfo file informational version"
+                ._(() => solutionContext.Solution.Projects.First(p => !p.TestProject)
+                    .AssemblyInfo.InformationalVersion.Should().Be("1.2.3.4"));
+
+            "It should not patch the test project's assemblyinfo version"
+                ._(() => solutionContext.Solution.Projects.First(p => p.TestProject)
+                    .AssemblyInfo.Version.Should().Be(originalAssemblyInfo.Version));
+
+            "It should not patch the test project's assemblyinfo file version"
+                ._(() => solutionContext.Solution.Projects.First(p => p.TestProject)
+                    .AssemblyInfo.FileVersion.Should().Be(originalAssemblyInfo.FileVersion));
+
+            "It should not patch the test project's file informational version"
+                ._(() => solutionContext.Solution.Projects.First(p => p.TestProject)
+                    .AssemblyInfo.InformationalVersion.Should().Be(originalAssemblyInfo.InformationalVersion))
+                    .Teardown(() => craneTestContext.TearDown());
         }
     }
 }
