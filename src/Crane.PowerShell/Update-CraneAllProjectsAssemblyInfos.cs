@@ -33,8 +33,8 @@ namespace Crane.PowerShell
 
         internal override void Process()
         {
-            
-            
+            var solutionContext = Api.GetSolutionContext(Path);
+            Api.PatchSolutionAssemblyInfo(solutionContext, Version);
         }
     }
 }
