@@ -57,7 +57,7 @@ namespace Crane.Core.Api
             var sourceControlInformation = GetSourceControlInformation(solutionContext);
 
 
-            foreach (var project in solutionContext.Solution.Projects.Where(p => !p.TestProject))
+            foreach (var project in solutionContext.Solution.Projects.Where(p => !p.TestProject && p.AssemblyInfo != null))
             {
                 var ver = new Version(version);
                 project.AssemblyInfo.Version = ver;
