@@ -10,7 +10,7 @@ namespace Crane.Tests.Common.Runners
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(BuildScriptRunner));
 
-        public RunResult Run(string projectRootPath)
+        public RunResult Run(string projectRootPath, string taskList = "@('PatchAssemblyInfo', 'BuildSolution', 'Test')")
         {
             var buildps1 = Path.Combine(projectRootPath, "build.ps1");
             if (!File.Exists(buildps1))
@@ -28,7 +28,7 @@ namespace Crane.Tests.Common.Runners
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} @('PatchAssemblyInfo', 'BuildSolution', 'Test')\"", buildps1)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} {1}\"", buildps1, taskList)
                 }
             };
 

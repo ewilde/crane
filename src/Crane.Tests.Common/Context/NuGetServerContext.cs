@@ -25,6 +25,18 @@ namespace Crane.Tests.Common.Context
 
         private static readonly ILog _log = LogManager.GetLogger(typeof(NuGetServerContext));
         private readonly ManualResetEvent _waitForStarted;
+        private static readonly Uri uri = new Uri("http://localhost:8080/api/");
+        public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
+
+        public Uri ApiUri
+        {
+            get { return uri; }
+        }
+
+        public string ApiKey
+        {
+            get { return LocalAdministratorApiKey; }
+        }
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
