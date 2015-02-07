@@ -5,7 +5,7 @@
 4. [Package and publish using nuget](#4nuget)
 5. [Package and publish using chocolatey](#5choco)
 6. [Build targets](#6targets)
-# 1.<a name="options"></a>Options
+# 1. Options
 
 ```bash
 

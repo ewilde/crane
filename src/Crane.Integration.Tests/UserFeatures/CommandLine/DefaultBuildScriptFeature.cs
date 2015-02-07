@@ -94,5 +94,20 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                })
                .Teardown(() => craneTestContext.TearDown()); 
         }
+
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
+        public void build_a_project_and_publish_to_nuget(NuGetServerContext nuGetServer, ICraneTestContext craneTestContext)
+        {
+              "Given I have my own private copy of the crane console"
+               ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
+
+            "And I have a nuget server running"
+                ._(() => nuGetServer = new NuGetServerContext(craneTestContext))
+                .Teardown(() =>
+                {
+                    nuGetServer.TearDown();
+                    craneTestContext.TearDown();
+                });
+        }
     }
 }

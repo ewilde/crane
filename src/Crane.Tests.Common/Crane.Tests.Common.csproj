@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\NuGetServerContext.cs" />
     <Compile Include="FluentExtensions\ConstraintExtensions.cs" />
     <Compile Include="FluentExtensions\GenericAssertions.cs" />
     <Compile Include="FluentExtensions\PlainFileExtensions.cs" />

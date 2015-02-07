@@ -121,6 +121,8 @@ build-output
 build/NuGet.exe
 chocolatey-output
 _NCrunch_*
+tools/klondie/App_Data/*
+!tools/klondie/bin
 
 # Xamarin studio specific
 *.userprefs

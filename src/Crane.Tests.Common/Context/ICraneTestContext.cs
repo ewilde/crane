@@ -11,5 +11,8 @@
         /// Root test context directory. Sub-folders will be 'doc', 'build-output' etc...
         /// </summary>
         string RootDirectory { get; }
+
+        string ToolsDirectory { get; }
+        void TearDown();
     }
 }
