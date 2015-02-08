@@ -40,6 +40,12 @@ namespace Crane.Tests.Common.Context
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
+            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
+            {
+                process.Kill();
+                _log.InfoFormat("Klondike.SelfHost {0}", "process killed");
+            }
+
             _testContext = testContext;
             _waitForStarted = new ManualResetEvent(false);
             _process = new Process

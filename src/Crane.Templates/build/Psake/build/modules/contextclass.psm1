@@ -13,7 +13,8 @@ $contextclass = new-object psobject -Property @{
   nuget_file = $null
   nuget_api_key = $null
   nuget_api_url = $null
-  solution_context = $null
+  nuget_artifacts_dir = $null
+  solution_context = $null  
 }
 
 function ContextClass {
@@ -31,6 +32,7 @@ function ContextClass {
   $context.sln_file_info = Get-Item -Path (Resolve-Path (Join-Path $psake_build_script_dir $relative_solution_path))
   $context.build_version = "$(Get-Content -Path "$($context.root_dir)\VERSION.txt").$($props.build_number)"
   $context.build_artifacts_dir = "$($context.root_dir)\build-output"
+  $context.nuget_artifacts_dir = "$($context.build_artifacts_dir)\nuget"
   $context.is_git_repo = Test-Path (Join-Path $context.root_dir '.git')
   $context.packages_folder = Join-Path $context.sln_file_info.Directory.FullName "packages"
 
