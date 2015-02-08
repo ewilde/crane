@@ -10,7 +10,6 @@ namespace Crane.Tests.Common.Context
     public class CraneTestContext : ICraneTestContext
     {
         private readonly IFileManager _fileManager;
-        private readonly DirectoryInfo _directory;
         private readonly DirectoryInfo _rootDirectory;
         private readonly DirectoryInfo _gitRepoRootDirectory;
         private static readonly ILog _log = LogManager.GetLogger(typeof(CraneTestContext));
@@ -20,7 +19,7 @@ namespace Crane.Tests.Common.Context
         /// </summary>
         public string BuildOutputDirectory
         {
-            get { return _directory.FullName; }
+            get { return Path.Combine(RootDirectory, "build-output"); }
         }
 
         /// <summary>
@@ -31,18 +30,36 @@ namespace Crane.Tests.Common.Context
             get { return _rootDirectory.FullName; }
         }
 
+        public string ToolsDirectory
+        {
+            get { return Path.Combine(RootDirectory, "tools"); }
+        }
+
+        private string CraneGitRepo
+        {
+            get { return _gitRepoRootDirectory.FullName; }
+        }
+
         public CraneTestContext(IFileManager fileManager)
         {
             _fileManager = fileManager;
             _rootDirectory = new DirectoryInfo(_fileManager.GetTemporaryDirectory());
-            _directory = System.IO.Directory.CreateDirectory(Path.Combine(_rootDirectory.FullName, "build-output"));
-            var currentDir = typeof (CraneTestContext).Assembly.GetLocation();
-            _gitRepoRootDirectory = GetGitRepoRootDirectory(currentDir);
-            _fileManager.CopyFiles(currentDir.FullName, _directory.FullName, true);
-            _log.DebugFormat("Copied integration test files from {0} to {1}", currentDir.FullName, _directory.FullName);
+            
+            Directory.CreateDirectory(BuildOutputDirectory);
+            var sourceDir = typeof (CraneTestContext).Assembly.GetLocation();
+            _gitRepoRootDirectory = GetGitRepoRootDirectory(sourceDir);
+            _fileManager.CopyFiles(sourceDir.FullName, BuildOutputDirectory, true);
+            _log.DebugFormat("Copied integration test files from {0} to {1}", sourceDir.FullName, BuildOutputDirectory);
 
-            File.Copy(Path.Combine(_gitRepoRootDirectory.FullName, "mkdocs.yml"), Path.Combine(_rootDirectory.FullName, "mkdocs.yml"));
+            File.Copy(Path.Combine(CraneGitRepo, "mkdocs.yml"), Path.Combine(RootDirectory, "mkdocs.yml"));
             _log.DebugFormat("Copied other mkdoc.yml from {0} to {1}", Path.Combine(_gitRepoRootDirectory.FullName, "mkdocs.yml"), Path.Combine(_rootDirectory.FullName, "mkdocs.yml"));
+
+            CopyTools();
+        }
+
+        private void CopyTools()
+        {
+            _fileManager.CopyFiles(Path.Combine(_gitRepoRootDirectory.FullName, "tools"), ToolsDirectory, true);
         }
 
         private static DirectoryInfo GetGitRepoRootDirectory(DirectoryInfo currentDir)
@@ -63,7 +80,7 @@ namespace Crane.Tests.Common.Context
             }
             catch (Exception exception)
             {
-                _log.Warn(string.Format("Error tearing down test, trying to delete temp directory {0}.", _directory.FullName), exception);
+                _log.Warn(string.Format("Error tearing down test, trying to delete temp directory {0}.", RootDirectory), exception);
             }            
         }
     }

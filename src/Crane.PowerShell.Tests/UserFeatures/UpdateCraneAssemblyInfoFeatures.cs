@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Crane.Core.Api;
 using Crane.Core.Configuration;
+using Crane.Core.Runners;
 using Crane.Tests.Common;
 using Crane.Tests.Common.Context;
 using Crane.Tests.Common.FluentExtensions;
@@ -12,10 +13,11 @@ using Xbehave;
 
 namespace Crane.PowerShell.Tests.UserFeatures
 {
-    public class UpdateCraneAssemblyInfoFeatures
+
+    public class UpdateCraneAllProjectsAssemblyInfosFeature
     {
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
-        public void can_get_crane_context(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult, 
+        public void should_update_all_code_assembly_infos(CraneTestContext craneTestContext, PowerShellApiRunner apiRunner, RunResult commandResult,
             ICraneApi craneApi, string projectDir)
         {
             "Given I have my own private copy of the crane console"
@@ -33,33 +35,23 @@ namespace Crane.PowerShell.Tests.UserFeatures
                     var craneRunner = new CraneRunner();
                     craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack");
                     projectDir = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack");
-
                 });
 
-            "When I update the assembly info using powershell"
-                ._(() => commandResult = apiRunner.Run(@"(Get-CraneSolutionContext -Path '{0}').Solution.Projects | % {{ $_.AssemblyInfo.Description = $_.Name + ' Project'; $_.AssemblyInfo.Version = '1.2.3.4'; Update-CraneAssemblyInfo $_ }}", projectDir));
+            "When I update the solution assembly infos"
+                ._(() => commandResult = apiRunner.Run(@"$context = Get-CraneSolutionContext -Path '{0}'; Update-CraneAllProjectsAssemblyInfos -SolutionContext $context -Version '4.5.6.7'", projectDir));
 
-            "Then the assembly info file should be patched for each project"
-                ._(
-                    () =>
-                    { 
-                        var projects =
-                        craneApi.GetSolutionContext(projectDir)
-                            .Solution.Projects.ToList();
+            "Then there should be no error"
+               ._(() => commandResult.Should().BeErrorFree());
 
-                        foreach (var project in projects)
-                        {
-                            project.AssemblyInfo.Description.Should().Be(string.Format("{0} Project", project.Name));
-                            project.AssemblyInfo.Version.Should().Be(new Version(1, 2, 3, 4));
-                        }
-                            
-                    });
+            "And the assembly info file should be patched for each code project"
+                ._(() =>
+                    craneApi.GetSolutionContext(projectDir).Solution.Projects.Where(p => !p.TestProject)
+                        .All(p => p.AssemblyInfo.Version.ToString() == "4.5.6.7")
+                        .Should()
+                        .BeTrue()
+                ).Teardown(() => craneTestContext.TearDown());
 
-            "And there should be no error"
-                ._(() => commandResult.Should().BeErrorFree())
-                .Teardown(() => craneTestContext.TearDown());
-
-        
+           
         }
     }
 }

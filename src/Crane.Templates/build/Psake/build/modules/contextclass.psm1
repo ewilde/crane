@@ -10,6 +10,10 @@ $contextclass = new-object psobject -Property @{
   chocolatey_api_url = $null
   teamcity_build = $null
   is_git_repo = $null
+  nuget_file = $null
+  nuget_api_key = $null
+  nuget_api_url = $null
+  solution_context = $null
 }
 
 function ContextClass {
@@ -33,7 +37,12 @@ function ContextClass {
   $context.configuration = $props.configuration
   $context.chocolatey_api_key = $props.chocolateyApiKey
   $context.chocolatey_api_url = $props.chocolateyApiUrl
+  $context.nuget_api_key = $props.nugetApiKey
+  $context.nuget_api_url = $props.nugetApiUrl
   $context.teamcity_build = $props.teamcityBuild
+
+  Import-Module "$($context.build_dir)\builtmodules\Crane.PowerShell.dll"
+  $context.solution_context = Get-CraneSolutionContext -Path $($context.sln_file_info)
 
   $context
 }

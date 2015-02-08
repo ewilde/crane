@@ -1,3 +1,4 @@
+using Crane.Core.Runners;
 using Crane.Tests.Common.Runners;
 
 namespace Crane.Tests.Common.FluentExtensions

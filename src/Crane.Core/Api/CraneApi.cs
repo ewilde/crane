@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
@@ -13,30 +14,34 @@ namespace Crane.Core.Api
         private readonly IAssemblyInfoWriter _assemblyInfoWriter;
         private readonly Func<ISolutionContext> _solutionContext;
         private readonly ISolutionPathResolver _solutionPathResolver;
+        private readonly ISourceControlInformationReader _sourceControlInformationReader;
 
         public CraneApi(
             ISolutionReader solutionReader,
             IAssemblyInfoWriter assemblyInfoWriter,
-            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver)
+            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver, ISourceControlInformationReader sourceControlInformationReader)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
             _solutionContext = solutionContext;
             _solutionPathResolver = solutionPathResolver;
+            _sourceControlInformationReader = sourceControlInformationReader;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
         {
             var context = _solutionContext();
-            context.Path = rootFolderPath;
+            
             if (rootFolderPath.EndsWith(".sln"))
             {
                 context.Solution = _solutionReader.FromPath(rootFolderPath);
+                context.Path = new FileInfo(rootFolderPath).DirectoryName;
             }
             else
             {
                 context.Solution =
-                    _solutionReader.FromPath(Path.Combine(rootFolderPath, GetRelativePathToSolution(rootFolderPath)));
+                    _solutionReader.FromPath(Path.Combine(rootFolderPath, _solutionPathResolver.GetPath(rootFolderPath)));
+                context.Path = rootFolderPath;
             }
             context.Solution.SolutionContext = context;
             return context;
@@ -47,9 +52,36 @@ namespace Crane.Core.Api
             _assemblyInfoWriter.Patch(assemblyInfo);            
         }
 
-        private string GetRelativePathToSolution(string rootFolderPath)
+        public void PatchSolutionAssemblyInfo(ISolutionContext solutionContext, string version)
         {
-            return _solutionPathResolver.GetPath(rootFolderPath);
+            var sourceControlInformation = GetSourceControlInformation(solutionContext);
+
+
+            foreach (var project in solutionContext.Solution.Projects.Where(p => !p.TestProject && p.AssemblyInfo != null))
+            {
+                var ver = new Version(version);
+                project.AssemblyInfo.Version = ver;
+                project.AssemblyInfo.FileVersion = ver;
+
+                if (sourceControlInformation == null)
+                {
+                    project.AssemblyInfo.InformationalVersion = ver.ToString();
+                }
+                else
+                {
+                    project.AssemblyInfo.InformationalVersion = string.Format("{0} / {1}", ver,
+                        sourceControlInformation.LastCommitMessage);
+                }
+
+
+                _assemblyInfoWriter.Patch(project.AssemblyInfo);
+            }    
         }
+
+        public ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext)
+        {
+            return _sourceControlInformationReader.ReadSourceControlInformation(solutionContext);
+        }
+
     }
 }

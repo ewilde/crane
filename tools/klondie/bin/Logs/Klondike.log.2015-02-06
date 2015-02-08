@@ -1,0 +1,7 @@
+2015-02-06 21:45:13,532 INFO   1 KlondikeService OnStart Using ServerFactory Nowin
+2015-02-06 21:45:36,122 INFO   1 KlondikeService OnStart Using ServerFactory Nowin
+2015-02-06 21:45:36,496 INFO   1 LucenePackageRepository UpdatePackageCount Refreshing index. Package count: 0
+2015-02-06 21:45:38,259 INFO   1 KlondikeService OnStart Listening for HTTP requests on address(es): http://*:8080/
+2015-02-06 21:55:31,918 INFO   1 KlondikeService OnStart Using ServerFactory Nowin
+2015-02-06 21:55:32,232 INFO   1 LucenePackageRepository UpdatePackageCount Refreshing index. Package count: 0
+2015-02-06 21:55:33,717 INFO   1 KlondikeService OnStart Listening for HTTP requests on address(es): http://*:8080/

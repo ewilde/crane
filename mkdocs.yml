@@ -10,5 +10,7 @@ pages:
  - ['help.md', 'Commands', 'help']
  - ['init.md', 'Commands', 'init']
  - ['listcommands.md', 'Commands', 'listcommands']
- - ['contribution-guidelines.md', 'About', 'Contribution guildines']
+ - ['build-template.md', 'Templates', 'Default Build']
+ - ['contribution-guidelines.md', 'About', 'Contribution guidelines']
+ - ['contribution-guidelines.md', 'About', 'Contribution guidelines']
  - ['contributors.md', 'About', 'Contributors']

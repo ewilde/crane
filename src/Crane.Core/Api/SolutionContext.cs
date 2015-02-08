@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Crane.Core.Api.Model;
+﻿using Crane.Core.Api.Model;
 
 namespace Crane.Core.Api
 {

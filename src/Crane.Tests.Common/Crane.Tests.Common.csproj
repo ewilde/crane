@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\NuGetServerContext.cs" />
     <Compile Include="FluentExtensions\ConstraintExtensions.cs" />
     <Compile Include="FluentExtensions\GenericAssertions.cs" />
     <Compile Include="FluentExtensions\PlainFileExtensions.cs" />
@@ -68,11 +69,9 @@
     <Compile Include="Runners\BuildScriptRunner.cs" />
     <Compile Include="Context\CraneTestContext.cs" />
     <Compile Include="EnableNCrunch.cs" />
-    <Compile Include="Runners\Git.cs" />
     <Compile Include="Context\ICraneTestContext.cs" />
     <Compile Include="Runners\PowerShellApiRunner.cs" />
     <Compile Include="Runners\CraneRunner.cs" />
-    <Compile Include="Runners\RunResult.cs" />
     <Compile Include="Context\SolutionBuilderContext.cs" />
     <Compile Include="Throws.cs" />
     <Compile Include="ScenarioIgnoreOnMono.cs" />
