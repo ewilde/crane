@@ -10,7 +10,9 @@ Task NugetExists -Depends SetupContext {
 }
 
 Task NugetPack -Depends NugetExists {
-
+    $global:context.solution_context.Solution.Projects | % {
+        Write-Host $_.Name
+    }
 }
 
 Task NugetPublish -Depends NugetExists, NugetPack {

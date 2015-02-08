@@ -51,7 +51,6 @@ Task Test -Depends SetupContext {
 Task PatchAssemblyInfo -Depends SetupContext {
   $version = $global:context.build_version
 
-  Import-Module "$($global:context.build_dir)\builtmodules\Crane.PowerShell.dll"
   Update-CraneAllProjectsAssemblyInfos -SolutionContext $($global:context.solution_context) -Version $version 
   
   if ($($global:context.teamcity_build)) {

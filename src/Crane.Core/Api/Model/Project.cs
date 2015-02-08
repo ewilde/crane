@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Crane.Core.Extensions;
 
 namespace Crane.Core.Api.Model
 {
@@ -46,7 +48,17 @@ namespace Crane.Core.Api.Model
                 {
                     return false;
                 }
-                return Name.ToUpper().Contains("TESTS");
+                return Name.Contains("Tests", StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
+        public ProjectFile NugetSpec
+        {
+            get
+            {
+                var name = string.Format("{0}.{1}", Name, "nuspec");
+                var path = System.IO.Path.Combine(Directory, name);
+                return File.Exists(path) ? new ProjectFile {Include = name, RootDirectory = Directory} : null;
             }
         }
     }

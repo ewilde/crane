@@ -123,5 +123,37 @@ namespace Crane.Integration.Tests.Features.Api
                     solutionContext.Solution.CodeProjects.First().Name.Should().Be("ServiceStack");
                 }).Teardown(() => craneTestContext.TearDown());
         }
+
+        [Scenario]
+        public void Api_can_tell_which_projects_have_nuget_specifications(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
+            ISolutionContext solutionContext)
+        {
+            "Given I have my own private copy of the crane console"
+                ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
+
+            "And I have a run context"
+                ._(() => craneRunner = new CraneRunner());
+
+            "And I have run crane init ServiceStack"
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+
+            "When I get the solution context using the api"
+                ._(() =>
+                {
+                    var craneApi = ServiceLocator.Resolve<ICraneApi>();
+                    solutionContext = craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
+                });
+
+            "It should determine that the ServiceStack project has a nuget specification"
+                ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack").NugetSpec.Should().NotBeNull());
+
+            "It should determine the path of the nuget specification file"
+                ._(() => File.Exists(solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack").NugetSpec.Path).Should().BeTrue());
+
+            "It should determine that the ServiceStack.UnitTests project does not have nuget specification"
+                ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack.UnitTests").NugetSpec.Should().BeNull());
+
+            
+        }
     }
 }
