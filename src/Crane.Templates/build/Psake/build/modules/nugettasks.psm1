@@ -10,8 +10,8 @@ Task NugetExists -Depends SetupContext {
 }
 
 Task NugetPack -Depends NugetExists {
-    $global:context.solution_context.Solution.Projects | % {
-        Write-Host $_.Name
+    $global:context.solution_context.Solution.Projects | where { $_.NugetSpec -ne $null } | % {
+        & $global:context.nuget_file @("pack"; $_.NugetSpec.Path)
     }
 }
 
