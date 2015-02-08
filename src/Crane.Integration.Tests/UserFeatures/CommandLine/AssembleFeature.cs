@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using Crane.Core.Configuration;
+using Crane.Core.Runners;
 using Crane.Tests.Common;
 using Crane.Tests.Common.Context;
 using Crane.Tests.Common.FluentExtensions;

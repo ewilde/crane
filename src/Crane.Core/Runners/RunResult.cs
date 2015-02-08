@@ -1,4 +1,4 @@
-namespace Crane.Tests.Common.Runners
+namespace Crane.Core.Runners
 {
     public class RunResult
     {

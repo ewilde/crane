@@ -22,3 +22,4 @@ Task SetupContext {
   $global:context = ContextClass -psake_build_script_dir $build_dir -relative_solution_path "..\src\crane.sln" -props $properties
   $global:context
 }
+

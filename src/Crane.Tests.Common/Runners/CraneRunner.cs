@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Crane.Core.Runners;
 using log4net;
 
 namespace Crane.Tests.Common.Runners
