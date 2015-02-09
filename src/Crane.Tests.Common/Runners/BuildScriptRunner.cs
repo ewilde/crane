@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Crane.Core.Runners;
 using log4net;
@@ -11,7 +12,7 @@ namespace Crane.Tests.Common.Runners
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(BuildScriptRunner));
 
-        public RunResult Run(string projectRootPath, string taskList = "@('PatchAssemblyInfo', 'BuildSolution', 'Test')")
+        public RunResult Run(string projectRootPath, string taskList = "@('PatchAssemblyInfo', 'BuildSolution', 'Test')", params string[] otherArguments)
         {
             var buildps1 = Path.Combine(projectRootPath, "build.ps1");
             if (!File.Exists(buildps1))
@@ -29,7 +30,9 @@ namespace Crane.Tests.Common.Runners
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} {1}\"", buildps1, taskList)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} {1} {2}\"", 
+                        buildps1, taskList, 
+                        otherArguments != null ? otherArguments.Aggregate((current, next) => current + " " + next) : string.Empty)
                 }
             };
 

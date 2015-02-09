@@ -40,10 +40,11 @@ namespace Crane.Tests.Common.Context
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
+            _log.Info("Initializing NugetSeverContext");
             foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
             {
                 process.Kill();
-                _log.InfoFormat("Klondike.SelfHost {0}", "process killed");
+                _log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
             }
 
             _testContext = testContext;
@@ -83,6 +84,9 @@ namespace Crane.Tests.Common.Context
                     _process.Start();
                     _process.BeginOutputReadLine();
                     _process.BeginErrorReadLine();
+
+                    _log.Info("Nuget server started on worker thread, will wait for exit");
+            
                     _process.WaitForExit();
                 }
                 catch (Exception exception)
@@ -109,6 +113,7 @@ namespace Crane.Tests.Common.Context
 
         public void TearDown()
         {
+            _log.Info("Tearing down nuget server");
             _process.Kill();
         }
     }

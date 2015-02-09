@@ -15,6 +15,7 @@ $contextclass = new-object psobject -Property @{
   nuget_api_url = $null
   nuget_artifacts_dir = $null
   solution_context = $null  
+  verbose = $null
 }
 
 function ContextClass {
@@ -36,6 +37,7 @@ function ContextClass {
   $context.is_git_repo = Test-Path (Join-Path $context.root_dir '.git')
   $context.packages_folder = Join-Path $context.sln_file_info.Directory.FullName "packages"
 
+  $context.verbose = $props.verbose;
   $context.configuration = $props.configuration
   $context.chocolatey_api_key = $props.chocolateyApiKey
   $context.chocolatey_api_url = $props.chocolateyApiUrl

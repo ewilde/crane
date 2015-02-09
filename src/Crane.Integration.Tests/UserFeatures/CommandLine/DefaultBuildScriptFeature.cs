@@ -99,21 +99,19 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
 
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void build_a_project_and_publish_to_nuget(
-            NuGetServerContext nuGetServer, 
-            ICraneTestContext craneTestContext, 
+            NuGetServerContext nuGetServer,
+            ICraneTestContext craneTestContext,
             CraneRunner craneRunner,
             RunResult result)
         {
             "Given I have my own private copy of the crane console"
              ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
+            "And I have a run context"
+                ._(() => craneRunner = new CraneRunner());
+
             "And I have a nuget server running"
-                ._(() => nuGetServer = new NuGetServerContext(craneTestContext))
-                .Teardown(() =>
-                {
-                    nuGetServer.TearDown();
-                    craneTestContext.TearDown();
-                });
+                ._(() => nuGetServer = new NuGetServerContext(craneTestContext));                           
 
             "And I have a project with a nuget spec file (which is the default behaviour of crane init)"
                 ._(() => craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init SallyFx").ErrorOutput.Should().BeEmpty());
@@ -121,12 +119,17 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             "When I build the project supplying the nuget details"
                ._(() =>
                {
-                   result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SallyFx"));
+                   result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SallyFx"), 
+                       "@('BuildSolution', 'NugetPublish')",
+                       "-nuget_api_key", nuGetServer.ApiKey,
+                       "-nuget_api_url", nuGetServer.ApiUri.ToString());
                    result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
-               });
-
-
-
+               })
+               .Teardown(() =>
+                {
+                    nuGetServer.TearDown();
+                    craneTestContext.TearDown();
+                });;
         }
     }
 }
