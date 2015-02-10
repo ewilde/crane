@@ -26,6 +26,12 @@ build.ps1
 If you supply a nuget api key to [build]
 # 5. Choco
 # 6. Build targets
-* Default
-* ChocolateyPublishPackage
-* NugetPublishPackage
+## Default
+## ChocolateyPublishPackage
+## NugetPublish
+**Required build.ps1 parameters**: `nuget_api_key`. 
+
+
+**Description**
+
+Call this target in your build to package and publish to nuget. Assumes that your nuget spec file is the same as your project file. I.e. `Sally.fx.csproj` has `Sally.fx.nuspec` in the same folder as the project file.

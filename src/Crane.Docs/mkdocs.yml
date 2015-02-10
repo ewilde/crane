@@ -9,5 +9,4 @@ pages:
 %crane.commandpages%
  - ['build-template.md', 'Templates', 'Default Build']
  - ['contribution-guidelines.md', 'About', 'Contribution guidelines']
- - ['contribution-guidelines.md', 'About', 'Contribution guidelines']
  - ['contributors.md', 'About', 'Contributors']
