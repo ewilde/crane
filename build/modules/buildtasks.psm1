@@ -1,12 +1,8 @@
-
-
-
 Task Clean -Depends SetupContext {
   Write-Host "Creating build-output directory" -ForegroundColor Green
   if (Test-Path $($global:context.build_artifacts_dir)){
     rd $($global:context.build_artifacts_dir) -rec -force | out-null
   }
-  sdf - sd
 
   mkdir $($global:context.build_artifacts_dir) | out-null
 
