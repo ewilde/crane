@@ -35,7 +35,10 @@ namespace Crane.Tests.Common.Context
         {
             try
             {
-                _fileManager.Delete(_rootDirectory);
+                if (_fileManager.DirectoryExists(_rootDirectory.FullName))
+                {
+                    _fileManager.Delete(_rootDirectory);
+                }
             }
             catch (Exception exception)
             {

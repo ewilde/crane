@@ -44,7 +44,7 @@ namespace Crane.Core.Tests.Api.Writers
         [Scenario]
         public void patch_updates_assembly_info(IAssemblyInfoWriter assemblyInfoWriter, AssemblyInfo assemblyInfo, MockFileManager fileManager)
         {
-            string path = Path.Combine("c:", "dev", "sallyfx", "properties", "AssemblyInfo.cs");
+            string path = Path.Combine("c:" + System.IO.Path.DirectorySeparatorChar, "dev", "sallyfx", "properties", "AssemblyInfo.cs");
 
             "Given I have a file manager"
                 ._(() => fileManager = new MockFileManager());
@@ -63,7 +63,7 @@ namespace Crane.Core.Tests.Api.Writers
                     FileVersion = new Version(0, 0, 3, 1),
                     Version = new Version(0, 0, 3, 0),
                     InformationalVersion = "RELEASE",
-                    RootDirectory = Path.Combine("c:", "dev", "sallyfx"),
+                    RootDirectory = Path.Combine("c:" + System.IO.Path.DirectorySeparatorChar, "dev", "sallyfx"),
                     Include = Path.Combine("properties", "AssemblyInfo.cs")
                 });
 

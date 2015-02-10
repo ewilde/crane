@@ -31,8 +31,8 @@ namespace Crane.Tests.Common.Runners
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
                     Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} {1} {2}\"", 
-                        buildps1, taskList, 
-                        otherArguments != null ? otherArguments.Aggregate((current, next) => current + " " + next) : string.Empty)
+                        buildps1, taskList,
+                        otherArguments != null && otherArguments.Length > 0 ? otherArguments.Aggregate((current, next) => current + " " + next) : string.Empty)
                 }
             };
 
