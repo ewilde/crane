@@ -6,6 +6,7 @@ Task Clean -Depends SetupContext {
   if (Test-Path $($global:context.build_artifacts_dir)){
     rd $($global:context.build_artifacts_dir) -rec -force | out-null
   }
+  sdf - sd
 
   mkdir $($global:context.build_artifacts_dir) | out-null
 
