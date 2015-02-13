@@ -1,4 +1,5 @@
-﻿using Crane.Core.Runners;
+﻿using System;
+using Crane.Core.Runners;
 
 namespace Crane.Core.Api.Readers
 {
@@ -6,15 +7,22 @@ namespace Crane.Core.Api.Readers
     {
         public ISourceControlInformation ReadSourceControlInformation(ISolutionContext solutionContext)
         {
-            var git = new Git();
-            var result = git.Run("log --oneline -1", solutionContext.Path);
+            try
+            {
+                var git = new Git();
+                var result = git.Run("log --oneline -1", solutionContext.Path);
 
-            if (result.ExitCode != 0)
+                if (result.ExitCode != 0)
+                    return null;
+
+                var message = result.StandardOutput;
+
+                return new GitSourceControlInformation(message);
+            }
+            catch 
+            {
                 return null;
-
-            var message = result.StandardOutput;
-
-            return new GitSourceControlInformation(message);
+            }
         }
     }
 }
