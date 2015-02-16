@@ -23,14 +23,14 @@ namespace Crane.Tests.Common.Context
         private readonly StringBuilder _error;
         private readonly StringBuilder _output;
 
-        private static readonly ILog _log = LogManager.GetLogger(typeof(NuGetServerContext));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
         private readonly ManualResetEvent _waitForStarted;
-        private static readonly Uri uri = new Uri("http://localhost:8080/api/");
+        private static readonly Uri Uri = new Uri("http://localhost:8080/api/");
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
         public Uri ApiUri
         {
-            get { return uri; }
+            get { return Uri; }
         }
 
         public string ApiKey
@@ -40,11 +40,11 @@ namespace Crane.Tests.Common.Context
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
-            _log.Info("Initializing NugetSeverContext");
+            Log.Info("Initializing NugetSeverContext");
             foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
             {
                 process.Kill();
-                _log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
+                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
             }
 
             _testContext = testContext;
@@ -85,13 +85,13 @@ namespace Crane.Tests.Common.Context
                     _process.BeginOutputReadLine();
                     _process.BeginErrorReadLine();
 
-                    _log.Info("Nuget server started on worker thread, will wait for exit");
+                    Log.Info("Nuget server started on worker thread, will wait for exit");
             
                     _process.WaitForExit();
                 }
                 catch (Exception exception)
                 {
-                    _log.Error(exception);
+                    Log.Error(exception);
                 }
             });
 
@@ -113,7 +113,7 @@ namespace Crane.Tests.Common.Context
 
         public void TearDown()
         {
-            _log.Info("Tearing down nuget server");
+            Log.Info("Tearing down nuget server");
             _process.Kill();
         }
     }

@@ -97,7 +97,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                .Teardown(() => craneTestContext.TearDown());
         }
 
-        [Scenario(Skip = "Can't get package submission working on Klondie, will investigate seperately")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void build_a_project_and_publish_to_nuget(
             NuGetServerContext nuGetServer,
             ICraneTestContext craneTestContext,
