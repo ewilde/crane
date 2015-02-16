@@ -5,6 +5,7 @@ using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Runners;
 
 namespace Crane.Core.Api
 {
@@ -15,17 +16,22 @@ namespace Crane.Core.Api
         private readonly Func<ISolutionContext> _solutionContext;
         private readonly ISolutionPathResolver _solutionPathResolver;
         private readonly ISourceControlInformationReader _sourceControlInformationReader;
+        private readonly INuget _nuget;
 
         public CraneApi(
             ISolutionReader solutionReader,
             IAssemblyInfoWriter assemblyInfoWriter,
-            Func<ISolutionContext> solutionContext, ISolutionPathResolver solutionPathResolver, ISourceControlInformationReader sourceControlInformationReader)
+            Func<ISolutionContext> solutionContext, 
+            ISolutionPathResolver solutionPathResolver, 
+            ISourceControlInformationReader sourceControlInformationReader,
+            INuget nuget)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
             _solutionContext = solutionContext;
             _solutionPathResolver = solutionPathResolver;
             _sourceControlInformationReader = sourceControlInformationReader;
+            _nuget = nuget;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
@@ -83,5 +89,9 @@ namespace Crane.Core.Api
             return _sourceControlInformationReader.ReadSourceControlInformation(solutionContext);
         }
 
+        public RunResult NugetPublish(ISolutionContext solutionContext)
+        {
+            return null;
+        }
     }
 }

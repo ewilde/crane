@@ -71,16 +71,17 @@ namespace Crane.Tests.Common.Context
 
                 try
                 {
-                    _process.ErrorDataReceived += (sender, args) => _error.Append(args.Data);
+                    _process.ErrorDataReceived += (sender, args) => _error.AppendLine(args.Data);
                     _process.OutputDataReceived += (sender, args) =>
                     {
-                        _output.Append(args.Data);
+                        _output.AppendLine(args.Data);
                         if (Output.Contains("Press <enter> to stop."))
                         {
                             _waitForStarted.Set();
                         }
                     };
 
+                    Log.InfoFormat("Starting {0} {1}", _process.StartInfo.FileName, _process.StartInfo.Arguments);
                     _process.Start();
                     _process.BeginOutputReadLine();
                     _process.BeginErrorReadLine();
