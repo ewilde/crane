@@ -14,7 +14,7 @@ namespace Crane.Tests.Common.Context
 {
     /// <summary>
     /// If you get problems running this test, it could be firewall related.
-    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 8080" dir=in action=allow protocol=TCP localport=8080
+    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 8888" dir=in action=allow protocol=TCP localport=8888
     /// </summary>
     public class NuGetServerContext
     {
@@ -25,7 +25,7 @@ namespace Crane.Tests.Common.Context
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
         private readonly ManualResetEvent _waitForStarted;
-        private static readonly Uri Uri = new Uri("http://localhost:8080/api/");
+        private static readonly Uri Uri = new Uri("http://localhost:8888/api/");
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
         public Uri ApiUri
