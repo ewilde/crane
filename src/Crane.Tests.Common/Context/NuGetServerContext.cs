@@ -97,7 +97,8 @@ namespace Crane.Tests.Common.Context
 
             if (!_waitForStarted.WaitOne(TimeSpan.FromSeconds(30)))
             {
-                throw new Exception("Could not start klondie");
+                throw new Exception(string.Format("Could not start klondie{0}Standard out:{0}{1}Error out:{0}{2}",
+                    System.Environment.NewLine, Output, Error));
             }
         }
 
