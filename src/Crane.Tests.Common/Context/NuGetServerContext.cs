@@ -59,7 +59,7 @@ namespace Crane.Tests.Common.Context
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = "--port=8080 --interactive"
+                    Arguments = "--port=8888 --interactive"
                 }
             };
 
