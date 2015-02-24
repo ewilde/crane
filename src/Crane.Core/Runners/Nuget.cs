@@ -2,6 +2,9 @@
 {
     public class Nuget : INuget
     {
-         
+        public RunResult Publish()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

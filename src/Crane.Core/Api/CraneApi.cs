@@ -91,7 +91,7 @@ namespace Crane.Core.Api
 
         public RunResult NugetPublish(ISolutionContext solutionContext)
         {
-            return null;
+            return _nuget.Publish();
         }
     }
 }

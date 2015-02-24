@@ -36,7 +36,7 @@ namespace Crane.Tests.Common.Context
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
-            Log.Info("Initializing NugetSeverContext");
+            Log.Debug("Initializing NugetSeverContext");
             Initialize(testContext);
         }
 

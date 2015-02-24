@@ -2,5 +2,6 @@
 {
     public interface INuget
     {
+        RunResult Publish();
     }
 }
