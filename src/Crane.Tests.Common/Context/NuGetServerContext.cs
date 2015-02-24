@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
-using Xbehave;
 
 namespace Crane.Tests.Common.Context
 {
@@ -18,13 +14,13 @@ namespace Crane.Tests.Common.Context
     /// </summary>
     public class NuGetServerContext
     {
-        private readonly ICraneTestContext _testContext;
-        private readonly Process _process;
-        private readonly StringBuilder _error;
-        private readonly StringBuilder _output;
+        private ICraneTestContext _testContext;
+        private Process _process;
+        private StringBuilder _error;
+        private StringBuilder _output;
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
-        private readonly ManualResetEvent _waitForStarted;
+        private ManualResetEvent _waitForStarted;
         private static readonly Uri Uri = new Uri("http://localhost:8888/api/");
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
@@ -41,6 +37,11 @@ namespace Crane.Tests.Common.Context
         public NuGetServerContext(ICraneTestContext testContext)
         {
             Log.Info("Initializing NugetSeverContext");
+            Initialize(testContext);
+        }
+
+        private void Initialize(ICraneTestContext testContext)
+        {
             foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
             {
                 process.Kill();
@@ -68,7 +69,6 @@ namespace Crane.Tests.Common.Context
 
             Task.Run(() =>
             {
-
                 try
                 {
                     _process.ErrorDataReceived += (sender, args) => _error.AppendLine(args.Data);
@@ -81,13 +81,13 @@ namespace Crane.Tests.Common.Context
                         }
                     };
 
-                    Log.InfoFormat("Starting {0} {1}", _process.StartInfo.FileName, _process.StartInfo.Arguments);
+                    Log.DebugFormat("Starting {0} {1}", _process.StartInfo.FileName, _process.StartInfo.Arguments);
                     _process.Start();
                     _process.BeginOutputReadLine();
                     _process.BeginErrorReadLine();
 
-                    Log.Info("Nuget server started on worker thread, will wait for exit");
-            
+                    Log.Debug("Nuget server started on worker thread, will wait for exit");
+
                     _process.WaitForExit();
                 }
                 catch (Exception exception)
@@ -115,8 +115,15 @@ namespace Crane.Tests.Common.Context
 
         public void TearDown()
         {
-            Log.Info("Tearing down nuget server");
-            _process.Kill();
+            Log.Debug("Tearing down nuget server");
+            try
+            {
+                _process.Kill();
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+            }
         }
     }
 }

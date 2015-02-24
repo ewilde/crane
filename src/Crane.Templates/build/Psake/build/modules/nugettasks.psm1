@@ -26,13 +26,9 @@ Task NugetPack -Depends NugetExists {
 Task NugetPublish -Depends NugetExists, NugetPack {
     $global:context.solution_context.Solution.Projects | where { $_.NugetSpec -ne $null } | % {
         $nugetFile = "$($global:context.nuget_artifacts_dir)\$($_.Name).$($global:context.build_version).nupkg"
-        Write-Host Publishing: $nugetFile
-        if ($global:context.verbose)
-        {
-            Write-Host $global:context.nuget_file @("push"; $nugetFile; 
-            "-Source"; $context.nuget_api_url;
-            "-ApiKey"; $context.nuget_api_key)
-        }
+        Write-Host Publishing: $nugetFile 
+        Write-Host $global:context.nuget_file @("push"; $nugetFile; "-Source"; $context.nuget_api_url; "-ApiKey"; $context.nuget_api_key)
+            
         & $global:context.nuget_file @("push"; $nugetFile; 
             "-Source"; $context.nuget_api_url;
             "-ApiKey"; $context.nuget_api_key)
