@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using log4net;
+using Xunit;
 
 namespace Crane.Tests.Common.Context
 {
@@ -21,12 +24,12 @@ namespace Crane.Tests.Common.Context
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
         private ManualResetEvent _waitForStarted;
-        private static readonly Uri Uri = new Uri("http://localhost:8888/api/");
+        private static readonly Uri BaseUri = new Uri("http://localhost:8888");
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
         public Uri ApiUri
         {
-            get { return Uri; }
+            get { return new Uri(BaseUri, "api"); }
         }
 
         public string ApiKey
@@ -123,6 +126,28 @@ namespace Crane.Tests.Common.Context
             catch (Exception exception)
             {
                 Log.Error(exception);
+            }
+        }
+
+        public bool PackageExists(string name, string version)
+        {
+            HttpResponseMessage result = null;
+            dynamic response;
+            try
+            {
+                var client = new HttpClient { BaseAddress = BaseUri };
+                result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
+                response = result.Content.ReadAsAsync<dynamic>().Result;
+
+                result.IsSuccessStatusCode.Should().BeTrue();
+                response.name.Value.Should().Equals(name);
+                response.version.Value.Should().Equals(version);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+                return false;
             }
         }
     }

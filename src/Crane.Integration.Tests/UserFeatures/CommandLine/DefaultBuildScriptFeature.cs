@@ -124,7 +124,10 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                        "-nuget_api_key", nuGetServer.ApiKey,
                        "-nuget_api_url", nuGetServer.ApiUri.ToString());
                    result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
-               })
+               });
+
+            "It should push the package to the nuget server"
+                ._(() => nuGetServer.PackageExists("MyPackage", "1.0.0"))
                .Teardown(() =>
                 {
                     nuGetServer.TearDown();
