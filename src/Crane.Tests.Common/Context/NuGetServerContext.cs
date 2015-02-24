@@ -131,13 +131,11 @@ namespace Crane.Tests.Common.Context
 
         public bool PackageExists(string name, string version)
         {
-            HttpResponseMessage result = null;
-            dynamic response;
             try
             {
                 var client = new HttpClient { BaseAddress = BaseUri };
-                result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
-                response = result.Content.ReadAsAsync<dynamic>().Result;
+                var result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
+                var response = result.Content.ReadAsAsync<dynamic>().Result;
 
                 result.IsSuccessStatusCode.Should().BeTrue();
                 response.name.Value.Should().Equals(name);
