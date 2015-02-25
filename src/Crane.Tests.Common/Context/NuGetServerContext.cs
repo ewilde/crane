@@ -138,8 +138,8 @@ namespace Crane.Tests.Common.Context
                 var response = result.Content.ReadAsAsync<dynamic>().Result;
 
                 result.IsSuccessStatusCode.Should().BeTrue();
-                response.name.Value.Should().Equals(name);
-                response.version.Value.Should().Equals(version);
+                ((string)response.id.Value).Should().Be(name);
+                ((string)response.version.Value).Should().Be(version);
                 return true;
             }
             catch (Exception exception)
