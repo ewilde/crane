@@ -127,7 +127,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                });
 
             "It should push the package to the nuget server"
-                ._(() => nuGetServer.PackageExists("MyPackage", "1.0.0"))
+            	._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())
                .Teardown(() =>
                 {
                     nuGetServer.TearDown();
