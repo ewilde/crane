@@ -131,7 +131,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                .Teardown(() =>
                 {
                     //nuGetServer.TearDown();
-                    craneTestContext.TearDown();
+                    //craneTestContext.TearDown();
                 });;
         }
     }
