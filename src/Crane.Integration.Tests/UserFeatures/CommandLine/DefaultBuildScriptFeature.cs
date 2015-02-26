@@ -130,7 +130,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             	._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())
                .Teardown(() =>
                 {
-                    nuGetServer.TearDown();
+                    //nuGetServer.TearDown();
                     craneTestContext.TearDown();
                 });;
         }
