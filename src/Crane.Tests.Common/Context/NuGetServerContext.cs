@@ -81,6 +81,7 @@ namespace Crane.Tests.Common.Context
                         _output.AppendLine(args.Data);
                         if (Output.Contains("Press <enter> to stop."))
                         {
+                            Log.Debug("Detected nuget server started okay, will signal...");
                             _waitForStarted.Set();
                         }
                     };
@@ -105,6 +106,8 @@ namespace Crane.Tests.Common.Context
                 throw new Exception(string.Format("Could not start klondie{0}Standard out:{0}{1}Error out:{0}{2}",
                     System.Environment.NewLine, Output, Error));
             }
+
+            Log.Debug("Nuget server started");
         }
 
         public string Output
