@@ -15,6 +15,7 @@ namespace Crane.Tests.Common.Context
     /// If you get problems running this test, it could be firewall related.
     /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 8888" dir=in action=allow protocol=TCP localport=8888
     /// </summary>
+    
     public class NuGetServerContext
     {
         private ICraneTestContext _testContext;
@@ -24,7 +25,7 @@ namespace Crane.Tests.Common.Context
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
         private ManualResetEvent _waitForStarted;
-        private static readonly Uri BaseUri = new Uri("http://localhost:8888");
+        private static readonly Uri BaseUri = new Uri(string.Format("http://{0}:8888", System.Environment.MachineName));
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
         public Uri ApiUri
@@ -137,7 +138,7 @@ namespace Crane.Tests.Common.Context
                 var result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
                 var response = result.Content.ReadAsAsync<dynamic>().Result;
 
-                result.IsSuccessStatusCode.Should().BeTrue();
+                result.IsSuccessStatusCode.Should().BeTrue("result should be a 200 code. Result details {0}.", result.ToString());
                 ((string)response.id.Value).Should().Be(name);
                 ((string)response.version.Value).Should().Be(version);
                 return true;
