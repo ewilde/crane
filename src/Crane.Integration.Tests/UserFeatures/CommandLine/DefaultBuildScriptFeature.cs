@@ -98,6 +98,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
         }
 
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
+        [Xunit.Trait("Debug", "Nuget")]
         public void build_a_project_and_publish_to_nuget(
             NuGetServerContext nuGetServer,
             ICraneTestContext craneTestContext,
@@ -130,8 +131,8 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             	._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())
                .Teardown(() =>
                 {
-                    //nuGetServer.TearDown();
-                    //craneTestContext.TearDown();
+                    nuGetServer.TearDown();
+                    craneTestContext.TearDown();
                 });;
         }
     }
