@@ -13,7 +13,7 @@ namespace Crane.Tests.Common.Context
 {
     /// <summary>
     /// If you get problems running this test, it could be firewall related.
-    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 8888" dir=in action=allow protocol=TCP localport=8888
+    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 52545" dir=in action=allow protocol=TCP localport=52545
     /// </summary>
     
     public class NuGetServerContext
@@ -25,7 +25,8 @@ namespace Crane.Tests.Common.Context
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
         private ManualResetEvent _waitForStarted;
-        private static readonly Uri BaseUri = new Uri(string.Format("http://{0}:8888", System.Environment.MachineName));
+        private const int PortNumber = 52545;
+        private static readonly Uri BaseUri = new Uri(string.Format("http://{0}:{1}", System.Environment.MachineName, PortNumber));
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
 
         public Uri ApiUri
@@ -64,7 +65,7 @@ namespace Crane.Tests.Common.Context
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = "--port=8888 --interactive"
+                    Arguments = string.Format("--port={0} --interactive", PortNumber)
                 }
             };
 
@@ -118,6 +119,27 @@ namespace Crane.Tests.Common.Context
         public string Error
         {
             get { return _error.ToString(); }
+        }
+
+        public int PackageCount
+        {
+            get
+            {
+                try
+                {
+                    var client = new HttpClient { BaseAddress = BaseUri };
+                    var result = client.GetAsync("api/packages").Result;
+                    var response = result.Content.ReadAsAsync<dynamic>().Result;
+
+                    Log.Debug(response.ToString());
+                    return (int)response.count.Value;
+                }
+                catch (Exception exception)
+                {
+                    Log.Error(exception.ToString());
+                    return -1;
+                }
+            }
         }
 
         public void TearDown()

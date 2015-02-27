@@ -105,6 +105,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
             CraneRunner craneRunner,
             RunResult result)
         {
+            // .\src\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe .\build-output\Crane.Integration.Tests.dll /trait "Debug=Nuget"
             "Given I have my own private copy of the crane console"
              ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
@@ -112,7 +113,11 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 ._(() => craneRunner = new CraneRunner());
 
             "And I have a nuget server running"
-                ._(() => nuGetServer = new NuGetServerContext(craneTestContext));                           
+                ._(() =>
+                {
+                    nuGetServer = new NuGetServerContext(craneTestContext);
+                    nuGetServer.PackageCount.Should().BeGreaterThan(-1);
+                });                           
 
             "And I have a project with a nuget spec file (which is the default behaviour of crane init)"
                 ._(() => craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init SallyFx").ErrorOutput.Should().BeEmpty());
