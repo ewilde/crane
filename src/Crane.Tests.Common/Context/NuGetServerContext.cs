@@ -96,6 +96,7 @@ namespace Crane.Tests.Common.Context
                     _process.WaitForExit();
 
                     Log.DebugFormat("Nuget server process exited with code {0}", _process.ExitCode);
+                    Log.DebugFormat("Nuget server process exited output: {0} error: {1}", Output, Error);
                 }
                 catch (Exception exception)
                 {
