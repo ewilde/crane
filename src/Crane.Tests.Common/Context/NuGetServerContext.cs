@@ -65,7 +65,7 @@ namespace Crane.Tests.Common.Context
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = string.Format("--port={0}", PortNumber)
+                    Arguments = string.Format("--port={0} --interactive", PortNumber)
                 }
             };
 
@@ -94,6 +94,8 @@ namespace Crane.Tests.Common.Context
                     Log.Debug("Nuget server started on worker thread, will wait for exit");
 
                     _process.WaitForExit();
+
+                    Log.DebugFormat("Nuget server process exited with code {0}", _process.ExitCode);
                 }
                 catch (Exception exception)
                 {
