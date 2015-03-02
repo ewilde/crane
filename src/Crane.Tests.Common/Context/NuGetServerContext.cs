@@ -55,7 +55,7 @@ namespace Crane.Tests.Common.Context
             KillAllKlondikeProcesses();
 
             var binPath = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe");
-            var arguments = string.Format("--port={0} --interactive", PortNumber);
+            var arguments = string.Format("--port={0}", PortNumber);
             CreateService(binPath, arguments);
 
             _waitForStarted = new ManualResetEvent(false);
