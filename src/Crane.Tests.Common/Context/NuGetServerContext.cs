@@ -125,7 +125,8 @@ namespace Crane.Tests.Common.Context
 
             if (result.ExitCode != 0)
             {
-                throw new Exception(string.Format(@"Could not create service: C:\Windows\system32\sc.exe {0}", scArgs));
+                throw new Exception(string.Format(@"Could not create service: C:\Windows\system32\sc.exe {0}{1}Standard output: {2}{1}Error output:{3}", 
+                    scArgs, Environment.NewLine, result.StandardOutput, result.ErrorOutput));
             }
 
             Log.DebugFormat(@"Creating service C:\Windows\system32\sc.exe {0}", scArgs);
@@ -140,7 +141,8 @@ namespace Crane.Tests.Common.Context
 
             if (result.ExitCode != 0)
             {
-                throw new Exception(string.Format(@"Could not delete service: C:\Windows\system32\sc.exe {0}", scArgs));
+                throw new Exception(string.Format(@"Could not delete service: C:\Windows\system32\sc.exe {0}{1}Standard output: {2}{1}Error output:{3}",
+                    scArgs, Environment.NewLine, result.StandardOutput, result.ErrorOutput));
             }
 
             Log.DebugFormat(@"Deleting service C:\Windows\system32\sc.exe {0}", scArgs);
