@@ -56,6 +56,8 @@ namespace Crane.Tests.Common.Context
 
             var binPath = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe");
             var arguments = string.Format("--port={0}", PortNumber);
+            
+            DeleteService();
             CreateService(binPath, arguments);
 
             _waitForStarted = new ManualResetEvent(false);
