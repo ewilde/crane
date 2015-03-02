@@ -50,11 +50,6 @@ namespace Crane.Tests.Common.Context
 
         private void Initialize(ICraneTestContext testContext)
         {
-<<<<<<< HEAD
-=======
-            KillAllKlondikeProcesses();
-
->>>>>>> 2ff503a8f2ebd7f39eb4afb042dec88f7f2bba5c
             _testContext = testContext;
            
             KillAllKlondikeProcesses();
@@ -74,14 +69,8 @@ namespace Crane.Tests.Common.Context
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-<<<<<<< HEAD
                     FileName = binPath,
                     Arguments = arguments
-
-=======
-                    FileName = @"c:\windows\system32\cmd.exe",
-                    Arguments = string.Format("/C \"{0}\" --port={1} --interactive", Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"), PortNumber)
->>>>>>> 2ff503a8f2ebd7f39eb4afb042dec88f7f2bba5c
                 }
             };
             _error = new StringBuilder();
@@ -168,15 +157,6 @@ namespace Crane.Tests.Common.Context
             }
         }
 
-        private static void KillAllKlondikeProcesses()
-        {
-            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
-            {
-                process.Kill();
-                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
-            }
-        }
-
         public string Output
         {
             get { return _output.ToString(); }
@@ -213,10 +193,7 @@ namespace Crane.Tests.Common.Context
             Log.Debug("Tearing down nuget server");
             try
             {
-<<<<<<< HEAD
                 DeleteService();
-=======
->>>>>>> 2ff503a8f2ebd7f39eb4afb042dec88f7f2bba5c
                 KillAllKlondikeProcesses();
             }
             catch (Exception exception)
