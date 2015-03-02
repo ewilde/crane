@@ -86,6 +86,7 @@
     <Compile Include="Api\Readers\ISolutionReader.cs" />
     <Compile Include="Api\Readers\ISourceControlInformationReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Runners\INuget.cs" />
     <Compile Include="Runners\Nuget.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />

@@ -75,6 +75,7 @@
     <Compile Include="Runners\PowerShellApiRunner.cs" />
     <Compile Include="Runners\CraneRunner.cs" />
     <Compile Include="Context\SolutionBuilderContext.cs" />
+    <Compile Include="Runners\GeneralProcessRunner.cs" />
     <Compile Include="Throws.cs" />
     <Compile Include="ScenarioIgnoreOnMono.cs" />
     <Compile Include="ScenarioRunOnlyOnMonoAttribute.cs" />

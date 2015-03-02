@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Crane.Core.Extensions;
+using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using log4net;
 using Xunit;
@@ -47,14 +50,16 @@ namespace Crane.Tests.Common.Context
 
         private void Initialize(ICraneTestContext testContext)
         {
-            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
-            {
-                process.Kill();
-                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
-            }
-
             _testContext = testContext;
+           
+            KillAllKlondikeProcesses();
+
+            var binPath = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe");
+            var arguments = string.Format("--port={0} --interactive", PortNumber);
+            CreateService(binPath, arguments);
+
             _waitForStarted = new ManualResetEvent(false);
+
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -64,11 +69,11 @@ namespace Crane.Tests.Common.Context
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = string.Format("--port={0} --interactive", PortNumber)
+                    FileName = binPath,
+                    Arguments = arguments
+
                 }
             };
-
             _error = new StringBuilder();
             _output = new StringBuilder();
 
@@ -111,7 +116,46 @@ namespace Crane.Tests.Common.Context
             }
 
             Log.Debug("Nuget server started");
-            Log.DebugFormat("Nuget server output: {0} error: {1}", Output, Error);
+        }
+
+        private void CreateService(string binPath, string arguments)
+        {
+            WindowsIdentity.GetCurrent().IsElevated().Should().BeTrue("process was not running as admin. You cannot create a service without running as administrator.");
+            var scArgs = string.Format("create Klondike start=auto binpath=\"{0} {1}\"", binPath, arguments);
+            var result = GeneralProcessRunner.Run(@"C:\Windows\system32\sc.exe", scArgs);
+
+            if (result.ExitCode != 0)
+            {
+                throw new Exception(string.Format(@"Could not create service: C:\Windows\system32\sc.exe {0}", scArgs));
+            }
+
+            Log.DebugFormat(@"Creating service C:\Windows\system32\sc.exe {0}", scArgs);
+            Log.DebugFormat(@"Creating service standard output: {0}", result.StandardOutput);
+            Log.DebugFormat(@"Creating service error output: {0}", result.ErrorOutput);
+        }
+
+        private void DeleteService()
+        {
+            const string scArgs = "delete Klondike";
+            var result = GeneralProcessRunner.Run(@"C:\Windows\system32\sc.exe", scArgs);
+
+            if (result.ExitCode != 0)
+            {
+                throw new Exception(string.Format(@"Could not delete service: C:\Windows\system32\sc.exe {0}", scArgs));
+            }
+
+            Log.DebugFormat(@"Deleting service C:\Windows\system32\sc.exe {0}", scArgs);
+            Log.DebugFormat(@"Deleting service standard output: {0}", result.StandardOutput);
+            Log.DebugFormat(@"Deleting service error output: {0}", result.ErrorOutput);
+        }
+
+        private static void KillAllKlondikeProcesses()
+        {
+            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
+            {
+                process.Kill();
+                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
+            }
         }
 
         public string Output
@@ -150,7 +194,8 @@ namespace Crane.Tests.Common.Context
             Log.Debug("Tearing down nuget server");
             try
             {
-                _process.Kill();
+                DeleteService();
+                KillAllKlondikeProcesses();
             }
             catch (Exception exception)
             {
