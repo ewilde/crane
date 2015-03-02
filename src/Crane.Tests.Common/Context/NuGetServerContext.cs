@@ -47,14 +47,11 @@ namespace Crane.Tests.Common.Context
 
         private void Initialize(ICraneTestContext testContext)
         {
-            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
-            {
-                process.Kill();
-                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
-            }
+            KillAllKlondikeProcesses();
 
             _testContext = testContext;
             _waitForStarted = new ManualResetEvent(false);
+
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -64,11 +61,10 @@ namespace Crane.Tests.Common.Context
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = string.Format("--port={0} --interactive", PortNumber)
+                    FileName = @"c:\windows\system32\cmd.exe",
+                    Arguments = string.Format("/C \"{0}\" --port={1} --interactive", Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"), PortNumber)
                 }
             };
-
             _error = new StringBuilder();
             _output = new StringBuilder();
 
@@ -114,6 +110,15 @@ namespace Crane.Tests.Common.Context
             Log.DebugFormat("Nuget server output: {0} error: {1}", Output, Error);
         }
 
+        private static void KillAllKlondikeProcesses()
+        {
+            foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
+            {
+                process.Kill();
+                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
+            }
+        }
+
         public string Output
         {
             get { return _output.ToString(); }
@@ -150,7 +155,7 @@ namespace Crane.Tests.Common.Context
             Log.Debug("Tearing down nuget server");
             try
             {
-                _process.Kill();
+                KillAllKlondikeProcesses();
             }
             catch (Exception exception)
             {
