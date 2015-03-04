@@ -87,6 +87,7 @@
     <Compile Include="Api\Readers\ISourceControlInformationReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Runners\GeneralProcessRunner.cs" />
     <Compile Include="Runners\INuget.cs" />
     <Compile Include="Runners\Nuget.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />
@@ -178,6 +179,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Runners\Git.cs" />
+    <Compile Include="Runners\ProcessResult.cs" />
     <Compile Include="Runners\RunResult.cs" />
     <Compile Include="System\GuidGenerator.cs" />
     <Compile Include="System\HostEnvironment.cs" />

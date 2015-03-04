@@ -4,7 +4,8 @@
     {
         public RunResult Publish()
         {
-            throw new System.NotImplementedException();
+            var result = GeneralProcessRunner.Run("nuget", "");
+            return null;
         }
     }
 }

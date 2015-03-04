@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text;
 
-namespace Crane.Tests.Common.Runners
+namespace Crane.Core.Runners
 {
     /// <summary>
     /// Runs a process, capturing the standard output, error output and exit code.
@@ -48,12 +48,5 @@ namespace Crane.Tests.Common.Runners
             };
         }
 
-    }
-
-    public class ProcessResult
-    {
-        public string StandardOutput { get; set; }
-        public string ErrorOutput { get; set; }
-        public int ExitCode { get; set; }
     }
 }

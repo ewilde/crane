@@ -43,7 +43,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     .FileVersion.Should().Be("0.0.0.0"));
 
             "It should build successfully"
-                ._(() => result.StandardOutput.Should().Contain("Succeeded!"));
+                ._(() => result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree());
 
             "It should not throw an error"
                 ._(() => result.ErrorOutput.Should().BeEmpty())
@@ -138,7 +138,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                 {
                     nuGetServer.TearDown();
                     craneTestContext.TearDown();
-                });;
+                });
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Crane.Core.Extensions;
+using Crane.Core.Runners;
 using Crane.Tests.Common.Runners;
 using FluentAssertions;
 using log4net;

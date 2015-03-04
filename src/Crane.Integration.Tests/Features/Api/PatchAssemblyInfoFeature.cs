@@ -25,7 +25,7 @@ namespace Crane.Integration.Tests.Features.Api
             "And I have a solution builder context"
                 ._(() => context = ServiceLocator.Resolve<SolutionBuilderContext>());
 
-            "And I have a solution a project"
+            "And I have a solution with a project and an assembly info file"
                 ._(() => solutionContext = context.CreateBuilder()
                     .WithSolution(item => item.Path = Path.Combine(context.RootDirectory, "Sally.sln"))
                     .WithProject(item => item.Name = "FrodoFx")

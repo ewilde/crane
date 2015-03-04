@@ -1,4 +1,5 @@
 ﻿using Crane.Core.Api.Model;
+using Crane.Core.Runners;
 
 namespace Crane.Core.Api
 {
@@ -11,5 +12,6 @@ namespace Crane.Core.Api
         void PatchSolutionAssemblyInfo(ISolutionContext solutionContext, string version);
 
         ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext);
+        RunResult NugetPublish(ISolutionContext solutionContext);
     }
 }
