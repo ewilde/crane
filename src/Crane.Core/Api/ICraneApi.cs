@@ -1,4 +1,6 @@
-﻿using Crane.Core.Api.Model;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Crane.Core.Api.Model;
 using Crane.Core.Runners;
 
 namespace Crane.Core.Api
@@ -12,6 +14,7 @@ namespace Crane.Core.Api
         void PatchSolutionAssemblyInfo(ISolutionContext solutionContext, string version);
 
         ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext);
-        RunResult NugetPublish(ISolutionContext solutionContext);
+        
+        IEnumerable<RunResult> NugetPublish(ISolutionContext solutionContext, string nugetOutputPath, string version, string source, string apiKey);
     }
 }

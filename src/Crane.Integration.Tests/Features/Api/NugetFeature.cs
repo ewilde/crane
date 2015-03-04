@@ -14,7 +14,6 @@ namespace Crane.Integration.Tests.Features.Api
     public class NugetFeature
     {
         //[ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
-        [Scenario(Skip = "Not finished")]
         public void can_publish_build_to_nuget(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
             ISolutionContext solutionContext, string projectDir, ICraneApi craneApi, NuGetServerContext nuGetServer)
         {
@@ -50,7 +49,7 @@ namespace Crane.Integration.Tests.Features.Api
                });
 
             "When I publish to nuget using the api"
-                ._(() => craneApi.NugetPublish(solutionContext));
+                ._(() => craneApi.NugetPublish(solutionContext, Path.Combine(solutionContext.Path, "build-output", "nuget"), "0.0.0.0", nuGetServer.Source.ToString(), nuGetServer.ApiKey));
 
             "It should push the package to the nuget server"
                 ._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())

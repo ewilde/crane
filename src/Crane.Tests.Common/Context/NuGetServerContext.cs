@@ -33,7 +33,7 @@ namespace Crane.Tests.Common.Context
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
         private const int ServiceDoesNotExist = 1060;
 
-        public Uri ApiUri
+        public Uri Source
         {
             get { return new Uri(BaseUri, "api"); }
         }
@@ -179,7 +179,9 @@ namespace Crane.Tests.Common.Context
                 var result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
                 var response = result.Content.ReadAsAsync<dynamic>().Result;
 
-                result.IsSuccessStatusCode.Should().BeTrue("result should be a 200 code. Result details {0}.", result.ToString());
+                result.IsSuccessStatusCode.Should()
+                    .BeTrue("result should be a 200 code.{0}Request message{1}{0}Result message: {2}.", Environment.NewLine,
+                        result.RequestMessage, result.ToString());
                 ((string)response.id.Value).Should().Be(name);
                 ((string)response.version.Value).Should().Be(version);
                 return true;

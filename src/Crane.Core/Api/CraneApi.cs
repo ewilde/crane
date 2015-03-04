@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Crane.Core.Api.Exceptions;
 using Crane.Core.Api.Model;
 using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
 using Crane.Core.Commands.Resolvers;
+using Crane.Core.Extensions;
 using Crane.Core.Runners;
 
 namespace Crane.Core.Api
@@ -89,9 +92,31 @@ namespace Crane.Core.Api
             return _sourceControlInformationReader.ReadSourceControlInformation(solutionContext);
         }
 
-        public RunResult NugetPublish(ISolutionContext solutionContext)
+        public IEnumerable<RunResult> NugetPublish(ISolutionContext solutionContext, string nugetOutputPath, string version, string source, string apiKey)
         {
-            return _nuget.Publish();
+            var nugetProjects  = solutionContext.Solution.Projects
+                .Where(p => p.NugetSpec != null).ToArray();
+            var results = new List<RunResult>(nugetProjects.Length);
+            
+            nugetProjects.ForEach(
+                item =>
+                {
+                    var result = _nuget.Publish(
+                            Path.Combine(nugetOutputPath, 
+                            string.Format("{0}.{1}.nupkg", item.Name, version)),
+                            source, apiKey);
+                    results.Add(result);
+
+                    if (result.ExitCode != 0 || 
+                        (!string.IsNullOrEmpty(result.StandardOutput) && result.StandardOutput.Contains("invalid arguments")) ||
+                        !string.IsNullOrEmpty(result.ErrorOutput))
+                    {
+                        throw new NugetException(string.Format("Error executing nuget push for project {0}{1}{2}",
+                            item.Name, Environment.NewLine, result));
+                    }
+                });
+
+            return results;
         }
     }
 }

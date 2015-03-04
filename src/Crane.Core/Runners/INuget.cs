@@ -2,6 +2,6 @@
 {
     public interface INuget
     {
-        RunResult Publish();
+        RunResult Publish(string packagePath,string source, string apiKey);
     }
 }

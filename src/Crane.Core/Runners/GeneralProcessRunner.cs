@@ -8,7 +8,7 @@ namespace Crane.Core.Runners
     /// </summary>
     public static class GeneralProcessRunner
     {
-        public static ProcessResult Run(string fileName, string arguments, string workingDirectory = null)
+        public static RunResult Run(string fileName, string arguments, string workingDirectory = null)
         {
             var error = new StringBuilder();
             var output = new StringBuilder();
@@ -31,8 +31,8 @@ namespace Crane.Core.Runners
                 process.StartInfo.WorkingDirectory = workingDirectory;
             }
 
-            process.ErrorDataReceived += (sender, args) => error.Append(args.Data);
-            process.OutputDataReceived += (sender, args) => output.Append(args.Data);
+            process.ErrorDataReceived += (sender, args) => error.AppendLine(args.Data);
+            process.OutputDataReceived += (sender, args) => output.AppendLine(args.Data);
 
             process.Start();
             process.BeginOutputReadLine();
@@ -40,7 +40,7 @@ namespace Crane.Core.Runners
 
             process.WaitForExit();
 
-            return new ProcessResult
+            return new RunResult
             {
                 StandardOutput = output.ToString(),
                 ErrorOutput = error.ToString(),

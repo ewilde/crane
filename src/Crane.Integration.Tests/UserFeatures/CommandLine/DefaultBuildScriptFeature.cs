@@ -128,7 +128,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                    result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SallyFx"), 
                        "@('BuildSolution', 'NugetPublish')",
                        "-nuget_api_key", nuGetServer.ApiKey,
-                       "-nuget_api_url", nuGetServer.ApiUri.ToString());
+                       "-nuget_api_url", nuGetServer.Source.ToString());
                    result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
                });
 
