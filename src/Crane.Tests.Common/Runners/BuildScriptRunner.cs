@@ -50,12 +50,11 @@ namespace Crane.Tests.Common.Runners
 
             _log.DebugFormat("standard out: {0}  error: {1}", output, error);
 
-            return new RunResult
-            {
-                StandardOutput = output.ToString(),
-                ErrorOutput = error.ToString(),
-                ExitCode = process.ExitCode
-            };
+            return new RunResult(
+                string.Format("{0} {1}", process.StartInfo.FileName, process.StartInfo.Arguments),
+                output.ToString(),
+                error.ToString(),
+                process.ExitCode);        
         }
     }
 }

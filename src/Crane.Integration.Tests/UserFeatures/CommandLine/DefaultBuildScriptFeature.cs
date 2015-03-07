@@ -43,7 +43,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     .FileVersion.Should().Be("0.0.0.0"));
 
             "It should build successfully"
-                ._(() => result.StandardOutput.Should().Contain("Succeeded!"));
+                ._(() => result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree());
 
             "It should not throw an error"
                 ._(() => result.ErrorOutput.Should().BeEmpty())
@@ -97,39 +97,48 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                .Teardown(() => craneTestContext.TearDown());
         }
 
-        [Scenario(Skip = "Can't get package submission working on Klondie, will investigate seperately")]
+        [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
+        [Xunit.Trait("Debug", "nuGet")]
         public void build_a_project_and_publish_to_nuget(
             NuGetServerContext nuGetServer,
             ICraneTestContext craneTestContext,
             CraneRunner craneRunner,
             RunResult result)
         {
+            // .\src\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe .\build-output\Crane.Integration.Tests.dll /trait "Debug=nuGet"
             "Given I have my own private copy of the crane console"
              ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
 
             "And I have a run context"
                 ._(() => craneRunner = new CraneRunner());
 
-            "And I have a nuget server running"
-                ._(() => nuGetServer = new NuGetServerContext(craneTestContext));                           
+            "And I have a nuGet server running"
+                ._(() =>
+                {
+                    nuGetServer = new NuGetServerContext(craneTestContext);
+                    nuGetServer.PackageCount.Should().BeGreaterThan(-1);
+                });                           
 
-            "And I have a project with a nuget spec file (which is the default behaviour of crane init)"
+            "And I have a project with a nuGet spec file (which is the default behaviour of crane init)"
                 ._(() => craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init SallyFx").ErrorOutput.Should().BeEmpty());
 
-            "When I build the project supplying the nuget details"
+            "When I build the project supplying the nuGet details"
                ._(() =>
                {
                    result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "SallyFx"), 
                        "@('BuildSolution', 'NugetPublish')",
                        "-nuget_api_key", nuGetServer.ApiKey,
-                       "-nuget_api_url", nuGetServer.ApiUri.ToString());
+                       "-nuget_api_url", nuGetServer.Source.ToString());
                    result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree();
-               })
+               });
+
+            "It should push the package to the nuGet server"
+            	._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())
                .Teardown(() =>
                 {
                     nuGetServer.TearDown();
                     craneTestContext.TearDown();
-                });;
+                });
         }
     }
 }

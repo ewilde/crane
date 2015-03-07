@@ -10,31 +10,15 @@ Task NugetExists -Depends SetupContext {
 }
 
 Task NugetPack -Depends NugetExists {
-    if (!(test-path $global:context.nuget_artifacts_dir))
-    {
-        mkdir $global:context.nuget_artifacts_dir | out-null
-    }
-
-    $global:context.solution_context.Solution.Projects | where { $_.NugetSpec -ne $null } | % {
-        Write-Host $global:context.nuget_file @("pack"; $_.NugetSpec.Path; "-Properties" , "version_number=$($global:context.build_version);build_output=$($global:context.build_artifacts_dir)")
-        & $global:context.nuget_file @("pack"; $_.NugetSpec.Path; 
-            "-OutputDirectory", "$($global:context.nuget_artifacts_dir)"
-            "-Properties" , "version_number=$($global:context.build_version);build_output=$($global:context.build_artifacts_dir)")
+    Import-Module "$($global:context.build_dir)\builtmodules\Crane.PowerShell.dll"
+    Invoke-CraneNugetPackAllProjects $global:context.solution_context -BuildOutputPath  $global:context.build_artifacts_dir -NugetOutputPath  $global:context.nuget_artifacts_dir -Version $global:context.build_version | % {
+        $_.StandardOutput
     }
 }
 
 Task NugetPublish -Depends NugetExists, NugetPack {
-    $global:context.solution_context.Solution.Projects | where { $_.NugetSpec -ne $null } | % {
-        $nugetFile = "$($global:context.nuget_artifacts_dir)\$($_.Name).$($global:context.build_version).nupkg"
-        Write-Host Publishing: $nugetFile
-        if ($global:context.verbose)
-        {
-            Write-Host $global:context.nuget_file @("push"; $nugetFile; 
-            "-Source"; $context.nuget_api_url;
-            "-ApiKey"; $context.nuget_api_key)
-        }
-        & $global:context.nuget_file @("push"; $nugetFile; 
-            "-Source"; $context.nuget_api_url;
-            "-ApiKey"; $context.nuget_api_key)
+    Import-Module "$($global:context.build_dir)\builtmodules\Crane.PowerShell.dll"
+    Invoke-CraneNugetPublishAllProjects $global:context.solution_context -NugetOutputPath $global:context.nuget_artifacts_dir -Version $global:context.build_version -Source $global:context.nuget_api_url -ApiKey $global:context.nuget_api_key | % {
+        $_.StandardOutput
     }
 }

@@ -1,36 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.Net.Http;
+using System.Security.Principal;
+using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Crane.Core.Extensions;
+using Crane.Core.Runners;
+using Crane.Tests.Common.Runners;
+using FluentAssertions;
 using log4net;
-using Xbehave;
+using Xunit;
 
 namespace Crane.Tests.Common.Context
 {
     /// <summary>
     /// If you get problems running this test, it could be firewall related.
-    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 8080" dir=in action=allow protocol=TCP localport=8080
+    /// Try opening the port in an admin window: netsh advfirewall firewall add rule name="Open Port 52545" dir=in action=allow protocol=TCP localport=52545
     /// </summary>
+    
     public class NuGetServerContext
     {
-        private readonly ICraneTestContext _testContext;
-        private readonly Process _process;
-        private readonly StringBuilder _error;
-        private readonly StringBuilder _output;
+        private ICraneTestContext _testContext;
 
-        private static readonly ILog _log = LogManager.GetLogger(typeof(NuGetServerContext));
-        private readonly ManualResetEvent _waitForStarted;
-        private static readonly Uri uri = new Uri("http://localhost:8080/api/");
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NuGetServerContext));
+        private const int PortNumber = 52545;
+        private const string ServiceName = "Klondike";
+        private static readonly Uri BaseUri = new Uri(string.Format("http://{0}:{1}", System.Environment.MachineName, PortNumber));
+        private static readonly TimeSpan WaitForServiceStatusTimeout = TimeSpan.FromSeconds(10);
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
+        private const int ServiceDoesNotExist = 1060;
 
-        public Uri ApiUri
+        public Uri Source
         {
-            get { return uri; }
+            get { return new Uri(BaseUri, "api"); }
         }
 
         public string ApiKey
@@ -40,81 +45,152 @@ namespace Crane.Tests.Common.Context
 
         public NuGetServerContext(ICraneTestContext testContext)
         {
-            _log.Info("Initializing NugetSeverContext");
+            Log.Debug("Initializing NugetSeverContext");
+            Initialize(testContext);
+        }
+
+        private void Initialize(ICraneTestContext testContext)
+        {
+            _testContext = testContext;
+           
+            KillAllKlondikeProcesses();
+
+            var binPath = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe");
+            var arguments = string.Format("--port={0}", PortNumber);
+            
+            DeleteService();
+            CreateService(binPath, arguments);
+            StartService();
+
+            Log.Debug("nuGet server started");
+        }
+
+        private void StartService()
+        {
+            Log.DebugFormat(@"Starting service {0}", ServiceName);
+            var controller = new ServiceController(ServiceName);
+            controller.Start();
+            controller.WaitForStatus(ServiceControllerStatus.Running, WaitForServiceStatusTimeout);
+            Log.DebugFormat(@"Started service {0}", ServiceName);
+        }
+
+        private void StopService()
+        {
+            Log.DebugFormat(@"Stopping service {0}", ServiceName);
+            var controller = new ServiceController(ServiceName);
+            controller.Stop();
+            controller.WaitForStatus(ServiceControllerStatus.Stopped, WaitForServiceStatusTimeout);
+            Log.DebugFormat(@"Stopped service {0}", ServiceName);
+        }
+
+        private void CreateService(string binPath, string arguments)
+        {
+            WindowsIdentity.GetCurrent().IsElevated().Should().BeTrue("process was not running as admin. You cannot create a service without running as administrator.");
+            var scArgs = string.Format("create {0} start=auto binpath=\"{1} {2}\"", ServiceName, binPath, arguments);
+            var result = GeneralProcessRunner.Run(@"C:\Windows\system32\sc.exe", scArgs);
+
+            if (result.ExitCode != 0)
+            {
+                throw new Exception(string.Format(@"Could not create service: C:\Windows\system32\sc.exe {0}{1}Standard output: {2}{1}Error output:{3}", 
+                    scArgs, Environment.NewLine, result.StandardOutput, result.ErrorOutput));
+            }
+
+            Log.DebugFormat(@"Creating service C:\Windows\system32\sc.exe {0}", scArgs);
+            Log.DebugFormat(@"Creating service standard output: {0}", result.StandardOutput);
+            Log.DebugFormat(@"Creating service error output: {0}", result.ErrorOutput);
+        }
+
+        private void DeleteService()
+        {
+            var scArgs = string.Format("delete {0}", ServiceName);
+            var result = GeneralProcessRunner.Run(@"C:\Windows\system32\sc.exe", scArgs);
+
+            if (result.ExitCode != 0 && result.ExitCode != ServiceDoesNotExist)
+            {
+                throw new Exception(string.Format(@"Could not delete service: C:\Windows\system32\sc.exe {0}{1}Standard output: {2}{1}Error output:{3}{1}Exit code:{4}",
+                    scArgs, Environment.NewLine, result.StandardOutput, result.ErrorOutput, result.ExitCode));
+            }
+
+            Log.DebugFormat(@"Deleting service C:\Windows\system32\sc.exe {0}", scArgs);
+            Log.DebugFormat(@"Deleting service standard output: {0}", result.StandardOutput);
+            Log.DebugFormat(@"Deleting service error output: {0}", result.ErrorOutput);
+            Log.DebugFormat(@"Deleting service exit code: {0}", result.ErrorOutput);
+        }
+
+        private static void KillAllKlondikeProcesses()
+        {
             foreach (var process in Process.GetProcessesByName("Klondike.SelfHost"))
             {
                 process.Kill();
-                _log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
-            }
-
-            _testContext = testContext;
-            _waitForStarted = new ManualResetEvent(false);
-            _process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    WorkingDirectory = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin"),
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    FileName = Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Klondike.SelfHost.exe"),
-                    Arguments = "--port=8080 --interactive"
-                }
-            };
-
-            _error = new StringBuilder();
-            _output = new StringBuilder();
-
-            Task.Run(() =>
-            {
-
-                try
-                {
-                    _process.ErrorDataReceived += (sender, args) => _error.Append(args.Data);
-                    _process.OutputDataReceived += (sender, args) =>
-                    {
-                        _output.Append(args.Data);
-                        if (Output.Contains("Press <enter> to stop."))
-                        {
-                            _waitForStarted.Set();
-                        }
-                    };
-
-                    _process.Start();
-                    _process.BeginOutputReadLine();
-                    _process.BeginErrorReadLine();
-
-                    _log.Info("Nuget server started on worker thread, will wait for exit");
-            
-                    _process.WaitForExit();
-                }
-                catch (Exception exception)
-                {
-                    _log.Error(exception);
-                }
-            });
-
-            if (!_waitForStarted.WaitOne(TimeSpan.FromSeconds(30)))
-            {
-                throw new Exception("Could not start klondie");
+                Log.InfoFormat("Klondike.SelfHost {0}", "process killed during start up");
             }
         }
 
         public string Output
         {
-            get { return _output.ToString(); }
+            get
+            {
+                return
+                    File.ReadAllText(Path.Combine(_testContext.ToolsDirectory, "klondie", "bin", "Logs", "Klondike.log"));
+            }
         }
 
-        public string Error
+        public int PackageCount
         {
-            get { return _error.ToString(); }
+            get
+            {
+                try
+                {
+                    var client = new HttpClient { BaseAddress = BaseUri };
+                    var result = client.GetAsync("api/packages").Result;
+                    var response = result.Content.ReadAsAsync<dynamic>().Result;
+
+                    Log.Debug(response.ToString());
+                    return (int)response.count.Value;
+                }
+                catch (Exception exception)
+                {
+                    Log.Error(exception.ToString());
+                    return -1;
+                }
+            }
         }
 
         public void TearDown()
         {
-            _log.Info("Tearing down nuget server");
-            _process.Kill();
+            Log.Debug("Tearing down nuGet server");
+            try
+            {
+                StopService();
+                DeleteService();
+                KillAllKlondikeProcesses();
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+            }
+        }
+
+        public bool PackageExists(string name, string version)
+        {
+            try
+            {
+                var client = new HttpClient { BaseAddress = BaseUri };
+                var result = client.GetAsync(string.Format("api/packages/{0}/{1}", name, version)).Result;
+                var response = result.Content.ReadAsAsync<dynamic>().Result;
+
+                result.IsSuccessStatusCode.Should()
+                    .BeTrue("result should be a 200 code.{0}Request message{1}{0}Result message: {2}.", Environment.NewLine,
+                        result.RequestMessage, result.ToString());
+                ((string)response.id.Value).Should().Be(name);
+                ((string)response.version.Value).Should().Be(version);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+                return false;
+            }
         }
     }
 }

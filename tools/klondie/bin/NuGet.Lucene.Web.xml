@@ -52,14 +52,13 @@
             </summary>
         </member>
         <member name="M:NuGet.Lucene.Web.Models.MirroringPackageRepository.ShouldLookInOrigin(System.String,System.Collections.Generic.List{NuGet.IPackage})">
-            <summary>
-            Determines if origin should be checked for additional package versions.
-            The default implementation returns <c>true</c> if <paramref name="localPackages"/>
-            is empty or if any of the local packages are mirrored.
+             <summary>
+             Determines if origin should be checked for additional package versions.
+             The default implementation returns <c>true</c> if <paramref name="localPackages"/>
+             is empty or if any of the local packages are mirrored.
             
-            An alternate implementation could use a whitelist or blacklist.
-            </summary>
-            <returns></returns>
+             An alternate implementation could use a whitelist or blacklist.
+             </summary>
         </member>
         <member name="P:NuGet.Lucene.Web.Models.UserAttributes.Key">
             <summary>
@@ -327,6 +326,13 @@
             Sends a 307 Redirect to the given route with specified route values.
             </summary>
         </member>
+        <member name="M:NuGet.Lucene.Web.OData.Batch.HeaderCascadingODataBatchHandler.CopyRequestHeaders(System.Net.Http.HttpRequestMessage,System.Collections.Generic.IList{System.Web.Http.OData.Batch.ODataBatchRequestItem})">
+            <summary>
+            Copies HTTP Request Headers from parent request to all requests from multi-part child requests.
+            This fixes a problem where content negotiation does not work correctly and JSON is always returned
+            even when the client expects xml+atom.
+            </summary>
+        </member>
         <member name="T:NuGet.Lucene.Web.OData.Routing.Conventions.CompositeKeyRoutingConvention">
             <summary>
             Enables OData entities to be retrieved by URIs that use composite keys
@@ -351,22 +357,17 @@
         </member>
         <member name="M:NuGet.Lucene.Web.NuGetWebApiRouteMapper.MapNuGetClientRedirectRoutes(System.Web.Http.HttpConfiguration)">
             <summary>
-            See <see cref="M:NuGet.Lucene.Web.NuGetWebApiRouteMapper.MapNuGetClientRedirectRoutes(System.Web.Http.HttpConfiguration,System.String)"/>
-            </summary>
-        </member>
-        <member name="M:NuGet.Lucene.Web.NuGetWebApiRouteMapper.MapNuGetClientRedirectRoutes(System.Web.Http.HttpConfiguration,System.String)">
-            <summary>
             Adds route handlers that will redirect NuGet User Agents so that
             a single source URL can be used in the client.
             </summary>
             <param name="config">
             The configuration in which to register routes
             </param>
-            <param name="routeTemplate">
-            Where the primary redirect should take place.
-            The empty string should be used in most cases, but if you want to
-            point your clients to http://foo/api you could use <c>"api"</c> instead.
-            </param>
+        </member>
+        <member name="T:NuGet.Lucene.Web.NuGetWebApiRouteMapper.BatchHttpServer">
+            <summary>
+            See https://trocolate.wordpress.com/2012/07/19/mitigate-issue-260-in-batching-scenario/
+            </summary>
         </member>
         <member name="F:NuGet.Lucene.Web.RoleNames.AccountAdministrator">
             <summary>

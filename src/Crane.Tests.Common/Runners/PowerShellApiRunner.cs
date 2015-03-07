@@ -79,12 +79,11 @@ namespace Crane.Tests.Common.Runners
 
         private RunResult CreateRunResult()
         {
-            return new RunResult
-            {
-                StandardOutput = _output.ToString(),
-                ErrorOutput = _error.ToString(),
-                ExitCode = GetExitCode()
-            };
+            return new RunResult(
+                string.Format("{0} {1}", _process.StartInfo.FileName, _process.StartInfo.Arguments),
+                _output.ToString(),
+                _error.ToString(),
+                GetExitCode());
         }
 
         private int GetExitCode()

@@ -9,6 +9,7 @@
         }
 
         public string ProviderName { get { return "git"; } }
+
         public string LastCommitMessage { get; private set; }
     }
 }

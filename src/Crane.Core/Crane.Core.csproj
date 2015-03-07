@@ -69,6 +69,7 @@
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
+    <Compile Include="Api\Exceptions\NugetException.cs" />
     <Compile Include="Api\GitSourceControlInformation.cs" />
     <Compile Include="Api\ICraneApi.cs" />
     <Compile Include="Api\ISolutionContext.cs" />
@@ -86,6 +87,10 @@
     <Compile Include="Api\Readers\ISolutionReader.cs" />
     <Compile Include="Api\Readers\ISourceControlInformationReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
+    <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Runners\GeneralProcessRunner.cs" />
+    <Compile Include="Runners\INuGet.cs" />
+    <Compile Include="Runners\NuGet.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />
     <Compile Include="Api\Writers\IAssemblyInfoWriter.cs" />
     <Compile Include="Api\Writers\ISolutionWriter.cs" />
@@ -217,9 +222,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Api\Writers\Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

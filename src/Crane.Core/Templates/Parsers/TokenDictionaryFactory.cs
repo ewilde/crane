@@ -20,7 +20,7 @@ namespace Crane.Core.Templates.Parsers
                 { "%DateTime.Now.Year%", () => DateTime.Now.Year.ToString()},
                 { "%System.Environment.UserName%", () => System.Environment.UserName},
                 {
-                    "%nuget%", () => ".nuget" // cpack doesn't include folder name .nuget so we just tokenize it
+                    "%nuget%", () => ".nuget" // cpack doesn't include folder name .nuGet so we just tokenize it
                 },
             });
         }
