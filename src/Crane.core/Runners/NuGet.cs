@@ -16,13 +16,13 @@ namespace Crane.Core.Runners
             _fileManager = fileManager;
         }
 
-        public RunResult Publish(string nuGetPackagePath, string source, string apiKey)
+        public RunResult Publish(string nugetExePath, string nuGetPackagePath, string source, string apiKey)
         {
-            var result = GeneralProcessRunner.Run("nuGet", string.Format("push {0} -Source {1} -ApiKey {2}", nuGetPackagePath, source, apiKey));
+            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("push {0} -Source {1} -ApiKey {2}", nuGetPackagePath, source, apiKey));
             return result;
         }
 
-        public RunResult Pack(string nuGetSpecPath, string outputDirectory, IEnumerable<Tuple<string, string>> properties)
+        public RunResult Pack(string nugetExePath, string nuGetSpecPath, string outputDirectory, IEnumerable<Tuple<string, string>> properties)
         {
             _fileManager.EnsureDirectoryExists(new DirectoryInfo(outputDirectory));
             var propertyArgs = new StringBuilder();
@@ -31,7 +31,7 @@ namespace Crane.Core.Runners
                 propertyArgs.AppendFormat("{0}={1};", property.Item1, property.Item2);
             }
 
-            var result = GeneralProcessRunner.Run("nuget", string.Format("pack {0} -OutputDirectory {1} -Properties \"{2}\"",
+            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("pack {0} -OutputDirectory {1} -Properties \"{2}\"",
                 nuGetSpecPath, outputDirectory, propertyArgs));
 
             return result;

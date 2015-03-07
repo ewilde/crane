@@ -101,6 +101,7 @@ namespace Crane.Core.Api
                 item =>
                 {
                     var result = _nuGet.Publish(
+                            Path.Combine(solutionContext.Path, "build", "NuGet.exe"),
                             Path.Combine(nugetOutputPath, 
                             string.Format("{0}.{1}.nupkg", item.Name, version)),
                             source, apiKey);
@@ -123,7 +124,10 @@ namespace Crane.Core.Api
 
             foreach (var item in nugetProjects)
             {
-                var result = _nuGet.Pack(item.NugetSpec.Path, nugetOutputPath,
+                var result = _nuGet.Pack(
+                    Path.Combine(solutionContext.Path, "build", "NuGet.exe"), 
+                    item.NugetSpec.Path, 
+                    nugetOutputPath,
                     new List<Tuple<string, string>>
                     {
                         new Tuple<string, string>("version_number", version),
