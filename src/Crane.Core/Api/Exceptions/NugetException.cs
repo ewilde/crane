@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Crane.Core.Api.Exceptions
 {
     [Serializable]
-    public class NugetException : Exception
+    public class NuGetException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Crane.Core.Api.Exceptions
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public NugetException()
+        public NuGetException()
         {
         }
 
-        public NugetException(string message) : base(message)
+        public NuGetException(string message) : base(message)
         {
         }
 
-        public NugetException(string message, Exception inner) : base(message, inner)
+        public NuGetException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected NugetException(
+        protected NuGetException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

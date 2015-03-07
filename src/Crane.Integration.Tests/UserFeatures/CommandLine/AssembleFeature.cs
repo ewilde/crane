@@ -34,7 +34,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", "ServiceStack.sln"))
-                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", ".nuget", "packages.config")))
+                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack", ".nuGet", "packages.config")))
                         .WithProject(project => project.Name = "ServiceStack.Core")
                         .Build();
                 });
@@ -93,7 +93,7 @@ namespace Crane.Integration.Tests.UserFeatures.CommandLine
                     solutionBuilderContext
                         .CreateBuilder()
                         .WithSolution(solution => solution.Path = Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", "MySolution.sln"))
-                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", ".nuget", "packages.config")))
+                        .WithFile(file => file.AddSolutionPackagesConfigWithXUnitRunner(Path.Combine(craneTestContext.BuildOutputDirectory, "SolutionInDirectoryProject", "src", "solutions", ".nuGet", "packages.config")))
                         .WithProject(project =>
                         {
                             project.Name = "ServiceStack";

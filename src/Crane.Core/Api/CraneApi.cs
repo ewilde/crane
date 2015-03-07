@@ -19,7 +19,7 @@ namespace Crane.Core.Api
         private readonly Func<ISolutionContext> _solutionContext;
         private readonly ISolutionPathResolver _solutionPathResolver;
         private readonly ISourceControlInformationReader _sourceControlInformationReader;
-        private readonly INuget _nuget;
+        private readonly INuGet _nuGet;
 
         public CraneApi(
             ISolutionReader solutionReader,
@@ -27,14 +27,14 @@ namespace Crane.Core.Api
             Func<ISolutionContext> solutionContext, 
             ISolutionPathResolver solutionPathResolver, 
             ISourceControlInformationReader sourceControlInformationReader,
-            INuget nuget)
+            INuGet nuGet)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
             _solutionContext = solutionContext;
             _solutionPathResolver = solutionPathResolver;
             _sourceControlInformationReader = sourceControlInformationReader;
-            _nuget = nuget;
+            _nuGet = nuGet;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
@@ -94,29 +94,58 @@ namespace Crane.Core.Api
 
         public IEnumerable<RunResult> NugetPublish(ISolutionContext solutionContext, string nugetOutputPath, string version, string source, string apiKey)
         {
-            var nugetProjects  = solutionContext.Solution.Projects
-                .Where(p => p.NugetSpec != null).ToArray();
+            var nugetProjects  = GetNugetProjects(solutionContext).ToArray();
             var results = new List<RunResult>(nugetProjects.Length);
-            
+
             nugetProjects.ForEach(
                 item =>
                 {
-                    var result = _nuget.Publish(
+                    var result = _nuGet.Publish(
                             Path.Combine(nugetOutputPath, 
                             string.Format("{0}.{1}.nupkg", item.Name, version)),
                             source, apiKey);
                     results.Add(result);
 
-                    if (result.ExitCode != 0 || 
-                        (!string.IsNullOrEmpty(result.StandardOutput) && result.StandardOutput.Contains("invalid arguments")) ||
-                        !string.IsNullOrEmpty(result.ErrorOutput))
+                    if (!_nuGet.ValidateResult(result))
                     {
-                        throw new NugetException(string.Format("Error executing nuget push for project {0}.{1}{2}",
+                        throw new NuGetException(string.Format("Error executing nuget push for project {0}.{1}{2}",
                             item.Name, Environment.NewLine, result));
                     }
                 });
 
             return results;
+        }
+
+        public IEnumerable<RunResult> NugetPack(ISolutionContext solutionContext, string buildOutputPath, string nugetOutputPath, string version)
+        {
+            var nugetProjects = GetNugetProjects(solutionContext).ToArray();
+            var results = new List<RunResult>(nugetProjects.Length);
+
+            nugetProjects.ForEach(
+               item =>
+               {
+                   var result = _nuGet.Pack(item.NugetSpec.Path, nugetOutputPath,
+                       new List<Tuple<string, string>>
+                       {
+                           new Tuple<string, string>("version_number", version),
+                           new Tuple<string, string>("build_output", buildOutputPath)
+                       });
+                   results.Add(result);
+
+                   if (!_nuGet.ValidateResult(result))
+                   {
+                       throw new NuGetException(string.Format("Error executing nuget pack for project {0}.{1}{2}",
+                           item.Name, Environment.NewLine, result));
+                   }
+               });
+
+            return results;
+        }
+
+        private static IEnumerable<Project> GetNugetProjects(ISolutionContext solutionContext)
+        {
+            return solutionContext.Solution.Projects
+                .Where(p => p.NugetSpec != null);
         }
     }
 }

@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -108,6 +108,7 @@
     <Compile Include="Documentation\Providers\XmlHelpProviderTests.cs" />
     <Compile Include="Extensions\XDocumentExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runners\NuGetTests.cs" />
     <Compile Include="Templates\Parsers\FileAndDirectoryTokenParserTests.cs" />
     <Compile Include="Templates\Parsers\TokenParserTests.cs" />
     <Compile Include="Templates\TemplateResolverTests.cs" />

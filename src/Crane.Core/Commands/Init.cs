@@ -26,7 +26,7 @@ namespace Crane.Core.Commands
     /// \---src
     ///     |   SallyFx.sln
     ///     |
-    ///     +---.nuget
+    ///     +---.nuGet
     ///     |       packages.config
     ///     |
     ///     +---SallyFx

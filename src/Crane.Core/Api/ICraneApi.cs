@@ -17,6 +17,6 @@ namespace Crane.Core.Api
         
         IEnumerable<RunResult> NugetPublish(ISolutionContext solutionContext, string nugetOutputPath, string version, string source, string apiKey);
         
-        IEnumerable<RunResult> NugetPack(ISolutionContext solutionContext, string nugetOutputPath);
+        IEnumerable<RunResult> NugetPack(ISolutionContext solutionContext, string buildOutputPath, string nugetOutputPath, string version);
     }
 }

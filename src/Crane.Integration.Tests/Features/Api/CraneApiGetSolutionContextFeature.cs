@@ -144,13 +144,13 @@ namespace Crane.Integration.Tests.Features.Api
                     solutionContext = craneApi.GetSolutionContext(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
                 });
 
-            "It should determine that the ServiceStack project has a nuget specification"
+            "It should determine that the ServiceStack project has a nuGet specification"
                 ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack").NugetSpec.Should().NotBeNull());
 
-            "It should determine the path of the nuget specification file"
+            "It should determine the path of the nuGet specification file"
                 ._(() => File.Exists(solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack").NugetSpec.Path).Should().BeTrue());
 
-            "It should determine that the ServiceStack.UnitTests project does not have nuget specification"
+            "It should determine that the ServiceStack.UnitTests project does not have nuGet specification"
                 ._(() => solutionContext.Solution.Projects.First(p => p.Name == "ServiceStack.UnitTests").NugetSpec.Should().BeNull());
 
             

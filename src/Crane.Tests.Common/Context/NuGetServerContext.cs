@@ -62,7 +62,7 @@ namespace Crane.Tests.Common.Context
             CreateService(binPath, arguments);
             StartService();
 
-            Log.Debug("Nuget server started");
+            Log.Debug("nuGet server started");
         }
 
         private void StartService()
@@ -158,7 +158,7 @@ namespace Crane.Tests.Common.Context
 
         public void TearDown()
         {
-            Log.Debug("Tearing down nuget server");
+            Log.Debug("Tearing down nuGet server");
             try
             {
                 StopService();

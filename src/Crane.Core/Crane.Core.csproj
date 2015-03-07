@@ -89,8 +89,8 @@
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Runners\GeneralProcessRunner.cs" />
-    <Compile Include="Runners\INuget.cs" />
-    <Compile Include="Runners\Nuget.cs" />
+    <Compile Include="Runners\INuGet.cs" />
+    <Compile Include="Runners\NuGet.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />
     <Compile Include="Api\Writers\IAssemblyInfoWriter.cs" />
     <Compile Include="Api\Writers\ISolutionWriter.cs" />

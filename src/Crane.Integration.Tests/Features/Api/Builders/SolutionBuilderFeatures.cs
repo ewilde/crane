@@ -57,7 +57,7 @@ namespace Crane.Integration.Tests.Features.Api.Builders
         /// <example>
         /// C:\DEV\TEMP\SOLUTIONINDIRECTORYPROJECT
         /// └───src
-        ///     ├───.nuget
+        ///     ├───.nuGet
         ///     │       packages.config
         ///     │
         ///     ├───ServiceStack

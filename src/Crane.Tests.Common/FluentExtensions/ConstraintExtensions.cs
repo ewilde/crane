@@ -14,7 +14,8 @@ namespace Crane.Tests.Common.FluentExtensions
             {
                 assertionScope.ForCondition(
                     !value.Subject.StandardOutput.ToLower().Contains("error") &&
-                    value.Subject.ErrorOutput.Length == 0 &&
+                    !value.Subject.StandardOutput.ToLower().Contains("invalid") &&
+                    value.Subject.ErrorOutput.Trim().Length == 0 &&
                     value.Subject.ExitCode == 0)
                     .BecauseOf(because, reasonArgs).FailWith(" Expected not to contain errors{reason}, but found {0}.", new object[1]
                     {
