@@ -4,18 +4,22 @@ using System.IO;
 using System.Linq;
 using Crane.Core.Api;
 using Crane.Core.Configuration;
+using Crane.Core.Extensions;
 using Crane.Core.Runners;
 using Crane.Tests.Common;
 using Crane.Tests.Common.Context;
 using Crane.Tests.Common.Runners;
 using Crane.Tests.Common.FluentExtensions;
 using FluentAssertions;
+using log4net;
 using Xbehave;
 
 namespace Crane.Integration.Tests.Features.Api
 {
     public class NugetFeature
     {
+        private static readonly ILog _log = LogManager.GetLogger(typeof(NugetFeature));
+
         [ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void can_create_a_nuget_package(
             CraneRunner craneRunner, 
@@ -59,10 +63,11 @@ namespace Crane.Integration.Tests.Features.Api
                     {
                         nugetOutputFolder = Path.Combine(buildOutputFolder, "nuGet");
                         runResults = craneApi.NugetPack(solutionContext, buildOutputFolder, nugetOutputFolder, "0.0.0.0");
+                        runResults.ForEach(item => _log.Debug(result));
                     });
 
             "It should create nuGet packages for all the projects in the built solution"
-                ._(() => File.Exists(Path.Combine(nugetOutputFolder, "ServiceStack.0.0.0.0.nupkg")).Should().BeTrue())
+                ._(() => File.Exists(Path.Combine(nugetOutputFolder, "ServiceStack.0.0.0.0.nupkg")).Should().BeTrue("could not find nuget file {0}, it should have been created.", Path.Combine(nugetOutputFolder, "ServiceStack.0.0.0.0.nupkg")))
                 .Teardown(() => craneTestContext.TearDown());
         }
 

@@ -121,25 +121,23 @@ namespace Crane.Core.Api
             var nugetProjects = GetNugetProjects(solutionContext).ToArray();
             var results = new List<RunResult>(nugetProjects.Length);
 
-            nugetProjects.ForEach(
-               item =>
-               {
-                   var result = _nuGet.Pack(item.NugetSpec.Path, nugetOutputPath,
-                       new List<Tuple<string, string>>
-                       {
-                           new Tuple<string, string>("version_number", version),
-                           new Tuple<string, string>("build_output", buildOutputPath)
-                       });
-                   results.Add(result);
+            foreach (var item in nugetProjects)
+            {
+                var result = _nuGet.Pack(item.NugetSpec.Path, nugetOutputPath,
+                    new List<Tuple<string, string>>
+                    {
+                        new Tuple<string, string>("version_number", version),
+                        new Tuple<string, string>("build_output", buildOutputPath)
+                    });
+                   
+                if (!_nuGet.ValidateResult(result))
+                {
+                    throw new NuGetException(string.Format("Error executing nuget pack for project {0}.{1}{2}",
+                        item.Name, Environment.NewLine, result));
+                }
 
-                   if (!_nuGet.ValidateResult(result))
-                   {
-                       throw new NuGetException(string.Format("Error executing nuget pack for project {0}.{1}{2}",
-                           item.Name, Environment.NewLine, result));
-                   }
-               });
-
-            return results;
+                yield return result;
+            }
         }
 
         private static IEnumerable<Project> GetNugetProjects(ISolutionContext solutionContext)
