@@ -44,7 +44,7 @@ namespace Crane.Core.Api
             if (rootFolderPath.EndsWith(".sln"))
             {
                 context.Solution = _solutionReader.FromPath(rootFolderPath);
-                context.Path = new FileInfo(rootFolderPath).DirectoryName;
+                context.Path = new DirectoryInfo(new FileInfo(rootFolderPath).DirectoryName).Parent.FullName;
             }
             else
             {
@@ -120,12 +120,17 @@ namespace Crane.Core.Api
         public IEnumerable<RunResult> NugetPack(ISolutionContext solutionContext, string buildOutputPath, string nugetOutputPath, string version)
         {
             var nugetProjects = GetNugetProjects(solutionContext).ToArray();
-            var results = new List<RunResult>(nugetProjects.Length);
+
+            var nugetExePath = Path.Combine(solutionContext.Path, "build", "NuGet.exe");
+            if (!File.Exists(nugetExePath))
+            {
+                throw new FileNotFoundException(string.Format("Could not find file {0}.", nugetExePath), nugetExePath);
+            }
 
             foreach (var item in nugetProjects)
             {
                 var result = _nuGet.Pack(
-                    Path.Combine(solutionContext.Path, "build", "NuGet.exe"), 
+                    nugetExePath, 
                     item.NugetSpec.Path, 
                     nugetOutputPath,
                     new List<Tuple<string, string>>

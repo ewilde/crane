@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CraneCmdlet.cs" />
     <Compile Include="Get-CraneSolutionContext.cs" />
+    <Compile Include="Invoke-CraneNugetPublishAllProjects.cs" />
     <Compile Include="Invoke-CraneNugetPackAllProjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Update-CraneAllProjectsAssemblyInfos.cs" />
