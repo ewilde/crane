@@ -22,7 +22,7 @@ SallyFx
 \---src
     |   SallyFx.sln
     |
-    +---.nuget
+    +---.nuGet
     |       packages.config
     |
     +---SallyFx
