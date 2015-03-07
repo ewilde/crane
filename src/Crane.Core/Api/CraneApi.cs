@@ -111,7 +111,7 @@ namespace Crane.Core.Api
                         (!string.IsNullOrEmpty(result.StandardOutput) && result.StandardOutput.Contains("invalid arguments")) ||
                         !string.IsNullOrEmpty(result.ErrorOutput))
                     {
-                        throw new NugetException(string.Format("Error executing nuget push for project {0}{1}{2}",
+                        throw new NugetException(string.Format("Error executing nuget push for project {0}.{1}{2}",
                             item.Name, Environment.NewLine, result));
                     }
                 });

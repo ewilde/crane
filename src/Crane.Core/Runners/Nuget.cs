@@ -4,7 +4,7 @@
     {
         public RunResult Publish(string packagePath, string source, string apiKey)
         {
-            var result = GeneralProcessRunner.Run("nuget", string.Format("push -Source {0} -ApiKey {1}", source, apiKey));
+            var result = GeneralProcessRunner.Run("nuget", string.Format("push {0} -Source {1} -ApiKey {2}", packagePath, source, apiKey));
             return result;
         }
     }

@@ -16,5 +16,7 @@ namespace Crane.Core.Api
         ISourceControlInformation GetSourceControlInformation(ISolutionContext solutionContext);
         
         IEnumerable<RunResult> NugetPublish(ISolutionContext solutionContext, string nugetOutputPath, string version, string source, string apiKey);
+        
+        IEnumerable<RunResult> NugetPack(ISolutionContext solutionContext, string nugetOutputPath);
     }
 }

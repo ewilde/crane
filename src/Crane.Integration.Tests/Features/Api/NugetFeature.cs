@@ -14,6 +14,47 @@ namespace Crane.Integration.Tests.Features.Api
     public class NugetFeature
     {
         //[ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
+        public void can_create_a_nuget_package(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
+            ISolutionContext solutionContext, string projectDir, ICraneApi craneApi, string nugetOutputFolder)
+        {
+            "Given I have my own private copy of the crane console"
+            ._(() => craneTestContext = ServiceLocator.Resolve<CraneTestContext>());
+
+            "And I have a run context"
+                ._(() => craneRunner = new CraneRunner());
+
+            "And I have run crane init ServiceStack"
+                ._(() => result = craneRunner.Command(craneTestContext.BuildOutputDirectory, "crane init ServiceStack"));
+
+            "And I have build the project"
+                ._(() =>
+                {
+                    result = new BuildScriptRunner().Run(Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack"));
+                    result.Should().BeBuiltSuccessfulyWithAllTestsPassing().And.BeErrorFree(); ;
+                });
+
+            "And I have the solution context using the api"
+               ._(() =>
+               {
+                   projectDir = Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack");
+                   craneApi = ServiceLocator.Resolve<ICraneApi>();
+                   solutionContext = craneApi.GetSolutionContext(projectDir);
+               });
+
+            "When I create nuget packages using the api"
+                ._(
+                    () =>
+                    {
+                        nugetOutputFolder = Path.Combine(solutionContext.Path, "build-output", "nuget");
+                        craneApi.NugetPack(solutionContext, nugetOutputFolder);
+                    });
+
+            "It should create nuget packages for all the projects in the built solution"
+                ._(() => File.Exists(Path.Combine(nugetOutputFolder, "ServiceStack.0.0.0.0.nupkg")).Should().BeTrue())
+                .Teardown(() => craneTestContext.TearDown());
+        }
+
+        //[ScenarioIgnoreOnMono("Powershell not fully supported on mono")]
         public void can_publish_build_to_nuget(CraneRunner craneRunner, RunResult result, CraneTestContext craneTestContext,
             ISolutionContext solutionContext, string projectDir, ICraneApi craneApi, NuGetServerContext nuGetServer)
         {
@@ -49,7 +90,11 @@ namespace Crane.Integration.Tests.Features.Api
                });
 
             "When I publish to nuget using the api"
-                ._(() => craneApi.NugetPublish(solutionContext, Path.Combine(solutionContext.Path, "build-output", "nuget"), "0.0.0.0", nuGetServer.Source.ToString(), nuGetServer.ApiKey));
+                ._(
+                    () =>
+                        craneApi.NugetPublish(solutionContext,
+                            Path.Combine(solutionContext.Path, "build-output", "nuget"), "0.0.0.0",
+                            nuGetServer.Source.ToString(), nuGetServer.ApiKey));
 
             "It should push the package to the nuget server"
                 ._(() => nuGetServer.PackageExists("SallyFx", "0.0.0.0").Should().BeTrue())
