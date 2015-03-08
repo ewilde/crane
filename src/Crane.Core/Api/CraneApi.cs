@@ -44,7 +44,23 @@ namespace Crane.Core.Api
             if (rootFolderPath.EndsWith(".sln"))
             {
                 context.Solution = _solutionReader.FromPath(rootFolderPath);
-                context.Path = new DirectoryInfo(new FileInfo(rootFolderPath).DirectoryName).Parent.FullName;
+                var directoryName = new FileInfo(rootFolderPath).DirectoryName;
+                if (directoryName != null)
+                {
+                    var directoryInfo = new DirectoryInfo(directoryName).Parent;
+                    if (directoryInfo != null)
+                    {
+                        context.Path = directoryInfo.FullName;
+                    }
+                    else
+                    {
+                        throw new SolutionContextException(string.Format("Could not create solution context. {0} does not have a parent directory.", directoryName));
+                    }
+                }
+                else
+                {
+                    throw new SolutionContextException(string.Format("Could not create solution context. {0} does not have a valid directory.", rootFolderPath));
+                }
             }
             else
             {

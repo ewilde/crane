@@ -68,18 +68,24 @@ namespace Crane.Tests.Common.Context
         private void StartService()
         {
             Log.DebugFormat(@"Starting service {0}", ServiceName);
-            var controller = new ServiceController(ServiceName);
-            controller.Start();
-            controller.WaitForStatus(ServiceControllerStatus.Running, WaitForServiceStatusTimeout);
+            using (var controller = new ServiceController(ServiceName))
+            {
+                controller.Start();
+                controller.WaitForStatus(ServiceControllerStatus.Running, WaitForServiceStatusTimeout);
+            }
+
             Log.DebugFormat(@"Started service {0}", ServiceName);
         }
 
         private void StopService()
         {
             Log.DebugFormat(@"Stopping service {0}", ServiceName);
-            var controller = new ServiceController(ServiceName);
-            controller.Stop();
-            controller.WaitForStatus(ServiceControllerStatus.Stopped, WaitForServiceStatusTimeout);
+            using (var controller = new ServiceController(ServiceName))
+            {
+                controller.Stop();
+                controller.WaitForStatus(ServiceControllerStatus.Stopped, WaitForServiceStatusTimeout);
+            }
+
             Log.DebugFormat(@"Stopped service {0}", ServiceName);
         }
 
