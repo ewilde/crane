@@ -20,6 +20,7 @@ namespace Crane.Core.Api
         private readonly ISolutionPathResolver _solutionPathResolver;
         private readonly ISourceControlInformationReader _sourceControlInformationReader;
         private readonly INuGet _nuGet;
+        private readonly IChocolatey _chocolatey;
 
         public CraneApi(
             ISolutionReader solutionReader,
@@ -27,7 +28,8 @@ namespace Crane.Core.Api
             Func<ISolutionContext> solutionContext, 
             ISolutionPathResolver solutionPathResolver, 
             ISourceControlInformationReader sourceControlInformationReader,
-            INuGet nuGet)
+            INuGet nuGet,
+            IChocolatey chocolatey)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
@@ -35,6 +37,7 @@ namespace Crane.Core.Api
             _solutionPathResolver = solutionPathResolver;
             _sourceControlInformationReader = sourceControlInformationReader;
             _nuGet = nuGet;
+            _chocolatey = chocolatey;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
@@ -163,6 +166,12 @@ namespace Crane.Core.Api
 
                 yield return result;
             }
+        }
+
+        public RunResult ChocolateyPack(ISolutionContext solutionContext, string chocolateySpecPath)
+        {
+            var nugetExePath = Path.Combine(solutionContext.Path, "build", "tools", "chocolatey", "choco.exe");
+            return _chocolatey.Pack(nugetExePath, chocolateySpecPath);
         }
 
         private static IEnumerable<Project> GetNugetProjects(ISolutionContext solutionContext)

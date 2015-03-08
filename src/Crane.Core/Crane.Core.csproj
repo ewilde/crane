@@ -69,6 +69,7 @@
     <Compile Include="Api\CraneApi.cs" />
     <Compile Include="Api\Builders\ProjectBuilder.cs" />
     <Compile Include="Api\Builders\SolutionBuilder.cs" />
+    <Compile Include="Api\Exceptions\ChocolateyException.cs" />
     <Compile Include="Api\Exceptions\NugetException.cs" />
     <Compile Include="Api\Exceptions\SolutionContextException.cs" />
     <Compile Include="Api\GitSourceControlInformation.cs" />
@@ -89,7 +90,9 @@
     <Compile Include="Api\Readers\ISourceControlInformationReader.cs" />
     <Compile Include="Api\SolutionContext.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Runners\Chocolatey.cs" />
     <Compile Include="Runners\GeneralProcessRunner.cs" />
+    <Compile Include="Runners\IChocolatey.cs" />
     <Compile Include="Runners\INuGet.cs" />
     <Compile Include="Runners\NuGet.cs" />
     <Compile Include="Api\Writers\AssemblyInfoWriter.cs" />

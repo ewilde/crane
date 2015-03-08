@@ -1,0 +1,36 @@
+﻿using Xbehave;
+
+namespace Crane.Integration.Tests.Features.Api
+{
+    public class ChocolateyFeature
+    {
+        [Scenario]
+        public void can_pack_a_chocolatey_template(string template)
+        {
+            "Given I have a template"
+                ._(() => template = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+  <metadata>    
+    <id>crane</id>
+    <title>crane</title>
+    <iconUrl>https://cdn.rawgit.com/ewilde/crane/e220828fde0624655b4c55d89a5b70ccac9d94aa/doc/crane_128.png</iconUrl>
+    <version>##version_number##</version>
+    <authors>Edward Wilde &amp; Kevin Holditch</authors>
+    <owners>Edward Wilde &amp; Kevin Holditch</owners>
+    <summary>Crane: creates builds scripts so you don't have to</summary>
+    <description>We hate writing build scripts and continuous integration (ci) templates every time we start a new project or when we work on a project that does not have them. I'm sure you do as well. This is where crane comes in. Invoke crane and it can build you a blank project, complete with a build or you can get crane to assemble you a build on an existing project. No more messing around for hours on a build server!</description>
+    <projectUrl>https://github.com/ewilde/crane</projectUrl>
+    <tags></tags>
+    <copyright>2015 Edward Wilde &amp; Kevin Holditch</copyright>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src=""##build_output##\**"" target=""tools"" />
+  </files>
+</package>");
+
+        }
+    }
+}
