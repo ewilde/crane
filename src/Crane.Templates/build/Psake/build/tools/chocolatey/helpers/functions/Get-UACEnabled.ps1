@@ -31,7 +31,8 @@ function Get-UACEnabled {
         $uacEnabled = $true
       }
     } catch {
-      #regkey doesn't exist, so proceed with false
+      #regkey doesn't exist, so proceed with false
+
     }
   }
 

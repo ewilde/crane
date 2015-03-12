@@ -1,15 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Crane.Core.Configuration;
 using Crane.Core.IO;
 using Crane.Core.Templates;
 using Crane.Core.Templates.Resolvers;
 using FluentAssertions;
+using log4net;
 using Xbehave;
 
 namespace Crane.Integration.Tests.Features.Templates
 {
     public class PsakeBuildTemplateFeature
     {
+        private static readonly ILog _log = LogManager.GetLogger(typeof(PsakeBuildTemplateFeature));
+
         [Scenario]
         public void creating_a_new_psake_build(DirectoryInfo root, ITemplate template, ICraneContext context, ITemplateInvoker templateInvoker)
         {            
@@ -33,7 +37,17 @@ namespace Crane.Integration.Tests.Features.Templates
 
             "It should replace the solution file name in the build script with the project name"
                 ._(() => File.ReadAllText(Path.Combine(context.BuildDirectory.FullName, "default.ps1")).Should().Contain("../ServiceStack.sln"))
-                .Teardown(() => Directory.Delete(context.ProjectRootDirectory.FullName, recursive: true));            
+                .Teardown(() =>
+                {
+                    try
+                    {
+                        ServiceLocator.Resolve<IFileManager>().Delete(context.ProjectRootDirectory);
+                    }
+                    catch (Exception exception)
+                    {
+                        _log.Warn(string.Format("Error tearing down test, trying to delete temp directory {0}.", context.ProjectRootDirectory.FullName), exception);
+                    } 
+                });            
         }
     }
 }

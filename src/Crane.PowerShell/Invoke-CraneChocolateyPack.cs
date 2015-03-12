@@ -25,6 +25,27 @@ namespace Crane.PowerShell
             set;
         }
 
+        [Parameter(Position = 2, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
+        public string BuildOutputPath
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Position = 3, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
+        public string ChocolateyOutputPath
+        {
+            get;
+            set;
+        }
+
+        [Parameter(Position = 4, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true, Mandatory = true)]
+        public string Version
+        {
+            get;
+            set;
+        }
+
         public ICraneApi Api { get; set; }
 
         protected override ILog Log
@@ -34,7 +55,7 @@ namespace Crane.PowerShell
 
         internal override void Process()
         {
-            WriteObject(Api.ChocolateyPack(SolutionContext, ChocolateySpecPath));
+            WriteObject(Api.ChocolateyPack(SolutionContext, ChocolateySpecPath, BuildOutputPath, ChocolateyOutputPath, Version));
         }
     }
 }

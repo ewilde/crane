@@ -168,10 +168,10 @@ namespace Crane.Core.Api
             }
         }
 
-        public RunResult ChocolateyPack(ISolutionContext solutionContext, string chocolateySpecPath)
+        public RunResult ChocolateyPack(ISolutionContext solutionContext, string chocolateySpecPath, string buildOutputPath, string chocolateyOutputPath, string version)
         {
             var nugetExePath = Path.Combine(solutionContext.Path, "build", "tools", "chocolatey", "choco.exe");
-            return _chocolatey.Pack(nugetExePath, chocolateySpecPath);
+            return _chocolatey.Pack(nugetExePath, chocolateySpecPath, chocolateyOutputPath, buildOutputPath, version);
         }
 
         private static IEnumerable<Project> GetNugetProjects(ISolutionContext solutionContext)

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Text;
 
@@ -8,7 +9,11 @@ namespace Crane.Core.Runners
     /// </summary>
     public static class GeneralProcessRunner
     {
-        public static RunResult Run(string fileName, string arguments, string workingDirectory = null)
+        public static RunResult Run(
+            string fileName, 
+            string arguments, 
+            string workingDirectory = null, 
+            TimeSpan waitForExitTimeout = default(TimeSpan))
         {
             var error = new StringBuilder();
             var output = new StringBuilder();
@@ -38,14 +43,25 @@ namespace Crane.Core.Runners
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            process.WaitForExit();
+            process.WaitForExit((int) (waitForExitTimeout == TimeSpan.Zero ? -1 : waitForExitTimeout.TotalMilliseconds));
 
             return new RunResult(
                 string.Format("{0} {1}", process.StartInfo.FileName, process.StartInfo.Arguments),
                 output.ToString(),
                 error.ToString(),
-                process.ExitCode);
+                GetExitCode(process));
         }
 
+        private static int GetExitCode(Process process)
+        {
+            try
+            {
+                return process.ExitCode;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
     }
 }
