@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -41,7 +41,7 @@
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
     </Reference>
     <Reference Include="FubuCsProjFile">
-      <HintPath>..\packages\FubuCsProjFile.1.8.0.151\lib\net40\FubuCsProjFile.dll</HintPath>
+      <HintPath>..\packages\FubuCsProjFile.1.9.0.229\lib\net40\FubuCsProjFile.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

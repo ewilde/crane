@@ -34,9 +34,8 @@
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.1.0.0.225\lib\FubuCore.dll</HintPath>
     </Reference>
-    <Reference Include="FubuCsProjFile, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FubuCsProjFile.1.8.0.151\lib\net40\FubuCsProjFile.dll</HintPath>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\packages\FubuCsProjFile.1.9.0.229\lib\net40\FubuCsProjFile.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>

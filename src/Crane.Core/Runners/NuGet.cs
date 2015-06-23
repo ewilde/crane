@@ -18,7 +18,7 @@ namespace Crane.Core.Runners
 
         public RunResult Publish(string nugetExePath, string nuGetPackagePath, string source, string apiKey)
         {
-            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("push {0} -Source {1} -ApiKey {2}", nuGetPackagePath, source, apiKey));
+            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("push \"{0}\" -Source {1} -ApiKey {2}", nuGetPackagePath, source, apiKey));
             return result;
         }
 
@@ -31,7 +31,7 @@ namespace Crane.Core.Runners
                 propertyArgs.AppendFormat("{0}={1};", property.Item1, property.Item2);
             }
 
-            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("pack {0} -OutputDirectory {1} -Properties \"{2}\"",
+            var result = GeneralProcessRunner.Run(nugetExePath, string.Format("pack \"{0}\" -OutputDirectory \"{1}\" -Properties \"{2}\"",
                 nuGetSpecPath, outputDirectory, propertyArgs));
 
             return result;
