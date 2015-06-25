@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Timers;
+using Crane.Core;
+using Crane.Core.IO;
 using Crane.Core.Runners;
 using Crane.Tests.Common.Context;
 using log4net;
@@ -20,11 +22,13 @@ namespace Crane.Tests.Common.Runners
         private StringBuilder _output;
         private StringBuilder _error;
         private bool _timerHasElasped;
+        private IFileManager _fileManager;
 
 
         public PowerShellApiRunner(ICraneTestContext testContext, TimeSpan timeout)
         {
             _testContext = testContext;
+            _fileManager = new FileManager(new HostEnvironment());
             _timer = new Timer
             {
                 Interval = timeout.TotalMilliseconds
@@ -47,7 +51,7 @@ namespace Crane.Tests.Common.Runners
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1}\"", Path.Combine(_testContext.BuildOutputDirectory, "Crane.PowerShell.dll"), apiCommand)
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"Import-Module {0};{1}\"", _fileManager.GetShortPath(Path.Combine(_testContext.BuildOutputDirectory, "Crane.PowerShell.dll")), apiCommand)
                 }
             };
 

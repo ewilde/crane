@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Crane.Core.Api.Exceptions;
@@ -8,6 +9,7 @@ using Crane.Core.Api.Readers;
 using Crane.Core.Api.Writers;
 using Crane.Core.Commands.Resolvers;
 using Crane.Core.Extensions;
+using Crane.Core.IO;
 using Crane.Core.Runners;
 
 namespace Crane.Core.Api
@@ -20,6 +22,7 @@ namespace Crane.Core.Api
         private readonly ISolutionPathResolver _solutionPathResolver;
         private readonly ISourceControlInformationReader _sourceControlInformationReader;
         private readonly INuGet _nuGet;
+        private readonly IFileManager _fileManager;
 
         public CraneApi(
             ISolutionReader solutionReader,
@@ -27,7 +30,8 @@ namespace Crane.Core.Api
             Func<ISolutionContext> solutionContext, 
             ISolutionPathResolver solutionPathResolver, 
             ISourceControlInformationReader sourceControlInformationReader,
-            INuGet nuGet)
+            INuGet nuGet, 
+            IFileManager fileManager)
         {
             _solutionReader = solutionReader;
             _assemblyInfoWriter = assemblyInfoWriter;
@@ -35,6 +39,7 @@ namespace Crane.Core.Api
             _solutionPathResolver = solutionPathResolver;
             _sourceControlInformationReader = sourceControlInformationReader;
             _nuGet = nuGet;
+            _fileManager = fileManager;
         }
 
         public ISolutionContext GetSolutionContext(string rootFolderPath)
@@ -152,11 +157,12 @@ namespace Crane.Core.Api
                     new List<Tuple<string, string>>
                     {
                         new Tuple<string, string>("version_number", version),
-                        new Tuple<string, string>("build_output", buildOutputPath)
+                        new Tuple<string, string>("build_output", _fileManager.GetFullPath(buildOutputPath))
                     });
                    
                 if (!_nuGet.ValidateResult(result))
                 {
+                    Debugger.Launch();
                     throw new NuGetException(string.Format("Error executing nuget pack for project {0}.{1}{2}",
                         item.Name, Environment.NewLine, result));
                 }

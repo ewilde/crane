@@ -15,6 +15,8 @@ namespace Crane.Core.IO
 
         bool DirectoryExists(string directory);
 
+        string GetShortPath(string directory);
+
         IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption);
 
         IEnumerable<string> EnumerateDirectories(string path, string searchPattern, SearchOption searchOption);
@@ -34,5 +36,7 @@ namespace Crane.Core.IO
         void EnsureDirectoryExists(DirectoryInfo directory);
 
         string GetPathForHostEnvironment(string path);
+
+        string GetFullPath(string path);
     }
 }

@@ -2,7 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using Crane.Core;
+using Crane.Core.IO;
 using Crane.Core.Runners;
 using log4net;
 
@@ -11,10 +14,16 @@ namespace Crane.Tests.Common.Runners
     public class BuildScriptRunner
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(BuildScriptRunner));
+        private IFileManager _fileManager;
+
+        public BuildScriptRunner()
+        {
+            _fileManager = new FileManager(new HostEnvironment());
+        }
 
         public RunResult Run(string projectRootPath, string taskList = "@('PatchAssemblyInfo', 'BuildSolution', 'Test')", params string[] otherArguments)
         {
-            var buildps1 = Path.Combine(projectRootPath, "build.ps1");
+            var buildps1 = Path.Combine(_fileManager.GetShortPath(projectRootPath), "build.ps1");
             if (!File.Exists(buildps1))
             {
                 throw new FileNotFoundException(string.Format("Could not find the build.ps1 in the project root directory {0}.", projectRootPath));
@@ -30,7 +39,7 @@ namespace Crane.Tests.Common.Runners
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     FileName = string.Format("{0}\\system32\\windowspowershell\\v1.0\\powershell.exe", Environment.GetFolderPath(Environment.SpecialFolder.Windows)),
-                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command {{& '{0}' {1} {2}}}", 
+                    Arguments = string.Format("-NoProfile -ExecutionPolicy unrestricted -Command \"{0} {1} {2}\"", 
                         buildps1, taskList,
                         otherArguments != null && otherArguments.Length > 0 ? otherArguments.Aggregate((current, next) => current + " " + next) : string.Empty)
                 }
@@ -55,6 +64,6 @@ namespace Crane.Tests.Common.Runners
                 output.ToString(),
                 error.ToString(),
                 process.ExitCode);        
-        }
+        }        
     }
 }

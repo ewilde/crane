@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Core", "Crane.Core\Crane.Core.csproj", "{064704F3-134F-4E27-8A80-6D6F8420F17E}"
 EndProject
@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\build\psake-ext.psm1 = ..\build\psake-ext.psm1
 		..\build\psake.ps1 = ..\build\psake.ps1
 		..\build\psake.psm1 = ..\build\psake.psm1
+		..\update-buildmodules.ps1 = ..\update-buildmodules.ps1
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crane.Tests.Common", "Crane.Tests.Common\Crane.Tests.Common.csproj", "{FF1C67A7-D871-42C3-B2FC-B6F88A35D80B}"

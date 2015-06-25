@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
 using Crane.Core.IO;
 using FakeItEasy;
@@ -52,6 +51,11 @@ namespace Crane.Core.Tests.TestUtilities
             return _fake.DirectoryExists(directory);
         }
 
+        public string GetShortPath(string directory)
+        {
+            return _fake.GetShortPath(directory);
+        }
+
         public IEnumerable<string> EnumerateFiles(string path, string searchPattern, SearchOption searchOption)
         {
             return _fake.EnumerateFiles(path, searchPattern, searchOption);
@@ -101,6 +105,11 @@ namespace Crane.Core.Tests.TestUtilities
         public string GetPathForHostEnvironment(string path)
         {
             return _fake.GetPathForHostEnvironment(path);
+        }
+
+        public string GetFullPath(string path)
+        {
+            return _fake.GetFullPath(path);
         }
     }
 }

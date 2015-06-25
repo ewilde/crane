@@ -31,7 +31,7 @@ namespace Crane.PowerShell.Tests.UserFeatures
                 });
 
             "When I get the context using powershell"
-                ._(() => commandResult = apiRunner.Run("Get-CraneSolutionContext -Path {0} | FL", Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack")));
+                ._(() => commandResult = apiRunner.Run("Get-CraneSolutionContext -Path \'{0}\' | FL", Path.Combine(craneTestContext.BuildOutputDirectory, "ServiceStack")));
 
             "Then there should be no error"
                 ._(() => commandResult.Should().BeErrorFree());

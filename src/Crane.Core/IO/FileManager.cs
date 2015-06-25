@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Crane.Core.IO
 {
@@ -70,6 +72,11 @@ namespace Crane.Core.IO
             return Directory.Exists(path);
         }
 
+        public string GetShortPath(string directory)
+        {
+            return Win32GetShortPath(directory);
+        }
+
         public string GetTemporaryDirectory()
         {
             string tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -110,6 +117,11 @@ namespace Crane.Core.IO
             }
 
             return path.Replace('/', '\\');
+        }
+
+        public string GetFullPath(string path)
+        {
+            return System.IO.Path.GetFullPath(path);
         }
 
         private static void DeleteFileSystemInfo(FileSystemInfo fileSystemInfo)
@@ -156,6 +168,24 @@ namespace Crane.Core.IO
         public IEnumerable<string> EnumerateDirectories(string path, string searchPattern, SearchOption searchOption)
         {
             return Directory.EnumerateDirectories(path, searchPattern, searchOption);
+        }
+
+        const int MAX_PATH = 260;
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetShortPathName(
+            [MarshalAs(UnmanagedType.LPTStr)]
+         string path,
+            [MarshalAs(UnmanagedType.LPTStr)]
+         StringBuilder shortPath,
+            int shortPathLength
+            );
+
+        private static string Win32GetShortPath(string path)
+        {
+            var shortPath = new StringBuilder(MAX_PATH);
+            GetShortPathName(path, shortPath, MAX_PATH);
+            return shortPath.ToString();
         }
     }
 }
