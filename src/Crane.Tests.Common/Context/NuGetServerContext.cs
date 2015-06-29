@@ -29,7 +29,7 @@ namespace Crane.Tests.Common.Context
         private const int PortNumber = 52545;
         private const string ServiceName = "Klondike";
         private static readonly Uri BaseUri = new Uri(string.Format("http://{0}:{1}", System.Environment.MachineName, PortNumber));
-        private static readonly TimeSpan WaitForServiceStatusTimeout = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan WaitForServiceStatusTimeout = TimeSpan.FromSeconds(120);
         public const string LocalAdministratorApiKey = "fd6845f4-f83c-4ca2-8a8d-b6fc8469f746";
         private const int ServiceDoesNotExist = 1060;
 
